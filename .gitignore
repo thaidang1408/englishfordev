@@ -34,3 +34,6 @@ worker-configuration.d.ts
 test-results/
 playwright-report/
 .design-shots/
+
+# supabase cli
+supabase/.temp/
