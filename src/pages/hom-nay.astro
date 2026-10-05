@@ -15,6 +15,7 @@ import {
   getProfile,
 } from '../lib/db/queries';
 import { lessonOfTheDay } from '../lib/lesson/today';
+import { SESSION_SIZE } from '../lib/review/leitner';
 import { buildHeatmap } from '../lib/stats/heatmap';
 import { addDaysTo, formatVnDate } from '../lib/time';
 
@@ -55,6 +56,8 @@ const rows = TRACK_OUTLINE[profile.track].map((title, i) => {
   return { id, title, formula: lesson?.pattern.formula, result, locked, isToday, href };
 });
 const doneInTrack = rows.filter((r) => r.result).length;
+// Mỗi màn hình một nút tím: khi không có bài để học hôm nay thì ôn tập là việc chính.
+const reviewIsMain = !(today.kind === 'lesson' && today.lesson.free);
 ---
 
 <Base title="Hôm nay | English Personal Coach" description="Bài của ngày và câu cần ôn." app>
@@ -109,9 +112,18 @@ const doneInTrack = rows.filter((r) => r.result).length;
             </p>
           )
         }
-        <p class="muted" style="font-size:var(--fs-sm);margin:var(--s-4) 0 0">
-          {due > 0 ? `${due} câu đến hạn ôn.` : 'Chưa có câu nào đến hạn ôn.'}
-        </p>
+        {
+          due > 0 ? (
+            <div style="margin-top:var(--s-4);padding-top:var(--s-4);border-top:1px solid var(--line)">
+              <p class="muted" style="font-size:var(--fs-sm)">{due} câu đến hạn ôn.</p>
+              <a class:list={['btn', reviewIsMain ? 'btn-primary' : 'btn-quiet']} href="/on-tap">
+                Ôn {Math.min(due, SESSION_SIZE)} câu
+              </a>
+            </div>
+          ) : (
+            <p class="muted" style="font-size:var(--fs-sm);margin:var(--s-4) 0 0">Chưa có câu nào đến hạn ôn.</p>
+          )
+        }
       </div>
     </section>
 

@@ -4,10 +4,11 @@ const PORT = 4330;
 const BASE = `http://localhost:${PORT}`;
 
 /**
- * Tự build với Supabase giả rồi chạy bản build. Không gọi mạng: các test chỉ kiểm luồng
- * khi chưa có session (chuyển hướng, 401, cookie PKCE). Đăng nhập OAuth thật kiểm bằng tay.
+ * Tự build rồi chạy bản build. Dùng Supabase giả khi máy chưa có .env; có .env thì giá trị trong đó được ưu tiên.
+ * Không gọi mạng: các test chỉ kiểm luồng khi chưa có session (chuyển hướng, 401, cookie PKCE).
+ * Đăng nhập OAuth thật kiểm bằng tay.
  */
-export const FAKE_SUPABASE_URL = 'https://epc-test.supabase.co';
+const FAKE_SUPABASE_URL = 'https://epc-test.supabase.co';
 
 export default defineConfig({
   testDir: 'tests/e2e',

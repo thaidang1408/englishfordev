@@ -11,6 +11,8 @@ import {
   saveProgress,
   type Progress,
 } from '../lib/lesson/progress';
+import QuestionCard, { type Step } from './quiz/QuestionCard';
+import { useQuizKeys } from './quiz/useQuizKeys';
 
 type Props = {
   lessonKey: string;
@@ -20,12 +22,7 @@ type Props = {
 
 type Phase = 'loading' | 'question' | 'done';
 
-const isTyping = (el: EventTarget | null): boolean =>
-  el instanceof HTMLElement && (el.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(el.tagName));
-
-const isActionable = (el: EventTarget | null): boolean =>
-  el instanceof HTMLElement && (el.tagName === 'A' || (el instanceof HTMLButtonElement && !el.disabled));
-
+/** Phần 4 của bài học: 5 câu, tiến độ lưu localStorage, học xong thì gửi lên tài khoản nếu đã đăng nhập. */
 export default function Quiz({ lessonKey, items, next }: Props) {
   const [phase, setPhase] = useState<Phase>('loading');
   const [progress, setProgress] = useState<Progress>({});
@@ -33,10 +30,7 @@ export default function Quiz({ lessonKey, items, next }: Props) {
   const [index, setIndex] = useState(0);
   const [picked, setPicked] = useState<number | null>(null);
   const [saved, setSaved] = useState<SyncOutcome | null>(null);
-
   const boxRef = useRef<HTMLDivElement>(null);
-  const nextBtnRef = useRef<HTMLButtonElement>(null);
-  const visibleRef = useRef(false);
 
   const answers = progress[lessonKey]?.answers ?? {};
   const item = items[index];
@@ -56,17 +50,6 @@ export default function Quiz({ lessonKey, items, next }: Props) {
     setIndex(firstOpen === -1 ? items.length - 1 : firstOpen);
     setPhase('question');
   }, [items, lessonKey]);
-
-  // Phím tắt chỉ hoạt động khi khung trắc nghiệm đang trên màn hình.
-  useEffect(() => {
-    const el = boxRef.current;
-    if (!el) return;
-    const io = new IntersectionObserver(([entry]) => {
-      visibleRef.current = entry?.isIntersecting ?? false;
-    }, { threshold: 0.3 });
-    io.observe(el);
-    return () => io.disconnect();
-  }, [phase]);
 
   const choose = useCallback(
     (shown: number) => {
@@ -97,6 +80,8 @@ export default function Quiz({ lessonKey, items, next }: Props) {
     void syncLocalProgress().then(setSaved);
   }, [picked, index, items.length, progress, lessonKey]);
 
+  useQuizKeys(phase === 'question', boxRef, choose, goNext);
+
   const restart = () => {
     const updated = resetLesson(progress, lessonKey);
     setProgress(updated);
@@ -107,32 +92,10 @@ export default function Quiz({ lessonKey, items, next }: Props) {
     setPhase('question');
   };
 
-  useEffect(() => {
-    if (picked !== null) nextBtnRef.current?.focus({ preventScroll: true });
-  }, [picked]);
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (phase !== 'question' || !visibleRef.current) return;
-      if (e.ctrlKey || e.metaKey || e.altKey || isTyping(e.target)) return;
-      if (['1', '2', '3'].includes(e.key)) {
-        e.preventDefault();
-        choose(Number(e.key) - 1);
-      } else if (e.key === 'Enter' && !isActionable(e.target)) {
-        e.preventDefault();
-        goNext();
-      }
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [phase, choose, goNext]);
-
   if (phase === 'loading') {
     return (
       <div className="quiz" style={{ minHeight: '22rem' }} aria-busy="true">
-        <p className="muted">
-          Đang tải {items.length} câu trắc nghiệm.
-        </p>
+        <p className="muted">Đang tải {items.length} câu trắc nghiệm.</p>
       </div>
     );
   }
@@ -164,74 +127,32 @@ export default function Quiz({ lessonKey, items, next }: Props) {
             Làm lại trắc nghiệm
           </button>
         </div>
-        {next && <p className="muted" style={{ marginTop: 'var(--s-3)', fontSize: 'var(--fs-sm)' }}>Bài tiếp theo: {next.title}</p>}
+        {next && (
+          <p className="muted" style={{ marginTop: 'var(--s-3)', fontSize: 'var(--fs-sm)' }}>
+            Bài tiếp theo: {next.title}
+          </p>
+        )}
       </div>
     );
   }
 
   if (!item || !order) return null;
-  const correctShown = order.indexOf(item.answer);
-  const isRight = picked !== null && picked === correctShown;
+  const steps: Step[] = items.map((q, i) => {
+    const result = answers[q.id];
+    return i === index && picked === null ? 'now' : result === true ? 'ok' : result === false ? 'no' : '';
+  });
 
   return (
-    <div className="quiz" ref={boxRef} tabIndex={-1} aria-labelledby={`q-${item.id}`}>
-      <div className="quiz-top">
-        <span>
-          Câu {index + 1} trên {items.length}
-        </span>
-        <span className="steps" aria-hidden="true">
-          {items.map((q, i) => {
-            const result = answers[q.id];
-            const cls = i === index && picked === null ? 'now' : result === true ? 'ok' : result === false ? 'no' : '';
-            return <i key={q.id} className={cls} />;
-          })}
-        </span>
-      </div>
-      <p className="prompt" id={`q-${item.id}`}>
-        {item.prompt_vi}
-      </p>
-      <div role="group" aria-labelledby={`q-${item.id}`}>
-        {order.map((original, shown) => {
-          const option = item.options[original];
-          let cls = 'opt';
-          let mark = '';
-          if (picked !== null) {
-            if (shown === correctShown) {
-              cls += ' right';
-              mark = shown === picked ? 'Đúng' : 'Đáp án đúng';
-            } else if (shown === picked) {
-              cls += ' wrong';
-              mark = 'Chưa đúng';
-            } else {
-              cls += ' dim';
-            }
-          }
-          return (
-            <button key={`${item.id}-${original}`} className={cls} type="button" disabled={picked !== null} onClick={() => choose(shown)}>
-              <kbd aria-hidden="true">{shown + 1}</kbd>
-              <span lang="en">{option}</span>
-              <span className="opt-mark">{mark}</span>
-            </button>
-          );
-        })}
-      </div>
-      <div aria-live="polite">
-        {picked !== null && (
-          <p className="why answer-in">
-            <b>{isRight ? 'Đúng.' : 'Chưa đúng.'}</b> {item.why_vi}
-          </p>
-        )}
-      </div>
-      {picked !== null && (
-        <div className="quiz-foot">
-          <button className="btn btn-primary" type="button" ref={nextBtnRef} onClick={goNext}>
-            {index < items.length - 1 ? 'Câu tiếp theo' : 'Xem kết quả'}
-            <kbd className="kbd-hint" aria-hidden="true">
-              Enter
-            </kbd>
-          </button>
-        </div>
-      )}
-    </div>
+    <QuestionCard
+      question={item}
+      order={order}
+      picked={picked}
+      onChoose={choose}
+      onNext={goNext}
+      nextLabel={index < items.length - 1 ? 'Câu tiếp theo' : 'Xem kết quả'}
+      label={`Câu ${index + 1} trên ${items.length}`}
+      steps={steps}
+      boxRef={boxRef}
+    />
   );
 }

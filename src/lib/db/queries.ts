@@ -1,4 +1,5 @@
 import type { ProgressRepo } from '../progress/handler';
+import type { ReviewRepo } from '../review/handler';
 import type { Db } from './supabase';
 import type { EntitlementRow, LessonProgressRow, ProfileRow, ProfileUpdate } from './types';
 
@@ -80,6 +81,42 @@ export function progressRepo(db: Db): ProgressRepo {
         'saveReviews',
         await db.from('review_items').upsert(rows, { onConflict: 'user_id,kind,ref', ignoreDuplicates: true }),
       );
+    },
+  };
+}
+
+/** Mục ôn quiz đến hạn, quá hạn lâu nhất lên trước (SPEC mục 5). */
+export async function getDueQuizItems(db: Db, userId: string, now: Date, limit: number) {
+  return (
+    check(
+      'getDueQuizItems',
+      await db
+        .from('review_items')
+        .select('id, kind, lesson_key, ref, box, due_at')
+        .eq('user_id', userId)
+        .eq('kind', 'quiz')
+        .lt('box', 5)
+        .lte('due_at', now.toISOString())
+        .order('due_at', { ascending: true })
+        .limit(limit),
+    ) ?? []
+  );
+}
+
+export function reviewRepo(db: Db): ReviewRepo {
+  return {
+    async getItem(itemId) {
+      return check(
+        'review.getItem',
+        await db.from('review_items').select('id, kind, lesson_key, ref, box, due_at').eq('id', itemId).maybeSingle(),
+      );
+    },
+    async updateItem(itemId, fromBox, next) {
+      const rows = check(
+        'review.updateItem',
+        await db.from('review_items').update(next).eq('id', itemId).eq('box', fromBox).select('id'),
+      );
+      return rows?.length ?? 0;
     },
   };
 }

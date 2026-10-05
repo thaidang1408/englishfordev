@@ -1,8 +1,7 @@
 import { expect, test } from '@playwright/test';
-import { FAKE_SUPABASE_URL } from '../../playwright.config';
 
 test.describe('khi chưa đăng nhập', () => {
-  for (const path of ['/hom-nay', '/tai-khoan', '/xep-trinh-do']) {
+  for (const path of ['/hom-nay', '/tai-khoan', '/xep-trinh-do', '/on-tap']) {
     test(`${path} chuyển tới trang đăng nhập`, async ({ page }) => {
       await page.goto(path);
       await expect(page).toHaveURL((url) => url.pathname === '/dang-nhap' && url.searchParams.get('next') === path);
@@ -36,6 +35,14 @@ test.describe('khi chưa đăng nhập', () => {
     expect(res.headers()['cache-control']).toBe('no-store');
   });
 
+  test('POST /api/review trả 401 khi chưa đăng nhập', async ({ request, baseURL }) => {
+    const res = await request.post('/api/review', {
+      headers: { Origin: baseURL ?? '' },
+      data: { item_id: '7b0c6a43-4c1e-4a43-9a3a-2f0f1b9f1a01', choice: 0 },
+    });
+    expect(res.status()).toBe(401);
+  });
+
   test('POST /api/progress từ trang khác bị chặn', async ({ request }) => {
     const res = await request.post('/api/progress', { headers: { Origin: 'https://evil.example' }, data: { progress: {} } });
     expect(res.status()).toBe(403);
@@ -51,7 +58,8 @@ test.describe('bắt đầu đăng nhập OAuth', () => {
     });
     expect(res.status()).toBe(303);
     const location = new URL(res.headers()['location'] ?? '');
-    expect(location.origin).toBe(FAKE_SUPABASE_URL);
+    // URL giả của Playwright, hoặc project thật nếu máy có .env (giá trị trong .env được ưu tiên khi build).
+    expect(location.hostname).toMatch(/.supabase.co$/);
     expect(location.pathname).toBe('/auth/v1/authorize');
     expect(location.searchParams.get('provider')).toBe('github');
     expect(location.searchParams.get('code_challenge_method')).toBe('s256');

@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+import ReviewSession, { type ReviewQuestion } from '../components/ReviewSession';
+import { lessons } from '../lib/content/lessons';
+import { getDueQuizItems } from '../lib/db/queries';
+import { findQuizItem } from '../lib/review/content';
+import { SESSION_SIZE } from '../lib/review/leitner';
+
+export const prerender = false;
+
+const user = Astro.locals.user;
+if (!user) return Astro.redirect('/dang-nhap?next=/on-tap', 303);
+const now = new Date();
+
+// Lấy dư một chút phòng khi có mục trỏ tới câu hỏi đã bị xóa khỏi nội dung.
+const rows = await getDueQuizItems(Astro.locals.supabase, user.id, now, SESSION_SIZE * 2);
+const items: ReviewQuestion[] = rows
+  .flatMap((row) => {
+    const found = findQuizItem(lessons, row.lesson_key, row.ref);
+    return found ? [{ ...found.item, itemId: row.id, lessonTitle: found.lesson.title, box: row.box }] : [];
+  })
+  .slice(0, SESSION_SIZE);
+---
+
+<Base title="Ôn tập | English Personal Coach" description="Ôn những câu đến hạn." app>
+  <div class="wrap read" style="padding-top:var(--s-6);padding-bottom:var(--s-7)">
+    <h1 style="font-size:var(--fs-2xl);line-height:1.2">Ôn tập</h1>
+    {
+      items.length === 0 ? (
+        <div class="today-card" style="margin-top:var(--s-5)">
+          <p>Chưa có câu nào cần ôn. Học bài hôm nay trước đã.</p>
+          <a class="btn btn-primary" href="/hom-nay">Về trang Hôm nay</a>
+        </div>
+      ) : (
+        <>
+          <p class="muted" style="margin-top:var(--s-3)">
+            {items.length} câu đến hạn. Nhớ thì câu được giãn ra 3, 7, rồi 14 ngày. Chưa nhớ thì quay lại ngày mai.
+          </p>
+          <p class="muted kbd-hint">
+            Phím <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> để chọn, <kbd>Enter</kbd> để sang câu sau.
+          </p>
+          <noscript><p class="note warn">Phần ôn tập cần bật JavaScript.</p></noscript>
+          <div style="margin-top:var(--s-4)">
+            <ReviewSession client:load items={items} />
+          </div>
+        </>
+      )
+    }
+  </div>
+</Base>
