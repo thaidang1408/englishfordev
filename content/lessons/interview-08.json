@@ -1,0 +1,106 @@
+{
+  "id": 8,
+  "track": "interview",
+  "slug": "phong-van-khi-khong-biet-cau-tra-loi",
+  "title": "Trả lời khi không biết câu trả lời",
+  "free": false,
+  "question_en": "Have you worked with Kubernetes in production?",
+  "goal_vi": "Nói thật là mình chưa làm hoặc chưa chắc, rồi nói phần mình biết hoặc cách mình sẽ tìm hiểu.",
+  "pattern": {
+    "formula": "I haven't + V3 + ..., but I've + V3 + ... / I'm not sure, but I think + clause.",
+    "note_vi": "Kinh nghiệm tính tới giờ dùng have + V3. Không bịa, nói phần gần nhất mà bạn đã làm."
+  },
+  "examples": [
+    {
+      "en": "I haven't used Kubernetes in production, but I've deployed a few side projects with Docker Compose, so I know the basic ideas.",
+      "vi": "Mình chưa dùng Kubernetes trên production, nhưng mình đã deploy vài dự án cá nhân bằng Docker Compose, nên mình nắm ý tưởng cơ bản."
+    },
+    {
+      "en": "I'm not sure about the exact answer. I think it's related to caching, but I'd need to check the docs to be sure.",
+      "vi": "Mình không chắc câu trả lời chính xác. Mình nghĩ nó liên quan đến cache, nhưng mình cần đọc tài liệu mới chắc được."
+    },
+    {
+      "en": "I haven't worked with GraphQL before, but I've built REST APIs for three years, and I'm happy to learn it.",
+      "vi": "Mình chưa làm với GraphQL, nhưng mình đã làm REST API ba năm, và mình sẵn sàng học thêm."
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "I have never use Kubernetes.",
+      "right": "I have never used Kubernetes.",
+      "why_vi": "Sau have dùng V3: used."
+    },
+    {
+      "wrong": "I think it relate to caching.",
+      "right": "I think it's related to caching.",
+      "why_vi": "Liên quan đến là be related to, cần is."
+    }
+  ],
+  "word_bank": [
+    "I haven't ... yet",
+    "I'm not sure, but",
+    "I think",
+    "related to",
+    "I'd need to check",
+    "the closest thing I've done",
+    "I'm happy to learn"
+  ],
+  "quiz": [
+    {
+      "id": "i08q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "I haven't worked with Kafka before.",
+        "I haven't worked with Kafka ago.",
+        "I haven't work with Kafka before."
+      ],
+      "answer": 0,
+      "why_vi": "ago phải đi sau một khoảng thời gian, như two years ago. Sau have dùng V3."
+    },
+    {
+      "id": "i08q2",
+      "prompt_vi": "Mình chưa dùng nó trên production, nhưng đã dùng trong dự án cá nhân.",
+      "options": [
+        "I haven't used it in production, but I've used it in side projects.",
+        "I haven't used it in production, but I've used it in personal project.",
+        "I haven't use it in production, but I've used it in side projects."
+      ],
+      "answer": 0,
+      "why_vi": "project đếm được nên cần số nhiều hoặc a. Sau have dùng V3."
+    },
+    {
+      "id": "i08q3",
+      "prompt_vi": "Mình không chắc, nhưng mình nghĩ nó liên quan đến cache.",
+      "options": [
+        "I'm not sure, but I think it's related to caching.",
+        "I'm not sure, but I think it related to caching.",
+        "I'm not sure, but I think it's related with caching."
+      ],
+      "answer": 0,
+      "why_vi": "be related to: cần is, và giới từ là to."
+    },
+    {
+      "id": "i08q4",
+      "prompt_vi": "Mình cần đọc tài liệu mới chắc được.",
+      "options": [
+        "I'd need to check the docs to be sure.",
+        "I'd need checking the docs to be sure.",
+        "I'd need to check the docs to sure."
+      ],
+      "answer": 0,
+      "why_vi": "need + to V. sure là tính từ nên cần be: to be sure."
+    },
+    {
+      "id": "i08q5",
+      "prompt_vi": "Bạn giải thích thêm câu hỏi một chút được không?",
+      "options": [
+        "Could you explain the question a bit more?",
+        "Could you explain more the question?",
+        "Could you explaining the question a bit more?"
+      ],
+      "answer": 0,
+      "why_vi": "more đứng sau tân ngữ. Sau could là động từ nguyên mẫu."
+    }
+  ],
+  "write_prompt_vi": "Viết 2 câu trả lời một câu hỏi bạn chưa chắc: nói thật, rồi nói phần bạn biết."
+}

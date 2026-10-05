@@ -1,0 +1,112 @@
+{
+  "id": 2,
+  "track": "writing",
+  "slug": "commit-message",
+  "title": "Commit message",
+  "free": false,
+  "goal_vi": "Viết dòng đầu commit ngắn, bắt đầu bằng động từ nguyên mẫu, nói rõ thay đổi gì.",
+  "pattern": {
+    "formula": "Verb + object (+ in/to/for + noun)",
+    "note_vi": "Quy ước của git: dòng đầu viết như ra lệnh, dùng động từ nguyên mẫu (Fix, Add, Remove), không chia quá khứ, không chấm cuối."
+  },
+  "examples": [
+    {
+      "en": "Fix null check in the order service",
+      "vi": "Sửa phần kiểm tra null trong order service."
+    },
+    {
+      "en": "Add rate limiting to the login endpoint",
+      "vi": "Thêm giới hạn số lần gọi cho endpoint đăng nhập."
+    },
+    {
+      "en": "Upgrade axios to 1.7.2",
+      "vi": "Nâng axios lên bản 1.7.2."
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "Fixed login bug",
+      "right": "Fix login bug",
+      "why_vi": "Dòng đầu commit dùng động từ nguyên mẫu, như đang ra lệnh cho code."
+    },
+    {
+      "wrong": "Update the parser for fix the date bug",
+      "right": "Update the parser to fix the date bug",
+      "why_vi": "Chỉ mục đích dùng to + V, không dùng for + V."
+    },
+    {
+      "wrong": "Remove unuse imports",
+      "right": "Remove unused imports",
+      "why_vi": "Không còn dùng là unused, có ed ở cuối."
+    }
+  ],
+  "word_bank": [
+    "Fix",
+    "Add",
+    "Remove",
+    "Update",
+    "Rename",
+    "Refactor",
+    "Upgrade",
+    "Revert",
+    "unused"
+  ],
+  "quiz": [
+    {
+      "id": "w02q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "Add pagination to the user list",
+        "Added pagination to the user list",
+        "Add pagination to the list user"
+      ],
+      "answer": 0,
+      "why_vi": "Commit dùng động từ nguyên mẫu: Add. Từ bổ nghĩa đứng trước: user list."
+    },
+    {
+      "id": "w02q2",
+      "prompt_vi": "Commit: Sửa lỗi múi giờ trong báo cáo.",
+      "options": [
+        "Fix timezone bug in reports",
+        "Fix bug timezone in reports",
+        "Fix timezone bug at reports"
+      ],
+      "answer": 0,
+      "why_vi": "timezone bug: từ bổ nghĩa đứng trước. Nằm trong thứ gì thì dùng in."
+    },
+    {
+      "id": "w02q3",
+      "prompt_vi": "Commit: Xoá các biến môi trường không dùng nữa.",
+      "options": [
+        "Remove unused environment variables",
+        "Remove environment variables unused",
+        "Remove unuse environment variables"
+      ],
+      "answer": 0,
+      "why_vi": "Tính từ unused đứng trước danh từ và có ed."
+    },
+    {
+      "id": "w02q4",
+      "prompt_vi": "Commit: Đổi tên hàm cho dễ hiểu hơn.",
+      "options": [
+        "Rename the function to make it clearer",
+        "Rename the function for make it clearer",
+        "Rename the function to making it clearer"
+      ],
+      "answer": 0,
+      "why_vi": "Chỉ mục đích dùng to + động từ nguyên mẫu."
+    },
+    {
+      "id": "w02q5",
+      "prompt_vi": "Commit: Nâng React lên bản 18.",
+      "options": [
+        "Upgrade React to 18",
+        "Upgrade React up to 18",
+        "Upgrade React to the version 18"
+      ],
+      "answer": 0,
+      "why_vi": "Nâng lên bản nào dùng to. up to nghĩa là tối đa đến. Không dùng the trước version + số."
+    }
+  ],
+  "write_prompt_vi": "Viết dòng đầu commit cho thay đổi gần nhất bạn làm."
+}

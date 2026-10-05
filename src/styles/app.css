@@ -113,3 +113,11 @@
   .countdown { margin-top: var(--s-4); padding: 12px 14px; border-left: 3px solid var(--accent); background: var(--accent-tint); border-radius: var(--r-md); }
   .countdown p { margin: 0; font-size: var(--fs-sm); }
 }
+
+/* M7: điều khoản, bảo mật */
+@layer components {
+  .legal h2 { font-size: var(--fs-xl); margin-top: var(--s-6); }
+  .legal p, .legal ul { margin-top: var(--s-3); }
+  .legal ul { padding-left: 20px; }
+  .legal li + li { margin-top: var(--s-2); }
+}

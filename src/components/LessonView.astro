@@ -19,7 +19,7 @@ const nextLink = next ? { href: `/hoc/${next.slug}`, title: next.title } : undef
 const num = String(lesson.id).padStart(2, '0');
 ---
 
-  <article class="wrap read" style="padding-top:var(--s-6);padding-bottom:var(--s-7)">
+  <article class="wrap read" style="padding-top:var(--s-6);padding-bottom:var(--s-7)" data-lesson-start={key}>
     <p class="muted" style="font-size:var(--fs-sm);margin-bottom:var(--s-2)">
       {TRACK_NAMES[lesson.track]}, bài <span class="num">{num}</span>
     </p>

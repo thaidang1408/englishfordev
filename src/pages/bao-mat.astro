@@ -1,0 +1,72 @@
+---
+import Base from '../layouts/Base.astro';
+
+/** Dữ liệu thu thập (SPEC mục 3). Khớp với bảng ở SPEC mục 8 và sự kiện ở mục 10. Đổi dữ liệu thì sửa trang này. */
+---
+
+<Base
+  title="Bảo mật và dữ liệu | English Personal Coach"
+  description="EPC thu thập dữ liệu gì, dùng để làm gì, gửi cho bên nào, và cách bạn xin xóa dữ liệu."
+>
+  <article class="wrap read legal" style="padding-top:var(--s-7);padding-bottom:var(--s-7)">
+    <h1 style="font-size:var(--fs-2xl);line-height:1.2">Bảo mật và dữ liệu</h1>
+    <p class="muted" style="margin-top:var(--s-3)">Cập nhật ngày 05/10/2026.</p>
+
+    <h2>Dữ liệu EPC lưu</h2>
+    <ul>
+      <li><strong>Tài khoản:</strong> email và tên hiển thị lấy từ Google hoặc GitHub khi bạn đăng nhập. EPC không nhận mật khẩu của bạn.</li>
+      <li><strong>Hồ sơ:</strong> kết quả test xếp trình độ, track đang học, giờ standup, ngày phỏng vấn nếu bạn nhập.</li>
+      <li><strong>Học tập:</strong> bài đã xong, điểm trắc nghiệm, các mục cần ôn.</li>
+      <li><strong>Câu bạn gửi để sửa:</strong> câu gốc, câu đã sửa, các chỗ sửa và nhóm lỗi. Đây là dữ liệu tạo nên sổ lỗi và phân tích lỗi của bạn.</li>
+      <li><strong>Đơn hàng:</strong> gói, số tiền, trạng thái, mã giao dịch ngân hàng do payOS gửi về. Không có số thẻ.</li>
+      <li><strong>Telegram:</strong> mã chat khi bạn liên kết, để gửi tin nhắc và báo cáo tuần. Gõ /stop là gỡ.</li>
+      <li>
+        <strong>Sự kiện sử dụng:</strong> các mốc như xem trang, bắt đầu bài, xong bài, kèm mã bài và nguồn giới thiệu
+        (tham số src trong link). Không có nội dung câu bạn viết.
+      </li>
+    </ul>
+
+    <h2>Trên trình duyệt của bạn</h2>
+    <ul>
+      <li>Cookie đăng nhập, để giữ phiên làm việc.</li>
+      <li>Bộ nhớ trình duyệt (localStorage): giao diện sáng hoặc tối, tiến độ học khi chưa đăng nhập, một mã ngẫu nhiên để đếm lượt học thử, và nguồn giới thiệu.</li>
+      <li>EPC không dùng quảng cáo, không dùng cookie của bên thứ ba để theo dõi bạn.</li>
+    </ul>
+
+    <h2>Dùng dữ liệu để làm gì</h2>
+    <ul>
+      <li>Chạy các tính năng: lưu tiến độ, sửa câu, sổ lỗi, ôn tập, nhắc học, mở Premium.</li>
+      <li>Đếm số người qua từng bước (học thử, đăng ký, trả tiền) để biết sản phẩm có ích hay không. Chỉ xem số tổng.</li>
+      <li>EPC không bán dữ liệu và không dùng câu của bạn để quảng cáo.</li>
+    </ul>
+
+    <h2>Bên xử lý dữ liệu cùng EPC</h2>
+    <ul>
+      <li><strong>Supabase:</strong> lưu cơ sở dữ liệu và đăng nhập.</li>
+      <li><strong>Cloudflare:</strong> chạy trang web, và chạy AI sửa câu (Workers AI). Câu bạn gửi đi qua đây để được sửa.</li>
+      <li><strong>Anthropic:</strong> chỉ khi EPC bật AI của Anthropic thay cho Workers AI. Khi đó câu bạn gửi đi qua Anthropic.</li>
+      <li><strong>Google, GitHub:</strong> đăng nhập.</li>
+      <li><strong>payOS và ngân hàng:</strong> tạo mã VietQR và báo khi nhận tiền.</li>
+      <li><strong>Telegram:</strong> gửi tin nhắc và báo cáo tuần nếu bạn liên kết.</li>
+    </ul>
+    <p>EPC không gửi email của bạn cho nhà cung cấp AI. Chỉ câu cần sửa và câu hỏi phỏng vấn đi kèm được gửi.</p>
+
+    <h2>Ai xem được dữ liệu</h2>
+    <p>
+      Mỗi tài khoản chỉ đọc được dữ liệu của chính mình, do cơ sở dữ liệu kiểm ở từng dòng. Người vận hành EPC xem được đơn hàng để
+      xác nhận và hoàn tiền, và chỉ đọc dữ liệu học của bạn khi bạn nhờ xử lý lỗi.
+    </p>
+
+    <h2 id="xoa-du-lieu">Xem và xóa dữ liệu</h2>
+    <ul>
+      <li>Tiến độ, sổ lỗi và các câu đã sửa của bạn xem được ngay trong app.</li>
+      <li>
+        Muốn xóa tài khoản và toàn bộ dữ liệu, nhắn cho EPC qua bot Telegram ghi ở trang Nâng cấp, từ tài khoản Telegram đã liên kết,
+        hoặc nêu email đăng nhập. EPC xóa trong vòng 7 ngày và nhắn lại khi xong. Đơn hàng đã trả được giữ lại phần số tiền và ngày trả
+        theo yêu cầu kế toán.
+      </li>
+    </ul>
+
+    <p style="margin-top:var(--s-6)"><a href="/dieu-khoan">Xem điều khoản sử dụng</a></p>
+  </article>
+</Base>

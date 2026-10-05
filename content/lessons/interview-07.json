@@ -1,0 +1,112 @@
+{
+  "id": 7,
+  "track": "interview",
+  "slug": "phong-van-bat-dong-trong-team",
+  "title": "Bất đồng trong team và cách xử lý",
+  "free": false,
+  "question_en": "Tell me about a time you disagreed with a teammate. How did you handle it?",
+  "goal_vi": "Kể một lần bất đồng: chuyện gì, bạn làm gì, và hai bên thống nhất ra sao.",
+  "pattern": {
+    "formula": "My teammate and I disagreed about + noun. We + V2 + ... and agreed to + V.",
+    "note_vi": "disagree with + người, disagree about + chuyện. Kết bằng điều hai bên thống nhất, không kể ai thắng ai."
+  },
+  "examples": [
+    {
+      "en": "A teammate and I disagreed about using Redux or React Context. We tried both on one screen and agreed to go with Context.",
+      "vi": "Mình và một bạn trong team bất đồng về việc dùng Redux hay React Context. Bọn mình thử cả hai trên một màn hình và thống nhất dùng Context."
+    },
+    {
+      "en": "I disagreed with my tech lead about releasing on a Friday. I explained the risk, and we agreed to release on Monday morning instead.",
+      "vi": "Mình không đồng ý với tech lead về việc release vào thứ Sáu. Mình giải thích rủi ro, và bọn mình thống nhất release vào sáng thứ Hai."
+    },
+    {
+      "en": "A designer wanted an animation that was slow on older phones. I showed her the numbers, and we found a lighter version together.",
+      "vi": "Một bạn designer muốn dùng một hiệu ứng chạy chậm trên máy cũ. Mình cho bạn ấy xem số liệu, và bọn mình cùng tìm ra một phiên bản nhẹ hơn."
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "Me and my teammate disagreed about the API design.",
+      "right": "My teammate and I disagreed about the API design.",
+      "why_vi": "Làm chủ ngữ thì dùng I, và nói người kia trước mình."
+    },
+    {
+      "wrong": "I disagreed my lead about the deadline.",
+      "right": "I disagreed with my lead about the deadline.",
+      "why_vi": "disagree luôn có with trước người mình không đồng ý."
+    },
+    {
+      "wrong": "We agreed to used GraphQL.",
+      "right": "We agreed to use GraphQL.",
+      "why_vi": "Sau to là động từ nguyên mẫu."
+    }
+  ],
+  "word_bank": [
+    "disagreed with",
+    "disagreed about",
+    "explained",
+    "talked it through",
+    "agreed to",
+    "went with",
+    "in the end",
+    "compromise"
+  ],
+  "quiz": [
+    {
+      "id": "i07q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "My teammate and I disagreed about the database schema.",
+        "My teammate and I disagreed the database schema.",
+        "My teammate and I were disagree about the database schema."
+      ],
+      "answer": 0,
+      "why_vi": "disagree about + chuyện. disagree là động từ, không thêm were."
+    },
+    {
+      "id": "i07q2",
+      "prompt_vi": "Mình không đồng ý với tech lead về deadline.",
+      "options": [
+        "I disagreed with my tech lead about the deadline.",
+        "I disagreed my tech lead about the deadline.",
+        "I didn't agree to my tech lead about the deadline."
+      ],
+      "answer": 0,
+      "why_vi": "disagree with + người. agree to dùng cho đề xuất, không dùng cho người."
+    },
+    {
+      "id": "i07q3",
+      "prompt_vi": "Bọn mình thống nhất dùng PostgreSQL.",
+      "options": [
+        "We agreed to use PostgreSQL.",
+        "We agreed using PostgreSQL.",
+        "We unified to use PostgreSQL."
+      ],
+      "answer": 0,
+      "why_vi": "Thống nhất làm gì là agreed to + V. unify nghĩa là gộp lại, không dùng cho ý kiến."
+    },
+    {
+      "id": "i07q4",
+      "prompt_vi": "Mình giải thích rủi ro và cho xem số liệu.",
+      "options": [
+        "I explained the risks and showed the numbers.",
+        "I explained him the risks and showed the numbers.",
+        "I explained about the risks and showed the numbers."
+      ],
+      "answer": 0,
+      "why_vi": "explain + điều cần giải thích, không có người ngay sau, không có about."
+    },
+    {
+      "id": "i07q5",
+      "prompt_vi": "Cuối cùng bọn mình chọn cách đơn giản hơn.",
+      "options": [
+        "In the end, we went with the simpler option.",
+        "At the end, we went with the simpler option.",
+        "In the end, we chose the option simpler."
+      ],
+      "answer": 0,
+      "why_vi": "Cuối cùng là in the end. Từ bổ nghĩa đứng trước danh từ: the simpler option."
+    }
+  ],
+  "write_prompt_vi": "Viết 2 đến 3 câu về một lần bạn bất đồng với đồng nghiệp và hai bên giải quyết thế nào."
+}

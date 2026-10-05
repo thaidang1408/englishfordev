@@ -2,12 +2,14 @@
 import Base from '../layouts/Base.astro';
 import NotFound from '../components/NotFound.astro';
 import { listOrdersForAdmin } from '../lib/db/orders';
+import FunnelTable from '../components/FunnelTable.astro';
+import { funnelSchema, type Funnel } from '../lib/events/funnel';
 import { createServiceDb } from '../lib/db/service';
 import { serverEnv } from '../lib/env-server';
 import { PLANS, REFUND_DAYS, formatVnd } from '../lib/pricing';
 
 /**
- * Trang admin (SPEC mục 3): danh sách đơn, "Đã nhận tiền", "Hoàn tiền". Bảng phễu làm ở M7.
+ * Trang admin (SPEC mục 3, 10): bảng phễu 7 và 30 ngày, danh sách đơn, "Đã nhận tiền", "Hoàn tiền".
  * Kiểm email trong ADMIN_EMAILS ở server mỗi request. Người khác nhận 404, không biết trang này tồn tại.
  */
 export const prerender = false;
@@ -19,7 +21,17 @@ const email = user.email?.toLowerCase();
 const isAdmin = Boolean(email && env.ADMIN_EMAILS.includes(email) && env.SUPABASE_SERVICE_ROLE_KEY);
 if (!isAdmin) Astro.response.status = 404;
 
-const orders = isAdmin && env.SUPABASE_SERVICE_ROLE_KEY ? await listOrdersForAdmin(createServiceDb(env.SUPABASE_SERVICE_ROLE_KEY)) : [];
+const service = isAdmin && env.SUPABASE_SERVICE_ROLE_KEY ? createServiceDb(env.SUPABASE_SERVICE_ROLE_KEY) : null;
+const orders = service ? await listOrdersForAdmin(service) : [];
+
+async function funnel(days: number): Promise<Funnel | null> {
+  if (!service) return null;
+  const { data, error } = await service.rpc('admin_funnel', { p_days: days });
+  if (error) console.error('[admin] funnel', error.message);
+  const parsed = funnelSchema.safeParse(data);
+  return parsed.success ? parsed.data : null;
+}
+const [f7, f30] = service ? await Promise.all([funnel(7), funnel(30)]) : [null, null];
 const fmt = new Intl.DateTimeFormat('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', dateStyle: 'short', timeStyle: 'short' });
 const STATUS = { pending: 'Chờ', paid: 'Đã trả', refunded: 'Đã hoàn', expired: 'Hết hạn' } as const;
 const refundable = (paidAt: string | null) => paidAt !== null && Date.now() - Date.parse(paidAt) < REFUND_DAYS * 86_400_000;
@@ -28,7 +40,16 @@ const refundable = (paidAt: string | null) => paidAt !== null && Date.now() - Da
 {!isAdmin ? <NotFound /> : (
 <Base title="Admin | English Personal Coach" description="Quản lý đơn." app>
   <div class="wrap" style="padding-top:var(--s-6);padding-bottom:var(--s-7)">
-    <h1 style="font-size:var(--fs-2xl);line-height:1.2">Đơn hàng</h1>
+    <h1 style="font-size:var(--fs-2xl);line-height:1.2">Admin</h1>
+
+    <h2 style="font-size:var(--fs-xl);margin-top:var(--s-5)">Phễu</h2>
+    {!f7 || !f30 ? (
+      <p class="note err" style="margin-top:var(--s-3)">Chưa đọc được số liệu phễu. Kiểm tra đã chạy migration mới chưa (docs/SETUP.md, mục M7).</p>
+    ) : (
+      <FunnelTable f7={f7} f30={f30} />
+    )}
+
+    <h2 style="font-size:var(--fs-xl);margin-top:var(--s-6)">Đơn hàng</h2>
     <p class="muted" style="margin-top:var(--s-3)">
       {orders.length} đơn gần nhất. Đơn trả qua payOS tự xác nhận. Bấm "Đã nhận tiền" chỉ khi đã thấy tiền vào tài khoản mà đơn vẫn chờ.
     </p>

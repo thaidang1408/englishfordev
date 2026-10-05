@@ -222,3 +222,28 @@ Tài khoản Premium hoặc đang dùng thử, đã liên kết Telegram, có c�
 ### Xóa tài khoản khi người dùng yêu cầu
 
 Supabase → **Authentication → Users**, tìm theo email, bấm **Delete user**. Mọi dòng dữ liệu của người đó bị xóa theo (khóa ngoại `on delete cascade`). Riêng bảng `events` giữ lại sự kiện nhưng bỏ liên kết với người dùng.
+
+## M7: Phễu, trang pháp lý, ra mắt
+
+M7 có một migration mới (`20261005190000_events_funnel.sql`): ghi sự kiện phễu bằng trigger và hàm tính bảng phễu cho `/admin`. Sau khi đã chạy xong `setup:ai`, `setup:pay`, `setup:bot`, chạy một lệnh:
+
+```bash
+npm run release
+```
+
+Lệnh này áp dụng migration mới lên Supabase (hỏi xác nhận, gõ `Y`), rồi build và deploy app. Chạy lại lệnh này mỗi khi có bản mới.
+
+Sau đó làm theo `docs/LAUNCH_CHECKLIST.md`.
+
+### Bảng phễu đọc thế nào
+
+- Mỗi bước đếm số người khác nhau trong 7 hoặc 30 ngày. Khách chưa đăng nhập được nhận ra bằng một mã ngẫu nhiên lưu trên trình duyệt, nên đổi máy hoặc xóa dữ liệu trình duyệt thì tính là người mới.
+- "Sửa câu lần đầu": người có câu được sửa đầu tiên trong khoảng thời gian đó.
+- "Quay lại ngày N": người đăng ký có hoạt động đúng ngày thứ N sau ngày đăng ký (giờ Việt Nam).
+- Nguồn giới thiệu: thêm `?src=ten-nguon` vào link bạn chia sẻ, ví dụ `/?src=fb-group`. Muốn xem theo nguồn, chạy trong Supabase → **SQL Editor**:
+
+```sql
+select props->>'src' as src, count(distinct anon_id) as nguoi
+from public.events where name = 'page_view' and created_at > now() - interval '30 days'
+group by 1 order by 2 desc;
+```

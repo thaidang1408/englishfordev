@@ -1,0 +1,111 @@
+{
+  "id": 10,
+  "track": "writing",
+  "slug": "tu-choi-hoac-xin-them-thoi-gian",
+  "title": "Từ chối hoặc xin thêm thời gian",
+  "free": false,
+  "goal_vi": "Từ chối nhẹ nhàng bằng I'm afraid, hoặc xin thêm thời gian bằng Could I have.",
+  "pattern": {
+    "formula": "I'm afraid I can't + V + ... . / Could I have + until + time / more time + to + V?",
+    "note_vi": "I'm afraid mở đầu lời từ chối cho lịch sự. Xin thêm thời gian: Could I have until + mốc, hoặc Could I have + thời gian + more."
+  },
+  "examples": [
+    {
+      "en": "I'm afraid I can't take on this ticket this sprint.",
+      "vi": "Mình e là sprint này mình không nhận thêm ticket này được."
+    },
+    {
+      "en": "I'm afraid I can't finish the report today. Could I have until Friday?",
+      "vi": "Mình e là hôm nay không xong báo cáo được. Cho mình đến thứ Sáu được không?"
+    },
+    {
+      "en": "Could I have two more days to fix the remaining bugs?",
+      "vi": "Cho mình thêm hai ngày để sửa các bug còn lại được không?"
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "I'm afraid I can't join to the meeting.",
+      "right": "I'm afraid I can't join the meeting.",
+      "why_vi": "join đi thẳng với danh từ, không có to."
+    },
+    {
+      "wrong": "Could I have more two days?",
+      "right": "Could I have two more days?",
+      "why_vi": "Số đứng trước more: two more days."
+    },
+    {
+      "wrong": "Could I have until Friday for finish it?",
+      "right": "Could I have until Friday to finish it?",
+      "why_vi": "Chỉ mục đích dùng to + V, không dùng for + V."
+    }
+  ],
+  "word_bank": [
+    "I'm afraid",
+    "I can't",
+    "take on",
+    "Could I have",
+    "until Friday",
+    "two more days",
+    "more time",
+    "properly"
+  ],
+  "quiz": [
+    {
+      "id": "w10q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "Could I have two more days for this task?",
+        "Could I have more two days for this task?",
+        "Could I have two more day for this task?"
+      ],
+      "answer": 0,
+      "why_vi": "Số đứng trước more, và day thêm s vì có hai ngày."
+    },
+    {
+      "id": "w10q2",
+      "prompt_vi": "Mình e là chiều nay mình không tham gia buổi họp được.",
+      "options": [
+        "I'm afraid I can't join the meeting this afternoon.",
+        "I'm afraid I can't join to the meeting this afternoon.",
+        "I'm afraid I can't join the meeting in this afternoon."
+      ],
+      "answer": 0,
+      "why_vi": "join không có to. Trước this afternoon không dùng in."
+    },
+    {
+      "id": "w10q3",
+      "prompt_vi": "Cho mình đến thứ Hai để làm xong phần này được không?",
+      "options": [
+        "Could I have until Monday to finish this part?",
+        "Could I have until Monday for finish this part?",
+        "Could I have to Monday to finish this part?"
+      ],
+      "answer": 0,
+      "why_vi": "Xin hạn đến mốc nào dùng until. Chỉ mục đích dùng to + V."
+    },
+    {
+      "id": "w10q4",
+      "prompt_vi": "Mình e là sprint này mình không nhận thêm việc được.",
+      "options": [
+        "I'm afraid I can't take on more work this sprint.",
+        "I'm afraid I can't take on more works this sprint.",
+        "I'm afraid I'm not take on more work this sprint."
+      ],
+      "answer": 0,
+      "why_vi": "work theo nghĩa công việc không thêm s. Không làm được dùng can't + V."
+    },
+    {
+      "id": "w10q5",
+      "prompt_vi": "Mình cần thêm thời gian để test kỹ hơn.",
+      "options": [
+        "I need more time to test it properly.",
+        "I need more times to test it properly.",
+        "I need more time to test it more careful."
+      ],
+      "answer": 0,
+      "why_vi": "time theo nghĩa thời gian không thêm s. Bổ nghĩa cho động từ dùng trạng từ: properly."
+    }
+  ],
+  "write_prompt_vi": "Viết 1 câu từ chối một việc, hoặc xin thêm thời gian cho việc bạn đang làm."
+}

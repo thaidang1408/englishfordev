@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import { PLANS, REFUND_DAYS, TRIAL_DAYS, formatVnd } from '../lib/pricing';
+
+/** Điều khoản và hoàn tiền (SPEC mục 2, 3). Số ngày và giá đọc từ pricing.ts để không lệch với bảng giá. */
+---
+
+<Base
+  title="Điều khoản sử dụng | English Personal Coach"
+  description={`Điều khoản dùng English Personal Coach: dùng thử ${TRIAL_DAYS} ngày, Premium mua theo kỳ, hoàn tiền trong ${REFUND_DAYS} ngày đầu.`}
+>
+  <article class="wrap read legal" style="padding-top:var(--s-7);padding-bottom:var(--s-7)">
+    <h1 style="font-size:var(--fs-2xl);line-height:1.2">Điều khoản sử dụng</h1>
+    <p class="muted" style="margin-top:var(--s-3)">Cập nhật ngày 05/10/2026.</p>
+
+    <h2>EPC là gì</h2>
+    <p>
+      English Personal Coach (EPC) là web app luyện tiếng Anh dùng trong công việc cho dev, QA, BA, PM người Việt. EPC do một
+      lập trình viên tự làm và vận hành. Khi dùng EPC, bạn đồng ý với các điều dưới đây.
+    </p>
+
+    <h2>Tài khoản</h2>
+    <ul>
+      <li>Bạn đăng nhập bằng Google hoặc GitHub. Mỗi người dùng một tài khoản.</li>
+      <li>Tài khoản mới có {TRIAL_DAYS} ngày dùng thử đủ quyền Premium, mỗi tài khoản một lần. Không cần thẻ.</li>
+      <li>Hết dùng thử, tài khoản về gói miễn phí. Dữ liệu của bạn không bị xóa.</li>
+    </ul>
+
+    <h2>Premium và thanh toán</h2>
+    <ul>
+      <li>
+        Premium có hai gói: {formatVnd(PLANS['30d'].amount)} cho 30 ngày và {formatVnd(PLANS['90d'].amount)} cho 90 ngày. Mua theo kỳ,
+        không tự gia hạn, không trừ tiền định kỳ.
+      </li>
+      <li>Thanh toán bằng chuyển khoản qua mã VietQR do payOS tạo cho từng đơn. EPC không nhận và không lưu thông tin thẻ.</li>
+      <li>Premium mở khi EPC nhận đúng số tiền của đơn. Mua thêm khi còn hạn thì số ngày được cộng tiếp vào hạn cũ.</li>
+    </ul>
+
+    <h2 id="hoan-tien">Hoàn tiền</h2>
+    <ul>
+      <li>Trong {REFUND_DAYS} ngày đầu kể từ lúc đơn được xác nhận, bạn được hoàn đủ tiền, không cần nêu lý do.</li>
+      <li>Để hoàn tiền, nhắn cho EPC qua bot Telegram ghi ở trang Nâng cấp, kèm mã đơn (dạng EPC và 5 ký tự) và số tài khoản nhận tiền.</li>
+      <li>Khi hoàn tiền, Premium của đơn đó kết thúc ngay. Dữ liệu học của bạn vẫn còn.</li>
+      <li>Chuyển sai số tiền hoặc sai nội dung: nhắn kèm ảnh giao dịch, EPC kiểm tra và xác nhận tay hoặc trả lại tiền.</li>
+    </ul>
+
+    <h2>AI sửa câu</h2>
+    <ul>
+      <li>Câu sửa do AI tạo ra, có thể sai. Bạn tự quyết định có dùng hay không, nhất là trong email gửi khách hoặc khi phỏng vấn.</li>
+      <li>Mỗi gói có hạn mức lượt sửa ghi ở trang Bảng giá. Khi hệ thống hết lượt chung trong ngày, bạn thử lại vào ngày hôm sau.</li>
+      <li>Không gửi vào ô sửa câu mật khẩu, khóa API, dữ liệu khách hàng hay bí mật của công ty bạn.</li>
+    </ul>
+
+    <h2>Việc không được làm</h2>
+    <ul>
+      <li>Dùng công cụ tự động để gọi API của EPC, hoặc tìm cách vượt hạn mức.</li>
+      <li>Chia sẻ tài khoản cho nhiều người dùng chung.</li>
+      <li>Gửi nội dung vi phạm pháp luật vào ô sửa câu hoặc bot Telegram.</li>
+    </ul>
+    <p>Vi phạm thì EPC có thể khóa tài khoản. Nếu tài khoản đang có Premium, EPC hoàn lại số tiền tương ứng số ngày còn lại.</p>
+
+    <h2>Nội dung và giới hạn trách nhiệm</h2>
+    <p>
+      Bài học, ví dụ và câu trắc nghiệm thuộc về EPC. EPC không hứa kết quả học tập, kết quả phỏng vấn hay mức lương. Nếu EPC ngừng
+      hoạt động, bạn được báo trước ít nhất 30 ngày và được hoàn tiền phần Premium chưa dùng.
+    </p>
+
+    <h2>Thay đổi điều khoản</h2>
+    <p>Khi điều khoản thay đổi, ngày cập nhật ở đầu trang đổi theo. Thay đổi không áp dụng ngược cho đơn bạn đã trả.</p>
+
+    <p style="margin-top:var(--s-6)"><a href="/bao-mat">Xem chính sách bảo mật</a></p>
+  </article>
+</Base>

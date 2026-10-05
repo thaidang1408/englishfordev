@@ -81,17 +81,19 @@ describe('phỏng vấn thử', () => {
     question_en: `Question ${id}?`,
   });
   const pool = Array.from({ length: 8 }, (_, i) => make(i + 1));
+  // Bỏ bài phỏng vấn thật để test không phụ thuộc nội dung.
+  const others = lessons.filter((l) => l.track !== 'interview');
 
   it('5 câu, không trùng, bài đã học lên trước', () => {
     const done = new Set(['interview-07', 'interview-02']);
-    const qs = pickInterviewQuestions([...lessons, ...pool], done, () => 0.42);
+    const qs = pickInterviewQuestions([...others, ...pool], done, () => 0.42);
     expect(qs).toHaveLength(5);
     expect(new Set(qs.map((q) => q.question)).size).toBe(5);
     expect(qs.slice(0, 2).map((q) => q.lessonKey).sort()).toEqual(['interview-02', 'interview-07']);
   });
 
   it('chỉ lấy câu hỏi của track Phỏng vấn; chưa có bài thì không có câu', () => {
-    expect(pickInterviewQuestions(lessons, new Set())).toEqual([]);
+    expect(pickInterviewQuestions(others, new Set())).toEqual([]);
   });
 
   it('tổng kết đếm chỗ sửa theo nhóm, nhiều nhất trước', () => {

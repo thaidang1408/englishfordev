@@ -1,0 +1,112 @@
+{
+  "id": 5,
+  "track": "writing",
+  "slug": "bao-mot-bug",
+  "title": "Báo một bug",
+  "free": false,
+  "goal_vi": "Mô tả bug bằng một câu: làm gì thì xảy ra chuyện gì.",
+  "pattern": {
+    "formula": "When I + V + object, + subject + V(s) + ... .",
+    "note_vi": "Bug lặp lại được thì dùng hiện tại đơn ở cả hai vế. Chủ ngữ số ít thì động từ thêm s."
+  },
+  "examples": [
+    {
+      "en": "When I click Save, the page reloads and the form is empty.",
+      "vi": "Khi mình bấm Save, trang tải lại và form bị trống."
+    },
+    {
+      "en": "When I upload a file over 5 MB, the API returns a 500 error.",
+      "vi": "Khi mình upload file trên 5 MB, API trả về lỗi 500."
+    },
+    {
+      "en": "When I open the order page on iOS, the app crashes.",
+      "vi": "Khi mình mở trang đơn hàng trên iOS, app bị crash."
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "When I click Save, the app is crash.",
+      "right": "When I click Save, the app crashes.",
+      "why_vi": "crash đã là động từ, không thêm is phía trước."
+    },
+    {
+      "wrong": "When I click Save, the page reload.",
+      "right": "When I click Save, the page reloads.",
+      "why_vi": "Chủ ngữ số ít (the page) thì động từ thêm s."
+    },
+    {
+      "wrong": "The button Save doesn't work.",
+      "right": "The Save button doesn't work.",
+      "why_vi": "Tên nút đứng trước danh từ button."
+    }
+  ],
+  "word_bank": [
+    "When I click",
+    "crashes",
+    "returns",
+    "doesn't work",
+    "goes blank",
+    "freezes",
+    "Steps to reproduce",
+    "Expected",
+    "Actual"
+  ],
+  "quiz": [
+    {
+      "id": "w05q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "When I click Submit, the app crashes.",
+        "When I click Submit, the app is crash.",
+        "When I click Submit, the app crash."
+      ],
+      "answer": 0,
+      "why_vi": "crash là động từ, không cần is. Chủ ngữ số ít nên crashes."
+    },
+    {
+      "id": "w05q2",
+      "prompt_vi": "Khi mình đổi ngôn ngữ, trang bị trắng.",
+      "options": [
+        "When I change the language, the page goes blank.",
+        "When I change the language, the page go blank.",
+        "When I change the language, the page is go blank."
+      ],
+      "answer": 0,
+      "why_vi": "go blank = bị trắng trang. Chủ ngữ số ít nên goes, không thêm is."
+    },
+    {
+      "id": "w05q3",
+      "prompt_vi": "Nút Save không hoạt động trên Firefox.",
+      "options": [
+        "The Save button doesn't work on Firefox.",
+        "The button Save doesn't work on Firefox.",
+        "The Save button not work on Firefox."
+      ],
+      "answer": 0,
+      "why_vi": "Tên nút đứng trước button. Phủ định hiện tại đơn cần doesn't."
+    },
+    {
+      "id": "w05q4",
+      "prompt_vi": "Khi mình upload file lớn, API trả về lỗi timeout.",
+      "options": [
+        "When I upload a large file, the API returns a timeout error.",
+        "When I upload a file large, the API returns a timeout error.",
+        "When I upload a large file, the API return a timeout error."
+      ],
+      "answer": 0,
+      "why_vi": "Tính từ large đứng trước file. the API số ít nên returns."
+    },
+    {
+      "id": "w05q5",
+      "prompt_vi": "Khi mình đăng xuất, giỏ hàng không bị xoá.",
+      "options": [
+        "When I log out, the cart isn't cleared.",
+        "When I logout, the cart isn't cleared.",
+        "When I log out, the cart is not clear."
+      ],
+      "answer": 0,
+      "why_vi": "Động từ viết tách: log out. Bị xoá là bị động: isn't cleared."
+    }
+  ],
+  "write_prompt_vi": "Viết 1 câu mô tả một bug bạn từng gặp: làm gì thì xảy ra chuyện gì."
+}

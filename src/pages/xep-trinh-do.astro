@@ -36,6 +36,9 @@ if (Astro.request.method === 'POST') {
     if (answers) {
       const result = scorePlacement(placement.questions, answers);
       await updateProfile(db, user.id, { level: result.level, weak_area: result.weakArea, track: result.suggestedTrack });
+      // Sự kiện phễu (SPEC mục 10). Ghi lỗi thì bỏ qua, không chặn người dùng.
+      const logged = await db.from('events').insert({ user_id: user.id, anon_id: null, name: 'placement_complete', props: null });
+      if (logged.error) console.error('[xep-trinh-do] event', logged.error.message);
       return Astro.redirect(`/xep-trinh-do?dung=${result.correct}`, 303);
     }
     error = 'Bạn chưa trả lời đủ 12 câu. Mỗi câu chọn một đáp án.';

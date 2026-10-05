@@ -1,0 +1,106 @@
+{
+  "id": 3,
+  "track": "interview",
+  "slug": "vai-tro-va-dong-gop",
+  "title": "Vai trò và đóng góp của bạn",
+  "free": false,
+  "question_en": "What was your role on that project, and what did you contribute?",
+  "goal_vi": "Tách rõ việc của cả team và phần việc của riêng bạn, không nhận hết công.",
+  "pattern": {
+    "formula": "The team + V2 + ... My part was + noun. / I was responsible for + noun / V-ing.",
+    "note_vi": "Nói team làm gì, rồi nói phần của bạn. responsible là tính từ nên cần was, sau for dùng danh từ hoặc V-ing."
+  },
+  "examples": [
+    {
+      "en": "Our team rebuilt the checkout flow. My part was the payment integration and the error handling around it.",
+      "vi": "Team mình làm lại luồng checkout. Phần của mình là tích hợp thanh toán và phần xử lý lỗi quanh nó."
+    },
+    {
+      "en": "I was the only tester on a team of six. I wrote the test plan and set up our regression tests in Cypress.",
+      "vi": "Mình là tester duy nhất trong team sáu người. Mình viết test plan và dựng bộ regression test bằng Cypress."
+    },
+    {
+      "en": "We moved our services to Kubernetes. I was responsible for migrating two of the five services and writing the runbook.",
+      "vi": "Bọn mình chuyển các service lên Kubernetes. Mình phụ trách chuyển hai trong năm service và viết runbook."
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "I responsible for the backend.",
+      "right": "I was responsible for the backend.",
+      "why_vi": "responsible không phải động từ, cần was hoặc am đi trước."
+    },
+    {
+      "wrong": "I was responsible for develop the API.",
+      "right": "I was responsible for developing the API.",
+      "why_vi": "Sau for, động từ phải ở dạng V-ing."
+    }
+  ],
+  "word_bank": [
+    "my part was",
+    "I was responsible for",
+    "I was in charge of",
+    "I worked with",
+    "I helped",
+    "as a result",
+    "the team"
+  ],
+  "quiz": [
+    {
+      "id": "i03q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "I was responsible for the reporting module.",
+        "I responsible for the reporting module.",
+        "I was responsible of the reporting module."
+      ],
+      "answer": 0,
+      "why_vi": "be responsible for: cần was, và giới từ là for."
+    },
+    {
+      "id": "i03q2",
+      "prompt_vi": "Mình phụ trách viết API cho app mobile.",
+      "options": [
+        "I was responsible for writing the APIs for the mobile app.",
+        "I was responsible for write the APIs for the mobile app.",
+        "I was in charge for writing the APIs for the mobile app."
+      ],
+      "answer": 0,
+      "why_vi": "Sau for dùng V-ing. in charge đi với of, không đi với for."
+    },
+    {
+      "id": "i03q3",
+      "prompt_vi": "Team làm lại cả hệ thống, phần của mình là module tìm kiếm.",
+      "options": [
+        "The team rebuilt the whole system, and my part was the search module.",
+        "The team rebuilt the whole system, and my part was module search.",
+        "The team rebuild the whole system, and my part was the search module."
+      ],
+      "answer": 0,
+      "why_vi": "the search module: từ bổ nghĩa đứng trước. Việc đã xong dùng quá khứ: rebuilt."
+    },
+    {
+      "id": "i03q4",
+      "prompt_vi": "Mình viết test và review code cho cả team.",
+      "options": [
+        "I wrote tests and reviewed code for the whole team.",
+        "I wrote tests and review code for the whole team.",
+        "I wrote tests and reviewed code for all team."
+      ],
+      "answer": 0,
+      "why_vi": "Hai động từ nối bằng and cùng ở quá khứ. Cả team là the whole team."
+    },
+    {
+      "id": "i03q5",
+      "prompt_vi": "Nhờ vậy thời gian build giảm từ 20 xuống 8 phút.",
+      "options": [
+        "As a result, the build time went down from 20 to 8 minutes.",
+        "As the result, the build time went down from 20 to 8 minutes.",
+        "As a result, the build time go down from 20 to 8 minutes."
+      ],
+      "answer": 0,
+      "why_vi": "Cụm cố định là as a result. Việc đã xảy ra dùng quá khứ: went down."
+    }
+  ],
+  "write_prompt_vi": "Viết 2 câu: team của bạn làm gì, và phần việc của riêng bạn là gì."
+}

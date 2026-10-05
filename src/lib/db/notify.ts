@@ -153,6 +153,18 @@ export function tickRepo(service: Db): TickRepo {
         return entries.length > 0 ? [{ user_id: p.id, chat_id: p.telegram_chat_id, entries }] : [];
       });
     },
+    async logTrialEnds(from, to) {
+      const rows =
+        check(
+          'logTrialEnds',
+          await service.from('entitlements').select('user_id').gte('trial_until', from.toISOString()).lt('trial_until', to.toISOString()),
+        ) ?? [];
+      if (rows.length === 0) return;
+      check(
+        'logTrialEnds.insert',
+        await service.from('events').insert(rows.map((r) => ({ user_id: r.user_id, anon_id: null, name: 'trial_end' as const, props: null }))),
+      );
+    },
     async claimReport(userId, day) {
       const rows = check(
         'claimReport',

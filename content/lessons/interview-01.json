@@ -1,0 +1,111 @@
+{
+  "id": 1,
+  "track": "interview",
+  "slug": "gioi-thieu-ban-than",
+  "title": "Giới thiệu bản thân",
+  "free": false,
+  "question_en": "Can you tell me a little about yourself?",
+  "goal_vi": "Giới thiệu vai trò, số năm kinh nghiệm và việc đang làm trong 2 đến 3 câu.",
+  "pattern": {
+    "formula": "I'm a + role + with + N years of experience in + area. Right now I + V + ...",
+    "note_vi": "Nghề nghiệp cần a/an. years of experience luôn có of. Việc đang làm dùng hiện tại đơn."
+  },
+  "examples": [
+    {
+      "en": "I'm a backend developer with four years of experience, mostly in Java and Spring. Right now I work on payment services at a fintech company.",
+      "vi": "Mình là backend developer, có bốn năm kinh nghiệm, chủ yếu với Java và Spring. Hiện mình làm các service thanh toán ở một công ty fintech."
+    },
+    {
+      "en": "I'm a frontend developer with two years of experience in React. At my current company, I build the admin dashboard for an e-commerce platform.",
+      "vi": "Mình là frontend developer, có hai năm kinh nghiệm với React. Ở công ty hiện tại, mình làm trang quản trị cho một nền tảng thương mại điện tử."
+    },
+    {
+      "en": "I'm a QA engineer with one year of experience. I started with manual testing, and now I write automated tests with Playwright.",
+      "vi": "Mình là QA engineer, có một năm kinh nghiệm. Mình bắt đầu bằng test thủ công, giờ mình viết test tự động bằng Playwright."
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "I am Java developer.",
+      "right": "I'm a Java developer.",
+      "why_vi": "Nói nghề nghiệp thì cần a hoặc an trước tên nghề."
+    },
+    {
+      "wrong": "I have three years experience in Java.",
+      "right": "I have three years of experience in Java.",
+      "why_vi": "Số năm kinh nghiệm luôn có of: years of experience."
+    },
+    {
+      "wrong": "I'm working at a bank since 2021.",
+      "right": "I've been working at a bank since 2021.",
+      "why_vi": "Có since thì dùng have been + V-ing hoặc have + V3."
+    }
+  ],
+  "word_bank": [
+    "I'm a ... developer",
+    "years of experience",
+    "mostly",
+    "right now",
+    "my main stack is",
+    "I'm responsible for",
+    "before that"
+  ],
+  "quiz": [
+    {
+      "id": "i01q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "I'm a mobile developer with three years of experience.",
+        "I'm mobile developer with three years experience.",
+        "I'm a mobile developer with three years of experiences."
+      ],
+      "answer": 0,
+      "why_vi": "Cần a trước nghề và of sau years. experience ở đây không thêm s."
+    },
+    {
+      "id": "i01q2",
+      "prompt_vi": "Mình làm ở công ty hiện tại được hai năm rồi.",
+      "options": [
+        "I've worked at my current company for two years.",
+        "I'm working at my current company for two years.",
+        "I've worked at my current company since two years."
+      ],
+      "answer": 0,
+      "why_vi": "Việc kéo dài tới giờ dùng have + V3. Một khoảng thời gian dùng for, một mốc mới dùng since."
+    },
+    {
+      "id": "i01q3",
+      "prompt_vi": "Hiện mình chủ yếu làm backend với Node.js.",
+      "options": [
+        "Right now I mostly do backend work with Node.js.",
+        "Right now I mostly do backend work by Node.js.",
+        "Right now I mostly doing backend work with Node.js."
+      ],
+      "answer": 0,
+      "why_vi": "Dùng công nghệ gì thì dùng with. Không có am thì không dùng V-ing."
+    },
+    {
+      "id": "i01q4",
+      "prompt_vi": "Mình là kỹ sư QA.",
+      "options": [
+        "I'm a QA engineer.",
+        "I'm QA engineer.",
+        "I'm an engineer QA."
+      ],
+      "answer": 0,
+      "why_vi": "Cần a trước nghề, và QA đứng trước engineer."
+    },
+    {
+      "id": "i01q5",
+      "prompt_vi": "Trước đó mình làm hai năm ở một công ty outsource.",
+      "options": [
+        "Before that, I worked at an outsourcing company for two years.",
+        "Before that, I have worked at an outsourcing company for two years.",
+        "Before that, I worked at an outsourcing company in two years."
+      ],
+      "answer": 0,
+      "why_vi": "Việc đã xong trong quá khứ dùng quá khứ đơn. Kéo dài bao lâu thì dùng for."
+    }
+  ],
+  "write_prompt_vi": "Viết 2 đến 3 câu giới thiệu bạn: vai trò, số năm kinh nghiệm, việc đang làm."
+}

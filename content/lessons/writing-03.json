@@ -1,0 +1,112 @@
+{
+  "id": 3,
+  "track": "writing",
+  "slug": "comment-khi-review-code",
+  "title": "Comment khi review code",
+  "free": false,
+  "goal_vi": "Góp ý code của người khác theo kiểu gợi ý, không ra lệnh.",
+  "pattern": {
+    "formula": "Could we + V + object? / Maybe we should + V + object.",
+    "note_vi": "Dùng we thay vì you để góp ý nhẹ nhàng. Sau could và should là động từ nguyên mẫu."
+  },
+  "examples": [
+    {
+      "en": "Could we move this logic into a helper function?",
+      "vi": "Mình tách đoạn logic này ra một hàm helper được không?"
+    },
+    {
+      "en": "Maybe we should add a test for the empty list case.",
+      "vi": "Có lẽ mình nên thêm test cho trường hợp danh sách rỗng."
+    },
+    {
+      "en": "nit: Could we rename this to userId?",
+      "vi": "Góp ý nhỏ: mình đổi tên chỗ này thành userId được không?"
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "You must change this.",
+      "right": "Could we change this?",
+      "why_vi": "must nghe như ra lệnh. Could we nghe như cùng bàn với nhau."
+    },
+    {
+      "wrong": "Could we to move this to a helper?",
+      "right": "Could we move this to a helper?",
+      "why_vi": "Sau could là động từ nguyên mẫu, không có to."
+    },
+    {
+      "wrong": "Why you don't use a map here?",
+      "right": "Why don't we use a map here?",
+      "why_vi": "Câu hỏi với why cần don't đứng trước chủ ngữ."
+    }
+  ],
+  "word_bank": [
+    "Could we",
+    "Maybe we should",
+    "nit:",
+    "move into",
+    "extract",
+    "rename",
+    "handle",
+    "edge case",
+    "What do you think?"
+  ],
+  "quiz": [
+    {
+      "id": "w03q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "Could we add a null check here?",
+        "Could we adding a null check here?",
+        "Could we add null check at here?"
+      ],
+      "answer": 0,
+      "why_vi": "Sau could là động từ nguyên mẫu. Cần a trước null check, và here không đi với at."
+    },
+    {
+      "id": "w03q2",
+      "prompt_vi": "Mình tách hàm này ra cho dễ đọc được không?",
+      "options": [
+        "Could we split this function to make it easier to read?",
+        "Could we split this function for easy to read?",
+        "Could we split this function to make it easier for read?"
+      ],
+      "answer": 0,
+      "why_vi": "Chỉ mục đích dùng to + V: to make it easier to read."
+    },
+    {
+      "id": "w03q3",
+      "prompt_vi": "Sao mình không dùng hằng số ở đây?",
+      "options": [
+        "Why don't we use a constant here?",
+        "Why we don't use a constant here?",
+        "Why don't we use constant at here?"
+      ],
+      "answer": 0,
+      "why_vi": "Câu hỏi why đặt don't trước we. Cần a trước constant."
+    },
+    {
+      "id": "w03q4",
+      "prompt_vi": "Góp ý nhỏ: chỗ này thiếu dấu chấm phẩy.",
+      "options": [
+        "nit: There's a missing semicolon here.",
+        "nit: Here is missing a semicolon.",
+        "nit: It has missing semicolon here."
+      ],
+      "answer": 0,
+      "why_vi": "Nói có hoặc thiếu thứ gì ở đâu thì dùng There's + danh từ + here."
+    },
+    {
+      "id": "w03q5",
+      "prompt_vi": "Có lẽ mình nên thêm test cho trường hợp này.",
+      "options": [
+        "Maybe we should add a test for this case.",
+        "Maybe we should adding a test for this case.",
+        "Maybe we should add test for this case."
+      ],
+      "answer": 0,
+      "why_vi": "Sau should là động từ nguyên mẫu. test đếm được nên cần a."
+    }
+  ],
+  "write_prompt_vi": "Viết 1 comment góp ý cho một đoạn code bạn từng review."
+}

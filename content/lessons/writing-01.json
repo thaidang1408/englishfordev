@@ -1,0 +1,112 @@
+{
+  "id": 1,
+  "track": "writing",
+  "slug": "tieu-de-va-mo-ta-pull-request",
+  "title": "Tiêu đề và mô tả pull request",
+  "free": false,
+  "goal_vi": "Viết tiêu đề PR bắt đầu bằng động từ và một câu mô tả PR làm gì.",
+  "pattern": {
+    "formula": "Title: Verb + object. / Description: This PR + V-s + object.",
+    "note_vi": "Tiêu đề bắt đầu bằng động từ nguyên mẫu (Add, Fix, Update). Trong mô tả, This PR là số ít nên động từ thêm s."
+  },
+  "examples": [
+    {
+      "en": "Fix crash when the cart is empty",
+      "vi": "Sửa lỗi crash khi giỏ hàng trống."
+    },
+    {
+      "en": "Add retry logic to the payment webhook",
+      "vi": "Thêm cơ chế thử lại cho webhook thanh toán."
+    },
+    {
+      "en": "This PR updates the user API to return the avatar URL.",
+      "vi": "PR này cập nhật API user để trả về URL avatar."
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "Fix bug login",
+      "right": "Fix login bug",
+      "why_vi": "Từ bổ nghĩa đứng trước danh từ chính: login bug."
+    },
+    {
+      "wrong": "This PR add a date filter.",
+      "right": "This PR adds a date filter.",
+      "why_vi": "This PR là số ít nên động từ thêm s."
+    },
+    {
+      "wrong": "Add validate for the email field",
+      "right": "Add validation for the email field",
+      "why_vi": "Sau add cần danh từ: validation, không phải động từ validate."
+    }
+  ],
+  "word_bank": [
+    "Add",
+    "Fix",
+    "Update",
+    "Remove",
+    "Refactor",
+    "Rename",
+    "This PR adds",
+    "This PR fixes",
+    "to make"
+  ],
+  "quiz": [
+    {
+      "id": "w01q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "Fix crash when the cart is empty",
+        "Fix crash when cart empty",
+        "Fix crash when the cart are empty"
+      ],
+      "answer": 0,
+      "why_vi": "Vế sau when cần động từ: the cart is empty. Chủ ngữ số ít đi với is."
+    },
+    {
+      "id": "w01q2",
+      "prompt_vi": "PR này thêm bộ lọc theo ngày cho danh sách đơn hàng.",
+      "options": [
+        "This PR adds a date filter to the order list.",
+        "This PR add a date filter to the order list.",
+        "This PR adds a filter date to the list order."
+      ],
+      "answer": 0,
+      "why_vi": "This PR số ít nên adds. Từ bổ nghĩa đứng trước: date filter, order list."
+    },
+    {
+      "id": "w01q3",
+      "prompt_vi": "Tiêu đề PR: Sửa lỗi timeout khi upload ảnh lớn.",
+      "options": [
+        "Fix timeout when uploading large images",
+        "Fix timeout when upload large images",
+        "Fix timeout when uploading images large"
+      ],
+      "answer": 0,
+      "why_vi": "Sau when không có chủ ngữ thì dùng V-ing. Tính từ large đứng trước danh từ."
+    },
+    {
+      "id": "w01q4",
+      "prompt_vi": "PR này đổi tên biến cho code dễ đọc hơn.",
+      "options": [
+        "This PR renames the variables to make the code easier to read.",
+        "This PR renames the variables for make the code easier to read.",
+        "This PR renames the variables to make the code more easy to read."
+      ],
+      "answer": 0,
+      "why_vi": "Chỉ mục đích dùng to + V. Tính từ ngắn so sánh hơn thêm er: easier."
+    },
+    {
+      "id": "w01q5",
+      "prompt_vi": "Tiêu đề PR: Thêm kiểm tra cho trường email.",
+      "options": [
+        "Add validation for the email field",
+        "Add validate for the email field",
+        "Add validation for the field email"
+      ],
+      "answer": 0,
+      "why_vi": "Sau add là danh từ validation. Từ bổ nghĩa đứng trước: email field."
+    }
+  ],
+  "write_prompt_vi": "Viết tiêu đề và một câu mô tả cho pull request gần nhất của bạn."
+}

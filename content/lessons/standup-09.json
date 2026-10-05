@@ -1,0 +1,106 @@
+{
+  "id": 9,
+  "track": "standup",
+  "slug": "khong-dong-y-mot-cach-lich-su",
+  "title": "Không đồng ý một cách lịch sự",
+  "free": false,
+  "goal_vi": "Nói ý kiến khác mà vẫn tôn trọng người kia, tập trung vào giải pháp.",
+  "pattern": {
+    "formula": "I see your point, but I think + clause.",
+    "note_vi": "Ghi nhận ý người kia trước, rồi mới nói ý mình. Nói về giải pháp, không nói về người."
+  },
+  "examples": [
+    {
+      "en": "I see your point, but I think this function is easier to read as it is.",
+      "vi": "Mình hiểu ý bạn, nhưng mình nghĩ hàm này để nguyên thì dễ đọc hơn."
+    },
+    {
+      "en": "I'm not sure we should deploy on Friday. What if something breaks over the weekend?",
+      "vi": "Mình không chắc là nên deploy vào thứ Sáu. Lỡ cuối tuần có lỗi thì sao?"
+    },
+    {
+      "en": "That makes sense, but could we try a simpler approach first?",
+      "vi": "Hợp lý, nhưng mình thử cách đơn giản hơn trước được không?"
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "I'm not agree.",
+      "right": "I don't agree.",
+      "why_vi": "agree là động từ, phủ định dùng don't, không dùng am not."
+    },
+    {
+      "wrong": "You are wrong.",
+      "right": "I see it a bit differently.",
+      "why_vi": "Nói thẳng người khác sai nghe gay gắt. Nói về cách nhìn của mình thì nhẹ hơn."
+    }
+  ],
+  "word_bank": [
+    "I see your point",
+    "I'm not sure",
+    "I don't agree",
+    "a bit differently",
+    "what if",
+    "could we",
+    "another option",
+    "trade-off"
+  ],
+  "quiz": [
+    {
+      "id": "s09q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "I don't agree with this approach.",
+        "I'm not agree with this approach.",
+        "I don't agree this approach."
+      ],
+      "answer": 0,
+      "why_vi": "Phủ định của agree là don't agree. agree with + ý kiến."
+    },
+    {
+      "id": "s09q2",
+      "prompt_vi": "Mình hiểu ý bạn, nhưng mình nghĩ nên giữ hàm này.",
+      "options": [
+        "I see your point, but I think we should keep this function.",
+        "I see your point, but I think we should to keep this function.",
+        "I see your mean, but I think we should keep this function."
+      ],
+      "answer": 0,
+      "why_vi": "Sau should là động từ nguyên mẫu không to. Hiểu ý bạn là see your point."
+    },
+    {
+      "id": "s09q3",
+      "prompt_vi": "Mình không chắc là nên deploy vào thứ Sáu.",
+      "options": [
+        "I'm not sure we should deploy on Friday.",
+        "I'm not sure we should deploy in Friday.",
+        "I don't sure we should deploy on Friday."
+      ],
+      "answer": 0,
+      "why_vi": "sure là tính từ nên dùng I'm not sure. Thứ trong tuần đi với on."
+    },
+    {
+      "id": "s09q4",
+      "prompt_vi": "Chọn cách không đồng ý lịch sự nhất.",
+      "options": [
+        "I see it a bit differently.",
+        "You are wrong.",
+        "Your idea is not good."
+      ],
+      "answer": 0,
+      "why_vi": "Nói về cách nhìn của mình, không phán xét người hay ý của người kia."
+    },
+    {
+      "id": "s09q5",
+      "prompt_vi": "Mình thử cách đơn giản hơn trước được không?",
+      "options": [
+        "Could we try a simpler approach first?",
+        "Could we try simpler approach first?",
+        "Could we trying a simpler approach first?"
+      ],
+      "answer": 0,
+      "why_vi": "approach đếm được nên cần a. Sau could là động từ nguyên mẫu."
+    }
+  ],
+  "write_prompt_vi": "Viết 1 câu không đồng ý với một đề xuất trong review hoặc trong họp, giữ giọng lịch sự."
+}

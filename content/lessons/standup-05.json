@@ -1,0 +1,111 @@
+{
+  "id": 5,
+  "track": "standup",
+  "slug": "uoc-luong-bao-lau-thi-xong",
+  "title": "Ước lượng bao lâu thì xong",
+  "free": false,
+  "goal_vi": "Đưa ra ước lượng thời gian hoặc mốc xong việc mà không hứa quá chắc.",
+  "pattern": {
+    "formula": "It should take about + time. / I should be done by + time.",
+    "note_vi": "should cho thấy đây là ước lượng, không phải lời hứa. by là hạn chót: muộn nhất là lúc đó."
+  },
+  "examples": [
+    {
+      "en": "The search feature should take about two days.",
+      "vi": "Tính năng tìm kiếm chắc mất khoảng hai ngày."
+    },
+    {
+      "en": "I should be done with the bug fix by tomorrow afternoon.",
+      "vi": "Chắc chiều mai mình sửa xong bug."
+    },
+    {
+      "en": "Reviewing this PR should take about an hour.",
+      "vi": "Review PR này chắc mất khoảng một tiếng."
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "I will finish until Friday.",
+      "right": "I'll finish by Friday.",
+      "why_vi": "Hạn chót dùng by. until là kéo dài liên tục đến lúc đó."
+    },
+    {
+      "wrong": "It will take about two days for finish.",
+      "right": "It'll take about two days to finish.",
+      "why_vi": "Nói để làm gì thì dùng to + động từ nguyên mẫu."
+    },
+    {
+      "wrong": "I need more two days.",
+      "right": "I need two more days.",
+      "why_vi": "Con số đứng trước more: two more days."
+    }
+  ],
+  "word_bank": [
+    "should take",
+    "about",
+    "roughly",
+    "by Friday",
+    "by end of day",
+    "a couple of days",
+    "rough estimate",
+    "get back to you"
+  ],
+  "quiz": [
+    {
+      "id": "s05q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "It should take about two days.",
+        "It should takes about two days.",
+        "It should be take about two days."
+      ],
+      "answer": 0,
+      "why_vi": "Sau should là động từ nguyên mẫu: take."
+    },
+    {
+      "id": "s05q2",
+      "prompt_vi": "Muộn nhất thứ Sáu là mình xong.",
+      "options": [
+        "I should be done by Friday.",
+        "I should be done until Friday.",
+        "I should be done in Friday."
+      ],
+      "answer": 0,
+      "why_vi": "Hạn chót dùng by. until là kéo dài đến lúc đó, in không đi với thứ trong tuần."
+    },
+    {
+      "id": "s05q3",
+      "prompt_vi": "Mình cần thêm hai ngày nữa.",
+      "options": [
+        "I need two more days.",
+        "I need more two days.",
+        "I need two days again."
+      ],
+      "answer": 0,
+      "why_vi": "two more days: con số đứng trước more. again là lặp lại, không phải thêm."
+    },
+    {
+      "id": "s05q4",
+      "prompt_vi": "Review PR này chắc mất khoảng một tiếng.",
+      "options": [
+        "Reviewing this PR should take about an hour.",
+        "Review this PR should take about an hour.",
+        "Reviewing this PR should spend about an hour."
+      ],
+      "answer": 0,
+      "why_vi": "Động từ làm chủ ngữ thì thêm -ing. Việc mất bao lâu dùng take, người bỏ ra thời gian mới dùng spend."
+    },
+    {
+      "id": "s05q5",
+      "prompt_vi": "Mình chưa chắc, để mình xem code rồi báo lại.",
+      "options": [
+        "I'm not sure yet. Let me check the code and get back to you.",
+        "I'm not sure yet. Let me check the code and feedback to you.",
+        "I'm not sure yet. Let me to check the code and get back to you."
+      ],
+      "answer": 0,
+      "why_vi": "Báo lại sau là get back to you. Sau let me là động từ nguyên mẫu không to."
+    }
+  ],
+  "write_prompt_vi": "Viết 1 câu ước lượng bao lâu thì bạn xong việc đang làm."
+}

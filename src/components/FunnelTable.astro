@@ -1,0 +1,66 @@
+---
+import { FUNNEL_STEPS, percent, type Funnel } from '../lib/events/funnel';
+
+/** Bảng phễu 7 và 30 ngày trong /admin (SPEC mục 10). */
+interface Props {
+  f7: Funnel;
+  f30: Funnel;
+}
+
+const { f7, f30 } = Astro.props;
+const RETENTION = [['d1', 'Quay lại ngày 1'], ['d7', 'Quay lại ngày 7'], ['d30', 'Quay lại ngày 30']] as const;
+---
+
+<p class="muted" style="margin-top:var(--s-3)">
+  Mỗi bước đếm số người khác nhau trong khoảng thời gian. Phần trăm là so với bước ngay trên.
+</p>
+<div class="orders-scroll" style="margin-top:var(--s-4)">
+  <table class="orders">
+    <thead>
+      <tr>
+        <th scope="col">Bước</th>
+        <th scope="col">7 ngày</th>
+        <th scope="col">30 ngày</th>
+      </tr>
+    </thead>
+    <tbody>
+      {FUNNEL_STEPS.map(([key, label], i) => {
+        const prev = FUNNEL_STEPS[i - 1]?.[0];
+        return (
+          <tr>
+            <th scope="row">{label}</th>
+            {[f7, f30].map((f) => (
+              <td class="num">
+                {f[key]}
+                {prev && <span class="muted" style="white-space:nowrap"> · {percent(f[key], f[prev])}</span>}
+              </td>
+            ))}
+          </tr>
+        );
+      })}
+      {RETENTION.map(([key, label]) => (
+        <tr>
+          <th scope="row">{label}</th>
+          {[f7, f30].map((f) => {
+            const c = f.retention[key];
+            return (
+              <td class="num">
+                {c && c.cohort > 0 ? (
+                  <>
+                    {percent(c.returned, c.cohort)}
+                    <span class="muted" style="white-space:nowrap"> · {c.returned} trên {c.cohort}</span>
+                  </>
+                ) : (
+                  '–'
+                )}
+              </td>
+            );
+          })}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+<p class="muted" style="margin-top:var(--s-3);font-size:var(--fs-sm)">
+  Quay lại ngày N: người đăng ký có hoạt động đúng ngày thứ N sau ngày đăng ký, tính trong số người có ngày thứ N rơi vào khoảng thời gian.
+</p>

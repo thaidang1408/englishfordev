@@ -1,0 +1,106 @@
+{
+  "id": 5,
+  "track": "interview",
+  "slug": "diem-manh-va-diem-can-cai-thien",
+  "title": "Điểm mạnh và điểm cần cải thiện",
+  "free": false,
+  "question_en": "What would you say are your main strengths and weaknesses?",
+  "goal_vi": "Nói một điểm mạnh có ví dụ, và một điểm yếu thật kèm việc bạn đang làm để cải thiện.",
+  "pattern": {
+    "formula": "One of my strengths is + noun / V-ing. Something I'm working on is + noun / V-ing, so I + V.",
+    "note_vi": "One of my + danh từ số nhiều. Điểm yếu nên là điểm thật, và luôn nói bạn đang làm gì với nó."
+  },
+  "examples": [
+    {
+      "en": "One of my strengths is debugging. I'm patient with logs and I don't stop until I find the real cause.",
+      "vi": "Một điểm mạnh của mình là debug. Mình kiên nhẫn đọc log và không dừng lại cho tới khi tìm ra nguyên nhân thật."
+    },
+    {
+      "en": "I'm good at explaining technical problems to non-technical people. Something I'm working on is speaking up in English meetings, so I practice a little every day.",
+      "vi": "Mình giỏi giải thích vấn đề kỹ thuật cho người không làm kỹ thuật. Điều mình đang cải thiện là chủ động nói trong các buổi họp tiếng Anh, nên ngày nào mình cũng luyện một chút."
+    },
+    {
+      "en": "A weakness of mine is estimating. I used to underestimate tasks, so now I break them into smaller pieces before I give a number.",
+      "vi": "Một điểm yếu của mình là ước lượng. Trước đây mình hay ước lượng thiếu, nên giờ mình chia task nhỏ ra trước khi đưa con số."
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "One of my strength is teamwork.",
+      "right": "One of my strengths is teamwork.",
+      "why_vi": "One of my + danh từ số nhiều: strengths."
+    },
+    {
+      "wrong": "I'm good at communicate with the team.",
+      "right": "I'm good at communicating with the team.",
+      "why_vi": "Sau at, động từ phải ở dạng V-ing."
+    }
+  ],
+  "word_bank": [
+    "one of my strengths is",
+    "I'm good at",
+    "a weakness of mine is",
+    "I'm working on",
+    "I used to",
+    "so now I",
+    "improve"
+  ],
+  "quiz": [
+    {
+      "id": "i05q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "One of my strengths is writing clean code.",
+        "One of my strength is writing clean code.",
+        "One of my strengths are writing clean code."
+      ],
+      "answer": 0,
+      "why_vi": "Sau one of my là số nhiều: strengths. Chủ ngữ chính là one nên động từ là is."
+    },
+    {
+      "id": "i05q2",
+      "prompt_vi": "Mình giỏi tìm nguyên nhân gốc của bug.",
+      "options": [
+        "I'm good at finding the root cause of bugs.",
+        "I'm good at find the root cause of bugs.",
+        "I'm good in finding the root cause of bugs."
+      ],
+      "answer": 0,
+      "why_vi": "good at + V-ing. Không dùng good in cho kỹ năng."
+    },
+    {
+      "id": "i05q3",
+      "prompt_vi": "Điều mình cần cải thiện là nói tiếng Anh trong họp.",
+      "options": [
+        "Something I need to improve is speaking English in meetings.",
+        "Something I need to improve is speak English in meetings.",
+        "Something I need to improve is speaking English on meetings."
+      ],
+      "answer": 0,
+      "why_vi": "Sau is dùng V-ing để làm danh từ. Trong buổi họp là in meetings."
+    },
+    {
+      "id": "i05q4",
+      "prompt_vi": "Trước đây mình hay ước lượng thiếu thời gian.",
+      "options": [
+        "I used to underestimate how long tasks take.",
+        "I used to underestimating how long tasks take.",
+        "I was used to underestimate how long tasks take."
+      ],
+      "answer": 0,
+      "why_vi": "Thói quen cũ: used to + động từ nguyên mẫu, không có was."
+    },
+    {
+      "id": "i05q5",
+      "prompt_vi": "Giờ mình chia task nhỏ ra trước khi ước lượng.",
+      "options": [
+        "Now I break tasks into smaller pieces before I estimate.",
+        "Now I break tasks to smaller pieces before I estimate.",
+        "Now I break tasks into smaller pieces before I will estimate."
+      ],
+      "answer": 0,
+      "why_vi": "break something into: chia thành. Sau before không dùng will."
+    }
+  ],
+  "write_prompt_vi": "Viết 2 câu: một điểm mạnh của bạn, và một điểm bạn đang cải thiện kèm cách bạn làm."
+}

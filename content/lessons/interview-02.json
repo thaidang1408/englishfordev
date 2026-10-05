@@ -1,0 +1,111 @@
+{
+  "id": 2,
+  "track": "interview",
+  "slug": "ke-ve-du-an-gan-nhat",
+  "title": "Kể về dự án gần nhất",
+  "free": false,
+  "question_en": "Can you tell me about the most recent project you worked on?",
+  "goal_vi": "Nói dự án làm ra sản phẩm gì, cho ai dùng, và dùng công nghệ gì.",
+  "pattern": {
+    "formula": "My most recent project was + a/an + product + that + V(s) + ... We built it with + tech.",
+    "note_vi": "Nói sản phẩm làm gì trước, công nghệ sau. that nối phần mô tả. Dùng công nghệ gì thì dùng with."
+  },
+  "examples": [
+    {
+      "en": "My most recent project was a booking app that lets clinics manage appointments. We built it with React Native and Firebase.",
+      "vi": "Dự án gần nhất của mình là một app đặt lịch giúp phòng khám quản lý lịch hẹn. Bọn mình làm bằng React Native và Firebase."
+    },
+    {
+      "en": "Most recently I worked on an internal tool that helps the sales team track orders. It's a Laravel app with a MySQL database.",
+      "vi": "Gần đây nhất mình làm một tool nội bộ giúp team sales theo dõi đơn hàng. Đó là một app Laravel dùng database MySQL."
+    },
+    {
+      "en": "My most recent project was a data pipeline that collects logs from about 200 servers. We used Kafka and Spark.",
+      "vi": "Dự án gần nhất của mình là một data pipeline thu thập log từ khoảng 200 server. Bọn mình dùng Kafka và Spark."
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "It is an app help users book tickets.",
+      "right": "It's an app that helps users book tickets.",
+      "why_vi": "Cần that trước phần mô tả, và động từ chia theo app: helps."
+    },
+    {
+      "wrong": "The app lets users to pay online.",
+      "right": "The app lets users pay online.",
+      "why_vi": "lets + người + động từ nguyên mẫu, không có to."
+    },
+    {
+      "wrong": "We built it by React.",
+      "right": "We built it with React.",
+      "why_vi": "Nói làm bằng công nghệ gì thì dùng with, không dùng by."
+    }
+  ],
+  "word_bank": [
+    "most recent project",
+    "that lets ... + V",
+    "that helps ... + V",
+    "built it with",
+    "users",
+    "internal tool",
+    "about"
+  ],
+  "quiz": [
+    {
+      "id": "i02q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "The app lets drivers see their earnings.",
+        "The app lets drivers to see their earnings.",
+        "The app makes drivers can see their earnings."
+      ],
+      "answer": 0,
+      "why_vi": "lets + người + động từ nguyên mẫu. Không ghép make với can."
+    },
+    {
+      "id": "i02q2",
+      "prompt_vi": "Dự án gần nhất của mình là một trang thương mại điện tử.",
+      "options": [
+        "My most recent project was an e-commerce website.",
+        "My nearest project was an e-commerce website.",
+        "My most recent project was a e-commerce website."
+      ],
+      "answer": 0,
+      "why_vi": "Gần nhất về thời gian là most recent, nearest là gần về khoảng cách. Trước âm e dùng an."
+    },
+    {
+      "id": "i02q3",
+      "prompt_vi": "Bọn mình làm nó bằng Vue và Go.",
+      "options": [
+        "We built it with Vue and Go.",
+        "We built it by Vue and Go.",
+        "We were built it with Vue and Go."
+      ],
+      "answer": 0,
+      "why_vi": "built it with + công nghệ. Không thêm were trước động từ quá khứ."
+    },
+    {
+      "id": "i02q4",
+      "prompt_vi": "Đó là một tool nội bộ giúp team HR quản lý đơn nghỉ phép.",
+      "options": [
+        "It's an internal tool that helps the HR team manage leave requests.",
+        "It's an internal tool help the HR team manage leave requests.",
+        "It's a tool internal that helps the HR team manage leave requests."
+      ],
+      "answer": 0,
+      "why_vi": "Cần that helps để nối phần mô tả. Từ bổ nghĩa đứng trước danh từ: internal tool."
+    },
+    {
+      "id": "i02q5",
+      "prompt_vi": "App có khoảng 5.000 người dùng mỗi ngày.",
+      "options": [
+        "The app has about 5,000 daily users.",
+        "The app has about 5,000 users every days.",
+        "The app is about 5,000 users per day."
+      ],
+      "answer": 0,
+      "why_vi": "every đi với danh từ số ít, gọn hơn là daily users. Có người dùng thì dùng has, không dùng is."
+    }
+  ],
+  "write_prompt_vi": "Viết 2 đến 3 câu về dự án gần nhất của bạn: sản phẩm làm gì, dùng công nghệ gì."
+}

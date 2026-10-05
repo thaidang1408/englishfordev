@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { accessFrom } from '../../src/lib/auth/access';
 import { safeNext } from '../../src/lib/auth/redirect';
 import { lessons } from '../../src/lib/content/lessons';
+import { lessonKey } from '../../src/lib/content/schema';
 import { parseAccountForm } from '../../src/lib/account/form';
 import { lessonOfTheDay } from '../../src/lib/lesson/today';
 import { buildHeatmap } from '../../src/lib/stats/heatmap';
@@ -33,12 +34,13 @@ describe('bài của ngày', () => {
   });
 
   it('báo hết bài khi đã xong cả track', () => {
-    const all = new Set(lessons.filter((l) => l.track === 'standup').map((l) => `standup-0${l.id}`));
+    const all = new Set(lessons.filter((l) => l.track === 'standup').map(lessonKey));
     expect(lessonOfTheDay(lessons, 'standup', all, MONDAY).kind).toBe('track_done');
   });
 
   it('báo track chưa có bài khi chưa có file nội dung', () => {
-    expect(lessonOfTheDay(lessons, 'interview', new Set(), MONDAY).kind).toBe('empty');
+    const noInterview = lessons.filter((l) => l.track !== 'interview');
+    expect(lessonOfTheDay(noInterview, 'interview', new Set(), MONDAY).kind).toBe('empty');
   });
 });
 

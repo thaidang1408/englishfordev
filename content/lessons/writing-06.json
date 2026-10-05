@@ -1,0 +1,106 @@
+{
+  "id": 6,
+  "track": "writing",
+  "slug": "hoi-tren-slack-ngan-ma-du-y",
+  "title": "Hỏi trên Slack ngắn mà đủ ý",
+  "free": false,
+  "goal_vi": "Hỏi đồng nghiệp trên Slack bằng một câu Do you know lịch sự và đúng thứ tự từ.",
+  "pattern": {
+    "formula": "Quick question: do you know + where/why/when + subject + verb?",
+    "note_vi": "Sau Do you know, phần câu hỏi giữ thứ tự chủ ngữ rồi động từ, không đảo và không thêm do/does."
+  },
+  "examples": [
+    {
+      "en": "Quick question: does anyone know where the staging credentials are?",
+      "vi": "Hỏi nhanh: có ai biết thông tin đăng nhập staging để ở đâu không?"
+    },
+    {
+      "en": "I'm trying to run the tests locally. Do you know why the DB connection keeps failing?",
+      "vi": "Mình đang chạy test ở máy. Bạn có biết sao kết nối DB cứ bị lỗi không?"
+    },
+    {
+      "en": "Do you know when the next release is scheduled?",
+      "vi": "Bạn có biết bản release tới được lên lịch khi nào không?"
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "Do you know where is the config file?",
+      "right": "Do you know where the config file is?",
+      "why_vi": "Sau Do you know, chủ ngữ đứng trước động từ."
+    },
+    {
+      "wrong": "Do you know why does the build fail?",
+      "right": "Do you know why the build fails?",
+      "why_vi": "Phần câu hỏi nằm bên trong không dùng does."
+    }
+  ],
+  "word_bank": [
+    "Quick question",
+    "Do you know",
+    "Does anyone know",
+    "where",
+    "why",
+    "when",
+    "who owns",
+    "keeps failing"
+  ],
+  "quiz": [
+    {
+      "id": "w06q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "Do you know where the API docs are?",
+        "Do you know where are the API docs?",
+        "Do you know where is API docs?"
+      ],
+      "answer": 0,
+      "why_vi": "Sau Do you know, chủ ngữ the API docs đứng trước are."
+    },
+    {
+      "id": "w06q2",
+      "prompt_vi": "Có ai biết vì sao CI đang bị fail không?",
+      "options": [
+        "Does anyone know why CI is failing?",
+        "Does anyone know why is CI failing?",
+        "Do anyone know why CI is failing?"
+      ],
+      "answer": 0,
+      "why_vi": "anyone đi với does. Phần sau why giữ thứ tự CI is failing."
+    },
+    {
+      "id": "w06q3",
+      "prompt_vi": "Bạn có biết ai phụ trách service này không?",
+      "options": [
+        "Do you know who owns this service?",
+        "Do you know who is own this service?",
+        "Do you know who own this service?"
+      ],
+      "answer": 0,
+      "why_vi": "who làm chủ ngữ số ít nên owns, không thêm is."
+    },
+    {
+      "id": "w06q4",
+      "prompt_vi": "Bạn có biết khi nào bản mới được deploy không?",
+      "options": [
+        "Do you know when the new version will be deployed?",
+        "Do you know when will the new version be deployed?",
+        "Do you know when the new version will be deploy?"
+      ],
+      "answer": 0,
+      "why_vi": "Không đảo will lên trước chủ ngữ. Bị động dùng be + V3: deployed."
+    },
+    {
+      "id": "w06q5",
+      "prompt_vi": "Hỏi nhanh: bạn có biết lấy API key ở đâu không?",
+      "options": [
+        "Quick question: do you know where I can get the API key?",
+        "Quick question: do you know where can I get the API key?",
+        "Quick question: do you know where I can get API key?"
+      ],
+      "answer": 0,
+      "why_vi": "Giữ thứ tự I can. Cần the trước API key."
+    }
+  ],
+  "write_prompt_vi": "Viết 1 tin nhắn Slack hỏi đồng nghiệp một điều bạn đang cần biết."
+}

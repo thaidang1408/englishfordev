@@ -101,14 +101,16 @@ const SECRET = 'cron-secret-for-tests-0123';
 function fakeTickRepo(reminders: ReminderCandidate[], reports: ReportCandidate[] = []) {
   const claimed = { reminder: new Set<string>(), report: new Set<string>() };
   let pings = 0;
+  const trialWindows: [Date, Date][] = [];
   const repo: TickRepo = {
+    logTrialEnds: async (from, to) => void trialWindows.push([from, to]),
     ping: async () => void pings++,
     reminderCandidates: async () => reminders,
     claimReminder: async (id, day) => (claimed.reminder.has(`${id}:${day}`) ? false : (claimed.reminder.add(`${id}:${day}`), true)),
     reportCandidates: async () => reports,
     claimReport: async (id, day) => (claimed.report.has(`${id}:${day}`) ? false : (claimed.report.add(`${id}:${day}`), true)),
   };
-  return { repo, pings: () => pings };
+  return { repo, pings: () => pings, trialWindows };
 }
 
 const tick = (opts: { repo: TickRepo; bot?: Bot | null; now: Date; auth?: string; query?: string; method?: string }) =>
@@ -145,6 +147,17 @@ describe('POST /api/cron/tick', () => {
     expect((await tick({ repo, now: MONDAY_0820, auth: '' })).status).toBe(401);
     expect((await tick({ repo, now: MONDAY_0820, query: '?task=xoa' })).status).toBe(400);
     expect(pings()).toBe(0);
+  });
+
+  it('ghi trial_end cho khung 15 phút vừa qua, khung liền nhau không chồng lên nhau', async () => {
+    const { repo, trialWindows } = fakeTickRepo([]);
+    await tick({ repo, now: vn('2026-10-05T08:15:07') });
+    await tick({ repo, now: vn('2026-10-05T08:30:02') });
+    await tick({ repo, now: MONDAY_0820, query: '?task=report' });
+    expect(trialWindows).toEqual([
+      [vn('2026-10-05T08:00:00'), vn('2026-10-05T08:15:00')],
+      [vn('2026-10-05T08:15:00'), vn('2026-10-05T08:30:00')],
+    ]);
   });
 
   it('mỗi lần chạy có một truy vấn giữ Supabase không tạm dừng', async () => {

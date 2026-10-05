@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
 import { CATEGORY_NAMES, SENTENCE_MAX, SENTENCE_MIN } from '../../lib/ai/schema';
+import { track } from '../../lib/events/client';
 import { countByCategory, type InterviewQuestion } from '../../lib/interview/session';
 import CorrectionResult from './CorrectionResult';
 import { isSubmitKey, requestCorrection, type CorrectData } from './api';
@@ -56,6 +57,7 @@ export default function MockInterview({ questions }: Props) {
   function goNext() {
     if (last) {
       setFinished(true);
+      track('mock_interview_complete');
     } else {
       setIndex(index + 1);
       setText('');

@@ -30,7 +30,11 @@ export type TickRepo = {
   /** Premium hoặc dùng thử, đã liên kết, có câu sửa trong 14 ngày (để so tuần trước), chưa báo cáo ngày `day`. */
   reportCandidates(now: Date, day: string): Promise<ReportCandidate[]>;
   claimReport(userId: string, day: string): Promise<boolean>;
+  /** Ghi sự kiện trial_end cho tài khoản có trial_until trong [from, to) (SPEC mục 10). */
+  logTrialEnds(from: Date, to: Date): Promise<void>;
 };
+
+const TICK_MS = 15 * 60_000;
 
 type Input = { request: Request; secret: string | null; bot: Bot | null; repo: TickRepo | null; lessons: readonly Lesson[]; now: Date; site: string };
 
@@ -55,6 +59,12 @@ export async function handleTick({ request, secret, bot, repo, lessons, now, sit
 
   // 6. Việc chính
   await repo.ping();
+  // Mỗi tick lo đúng một khung 15 phút đã qua, nên mỗi lần hết dùng thử được ghi một lần.
+  // ponytail: tick nào lỗi thì khung đó mất sự kiện; chấp nhận được cho số đếm phễu.
+  if (task === null) {
+    const to = new Date(Math.floor(now.getTime() / TICK_MS) * TICK_MS);
+    await repo.logTrialEnds(new Date(to.getTime() - TICK_MS), to);
+  }
   if (!bot) return ok({ reminders: 0, reports: 0, bot: false });
 
   let reminders = 0;

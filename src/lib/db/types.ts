@@ -1,3 +1,5 @@
+import type { EventName } from '../events/schema';
+
 /**
  * Kiểu bảng theo supabase/migrations, dạng supabase-js cần.
  * Sửa migration thì sửa cả file này (skill db-change).
@@ -83,6 +85,15 @@ export type OrderRow = {
   bank_ref: string | null;
   paid_by: string | null;
 };
+export type EventRow = {
+  id: number;
+  user_id: string | null;
+  anon_id: string | null;
+  name: EventName;
+  props: Json | null;
+  created_at: string;
+};
+
 type OrderInsert = Pick<OrderRow, 'user_id' | 'code' | 'plan' | 'amount'>;
 type OrderUpdate = Partial<Pick<OrderRow, 'checkout_url' | 'qr_code' | 'status'>>;
 
@@ -95,6 +106,7 @@ export type Database = {
       review_items: Table<ReviewItemRow, ReviewItemInsert, Partial<Pick<ReviewItemRow, 'box' | 'due_at'>>>;
       corrections: Table<CorrectionRow, never, never>;
       orders: Table<OrderRow, OrderInsert, OrderUpdate>;
+      events: Table<EventRow, Omit<EventRow, 'id' | 'created_at'>, never>;
     };
     Views: Record<string, never>;
     Functions: {
@@ -120,6 +132,7 @@ export type Database = {
         Returns: Json;
       };
       refund_order: { Args: { p_order_id: string }; Returns: Json };
+      admin_funnel: { Args: { p_days: number }; Returns: Json };
     };
     Enums: Record<string, never>;
     CompositeTypes: Record<string, never>;

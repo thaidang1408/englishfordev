@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import lesson from '../../content/lessons/standup-01.json' with { type: 'json' };
 
-const PAGES = ['/', '/bang-gia', '/bug-hom-nay', `/hoc/${lesson.slug}`, `/mau-cau/${lesson.slug}`];
+const PAGES = ['/', '/bang-gia', '/bug-hom-nay', '/dieu-khoan', '/bao-mat', `/hoc/${lesson.slug}`, `/mau-cau/${lesson.slug}`];
 
 for (const path of PAGES) {
   test(`${path} không cuộn ngang và có đúng một h1`, async ({ page }) => {
@@ -58,4 +58,38 @@ test('đường dẫn không tồn tại trả về 404 có nội dung riêng', 
   const res = await page.goto('/khong-co-trang-nay');
   expect(res?.status()).toBe(404);
   await expect(page.locator('h1')).toHaveText('Không có trang ở đường dẫn này');
+});
+
+test('sitemap có trang công khai và 30 trang mẫu câu, không có bài Premium', async ({ request }) => {
+  const xml = await (await request.get('/sitemap.xml')).text();
+  expect(xml).toContain('/dieu-khoan</loc>');
+  expect(xml).toContain(`/hoc/${lesson.slug}</loc>`);
+  expect(xml.match(/\/mau-cau\//g)).toHaveLength(30);
+  expect(xml).not.toContain('/hoc/gioi-thieu-ban-than');
+  expect(await (await request.get('/robots.txt')).text()).toContain('/sitemap.xml');
+});
+
+test('trang có ảnh OG và favicon', async ({ page, request }) => {
+  await page.goto('/');
+  const og = await page.locator('meta[property="og:image"]').getAttribute('content');
+  expect(og).toMatch(/\/og\.png$/);
+  for (const path of ['/og.png', '/favicon.svg', '/favicon.ico', '/apple-touch-icon.png']) {
+    expect((await request.get(path)).status()).toBe(200);
+  }
+});
+
+test('trang ghi sự kiện page_view khi mở', async ({ page }) => {
+  const sent = page.waitForRequest((r) => r.url().endsWith('/api/events') && r.method() === 'POST');
+  await page.goto(`/hoc/${lesson.slug}`);
+  const bodies = [(await sent).postDataJSON() as { name: string; anon_id: string }];
+  expect(bodies[0]?.name).toBe('page_view');
+  expect(bodies[0]?.anon_id).toMatch(/^[A-Za-z0-9-]{8,64}$/);
+});
+
+test('POST /api/events từ trang khác bị chặn, tên chỉ server được ghi bị từ chối', async ({ request, baseURL }) => {
+  const anon_id = '3f2a9c1e-0b7d-4e55-9a61-2c8d7f0e4b12';
+  const evil = await request.post('/api/events', { headers: { Origin: 'https://evil.test' }, data: { name: 'page_view', anon_id } });
+  expect(evil.status()).toBe(403);
+  const fake = await request.post('/api/events', { headers: { Origin: baseURL! }, data: { name: 'order_paid', anon_id } });
+  expect(fake.status()).toBe(400);
 });

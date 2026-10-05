@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { QuizItem } from '../lib/content/schema';
+import { track } from '../lib/events/client';
 import { shuffledIndexes } from '../lib/lesson/shuffle';
 import { fetchAccountResult, saveAccountResult } from '../lib/progress/client-sync';
 import { completeLesson, loadProgress, recordAnswer, resetLesson, saveProgress } from '../lib/lesson/progress';
@@ -113,6 +114,7 @@ export default function Quiz({ lessonKey, items, next }: Props) {
     }
     setSavedScore(null);
     setPhase('done');
+    track('lesson_complete', { lesson_key: lessonKey });
     if (mode === 'guest') saveProgress(completeLesson(loadProgress(), lessonKey, new Date()));
     else persist(answers);
   }, [picked, index, items.length, mode, lessonKey, persist, answers]);

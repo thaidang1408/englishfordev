@@ -49,10 +49,17 @@ const path = Astro.url.pathname;
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content="vi_VN" />
+    <meta property="og:site_name" content="English Personal Coach" />
+    <meta property="og:image" content={new URL('/og.png', Astro.site)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Khung sửa câu: I fixed bug login yesterday thành Yesterday I fixed the login bug." />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#fbfcfd" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#10151d" media="(prefers-color-scheme: dark)" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <!-- Đặt giao diện trước khi vẽ để không nháy màu. -->
     <script is:inline>
       try {
@@ -86,10 +93,14 @@ const path = Astro.url.pathname;
     </main>
     <footer class="site-foot">
       <div class="wrap">
-        <p>English Personal Coach, do một lập trình viên tự làm. <a href="/bug-hom-nay">Bug của ngày</a> · <a href="/bang-gia">Bảng giá</a></p>
+        <p>English Personal Coach, do một lập trình viên tự làm. <a href="/bug-hom-nay">Bug của ngày</a> · <a href="/bang-gia">Bảng giá</a> · <a href="/dieu-khoan">Điều khoản</a> · <a href="/bao-mat">Bảo mật</a></p>
       </div>
     </footer>
     {app && <ProgressSync />}
+    <script>
+      import { trackPage } from '../lib/events/client';
+      trackPage();
+    </script>
     <script is:inline>
       (() => {
         const root = document.documentElement;

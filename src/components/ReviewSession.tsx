@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { z } from 'zod';
+import { track } from '../lib/events/client';
 import { shuffledIndexes } from '../lib/lesson/shuffle';
 import type { OwnErrorPayload } from '../lib/review/own-error';
 import OwnErrorCard from './review/OwnErrorCard';
@@ -108,6 +109,7 @@ export default function ReviewSession({ items }: Props) {
       return;
     }
     setPhase('done');
+    track('review_complete');
   }, [item, revealed, picked, busy, index, items.length]);
 
   useQuizKeys(phase === 'question', boxRef, choose, goNext);

@@ -1,0 +1,111 @@
+{
+  "id": 6,
+  "track": "standup",
+  "slug": "hoi-lai-khi-chua-hieu",
+  "title": "Hỏi lại khi chưa hiểu",
+  "free": false,
+  "goal_vi": "Lịch sự nhờ người khác nói lại hoặc xác nhận lại ý trước khi làm sai.",
+  "pattern": {
+    "formula": "Sorry, could you say that again? / Just to confirm, you mean + clause?",
+    "note_vi": "Nghe sót thì xin nói lại. Nghe được nhưng chưa chắc thì nhắc lại ý bằng lời của bạn để xác nhận."
+  },
+  "examples": [
+    {
+      "en": "Sorry, could you say that again? I missed the last part.",
+      "vi": "Xin lỗi, bạn nói lại được không? Mình nghe sót đoạn cuối."
+    },
+    {
+      "en": "Just to confirm, you mean the bug only happens on Safari?",
+      "vi": "Mình hỏi lại cho chắc, ý bạn là bug chỉ xảy ra trên Safari?"
+    },
+    {
+      "en": "What do you mean by \"make it more flexible\"?",
+      "vi": "Ý bạn \"làm cho linh hoạt hơn\" là sao?"
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "Can you repeat again?",
+      "right": "Could you repeat that?",
+      "why_vi": "repeat đã có nghĩa là nói lại, không thêm again. Cần có that."
+    },
+    {
+      "wrong": "What is your mean?",
+      "right": "What do you mean?",
+      "why_vi": "mean là động từ, không phải danh từ."
+    },
+    {
+      "wrong": "Sorry, I don't understand what you say.",
+      "right": "Sorry, I didn't catch what you said.",
+      "why_vi": "Người kia nói xong rồi nên dùng quá khứ. didn't catch là nghe không kịp."
+    }
+  ],
+  "word_bank": [
+    "could you repeat that",
+    "say that again",
+    "didn't catch",
+    "just to confirm",
+    "you mean",
+    "what do you mean by",
+    "clarify",
+    "the last part"
+  ],
+  "quiz": [
+    {
+      "id": "s06q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "Could you repeat that?",
+        "Could you repeat again?",
+        "Could you to repeat that?"
+      ],
+      "answer": 0,
+      "why_vi": "repeat không cần again. Sau could là động từ nguyên mẫu không to."
+    },
+    {
+      "id": "s06q2",
+      "prompt_vi": "Ý bạn là gì?",
+      "options": [
+        "What do you mean?",
+        "What is your mean?",
+        "What do you meaning?"
+      ],
+      "answer": 0,
+      "why_vi": "mean là động từ: do you mean."
+    },
+    {
+      "id": "s06q3",
+      "prompt_vi": "Mình hỏi lại cho chắc, ý bạn là bug chỉ có trên iOS?",
+      "options": [
+        "Just to confirm, you mean the bug only happens on iOS?",
+        "Just to confirm, you mean the bug only happen on iOS?",
+        "Just to confirm, your mean is the bug only happens in iOS?"
+      ],
+      "answer": 0,
+      "why_vi": "the bug là số ít nên happens. Nền tảng dùng on iOS."
+    },
+    {
+      "id": "s06q4",
+      "prompt_vi": "Xin lỗi, mình nghe không kịp.",
+      "options": [
+        "Sorry, I didn't catch that.",
+        "Sorry, I don't catch that.",
+        "Sorry, I not catch that."
+      ],
+      "answer": 0,
+      "why_vi": "Người kia đã nói xong nên dùng quá khứ: didn't catch. Phủ định cần trợ động từ did."
+    },
+    {
+      "id": "s06q5",
+      "prompt_vi": "Bạn nói chậm lại một chút được không?",
+      "options": [
+        "Could you speak a bit more slowly?",
+        "Could you speaking a bit more slowly?",
+        "Could you speak more slow a bit?"
+      ],
+      "answer": 0,
+      "why_vi": "Sau could là động từ nguyên mẫu. a bit đứng trước more slowly."
+    }
+  ],
+  "write_prompt_vi": "Viết 1 câu hỏi lại để xác nhận một yêu cầu bạn chưa chắc."
+}

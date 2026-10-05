@@ -1,0 +1,106 @@
+{
+  "id": 9,
+  "track": "interview",
+  "slug": "hoi-lai-nha-tuyen-dung",
+  "title": "Hỏi lại nhà tuyển dụng",
+  "free": false,
+  "question_en": "Do you have any questions for us?",
+  "goal_vi": "Đặt một hai câu hỏi ngắn, đúng trật tự, về team và cách làm việc.",
+  "pattern": {
+    "formula": "How / What + does + noun + V? / How / What + do + you + V?",
+    "note_vi": "Câu hỏi cần do hoặc does đứng trước chủ ngữ. Có does rồi thì động từ không thêm s."
+  },
+  "examples": [
+    {
+      "en": "Yes, thanks. How does the team handle code reviews?",
+      "vi": "Có, cảm ơn anh chị. Team ở đây review code như thế nào?"
+    },
+    {
+      "en": "What does a typical sprint look like here?",
+      "vi": "Một sprint bình thường ở đây diễn ra thế nào?"
+    },
+    {
+      "en": "What would you expect from me in the first three months?",
+      "vi": "Trong ba tháng đầu, anh chị mong mình làm được gì?"
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "How the team handles code reviews?",
+      "right": "How does the team handle code reviews?",
+      "why_vi": "Câu hỏi cần does trước chủ ngữ, và động từ về nguyên mẫu."
+    },
+    {
+      "wrong": "What does a typical day looks like?",
+      "right": "What does a typical day look like?",
+      "why_vi": "Đã có does thì động từ không thêm s."
+    }
+  ],
+  "word_bank": [
+    "How does the team",
+    "What does ... look like",
+    "What would you expect",
+    "onboarding",
+    "tech stack",
+    "next steps",
+    "the biggest challenge"
+  ],
+  "quiz": [
+    {
+      "id": "i09q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "How does the team deploy to production?",
+        "How the team deploys to production?",
+        "How does the team deploys to production?"
+      ],
+      "answer": 0,
+      "why_vi": "Câu hỏi cần does trước chủ ngữ, và động từ sau đó không thêm s."
+    },
+    {
+      "id": "i09q2",
+      "prompt_vi": "Một ngày làm việc bình thường ở đây thế nào?",
+      "options": [
+        "What does a typical day look like here?",
+        "How does a typical day look like here?",
+        "What a typical day looks like here?"
+      ],
+      "answer": 0,
+      "why_vi": "look like đi với what, không đi với how. Câu hỏi cần does."
+    },
+    {
+      "id": "i09q3",
+      "prompt_vi": "Team hiện có bao nhiêu người?",
+      "options": [
+        "How many people are on the team right now?",
+        "How many people the team has right now?",
+        "How much people are on the team right now?"
+      ],
+      "answer": 0,
+      "why_vi": "people đếm được nên dùng how many. Câu hỏi phải đảo động từ lên trước chủ ngữ."
+    },
+    {
+      "id": "i09q4",
+      "prompt_vi": "Công ty có hỗ trợ học tiếng Anh không?",
+      "options": [
+        "Do you offer any support for learning English?",
+        "Does you offer any support for learning English?",
+        "Do you offer any support for learn English?"
+      ],
+      "answer": 0,
+      "why_vi": "you đi với do, không đi với does. Sau for dùng V-ing."
+    },
+    {
+      "id": "i09q5",
+      "prompt_vi": "Các bước tiếp theo trong quy trình là gì?",
+      "options": [
+        "What are the next steps in the process?",
+        "What is next step of the process?",
+        "What the next steps are in the process?"
+      ],
+      "answer": 0,
+      "why_vi": "Cần the trước next steps. Câu hỏi đưa are lên trước chủ ngữ."
+    }
+  ],
+  "write_prompt_vi": "Viết 2 câu hỏi bạn muốn hỏi nhà tuyển dụng ở cuối buổi phỏng vấn."
+}

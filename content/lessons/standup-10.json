@@ -1,0 +1,111 @@
+{
+  "id": 10,
+  "track": "standup",
+  "slug": "tom-tat-mot-buoi-hop",
+  "title": "Tóm tắt một buổi họp",
+  "free": false,
+  "goal_vi": "Chốt lại cuối buổi họp: đã thống nhất gì, ai làm gì, xong khi nào.",
+  "pattern": {
+    "formula": "To recap, we agreed to + V. / Someone + will + V + by + time.",
+    "note_vi": "Mỗi việc cần một người phụ trách và một mốc. by là hạn chót."
+  },
+  "examples": [
+    {
+      "en": "To recap, we agreed to ship the search feature without filters first.",
+      "vi": "Tóm lại, mình thống nhất ra tính năng tìm kiếm trước, chưa có bộ lọc."
+    },
+    {
+      "en": "Minh will look into the timeout bug and update us by Wednesday.",
+      "vi": "Minh sẽ tìm hiểu bug timeout và báo lại cho cả nhóm trước thứ Tư."
+    },
+    {
+      "en": "We'll deploy to production on Friday if QA signs off.",
+      "vi": "Nếu QA duyệt thì thứ Sáu mình deploy lên production."
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "We agreed ship the feature first.",
+      "right": "We agreed to ship the feature first.",
+      "why_vi": "agree to + động từ nguyên mẫu."
+    },
+    {
+      "wrong": "Minh will looks into the bug.",
+      "right": "Minh will look into the bug.",
+      "why_vi": "Sau will là động từ nguyên mẫu, không thêm s."
+    },
+    {
+      "wrong": "If QA will approve, we deploy Friday.",
+      "right": "If QA approves, we'll deploy on Friday.",
+      "why_vi": "Sau if dùng hiện tại, will để ở vế còn lại."
+    }
+  ],
+  "word_bank": [
+    "to recap",
+    "we agreed to",
+    "will + V",
+    "by Thursday",
+    "action items",
+    "next steps",
+    "follow up",
+    "meeting notes"
+  ],
+  "quiz": [
+    {
+      "id": "s10q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "To recap, we agreed to ship the feature first.",
+        "To recap, we agreed ship the feature first.",
+        "To recap, we were agreed to ship the feature first."
+      ],
+      "answer": 0,
+      "why_vi": "agree to + V. agree là động từ thường, không dùng were agreed."
+    },
+    {
+      "id": "s10q2",
+      "prompt_vi": "Lan sẽ cập nhật tài liệu API trước thứ Năm.",
+      "options": [
+        "Lan will update the API docs by Thursday.",
+        "Lan will updates the API docs by Thursday.",
+        "Lan will update the docs API by Thursday."
+      ],
+      "answer": 0,
+      "why_vi": "Sau will là động từ nguyên mẫu. the API docs: từ bổ nghĩa đứng trước."
+    },
+    {
+      "id": "s10q3",
+      "prompt_vi": "Nếu QA duyệt thì thứ Sáu mình deploy.",
+      "options": [
+        "If QA approves it, we'll deploy on Friday.",
+        "If QA will approve it, we'll deploy on Friday.",
+        "If QA approves it, we'll deploy in Friday."
+      ],
+      "answer": 0,
+      "why_vi": "Sau if dùng hiện tại: approves. Thứ trong tuần đi với on."
+    },
+    {
+      "id": "s10q4",
+      "prompt_vi": "Mình sẽ gửi ghi chú buổi họp lên Slack.",
+      "options": [
+        "I'll post the meeting notes in Slack.",
+        "I'll post the meeting's note in Slack.",
+        "I'll post note of meeting in Slack."
+      ],
+      "answer": 0,
+      "why_vi": "meeting notes: từ bổ nghĩa đứng trước, notes ở số nhiều, cần the."
+    },
+    {
+      "id": "s10q5",
+      "prompt_vi": "Còn ai có câu hỏi gì nữa không?",
+      "options": [
+        "Does anyone have any other questions?",
+        "Does anyone has any other questions?",
+        "Have anyone any other questions?"
+      ],
+      "answer": 0,
+      "why_vi": "Câu hỏi dùng does, sau does là have nguyên mẫu."
+    }
+  ],
+  "write_prompt_vi": "Viết 1 đến 2 câu tóm tắt buổi họp gần nhất: đã thống nhất gì và ai làm gì."
+}

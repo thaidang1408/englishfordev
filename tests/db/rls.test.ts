@@ -206,8 +206,9 @@ describe('việc người dùng được tự làm', () => {
   });
 
   it('khách chưa đăng nhập ghi được sự kiện không gắn người dùng', async () => {
+    const before = await count('events');
     await as(db, 'anon', null, () => db.query(`insert into public.events (anon_id, name) values ('k1', 'page_view')`));
-    expect(await count('events')).toBe(2);
+    expect(await count('events')).toBe(before + 1);
   });
 });
 

@@ -1,0 +1,112 @@
+{
+  "id": 4,
+  "track": "interview",
+  "slug": "phong-van-bug-kho-da-xu-ly",
+  "title": "Một bug khó bạn đã xử lý",
+  "free": false,
+  "question_en": "Tell me about a difficult bug you had to fix.",
+  "goal_vi": "Kể một bug theo ba bước: lỗi là gì, nguyên nhân là gì, bạn sửa thế nào.",
+  "pattern": {
+    "formula": "We had a bug where + S + V2. It turned out (that) + S + V2. I fixed it by + V-ing.",
+    "note_vi": "Kể ở quá khứ. Nói cách sửa bằng fixed it by + V-ing."
+  },
+  "examples": [
+    {
+      "en": "We had a bug where some users were charged twice. It turned out the payment request was retried on timeout. I fixed it by adding an idempotency key.",
+      "vi": "Bọn mình gặp một bug là một số người dùng bị trừ tiền hai lần. Hóa ra request thanh toán bị gửi lại khi timeout. Mình sửa bằng cách thêm idempotency key."
+    },
+    {
+      "en": "Our Android app crashed only on some older phones. After a lot of logging, I found a memory leak in the image loader and fixed it by switching to Glide.",
+      "vi": "App Android của bọn mình chỉ crash trên một số máy cũ. Sau khi thêm rất nhiều log, mình tìm ra memory leak ở phần tải ảnh và sửa bằng cách chuyển sang Glide."
+    },
+    {
+      "en": "A monthly report showed the wrong totals. The cause was a time zone mismatch between the server and the database. We fixed it by storing all dates in UTC.",
+      "vi": "Một báo cáo hàng tháng ra tổng sai. Nguyên nhân là server và database lệch múi giờ. Bọn mình sửa bằng cách lưu mọi ngày giờ theo UTC."
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "I fixed it by add a cache.",
+      "right": "I fixed it by adding a cache.",
+      "why_vi": "Sau by, động từ phải ở dạng V-ing."
+    },
+    {
+      "wrong": "The bug was happened in production.",
+      "right": "The bug happened in production.",
+      "why_vi": "happen không dùng ở bị động, nên không có was."
+    },
+    {
+      "wrong": "I found the reason of the bug.",
+      "right": "I found the cause of the bug.",
+      "why_vi": "Nguyên nhân của bug là the cause of. reason đi với for."
+    }
+  ],
+  "word_bank": [
+    "we had a bug where",
+    "it turned out",
+    "the root cause",
+    "reproduce",
+    "fixed it by",
+    "race condition",
+    "memory leak",
+    "time zone"
+  ],
+  "quiz": [
+    {
+      "id": "i04q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "I fixed it by adding a retry limit.",
+        "I fixed it by add a retry limit.",
+        "I fixed it with adding a retry limit."
+      ],
+      "answer": 0,
+      "why_vi": "Nói cách sửa dùng by + V-ing."
+    },
+    {
+      "id": "i04q2",
+      "prompt_vi": "Bug này chỉ xảy ra trên production.",
+      "options": [
+        "The bug only happened in production.",
+        "The bug was only happened in production.",
+        "The bug only happen in production."
+      ],
+      "answer": 0,
+      "why_vi": "happen không dùng bị động. Kể chuyện đã qua thì chia quá khứ: happened."
+    },
+    {
+      "id": "i04q3",
+      "prompt_vi": "Hóa ra nguyên nhân là một race condition.",
+      "options": [
+        "It turned out the cause was a race condition.",
+        "It was turned out the cause was a race condition.",
+        "It turned out the cause was race condition."
+      ],
+      "answer": 0,
+      "why_vi": "it turned out không có was. race condition đếm được nên cần a."
+    },
+    {
+      "id": "i04q4",
+      "prompt_vi": "Mình sửa bằng cách thêm index cho bảng orders.",
+      "options": [
+        "I fixed it by adding an index on the orders table.",
+        "I fixed it by adding an index on table orders.",
+        "I fixed it by to add an index on the orders table."
+      ],
+      "answer": 0,
+      "why_vi": "the orders table: tên bảng đứng trước table. Sau by dùng V-ing."
+    },
+    {
+      "id": "i04q5",
+      "prompt_vi": "Mình mất hai ngày mới tìm ra nguyên nhân.",
+      "options": [
+        "It took me two days to find the cause.",
+        "It took me two days for finding the cause.",
+        "It spent me two days to find the cause."
+      ],
+      "answer": 0,
+      "why_vi": "It took me + thời gian + to V. spend chỉ dùng với người làm chủ ngữ: I spent two days."
+    }
+  ],
+  "write_prompt_vi": "Viết 2 đến 3 câu về một bug khó: lỗi gì, vì sao xảy ra, bạn sửa thế nào."
+}

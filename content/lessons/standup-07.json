@@ -1,0 +1,111 @@
+{
+  "id": 7,
+  "track": "standup",
+  "slug": "xin-nguoi-khac-giup",
+  "title": "Xin người khác giúp",
+  "free": false,
+  "goal_vi": "Nhờ đồng nghiệp giúp một việc cụ thể, lịch sự và không gây áp lực.",
+  "pattern": {
+    "formula": "Could you + V? / Do you have a few minutes to + V?",
+    "note_vi": "Nói rõ việc cần nhờ. Thêm when you have a moment hoặc no rush để người kia không thấy bị ép."
+  },
+  "examples": [
+    {
+      "en": "Could you take a look at my PR when you have a moment?",
+      "vi": "Khi nào rảnh bạn xem giúp mình PR nhé."
+    },
+    {
+      "en": "Do you have a few minutes to help me debug this test?",
+      "vi": "Bạn có vài phút giúp mình debug cái test này không?"
+    },
+    {
+      "en": "Could you help me check the deploy logs?",
+      "vi": "Bạn kiểm tra log deploy giúp mình được không?"
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "Could you help me checking the logs?",
+      "right": "Could you help me check the logs?",
+      "why_vi": "help + người + động từ nguyên mẫu."
+    },
+    {
+      "wrong": "Could you review PR for me?",
+      "right": "Could you review my PR?",
+      "why_vi": "PR đếm được nên cần my hoặc the đứng trước."
+    },
+    {
+      "wrong": "Do you have free time help me?",
+      "right": "Do you have a few minutes to help me?",
+      "why_vi": "Nối hai ý bằng to + động từ. Hỏi vài phút nghe nhẹ nhàng hơn free time."
+    }
+  ],
+  "word_bank": [
+    "could you",
+    "take a look at",
+    "help me + V",
+    "a few minutes",
+    "when you have a moment",
+    "no rush",
+    "pair with",
+    "thanks for your help"
+  ],
+  "quiz": [
+    {
+      "id": "s07q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "Could you take a look at my PR?",
+        "Could you take a look my PR?",
+        "Could you take look at my PR?"
+      ],
+      "answer": 0,
+      "why_vi": "Cụm cố định: take a look at + thứ cần xem."
+    },
+    {
+      "id": "s07q2",
+      "prompt_vi": "Bạn kiểm tra log giúp mình được không?",
+      "options": [
+        "Could you help me check the logs?",
+        "Could you help me checking the logs?",
+        "Could you help check me the logs?"
+      ],
+      "answer": 0,
+      "why_vi": "help + người + động từ nguyên mẫu: help me check."
+    },
+    {
+      "id": "s07q3",
+      "prompt_vi": "Bạn có vài phút giúp mình debug test này không?",
+      "options": [
+        "Do you have a few minutes to help me debug this test?",
+        "Do you have few minutes help me debug this test?",
+        "Are you have a few minutes to help me debug this test?"
+      ],
+      "answer": 0,
+      "why_vi": "a few minutes là vài phút. Câu hỏi với have dùng do, không dùng are."
+    },
+    {
+      "id": "s07q4",
+      "prompt_vi": "Không gấp đâu, khi nào bạn rảnh thì xem.",
+      "options": [
+        "No rush, whenever you have time.",
+        "Not hurry, when you free.",
+        "No rush, whenever you are free time."
+      ],
+      "answer": 0,
+      "why_vi": "Không gấp là no rush. Rảnh là have time hoặc are free, không ghép are với free time."
+    },
+    {
+      "id": "s07q5",
+      "prompt_vi": "Cảm ơn bạn đã giúp.",
+      "options": [
+        "Thanks for your help.",
+        "Thanks for help me.",
+        "Thank you for helped me."
+      ],
+      "answer": 0,
+      "why_vi": "Sau for là danh từ hoặc V-ing: for your help, for helping me."
+    }
+  ],
+  "write_prompt_vi": "Viết 1 câu nhờ một đồng nghiệp giúp bạn một việc cụ thể."
+}

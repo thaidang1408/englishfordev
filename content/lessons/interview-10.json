@@ -1,0 +1,111 @@
+{
+  "id": 10,
+  "track": "interview",
+  "slug": "phong-van-luong-va-ngay-bat-dau",
+  "title": "Nói về lương và ngày bắt đầu",
+  "free": false,
+  "question_en": "What are your salary expectations, and when could you start?",
+  "goal_vi": "Nói mức lương mong muốn theo một khoảng, rõ gross hay net, và ngày sớm nhất bạn có thể bắt đầu.",
+  "pattern": {
+    "formula": "I'm looking for around + amount + gross / net per month. I can start + in + time / on + date.",
+    "note_vi": "Đưa một khoảng và nói rõ gross hay net. Tính từ bây giờ dùng in two weeks, ngày cụ thể dùng on."
+  },
+  "examples": [
+    {
+      "en": "I'm looking for around 35 to 40 million VND gross per month. I can start in about a month, after my notice period.",
+      "vi": "Mình mong mức khoảng 35 đến 40 triệu gross mỗi tháng. Mình có thể bắt đầu sau khoảng một tháng, khi hết thời gian báo nghỉ."
+    },
+    {
+      "en": "Based on my experience, I'm expecting around 2,000 USD net per month, but I'm open to discussing it.",
+      "vi": "Dựa trên kinh nghiệm của mình, mình mong khoảng 2.000 USD net mỗi tháng, nhưng mình sẵn sàng trao đổi thêm."
+    },
+    {
+      "en": "I need to give 30 days' notice, so the earliest I can start is March 1st.",
+      "vi": "Mình cần báo trước 30 ngày, nên sớm nhất mình có thể bắt đầu vào ngày 1 tháng 3."
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "My expected salary is 30 millions.",
+      "right": "My expected salary is 30 million.",
+      "why_vi": "million đứng sau một con số thì không thêm s."
+    },
+    {
+      "wrong": "I can start after 2 weeks.",
+      "right": "I can start in two weeks.",
+      "why_vi": "Tính từ bây giờ trở đi thì dùng in, không dùng after."
+    },
+    {
+      "wrong": "I can start at next Monday.",
+      "right": "I can start next Monday.",
+      "why_vi": "Trước next không dùng giới từ."
+    }
+  ],
+  "word_bank": [
+    "I'm looking for around",
+    "gross",
+    "net",
+    "per month",
+    "notice period",
+    "the earliest I can start",
+    "I'm open to discussing it"
+  ],
+  "quiz": [
+    {
+      "id": "i10q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "I'm looking for around 30 million VND per month.",
+        "I'm looking for around 30 millions VND per month.",
+        "I'm looking for around 30 million VND for month."
+      ],
+      "answer": 0,
+      "why_vi": "million sau số không thêm s. Mỗi tháng là per month."
+    },
+    {
+      "id": "i10q2",
+      "prompt_vi": "Mình có thể bắt đầu sau hai tuần nữa.",
+      "options": [
+        "I can start in two weeks.",
+        "I can start after two weeks.",
+        "I can start in two week."
+      ],
+      "answer": 0,
+      "why_vi": "Tính từ bây giờ dùng in. two đi với danh từ số nhiều: weeks."
+    },
+    {
+      "id": "i10q3",
+      "prompt_vi": "Mình cần báo trước 30 ngày ở công ty hiện tại.",
+      "options": [
+        "I need to give 30 days' notice at my current company.",
+        "I need to inform before 30 days at my current company.",
+        "I need giving 30 days' notice at my current company."
+      ],
+      "answer": 0,
+      "why_vi": "Báo nghỉ trước là give notice. need + to V."
+    },
+    {
+      "id": "i10q4",
+      "prompt_vi": "Sớm nhất mình có thể bắt đầu vào ngày 1 tháng 3.",
+      "options": [
+        "The earliest I can start is March 1st.",
+        "The earliest I can start is in March 1st.",
+        "Earliest I can start is March 1st."
+      ],
+      "answer": 0,
+      "why_vi": "Ngày cụ thể không dùng in. Cần the trước earliest."
+    },
+    {
+      "id": "i10q5",
+      "prompt_vi": "Đây là mức gross, và mình sẵn sàng trao đổi thêm.",
+      "options": [
+        "That's the gross amount, and I'm open to discussing it.",
+        "That's the gross amount, and I'm open to discuss it.",
+        "That's the gross amount, and I'm open for discussing it."
+      ],
+      "answer": 0,
+      "why_vi": "open to + V-ing: to ở đây là giới từ nên động từ thêm ing."
+    }
+  ],
+  "write_prompt_vi": "Viết 2 câu: mức lương bạn mong muốn và ngày sớm nhất bạn có thể bắt đầu."
+}

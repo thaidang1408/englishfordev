@@ -1,0 +1,111 @@
+{
+  "id": 4,
+  "track": "standup",
+  "slug": "viec-xong-viec-con-do",
+  "title": "Việc xong, việc còn dở",
+  "free": false,
+  "goal_vi": "Nói rõ phần nào đã xong và phần nào còn đang làm trong cùng một câu.",
+  "pattern": {
+    "formula": "I've finished + noun, but + noun + is still in progress.",
+    "note_vi": "I've + V3 cho việc vừa xong. is still in progress cho việc còn dở."
+  },
+  "examples": [
+    {
+      "en": "I've finished the login API, but the tests are still in progress.",
+      "vi": "Mình làm xong API đăng nhập rồi, nhưng phần test vẫn đang làm."
+    },
+    {
+      "en": "I've fixed the cache bug, but I still need to deploy it to staging.",
+      "vi": "Mình sửa xong bug cache rồi, nhưng vẫn cần deploy lên staging."
+    },
+    {
+      "en": "I've addressed most of the review comments, but two are still open.",
+      "vi": "Mình đã sửa theo phần lớn comment review, còn hai cái chưa xong."
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "I have finish the API.",
+      "right": "I've finished the API.",
+      "why_vi": "Sau have là động từ dạng V3: finished."
+    },
+    {
+      "wrong": "The UI still doing.",
+      "right": "The UI is still in progress.",
+      "why_vi": "Câu cần động từ is. Việc đang làm dở thì nói in progress."
+    },
+    {
+      "wrong": "It's done 80 percent.",
+      "right": "It's about 80 percent done.",
+      "why_vi": "Phần trăm đứng trước done: 80 percent done."
+    }
+  ],
+  "word_bank": [
+    "finished",
+    "done",
+    "in progress",
+    "still",
+    "almost done",
+    "haven't ... yet",
+    "wrapped up",
+    "left"
+  ],
+  "quiz": [
+    {
+      "id": "s04q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "I've finished the login API.",
+        "I've finish the login API.",
+        "I finished already the login API."
+      ],
+      "answer": 0,
+      "why_vi": "have + V3: I've finished. already không đứng giữa động từ và tân ngữ."
+    },
+    {
+      "id": "s04q2",
+      "prompt_vi": "Phần UI vẫn đang làm dở.",
+      "options": [
+        "The UI is still in progress.",
+        "The UI still in progress.",
+        "The UI is still doing."
+      ],
+      "answer": 0,
+      "why_vi": "Câu cần is. UI không tự làm được nên không nói is doing."
+    },
+    {
+      "id": "s04q3",
+      "prompt_vi": "Mình làm xong API rồi, nhưng chưa viết test.",
+      "options": [
+        "I've finished the API, but I haven't written the tests yet.",
+        "I've finished the API, but I haven't wrote the tests yet.",
+        "I've finished the API, but I still not write the tests."
+      ],
+      "answer": 0,
+      "why_vi": "haven't + V3: written. Phủ định cần trợ động từ, không đặt not trơn trước động từ."
+    },
+    {
+      "id": "s04q4",
+      "prompt_vi": "Phần này xong khoảng 80% rồi.",
+      "options": [
+        "It's about 80 percent done.",
+        "It finished about 80 percent.",
+        "It's done about 80 percent."
+      ],
+      "answer": 0,
+      "why_vi": "Mẫu gọn: it's + about + phần trăm + done. Phần trăm đứng trước done."
+    },
+    {
+      "id": "s04q5",
+      "prompt_vi": "Bug đó sửa xong rồi, đang chờ review.",
+      "options": [
+        "That bug is fixed and waiting for review.",
+        "That bug is fixed and waiting review.",
+        "That bug fixed and is waiting for review."
+      ],
+      "answer": 0,
+      "why_vi": "Bug được sửa nên dùng is fixed. wait luôn đi với for."
+    }
+  ],
+  "write_prompt_vi": "Viết 1 đến 2 câu về một việc bạn đã xong và một việc còn dở."
+}

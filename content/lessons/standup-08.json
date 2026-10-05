@@ -1,0 +1,111 @@
+{
+  "id": 8,
+  "track": "standup",
+  "slug": "bao-tre-va-de-xuat-moc-moi",
+  "title": "Báo trễ và đề xuất mốc mới",
+  "free": false,
+  "goal_vi": "Báo sớm là việc sẽ trễ, nói ngắn lý do và đưa ra mốc mới.",
+  "pattern": {
+    "formula": "This is taking longer than expected. I can have it ready by + time.",
+    "note_vi": "Báo trễ thì luôn kèm mốc mới. have it ready by: xong muộn nhất vào lúc đó."
+  },
+  "examples": [
+    {
+      "en": "The payment feature is taking longer than expected. I can have it ready by Thursday.",
+      "vi": "Tính năng thanh toán mất nhiều thời gian hơn dự kiến. Thứ Năm mình mới xong được."
+    },
+    {
+      "en": "This bug is trickier than I thought, so I need one more day.",
+      "vi": "Bug này khó hơn mình nghĩ, nên mình cần thêm một ngày."
+    },
+    {
+      "en": "Staging is down, so I suggest moving the release to Monday.",
+      "vi": "Staging đang sập, nên mình đề xuất lùi release sang thứ Hai."
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "It takes longer than I think.",
+      "right": "It's taking longer than I thought.",
+      "why_vi": "Việc đang diễn ra dùng is + V-ing. Mình đã nghĩ từ trước nên dùng thought."
+    },
+    {
+      "wrong": "Sorry for late.",
+      "right": "Sorry for the delay.",
+      "why_vi": "Sau for cần danh từ. late là tính từ, delay là danh từ."
+    },
+    {
+      "wrong": "I suggest to move the release to Monday.",
+      "right": "I suggest moving the release to Monday.",
+      "why_vi": "suggest + V-ing, không dùng to."
+    }
+  ],
+  "word_bank": [
+    "taking longer than expected",
+    "trickier than I thought",
+    "one more day",
+    "push back",
+    "move to",
+    "have it ready by",
+    "sorry for the delay",
+    "new ETA"
+  ],
+  "quiz": [
+    {
+      "id": "s08q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "This is taking longer than expected.",
+        "This is taking longer than expect.",
+        "This is take longer than expected."
+      ],
+      "answer": 0,
+      "why_vi": "Cụm cố định: than expected. Đang diễn ra: is taking."
+    },
+    {
+      "id": "s08q2",
+      "prompt_vi": "Xin lỗi vì bị trễ.",
+      "options": [
+        "Sorry for the delay.",
+        "Sorry for late.",
+        "Sorry for the late."
+      ],
+      "answer": 0,
+      "why_vi": "Sau for cần danh từ: the delay. late là tính từ."
+    },
+    {
+      "id": "s08q3",
+      "prompt_vi": "Muộn nhất thứ Năm mình sẽ xong.",
+      "options": [
+        "I can have it ready by Thursday.",
+        "I can have it ready until Thursday.",
+        "I can have it ready in Thursday."
+      ],
+      "answer": 0,
+      "why_vi": "Hạn chót dùng by. Thứ trong tuần không đi với in."
+    },
+    {
+      "id": "s08q4",
+      "prompt_vi": "Bug này khó hơn mình nghĩ.",
+      "options": [
+        "This bug is harder than I thought.",
+        "This bug is more harder than I thought.",
+        "This bug harder than I thought."
+      ],
+      "answer": 0,
+      "why_vi": "harder đã là so sánh hơn, không thêm more. Câu cần is."
+    },
+    {
+      "id": "s08q5",
+      "prompt_vi": "Mình đề xuất lùi release sang thứ Hai.",
+      "options": [
+        "I suggest moving the release to Monday.",
+        "I suggest to move the release to Monday.",
+        "I suggest move the release on Monday."
+      ],
+      "answer": 0,
+      "why_vi": "suggest + V-ing. Dời sang ngày nào dùng move to."
+    }
+  ],
+  "write_prompt_vi": "Viết 1 đến 2 câu báo một việc bị trễ và đưa ra mốc mới."
+}

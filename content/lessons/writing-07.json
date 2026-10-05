@@ -1,0 +1,111 @@
+{
+  "id": 7,
+  "track": "writing",
+  "slug": "bao-tien-do-cho-khach",
+  "title": "Báo tiến độ cho khách",
+  "free": false,
+  "goal_vi": "Báo khách rằng việc đang đúng tiến độ và sẽ xong trước mốc nào.",
+  "pattern": {
+    "formula": "We're on track to + V + object + by + deadline.",
+    "note_vi": "on track = đúng tiến độ. by + mốc thời gian = trước hoặc đúng mốc đó, dùng cho hạn chót."
+  },
+  "examples": [
+    {
+      "en": "We're on track to deliver the payment module by Friday.",
+      "vi": "Bên mình đang đúng tiến độ để giao module thanh toán trước thứ Sáu."
+    },
+    {
+      "en": "The admin dashboard is 80% done, and we're on track to finish it by June 15.",
+      "vi": "Dashboard admin đã xong 80%, bên mình đang đúng tiến độ để làm xong trước ngày 15/6."
+    },
+    {
+      "en": "We're on track to release version 2.0 by the end of this month.",
+      "vi": "Bên mình đang đúng tiến độ để phát hành bản 2.0 trước cuối tháng này."
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "We will finish it until Friday.",
+      "right": "We'll finish it by Friday.",
+      "why_vi": "Hạn chót dùng by. until nghĩa là kéo dài cho đến lúc đó."
+    },
+    {
+      "wrong": "We're on track to finishing the API.",
+      "right": "We're on track to finish the API.",
+      "why_vi": "on track to + động từ nguyên mẫu."
+    },
+    {
+      "wrong": "We're in track for the release.",
+      "right": "We're on track for the release.",
+      "why_vi": "Cụm cố định là on track, không dùng in."
+    }
+  ],
+  "word_bank": [
+    "on track",
+    "by Friday",
+    "by the end of",
+    "% done",
+    "deliver",
+    "release",
+    "We've finished",
+    "next step"
+  ],
+  "quiz": [
+    {
+      "id": "w07q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "We're on track to finish the API by Friday.",
+        "We're on track to finish the API until Friday.",
+        "We're on track to finishing the API by Friday."
+      ],
+      "answer": 0,
+      "why_vi": "Hạn chót dùng by. on track to + động từ nguyên mẫu."
+    },
+    {
+      "id": "w07q2",
+      "prompt_vi": "Bên mình sẽ gửi bản demo trước thứ Tư.",
+      "options": [
+        "We'll send you the demo by Wednesday.",
+        "We'll send you the demo until Wednesday.",
+        "We'll send you demo by Wednesday."
+      ],
+      "answer": 0,
+      "why_vi": "Hạn chót dùng by. Cần the trước demo."
+    },
+    {
+      "id": "w07q3",
+      "prompt_vi": "Tính năng tìm kiếm đã xong 70%.",
+      "options": [
+        "The search feature is 70% done.",
+        "The search feature has done 70%.",
+        "The feature search is 70% done."
+      ],
+      "answer": 0,
+      "why_vi": "Nói mức hoàn thành: is + % + done. Từ bổ nghĩa đứng trước: search feature."
+    },
+    {
+      "id": "w07q4",
+      "prompt_vi": "Bên mình đang đúng tiến độ cho đợt phát hành tháng 6.",
+      "options": [
+        "We're on track for the June release.",
+        "We're in track for the June release.",
+        "We're on track for the release June."
+      ],
+      "answer": 0,
+      "why_vi": "on track for + danh từ. Tháng đứng trước: the June release."
+    },
+    {
+      "id": "w07q5",
+      "prompt_vi": "Bên mình đã xong phần đăng nhập và đang làm phần thanh toán.",
+      "options": [
+        "We've finished the login flow and are now working on the payment flow.",
+        "We've finished the login flow and now working on the payment flow.",
+        "We've finish the login flow and are now working on the payment flow."
+      ],
+      "answer": 0,
+      "why_vi": "Đang làm cần are + V-ing. Sau have là V3: finished."
+    }
+  ],
+  "write_prompt_vi": "Viết 1 đến 2 câu báo tiến độ dự án của bạn cho khách."
+}

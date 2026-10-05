@@ -5,6 +5,7 @@ import LessonView from '../../components/LessonView.astro';
 import UpgradeCard from '../../components/UpgradeCard.astro';
 import { accessFrom, hasFullAccess } from '../../lib/auth/access';
 import { lessons } from '../../lib/content/lessons';
+import { lessonKey } from '../../lib/content/schema';
 import { TRACK_NAMES } from '../../lib/content/tracks';
 import { getErrorStats } from '../../lib/db/corrections';
 import { getEntitlement } from '../../lib/db/queries';
@@ -38,7 +39,7 @@ const num = lesson ? String(lesson.id).padStart(2, '0') : '';
     allowed ? (
       <LessonView lesson={lesson} />
     ) : (
-      <article class="wrap read" style="padding-top:var(--s-6);padding-bottom:var(--s-7)">
+      <article class="wrap read" style="padding-top:var(--s-6);padding-bottom:var(--s-7)" data-lesson-key={lessonKey(lesson)}>
         <p class="muted" style="font-size:var(--fs-sm);margin-bottom:var(--s-2)">
           {TRACK_NAMES[lesson.track]}, bài <span class="num">{num}</span>
         </p>

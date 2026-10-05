@@ -1,0 +1,111 @@
+{
+  "id": 8,
+  "track": "writing",
+  "slug": "email-xin-nghi-xin-doi-lich",
+  "title": "Email xin nghỉ, xin dời lịch",
+  "free": false,
+  "goal_vi": "Xin nghỉ hoặc xin dời lịch họp bằng câu I'd like to lịch sự.",
+  "pattern": {
+    "formula": "I'd like to + V + ... (+ if that works for you).",
+    "note_vi": "I'd like to lịch sự hơn I want to. Sau I'd like to là động từ nguyên mẫu."
+  },
+  "examples": [
+    {
+      "en": "I'd like to take Friday off for a family matter.",
+      "vi": "Mình muốn xin nghỉ thứ Sáu vì việc gia đình."
+    },
+    {
+      "en": "I'd like to move our 1:1 to Thursday afternoon, if that works for you.",
+      "vi": "Mình muốn dời buổi 1:1 sang chiều thứ Năm, nếu bạn thấy tiện."
+    },
+    {
+      "en": "I'm not feeling well, so I'd like to work from home tomorrow.",
+      "vi": "Mình không khoẻ nên mai mình muốn làm ở nhà."
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "I'd like to off on Friday.",
+      "right": "I'd like to take Friday off.",
+      "why_vi": "off không phải động từ. Xin nghỉ một ngày dùng take + ngày + off."
+    },
+    {
+      "wrong": "I'd like to taking Monday off.",
+      "right": "I'd like to take Monday off.",
+      "why_vi": "Sau I'd like to là động từ nguyên mẫu."
+    },
+    {
+      "wrong": "I'd like to move the meeting on Thursday.",
+      "right": "I'd like to move the meeting to Thursday.",
+      "why_vi": "Dời sang ngày nào thì dùng to."
+    }
+  ],
+  "word_bank": [
+    "I'd like to",
+    "take a day off",
+    "take time off",
+    "move to",
+    "reschedule",
+    "work from home",
+    "if that works for you",
+    "not feeling well"
+  ],
+  "quiz": [
+    {
+      "id": "w08q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "I'd like to take Monday off.",
+        "I'd like to off on Monday.",
+        "I'd like to taking Monday off."
+      ],
+      "answer": 0,
+      "why_vi": "take + ngày + off. Sau I'd like to là động từ nguyên mẫu."
+    },
+    {
+      "id": "w08q2",
+      "prompt_vi": "Mình muốn dời buổi họp sang 3 giờ chiều.",
+      "options": [
+        "I'd like to move the meeting to 3 PM.",
+        "I'd like to move the meeting on 3 PM.",
+        "I'd like move the meeting to 3 PM."
+      ],
+      "answer": 0,
+      "why_vi": "Dời sang giờ nào dùng to. I'd like phải có to trước động từ."
+    },
+    {
+      "id": "w08q3",
+      "prompt_vi": "Mình muốn xin nghỉ từ ngày 10 đến ngày 12 tháng 6.",
+      "options": [
+        "I'd like to take time off from June 10 to June 12.",
+        "I'd like to take time off since June 10 to June 12.",
+        "I'd like take time off from June 10 to June 12."
+      ],
+      "answer": 0,
+      "why_vi": "Từ ngày này đến ngày kia dùng from ... to. since chỉ dùng cho mốc đã qua đến giờ."
+    },
+    {
+      "id": "w08q4",
+      "prompt_vi": "Mình không khoẻ nên hôm nay muốn làm ở nhà.",
+      "options": [
+        "I'm not feeling well, so I'd like to work from home today.",
+        "I'm not feel well, so I'd like to work from home today.",
+        "I'm not feeling well, so I'd like to work in home today."
+      ],
+      "answer": 0,
+      "why_vi": "am + V-ing: not feeling well. Làm ở nhà là work from home."
+    },
+    {
+      "id": "w08q5",
+      "prompt_vi": "Mình muốn dời buổi demo sang tuần sau, nếu bạn thấy ổn.",
+      "options": [
+        "I'd like to move the demo to next week, if that works for you.",
+        "I'd like to move the demo to the next week, if that works for you.",
+        "I'd like to move the demo to next week, if that's work for you."
+      ],
+      "answer": 0,
+      "why_vi": "next week không có the. works là động từ, không thêm is."
+    }
+  ],
+  "write_prompt_vi": "Viết 1 đến 2 câu email xin nghỉ một ngày hoặc xin dời một buổi họp."
+}

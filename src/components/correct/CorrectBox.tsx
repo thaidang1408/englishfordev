@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
 import { SENTENCE_MAX, SENTENCE_MIN } from '../../lib/ai/schema';
+import { track } from '../../lib/events/client';
 import CorrectionResult from './CorrectionResult';
 import { isSubmitKey, requestCorrection, type CorrectData } from './api';
 
@@ -42,6 +43,7 @@ export default function CorrectBox({ lessonKey, next, primary = false, label = '
     }
     setState({ kind: 'busy' });
     const out = await requestCorrection({ sentence: trimmed, lessonKey });
+    if (out.kind === 'error' && out.code === 'free_quota_exceeded') track('paywall_view', lessonKey ? { lesson_key: lessonKey } : {});
     setState(
       out.kind === 'ok'
         ? { kind: 'done', data: out.data }

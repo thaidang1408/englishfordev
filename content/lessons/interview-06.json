@@ -1,0 +1,111 @@
+{
+  "id": 6,
+  "track": "interview",
+  "slug": "vi-sao-muon-doi-viec",
+  "title": "Vì sao muốn đổi việc",
+  "free": false,
+  "question_en": "Why are you looking for a new job?",
+  "goal_vi": "Nói điều bạn muốn có ở việc mới, không nói xấu công ty cũ.",
+  "pattern": {
+    "formula": "I've learned a lot at + my current company, but I'm looking for + a chance to V / a role where + S + can V.",
+    "note_vi": "Ghi nhận chỗ cũ trước, rồi nói điều bạn tìm. looking for luôn có for."
+  },
+  "examples": [
+    {
+      "en": "I've learned a lot at my current company, but I want to work on one product for the long term instead of switching projects every few months.",
+      "vi": "Mình đã học được nhiều ở công ty hiện tại, nhưng mình muốn làm một sản phẩm lâu dài thay vì vài tháng lại đổi dự án."
+    },
+    {
+      "en": "My current project is in maintenance mode now, and I'm looking for a role where I can build new features.",
+      "vi": "Dự án hiện tại của mình giờ chỉ còn bảo trì, và mình đang tìm một vị trí được làm tính năng mới."
+    },
+    {
+      "en": "I'm looking for a team that uses English every day. I'd like to work more closely with people from other countries.",
+      "vi": "Mình đang tìm một team dùng tiếng Anh hằng ngày. Mình muốn làm việc gần hơn với đồng nghiệp ở nước khác."
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "I'm looking for a chance to working with a bigger team.",
+      "right": "I'm looking for a chance to work with a bigger team.",
+      "why_vi": "a chance to + động từ nguyên mẫu."
+    },
+    {
+      "wrong": "I want to find new challenge.",
+      "right": "I want to find a new challenge.",
+      "why_vi": "challenge đếm được: dùng a new challenge hoặc new challenges."
+    },
+    {
+      "wrong": "I have learned many things in current company.",
+      "right": "I've learned a lot at my current company.",
+      "why_vi": "Cần my trước current company, và làm ở công ty thì dùng at."
+    }
+  ],
+  "word_bank": [
+    "I'm looking for",
+    "a chance to",
+    "a role where",
+    "I've learned a lot",
+    "for the long term",
+    "grow",
+    "new challenges"
+  ],
+  "quiz": [
+    {
+      "id": "i06q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "I'm looking for a role where I can work on new features.",
+        "I'm looking for a role which I can work on new features.",
+        "I'm finding a role where I can work on new features."
+      ],
+      "answer": 0,
+      "why_vi": "Nói nơi chốn, hoàn cảnh dùng where. Đang tìm là looking for, không dùng finding."
+    },
+    {
+      "id": "i06q2",
+      "prompt_vi": "Mình đã học được nhiều ở công ty hiện tại.",
+      "options": [
+        "I've learned a lot at my current company.",
+        "I've learned a lot in current company.",
+        "I've learned many at my current company."
+      ],
+      "answer": 0,
+      "why_vi": "at my current company: cần my. Nhiều thứ nói gọn là a lot."
+    },
+    {
+      "id": "i06q3",
+      "prompt_vi": "Mình muốn làm một sản phẩm lâu dài.",
+      "options": [
+        "I'd like to work on one product for the long term.",
+        "I'd like to work on one product in long term.",
+        "I'd like working on one product for the long term."
+      ],
+      "answer": 0,
+      "why_vi": "Cụm cố định là for the long term. I'd like + to V."
+    },
+    {
+      "id": "i06q4",
+      "prompt_vi": "Dự án hiện tại của mình đang ở giai đoạn bảo trì.",
+      "options": [
+        "My current project is in maintenance mode.",
+        "My project current is in maintenance mode.",
+        "My current project is maintenance mode."
+      ],
+      "answer": 0,
+      "why_vi": "current đứng trước project. Ở trong một trạng thái thì cần in."
+    },
+    {
+      "id": "i06q5",
+      "prompt_vi": "Mình muốn dùng tiếng Anh nhiều hơn trong công việc.",
+      "options": [
+        "I want to use English more at work.",
+        "I want to use English more in the work.",
+        "I want using English more at work."
+      ],
+      "answer": 0,
+      "why_vi": "Trong công việc là at work, không có the. want + to V."
+    }
+  ],
+  "write_prompt_vi": "Viết 2 câu về lý do bạn tìm việc mới. Nói điều bạn muốn có, không chê chỗ cũ."
+}

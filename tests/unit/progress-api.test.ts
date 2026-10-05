@@ -72,7 +72,7 @@ describe('POST /api/progress', () => {
     expect((await run(post('{hỏng'))).res.status).toBe(400);
     expect((await run(post({ progress: { 'standup-01': { answers: 'x' } } }))).res.status).toBe(400);
     expect((await run(post({ progress: { 'standup-01': { answers: { s02q1: true } } } }))).res.status).toBe(400);
-    expect((await run(post({ progress: { 'standup-09': { answers: {} } } }))).res.status).toBe(400);
+    expect((await run(post({ progress: { 'standup-99': { answers: {} } } }))).res.status).toBe(400);
   });
 
   it('403 khi tài khoản hết dùng thử gửi tiến độ bài trả phí', async () => {
