@@ -37,7 +37,7 @@ Tên miền riêng chưa cần ở bản 1. Khi cần: Cloudflare dashboard → 
 Danh sách đầy đủ ở `.env.example`. Có hai loại:
 
 - **Biến `PUBLIC_`** được nhúng vào bản build. Đặt trong file `.env` ở thư mục `epc-app` (đã nằm trong `.gitignore`). `npm run dev` và `npm run deploy` đều đọc file này. Đổi giá trị thì phải deploy lại.
-- **Bí mật** (key service role, key AI, token bot...) chỉ đọc lúc chạy. Đặt cho production bằng `npx wrangler secret put <TÊN_BIẾN>`, cho máy local trong file `.dev.vars`. M2 chưa cần bí mật nào.
+- **Bí mật** (key service role, key AI, token bot...) chỉ đọc lúc chạy. Đặt cho production bằng `npx wrangler secret put <TÊN_BIẾN>`, cho máy local trong file `.dev.vars`. Từ M4 có hai bí mật: `SUPABASE_SERVICE_ROLE_KEY` và `ANTHROPIC_API_KEY`, đặt bằng `npm run setup:ai`.
 
 ## M2: Supabase và đăng nhập Google, GitHub
 
@@ -67,6 +67,55 @@ Cấu hình đăng nhập phía Supabase nằm trong `supabase/config.toml`. Đ�
 Gói Free tạm dừng project sau 7 ngày không có hoạt động. Từ M6, worker cron sẽ giữ project chạy. Trước đó, nếu project bị dừng thì vào dashboard Supabase bấm **Restore**.
 
 Thêm migration mới sau này: `npx supabase db push`.
+
+## M4: AI sửa câu
+
+Chỉ cần một lệnh, trong thư mục `epc-app`, sau khi đã chạy `npm run setup` ở M2:
+
+```bash
+npm run setup:ai
+```
+
+Bạn chỉ phải tự làm một việc trên web: **lấy key Anthropic**.
+
+1. Mở https://console.anthropic.com/settings/keys và đăng nhập.
+2. Vào **Billing**, nạp tiền (ví dụ 5 USD) và đặt **Spend limit** theo tháng.
+3. Quay lại **API keys**, bấm **Create Key**, đặt tên `epc`, chép key bắt đầu bằng `sk-ant-` rồi dán vào lệnh.
+
+Lệnh tự làm phần còn lại:
+
+- Lấy secret key của Supabase qua CLI. Key này cho server ghi kết quả sửa câu, không bao giờ tới trình duyệt.
+- Áp dụng migration `20261005130000_save_correction.sql` (`npx supabase db push`).
+- Đặt hai secret trên Cloudflare (`npx wrangler secret put`): `SUPABASE_SERVICE_ROLE_KEY`, `ANTHROPIC_API_KEY`.
+- Ghi hai key vào `.dev.vars` để `npm run dev` trên máy bạn sửa câu được. File này không commit.
+- Deploy.
+
+Thiếu một trong hai key thì ô sửa câu báo "Tính năng sửa câu đang tạm tắt" và không trừ lượt.
+
+Hai biến tùy chọn, không đặt thì dùng mặc định:
+
+- `AI_MODEL`: mặc định `claude-haiku-4-5-20251001`.
+- `AI_DAILY_CALL_CAP`: tổng lượt sửa toàn hệ thống mỗi ngày, mặc định 500. Đổi bằng `npx wrangler secret put AI_DAILY_CALL_CAP`.
+
+Hạn mức mỗi tài khoản (SPEC mục 7): Premium 30 lần mỗi ngày, dùng thử 10 lần mỗi ngày, miễn phí 1 lần mỗi 7 ngày. "Ngày" tính theo giờ Việt Nam.
+
+### Thử hạn mức bằng tay
+
+Trong Supabase → **SQL Editor** (thay email cho đúng):
+
+```sql
+-- Cho tài khoản hết dùng thử ngay
+update public.entitlements set trial_until = now() - interval '1 minute'
+where user_id = (select id from auth.users where email = 'ban@example.com');
+
+-- Trả lại dùng thử 7 ngày
+update public.entitlements set trial_until = now() + interval '7 days'
+where user_id = (select id from auth.users where email = 'ban@example.com');
+
+-- Đưa các mục ôn own_error về hạn hôm nay để thử phần ôn
+update public.review_items set due_at = now() - interval '1 minute'
+where kind = 'own_error' and user_id = (select id from auth.users where email = 'ban@example.com');
+```
 
 ### Xóa tài khoản khi người dùng yêu cầu
 

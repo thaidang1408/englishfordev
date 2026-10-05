@@ -8,6 +8,11 @@ export function vnDateKey(d: Date): string {
   return new Date(d.getTime() + VN_OFFSET_MS).toISOString().slice(0, 10);
 }
 
+/** 0 giờ hôm nay theo giờ Việt Nam, dạng UTC. Dùng cho hạn mức "mỗi ngày". */
+export function vnStartOfDay(d: Date): Date {
+  return new Date(Date.parse(`${vnDateKey(d)}T00:00:00Z`) - VN_OFFSET_MS);
+}
+
 /** 0 = Chủ nhật ... 6 = thứ Bảy, theo giờ Việt Nam. */
 export function vnWeekday(d: Date): number {
   return new Date(d.getTime() + VN_OFFSET_MS).getUTCDay();

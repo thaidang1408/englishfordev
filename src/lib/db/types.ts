@@ -9,6 +9,8 @@ type Table<Row, Insert, Update = Partial<Insert>> = {
   Relationships: [];
 };
 
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
+
 export type Level = 'basic' | 'intermediate' | 'good';
 export type WeakArea = 'reading' | 'grammar' | 'polite';
 export type TrackName = 'standup' | 'writing' | 'interview';
@@ -68,7 +70,25 @@ export type Database = {
       corrections: Table<CorrectionRow, never, never>;
     };
     Views: Record<string, never>;
-    Functions: Record<string, never>;
+    Functions: {
+      save_correction: {
+        Args: {
+          p_user_id: string;
+          p_lesson_key: string | null;
+          p_mode: 'work' | 'interview';
+          p_original: string;
+          p_result: Json;
+          p_model: string;
+          p_own_errors: boolean;
+          p_due_at: string;
+          p_limit: number;
+          p_since: string;
+          p_daily_cap: number;
+          p_cap_since: string;
+        };
+        Returns: Json;
+      };
+    };
     Enums: Record<string, never>;
     CompositeTypes: Record<string, never>;
   };

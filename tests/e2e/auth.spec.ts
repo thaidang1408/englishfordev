@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test.describe('khi chưa đăng nhập', () => {
-  for (const path of ['/hom-nay', '/tai-khoan', '/xep-trinh-do', '/on-tap']) {
+  for (const path of ['/hom-nay', '/tai-khoan', '/xep-trinh-do', '/on-tap', '/so-loi', '/phong-van-thu']) {
     test(`${path} chuyển tới trang đăng nhập`, async ({ page }) => {
       await page.goto(path);
       await expect(page).toHaveURL((url) => url.pathname === '/dang-nhap' && url.searchParams.get('next') === path);
@@ -46,6 +46,15 @@ test.describe('khi chưa đăng nhập', () => {
       data: { item_id: '7b0c6a43-4c1e-4a43-9a3a-2f0f1b9f1a01', choice: 0 },
     });
     expect(res.status()).toBe(401);
+  });
+
+  test('POST /api/correct trả 401 khi chưa đăng nhập, 403 khi từ trang khác, 405 với GET', async ({ request, baseURL }) => {
+    const res = await request.post('/api/correct', { headers: { Origin: baseURL ?? '' }, data: { sentence: 'I have fixed bug.' } });
+    expect(res.status()).toBe(401);
+    expect(res.headers()['cache-control']).toBe('no-store');
+    const evil = await request.post('/api/correct', { headers: { Origin: 'https://evil.example' }, data: { sentence: 'x' } });
+    expect(evil.status()).toBe(403);
+    expect((await request.get('/api/correct')).status()).toBe(405);
   });
 
   test('POST /api/progress từ trang khác bị chặn', async ({ request }) => {

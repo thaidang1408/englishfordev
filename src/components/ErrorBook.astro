@@ -1,0 +1,183 @@
+---
+import ReviewDiff from './ReviewDiff.astro';
+import { CATEGORY_NAMES } from '../lib/ai/schema';
+import type { CorrectionEntry } from '../lib/db/corrections';
+import { flattenErrors, topCategories, totalErrors, weeklyTrend } from '../lib/stats/errors';
+import { formatVnDate } from '../lib/time';
+
+/**
+ * Nội dung sổ lỗi (SPEC mục 2 và 5b). `full` là Premium hoặc dùng thử.
+ * Tài khoản miễn phí chỉ nhận 3 lỗi gần nhất trong HTML, phần còn lại không render.
+ */
+interface Props {
+  entries: CorrectionEntry[];
+  repeating: number;
+  full: boolean;
+  now: Date;
+}
+
+const FREE_VISIBLE = 3;
+const LIST_SIZE = 30;
+
+const { entries, repeating, full, now } = Astro.props;
+const total = totalErrors(entries);
+const top = full ? topCategories(entries, now) : [];
+const weekly = full ? weeklyTrend(entries, now) : [];
+const latest = full ? [] : flattenErrors(entries).slice(0, FREE_VISIBLE);
+const list = full ? entries.slice(0, LIST_SIZE) : [];
+const TREND = { up: 'tăng', down: 'giảm', same: 'giữ nguyên' } as const;
+---
+
+{
+  entries.length === 0 ? (
+    <div class="today-card" style="margin-top:var(--s-5)">
+      <p>Sổ lỗi đang trống. Viết một câu tiếng Anh ở trang Hôm nay để AI sửa, các chỗ sửa sẽ vào đây.</p>
+      <a class="btn btn-primary" href="/hom-nay">Về trang Hôm nay</a>
+    </div>
+  ) : (
+    <>
+      <div class="stats" style="margin-top:var(--s-4)">
+        <div>
+          <b class="num">{entries.length}</b>
+          <span>câu đã được sửa</span>
+        </div>
+        <div>
+          <b class="num">{total}</b>
+          <span>lỗi đã ghi</span>
+        </div>
+        <div>
+          <b class="num">{repeating}</b>
+          <span>lỗi đang lặp lại</span>
+        </div>
+      </div>
+
+      {full ? (
+        <>
+          <section class="part" aria-labelledby="nhom-loi">
+            <h2 id="nhom-loi">Nhóm lỗi hay mắc nhất</h2>
+            <p class="muted">Trong 28 ngày gần nhất.</p>
+            {top.length === 0 ? (
+              <p>28 ngày qua chưa có lỗi nào được ghi.</p>
+            ) : (
+              <ol class="cat-top">
+                {top.map((t) => (
+                  <li>
+                    <div class="cat-head">
+                      <b>{CATEGORY_NAMES[t.category]}</b>
+                      <span class="muted">{t.count} lần</span>
+                    </div>
+                    <p class="cat-example" lang="en">
+                      <del>{t.example.from || '(thiếu)'}</del> → <ins>{t.example.to || '(bỏ)'}</ins>
+                    </p>
+                    <p class="muted" style="font-size:var(--fs-sm);margin:0">
+                      Trong câu: <span lang="en">{t.example.original}</span>
+                    </p>
+                  </li>
+                ))}
+              </ol>
+            )}
+          </section>
+
+          {weekly.length > 0 && (
+            <section class="part" aria-labelledby="xu-huong">
+              <h2 id="xu-huong">7 ngày qua so với 7 ngày trước</h2>
+              <table class="trend">
+                <thead>
+                  <tr>
+                    <th scope="col">Nhóm lỗi</th>
+                    <th scope="col">7 ngày qua</th>
+                    <th scope="col">7 ngày trước</th>
+                    <th scope="col">Xu hướng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {weekly.map((w) => (
+                    <tr>
+                      <th scope="row">{CATEGORY_NAMES[w.category]}</th>
+                      <td class="num">{w.thisWeek}</td>
+                      <td class="num">{w.lastWeek}</td>
+                      <td>
+                        <span class:list={['tag', `trend-${w.trend}`]}>{TREND[w.trend]}</span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </section>
+          )}
+
+          <section class="part" aria-labelledby="cac-cau">
+            <h2 id="cac-cau">Các câu đã sửa</h2>
+            <p class="muted">
+              {entries.length > LIST_SIZE ? `${LIST_SIZE} câu gần nhất.` : 'Mới nhất ở trên.'} Mỗi chỗ sửa quay lại trong phần ôn
+              sau 1, 3, 7, rồi 14 ngày.
+            </p>
+            <div class="stack" style="margin-top:var(--s-3)">
+              {list.map((c) =>
+                c.result.is_already_correct ? (
+                  <div class="review-ok">
+                    <span class="muted" style="font-size:var(--fs-xs)">{formatVnDate(new Date(c.created_at))}</span>
+                    <p lang="en" style="margin:0">{c.original}</p>
+                    <span class="tag done">Đã đúng</span>
+                  </div>
+                ) : (
+                  <ReviewDiff
+                    before={c.original}
+                    after={c.result.corrected}
+                    headLeft={formatVnDate(new Date(c.created_at))}
+                    headRight={c.mode === 'interview' ? 'Phỏng vấn thử' : `${c.result.changes.length} chỗ sửa`}
+                  >
+                    <ul class="changes">
+                      {c.result.changes.map((ch) => (
+                        <li>
+                          <span class="change-pair" lang="en">
+                            <del>{ch.from || '(thiếu)'}</del> → <ins>{ch.to || '(bỏ)'}</ins>
+                          </span>
+                          <span class="change-cat">{CATEGORY_NAMES[ch.category]}</span>
+                          <span class="change-why">{ch.why_vi}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </ReviewDiff>
+                ),
+              )}
+            </div>
+          </section>
+        </>
+      ) : (
+        <>
+          <section class="part" aria-labelledby="gan-nhat">
+            <h2 id="gan-nhat">{FREE_VISIBLE} lỗi gần nhất</h2>
+            {latest.length === 0 ? (
+              <p>Các câu bạn gửi đều đã đúng, chưa có lỗi nào được ghi.</p>
+            ) : (
+              <ul class="changes changes-card">
+                {latest.map((e) => (
+                  <li>
+                    <span class="change-pair" lang="en">
+                      <del>{e.from || '(thiếu)'}</del> → <ins>{e.to || '(bỏ)'}</ins>
+                    </span>
+                    <span class="change-cat">{CATEGORY_NAMES[e.category]}</span>
+                    <span class="change-why">{e.why_vi}</span>
+                    <span class="muted change-src">
+                      Trong câu: <span lang="en">{e.original}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+          <div class="paywall" style="margin-top:var(--s-6)">
+            <h3>Sổ lỗi của bạn có {total} lỗi, {repeating} lỗi đang lặp lại</h3>
+            <ul>
+              <li>Xem toàn bộ sổ lỗi và ôn tiếp đúng những lỗi bạn hay mắc</li>
+              <li>Ba nhóm lỗi hay mắc nhất và xu hướng theo tuần</li>
+              <li>Sửa câu của bạn 30 lần mỗi ngày</li>
+            </ul>
+            <a class="btn btn-primary" href="/bang-gia">Xem bảng giá</a>
+          </div>
+        </>
+      )}
+    </>
+  )
+}

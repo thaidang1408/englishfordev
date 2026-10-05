@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./tokens.css";
+@import "./app.css";
 
 /* Mẫu: reference/styleguide.html. Mọi màu, cỡ chữ, bo góc, khoảng cách lấy từ tokens.css. */
 

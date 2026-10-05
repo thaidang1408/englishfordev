@@ -23,6 +23,11 @@ export default defineConfig({
       PUBLIC_SUPABASE_URL: envField.string({ context: 'client', access: 'public', optional: true }),
       PUBLIC_SUPABASE_ANON_KEY: envField.string({ context: 'client', access: 'public', optional: true }),
       PUBLIC_SITE_URL: envField.string({ context: 'client', access: 'public', optional: true }),
+      // Chỉ đọc ở server, không vào bundle trình duyệt. Trên Cloudflare đặt bằng `wrangler secret put`.
+      SUPABASE_SERVICE_ROLE_KEY: envField.string({ context: 'server', access: 'secret', optional: true }),
+      ANTHROPIC_API_KEY: envField.string({ context: 'server', access: 'secret', optional: true }),
+      AI_MODEL: envField.string({ context: 'server', access: 'secret', optional: true }),
+      AI_DAILY_CALL_CAP: envField.string({ context: 'server', access: 'secret', optional: true }),
     },
   },
 

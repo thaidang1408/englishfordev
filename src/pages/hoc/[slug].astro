@@ -3,6 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import Base from '../../layouts/Base.astro';
 import LessonCore from '../../components/LessonCore.astro';
 import Quiz from '../../components/Quiz';
+import CorrectBox from '../../components/correct/CorrectBox';
 import { lessons, neighbours } from '../../lib/content/lessons';
 import { lessonKey, type Lesson } from '../../lib/content/schema';
 import { TRACK_NAMES } from '../../lib/content/tracks';
@@ -47,7 +48,9 @@ const num = String(lesson.id).padStart(2, '0');
       <span class="part-label">Phần 5 trên 5</span>
       <h2 id="cau-cua-ban">Câu của bạn</h2>
       <p>{lesson.write_prompt_vi}</p>
-      <p class="note info">Phần này cần tài khoản để AI sửa câu của bạn. Đăng nhập sẽ có ở bản cập nhật tới.</p>
+      <p class="muted" style="font-size:var(--fs-sm)">Phần này cần đăng nhập. AI sửa câu của bạn và giải thích bằng tiếng Việt.</p>
+      <noscript><p class="note warn">Phần sửa câu cần bật JavaScript.</p></noscript>
+      <CorrectBox client:visible lessonKey={key} next={`/hoc/${lesson.slug}#cau-cua-ban`} />
     </section>
   </article>
 </Base>

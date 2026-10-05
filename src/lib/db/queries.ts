@@ -1,7 +1,7 @@
 import type { ProgressRepo } from '../progress/handler';
 import type { ReviewRepo } from '../review/handler';
 import type { Db } from './supabase';
-import type { EntitlementRow, LessonProgressRow, ProfileRow, ProfileUpdate } from './types';
+import type { EntitlementRow, LessonProgressRow, ProfileRow, ProfileUpdate, ReviewItemRow } from './types';
 
 /** Lỗi từ Supabase: ghi log ở server rồi ném tiếp, không nuốt (skill code-standards). */
 function check<T>(label: string, res: { data: T; error: { message: string } | null }): T {
@@ -24,11 +24,15 @@ export async function getLessonProgress(db: Db, userId: string): Promise<LessonP
   return check('getLessonProgress', await db.from('lesson_progress').select('*').eq('user_id', userId)) ?? [];
 }
 
-export async function countDueReviews(db: Db, userId: string, now: Date): Promise<number> {
+export type ReviewKind = ReviewItemRow['kind'];
+
+/** Số mục đến hạn. Tài khoản miễn phí chỉ ôn mục quiz; own_error cần Premium hoặc dùng thử. */
+export async function countDueReviews(db: Db, userId: string, now: Date, kinds: readonly ReviewKind[]): Promise<number> {
   const res = await db
     .from('review_items')
     .select('id', { count: 'exact', head: true })
     .eq('user_id', userId)
+    .in('kind', [...kinds])
     .lt('box', 5)
     .lte('due_at', now.toISOString());
   check('countDueReviews', res);
@@ -99,16 +103,16 @@ export function progressRepo(db: Db): ProgressRepo {
   };
 }
 
-/** Mục ôn quiz đến hạn, quá hạn lâu nhất lên trước (SPEC mục 5). */
-export async function getDueQuizItems(db: Db, userId: string, now: Date, limit: number) {
+/** Mục ôn đến hạn thuộc các loại `kinds`, quá hạn lâu nhất lên trước (SPEC mục 5). */
+export async function getDueItems(db: Db, userId: string, now: Date, limit: number, kinds: readonly ReviewKind[]) {
   return (
     check(
-      'getDueQuizItems',
+      'getDueItems',
       await db
         .from('review_items')
-        .select('id, kind, lesson_key, ref, box, due_at')
+        .select('id, kind, lesson_key, ref, payload, box, due_at')
         .eq('user_id', userId)
-        .eq('kind', 'quiz')
+        .in('kind', [...kinds])
         .lt('box', 5)
         .lte('due_at', now.toISOString())
         .order('due_at', { ascending: true })
@@ -132,5 +136,6 @@ export function reviewRepo(db: Db): ReviewRepo {
       );
       return rows?.length ?? 0;
     },
+    getEntitlement: (userId) => getEntitlement(db, userId),
   };
 }

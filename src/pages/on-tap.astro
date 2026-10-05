@@ -1,10 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
-import ReviewSession, { type ReviewQuestion } from '../components/ReviewSession';
+import ReviewSession, { type ReviewItem } from '../components/ReviewSession';
+import { accessFrom, hasFullAccess } from '../lib/auth/access';
 import { lessons } from '../lib/content/lessons';
-import { getDueQuizItems } from '../lib/db/queries';
+import { getDueItems, getEntitlement } from '../lib/db/queries';
 import { findQuizItem } from '../lib/review/content';
 import { SESSION_SIZE } from '../lib/review/leitner';
+import { ownErrorPayloadSchema } from '../lib/review/own-error';
 
 export const prerender = false;
 
@@ -12,14 +14,23 @@ const user = Astro.locals.user;
 if (!user) return Astro.redirect('/dang-nhap?next=/on-tap', 303);
 const now = new Date();
 
-// Lấy dư một chút phòng khi có mục trỏ tới câu hỏi đã bị xóa khỏi nội dung.
-const rows = await getDueQuizItems(Astro.locals.supabase, user.id, now, SESSION_SIZE * 2);
-const items: ReviewQuestion[] = rows
-  .flatMap((row) => {
+const db = Astro.locals.supabase;
+// Ôn lỗi của chính bạn chỉ có ở Premium và dùng thử. Hết dùng thử thì mục vẫn còn, chỉ không hiện.
+const full = hasFullAccess(accessFrom(await getEntitlement(db, user.id), now));
+
+// Lấy dư một chút phòng khi có mục trỏ tới câu hỏi đã bị xóa khỏi nội dung hoặc payload hỏng.
+const rows = await getDueItems(db, user.id, now, SESSION_SIZE * 2, full ? ['quiz', 'own_error'] : ['quiz']);
+const items: ReviewItem[] = rows
+  .flatMap((row): ReviewItem[] => {
+    if (row.kind === 'own_error') {
+      const payload = ownErrorPayloadSchema.safeParse(row.payload);
+      return payload.success ? [{ ...payload.data, kind: 'own_error', itemId: row.id, box: row.box }] : [];
+    }
     const found = findQuizItem(lessons, row.lesson_key, row.ref);
-    return found ? [{ ...found.item, itemId: row.id, lessonTitle: found.lesson.title, box: row.box }] : [];
+    return found ? [{ ...found.item, kind: 'quiz', itemId: row.id, lessonTitle: found.lesson.title, box: row.box }] : [];
   })
   .slice(0, SESSION_SIZE);
+const hasOwn = items.some((i) => i.kind === 'own_error');
 ---
 
 <Base title="Ôn tập | English Personal Coach" description="Ôn những câu đến hạn." app>
@@ -36,6 +47,9 @@ const items: ReviewQuestion[] = rows
           <p class="muted" style="margin-top:var(--s-3)">
             {items.length} câu đến hạn. Nhớ thì câu được giãn ra 3, 7, rồi 14 ngày. Chưa nhớ thì quay lại ngày mai.
           </p>
+          {hasOwn && (
+            <p class="muted">Với lỗi trong câu của chính bạn: nghĩ cách sửa trước, xem đáp án, rồi tự chấm Nhớ hoặc Chưa nhớ.</p>
+          )}
           <p class="muted kbd-hint">
             Phím <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> để chọn, <kbd>Enter</kbd> để sang câu sau.
           </p>

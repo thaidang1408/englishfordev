@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Heatmap from '../components/Heatmap.astro';
+import CorrectBox from '../components/correct/CorrectBox';
 import { accessFrom, hasFullAccess } from '../lib/auth/access';
 import { lessons } from '../lib/content/lessons';
 import { lessonKey } from '../lib/content/schema';
@@ -27,19 +28,18 @@ if (!user) return Astro.redirect('/dang-nhap?next=/hom-nay', 303);
 const db = Astro.locals.supabase;
 const now = new Date();
 
-const profile = await getProfile(db, user.id);
+const [profile, ent] = await Promise.all([getProfile(db, user.id), getEntitlement(db, user.id)]);
 if (!profile?.level) return Astro.redirect('/xep-trinh-do', 303);
+const access = accessFrom(ent, now);
 
-const [ent, progress, due, repeating, correctionCount, correctionTimes] = await Promise.all([
-  getEntitlement(db, user.id),
+const [progress, due, repeating, correctionCount, correctionTimes] = await Promise.all([
   getLessonProgress(db, user.id),
-  countDueReviews(db, user.id, now),
+  countDueReviews(db, user.id, now, hasFullAccess(access) ? ['quiz', 'own_error'] : ['quiz']),
   countRepeatingErrors(db, user.id),
   countCorrections(db, user.id),
   getCorrectionTimes(db, user.id, addDaysTo(now, -WEEKS * 7)),
 ]);
 
-const access = accessFrom(ent, now);
 const done = new Map(progress.map((p) => [p.lesson_key, p]));
 const today = lessonOfTheDay(lessons, profile.track, new Set(done.keys()), now);
 const cells = buildHeatmap([...progress.map((p) => new Date(p.completed_at)), ...correctionTimes], now, WEEKS);
@@ -125,6 +125,22 @@ const reviewIsMain = !(today.kind === 'lesson' && today.lesson.free);
           )
         }
       </div>
+    </section>
+
+    <section class="part" aria-labelledby="sua-cau">
+      <h2 id="sua-cau">Sửa câu của tôi</h2>
+      <p class="muted">Dán một câu bạn sắp nói ở standup, viết trên Slack hay trong pull request. AI sửa và giải thích bằng tiếng Việt.</p>
+      <noscript><p class="note warn">Phần sửa câu cần bật JavaScript.</p></noscript>
+      <div style="margin-top:var(--s-3)">
+        <CorrectBox client:visible next="/hom-nay" />
+      </div>
+      {
+        hasFullAccess(access) && (
+          <p style="margin:var(--s-4) 0 0;font-size:var(--fs-sm)">
+            Sắp phỏng vấn? <a href="/phong-van-thu">Phỏng vấn thử 5 câu</a>
+          </p>
+        )
+      }
     </section>
 
     <section class="part" aria-labelledby="luyen-tap">

@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import MockInterview from '../components/correct/MockInterview';
+import { accessFrom } from '../lib/auth/access';
+import { lessons } from '../lib/content/lessons';
+import { canInterview } from '../lib/correct/quota';
+import { getEntitlement, getLessonProgress } from '../lib/db/queries';
+import { pickInterviewQuestions } from '../lib/interview/session';
+
+export const prerender = false;
+
+const user = Astro.locals.user;
+if (!user) return Astro.redirect('/dang-nhap?next=/phong-van-thu', 303);
+const db = Astro.locals.supabase;
+const now = new Date();
+
+const [ent, progress] = await Promise.all([getEntitlement(db, user.id), getLessonProgress(db, user.id)]);
+const allowed = canInterview(accessFrom(ent, now));
+// Câu hỏi chỉ gửi cho tài khoản có quyền (skill security: khóa ở server, không khóa bằng CSS).
+const questions = allowed ? pickInterviewQuestions(lessons, new Set(progress.map((p) => p.lesson_key))) : [];
+if (!allowed) Astro.response.status = 403;
+---
+
+<Base title="Phỏng vấn thử | English Personal Coach" description="Trả lời 5 câu hỏi phỏng vấn bằng tiếng Anh, AI sửa từng câu." app>
+  <div class="wrap read" style="padding-top:var(--s-6);padding-bottom:var(--s-7)">
+    <h1 style="font-size:var(--fs-2xl);line-height:1.2">Phỏng vấn thử</h1>
+    {
+      !allowed ? (
+        <div class="paywall" style="margin-top:var(--s-5)">
+          <h3>Phỏng vấn thử có ở Premium</h3>
+          <p>Bạn trả lời 5 câu hỏi nhà tuyển dụng hay hỏi. AI sửa từng câu trả lời và gợi ý một cách trả lời tốt hơn.</p>
+          <a class="btn btn-primary" href="/bang-gia">Xem bảng giá</a>
+        </div>
+      ) : questions.length === 0 ? (
+        <div class="today-card" style="margin-top:var(--s-5)">
+          <p>Track Phỏng vấn đang được soạn bài, nên chưa có câu hỏi cho phỏng vấn thử. Trong lúc chờ, bạn có thể sửa câu ở trang Hôm nay.</p>
+          <a class="btn btn-primary" href="/hom-nay">Về trang Hôm nay</a>
+        </div>
+      ) : (
+        <>
+          <p class="muted" style="margin-top:var(--s-3)">
+            {questions.length} câu hỏi tiếng Anh. Gõ câu trả lời như khi nói với nhà tuyển dụng. Mỗi câu tính một lượt sửa. Không có
+            điểm, không xếp loại.
+          </p>
+          <p class="muted kbd-hint">
+            <kbd>Ctrl</kbd> hoặc <kbd>Cmd</kbd> + <kbd>Enter</kbd> để gửi câu trả lời.
+          </p>
+          <noscript><p class="note warn">Phỏng vấn thử cần bật JavaScript.</p></noscript>
+          <div style="margin-top:var(--s-4)">
+            <MockInterview client:load questions={questions} />
+          </div>
+        </>
+      )
+    }
+  </div>
+</Base>

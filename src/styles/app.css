@@ -1,0 +1,72 @@
+/* M4: sửa câu, sổ lỗi, ôn lỗi của chính bạn, phỏng vấn thử. Màu và khoảng cách lấy từ tokens.css. */
+
+@layer components {
+  /* ô sửa câu */
+  .correct-box { display: grid; gap: var(--s-2); }
+  .correct-input {
+    width: 100%; box-sizing: border-box; resize: vertical; min-height: 5.5rem;
+    font: 400 var(--fs-md)/1.55 var(--font-mono); color: var(--text); background: var(--panel);
+    border: 1px solid var(--line); border-radius: var(--r-md); padding: 11px 12px;
+  }
+  .correct-input:focus { border-color: var(--accent); outline: 3px solid var(--accent-tint); }
+  .correct-input[disabled] { opacity: .7; }
+  .correct-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-2) var(--s-3); margin-top: var(--s-2); }
+  .correct-box .note { margin-top: var(--s-2); }
+
+  /* ghi chú từng chỗ sửa dưới khung diff */
+  .changes { list-style: none; margin: 0 0 var(--s-2); padding: 0; display: grid; gap: var(--s-3); }
+  .changes li { display: grid; gap: 2px; font-size: var(--fs-sm); }
+  .change-pair { font: 400 var(--fs-sm)/1.5 var(--font-mono); overflow-wrap: anywhere; }
+  .change-pair del { color: var(--del-text); background: var(--del-mark); text-decoration: line-through; border-radius: 3px; padding: 0 2px; }
+  .change-pair ins { color: var(--add-text); background: var(--add-mark); text-decoration: none; border-radius: 3px; padding: 0 2px; }
+  .change-cat { font-size: var(--fs-xs); font-weight: 600; color: var(--muted); }
+  .change-src { font-size: var(--fs-xs); overflow-wrap: anywhere; }
+  .changes-card li { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-md); padding: 12px 14px; }
+
+  /* ôn lỗi của chính bạn */
+  .own-original {
+    font: 400 var(--fs-md)/1.6 var(--font-mono); margin: 0; padding: 12px 14px; overflow-wrap: anywhere;
+    background: var(--panel-2); border-radius: var(--r-md);
+  }
+  .own-original mark { background: var(--del-mark); color: var(--del-text); border-radius: 3px; padding: 0 2px; text-decoration: underline wavy; text-underline-offset: 4px; }
+  /* Nhãn tiếng Việt trong nút chọn: không dùng mono (skill design-system). */
+  .opt.opt-vi { font-family: var(--font-sans); }
+  .opt.picked { border-color: var(--accent); background: var(--accent-tint); }
+
+  /* phỏng vấn thử */
+  .interview-q { font-family: var(--font-mono); font-weight: 600; }
+  .stronger { margin-top: var(--s-4); padding: 12px 14px; border-left: 3px solid var(--add-text); background: var(--add-bg); border-radius: var(--r-md); }
+  .stronger h4 { margin: 0 0 var(--s-1); font-size: var(--fs-sm); color: var(--add-text); }
+  .stronger p { margin: 0; font: 400 var(--fs-md)/1.6 var(--font-mono); overflow-wrap: anywhere; }
+  .cat-count { list-style: none; padding: 0; margin: var(--s-2) 0 0; }
+  .cat-count li { display: flex; justify-content: space-between; align-items: baseline; padding: var(--s-2) 0; border-top: 1px solid var(--line); }
+  .cat-count li span::first-letter { text-transform: uppercase; }
+  .cat-count li:first-child { border-top: 0; }
+
+  /* sổ lỗi */
+  .cat-top { list-style: none; padding: 0; margin: var(--s-3) 0 0; counter-reset: cat; }
+  .cat-top li { padding: var(--s-4) 0; border-top: 1px solid var(--line); }
+  .cat-top li:first-child { border-top: 0; padding-top: 0; }
+  .cat-head { display: flex; justify-content: space-between; gap: var(--s-3); align-items: baseline; }
+  .cat-head b::first-letter { text-transform: uppercase; }
+  .cat-example { font: 400 var(--fs-sm)/1.5 var(--font-mono); margin: var(--s-1) 0; overflow-wrap: anywhere; }
+  .cat-example del { color: var(--del-text); background: var(--del-mark); border-radius: 3px; padding: 0 2px; }
+  .cat-example ins { color: var(--add-text); background: var(--add-mark); text-decoration: none; border-radius: 3px; padding: 0 2px; }
+  .trend { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); margin-top: var(--s-3); }
+  .trend th, .trend td { text-align: left; padding: var(--s-2) var(--s-2) var(--s-2) 0; border-top: 1px solid var(--line); }
+  .trend thead th { border-top: 0; color: var(--muted); font-weight: 600; font-size: var(--fs-xs); }
+  .trend tbody th { font-weight: 600; }
+  .trend tbody th::first-letter { text-transform: uppercase; }
+  .tag.trend-up { background: var(--del-bg); color: var(--del-text); }
+  .tag.trend-down { background: var(--add-bg); color: var(--add-text); }
+  .tag.trend-same { background: var(--panel-2); color: var(--muted); }
+  .review-ok { display: grid; gap: var(--s-1); justify-items: start; padding: 12px 14px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); }
+
+  /* mời nâng cấp (reference/styleguide.html) */
+  .paywall { background: var(--panel); border: 1px solid var(--accent); border-radius: var(--r-lg); padding: var(--s-5); }
+  .paywall ul { margin: var(--s-3) 0 var(--s-4); padding-left: 20px; }
+
+  @media (max-width: 520px) {
+    .paywall { padding: var(--s-4); }
+  }
+}

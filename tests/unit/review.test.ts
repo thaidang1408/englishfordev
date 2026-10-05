@@ -49,9 +49,14 @@ describe('POST /api/review', () => {
   type Item = NonNullable<Awaited<ReturnType<ReviewRepo['getItem']>>>;
   const dueItem: Item = { id: ITEM_ID, kind: 'quiz', lesson_key: 'standup-01', ref: quiz.id, box: 2, due_at: inDays(-1) };
 
+  const TRIAL = { user_id: 'u', premium_until: null, trial_until: inDays(3) };
+  const EXPIRED = { user_id: 'u', premium_until: null, trial_until: inDays(-3) };
+  let ent: typeof TRIAL | typeof EXPIRED = TRIAL;
+
   function setup(item: Item | null, changed = 1) {
     const updates: unknown[] = [];
     const repo: ReviewRepo = {
+      getEntitlement: async () => ent,
       getItem: async () => item,
       updateItem: async (id, fromBox, next) => {
         updates.push({ id, fromBox, next });
@@ -111,5 +116,32 @@ describe('POST /api/review', () => {
     const { json, updates } = await run(post({ item_id: ITEM_ID, choice: 2 }));
     expect(json.data).toMatchObject({ correct: false, box: 1 });
     expect(updates).toEqual([{ id: ITEM_ID, fromBox: 2, next: { box: 1, due_at: inDays(1) } }]);
+  });
+
+  describe('mục own_error', () => {
+    const ownItem: Item = { ...dueItem, kind: 'own_error', ref: 'c1:0' };
+
+    it('tự chấm "nhớ" thì lên một mức, "chưa nhớ" thì về mức 1', async () => {
+      ent = TRIAL;
+      const a = await run(post({ item_id: ITEM_ID, remembered: true }), ownItem);
+      expect(a.res.status).toBe(200);
+      expect(a.updates).toEqual([{ id: ITEM_ID, fromBox: 2, next: { box: 3, due_at: inDays(7) } }]);
+      const b = await run(post({ item_id: ITEM_ID, remembered: false }), ownItem);
+      expect(b.updates).toEqual([{ id: ITEM_ID, fromBox: 2, next: { box: 1, due_at: inDays(1) } }]);
+    });
+
+    it('tài khoản hết dùng thử: 403, không đổi mức', async () => {
+      ent = EXPIRED;
+      const { res, json, updates } = await run(post({ item_id: ITEM_ID, remembered: true }), ownItem);
+      ent = TRIAL;
+      expect(res.status).toBe(403);
+      expect(json.error?.code).toBe('premium_required');
+      expect(updates).toEqual([]);
+    });
+
+    it('400 khi gửi sai kiểu chấm cho từng loại mục', async () => {
+      expect((await run(post({ item_id: ITEM_ID, choice: 0 }), ownItem)).res.status).toBe(400);
+      expect((await run(post({ item_id: ITEM_ID, remembered: true }), dueItem)).res.status).toBe(400);
+    });
   });
 });
