@@ -1,0 +1,58 @@
+---
+import Icon from '../Icon.astro';
+
+/**
+ * Xem trước trang /so-loi (lý do trả tiền thứ 2, SPEC mục 2). Giao diện thật, dữ liệu mẫu, ghi rõ là minh họa.
+ * Số liệu ở đây là của một người dùng giả định, không phải số liệu người dùng EPC.
+ */
+const cats = [
+  { name: 'Mạo từ', n: 7, trend: 'up', pre: 'I fixed', bad: 'bug', good: 'the bug', post: 'on the login page.' },
+  { name: 'Thì của động từ', n: 5, trend: 'down', pre: 'Yesterday I', bad: 'have deployed', good: 'deployed', post: 'the hotfix.' },
+  { name: 'Giới từ', n: 3, trend: 'same', pre: "I'll finish it", bad: 'until', good: 'by', post: 'Friday.' },
+] as const;
+const max = Math.max(...cats.map((c) => c.n));
+const TREND = { up: 'Tăng so với tuần trước', down: 'Giảm so với tuần trước', same: 'Giữ nguyên' } as const;
+---
+
+<div class="book">
+  <div class="book-copy">
+    <p class="muted book-kicker">Ví dụ trang Sổ lỗi của một người sau 2 tuần, mỗi sáng sửa hai câu.</p>
+    <ul class="ticks">
+      <li>Mỗi chỗ AI sửa trong câu của bạn được xếp vào một nhóm lỗi.</li>
+      <li>Bạn thấy nhóm nào hay sai nhất, kèm câu thật của chính bạn.</li>
+      <li>Lỗi đang lặp lại quay lại trong phần ôn, cho tới khi bạn sửa đúng.</li>
+    </ul>
+    <p class="muted book-note"><Icon name="lock" size={16} /> Số liệu trong khung là dữ liệu mẫu để minh họa.</p>
+  </div>
+
+  <figure class="book-card" aria-label="Minh họa trang Sổ lỗi với dữ liệu mẫu">
+    <div class="stage-bar"><i></i><i></i><i></i><span>/so-loi · 28 ngày gần nhất</span><b class="book-sample">Dữ liệu mẫu</b></div>
+    <div class="book-body">
+      <div class="stats">
+        <div><b class="num">20</b><span>câu đã sửa</span></div>
+        <div><b class="num">15</b><span>lỗi</span></div>
+        <div><b class="num">5</b><span>lỗi đang lặp lại</span></div>
+      </div>
+      <ol class="book-cats">
+        {
+          cats.map((c) => (
+            <li>
+              <div class="book-row">
+                <b>{c.name}</b>
+                <span class="book-bar"><i style={`width:${(c.n / max) * 100}%`}></i></span>
+                <span class="num">{c.n}</span>
+                <span class={`book-trend ${c.trend}`} title={TREND[c.trend]}>
+                  <span class="sr-only-label">{TREND[c.trend]}</span>
+                  <span aria-hidden="true">{c.trend === 'up' ? '↑' : c.trend === 'down' ? '↓' : '='}</span>
+                </span>
+              </div>
+              <p class="book-ex" lang="en">
+                {c.pre} <s>{c.bad}</s> <mark>{c.good}</mark> {c.post}
+              </p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </figure>
+</div>

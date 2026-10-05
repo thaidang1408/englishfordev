@@ -1,5 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Icon from '../components/Icon.astro';
 import { parseAccountForm } from '../lib/account/form';
 import { accessFrom } from '../lib/auth/access';
 import { getEntitlement, getProfile, updateProfile } from '../lib/db/queries';
@@ -38,13 +40,15 @@ const telegramHref = bot && profile?.telegram_link_token ? startLink(bot, profil
 ---
 
 <Base title="Tài khoản | English Personal Coach" description="Giờ standup, ngày phỏng vấn, gói đang dùng." app>
-  <div class="wrap read" style="padding-top:var(--s-6);padding-bottom:var(--s-7)">
-    <h1 style="font-size:var(--fs-2xl);line-height:1.2">Tài khoản</h1>
-    {user.email && <p class="muted" style="margin-top:var(--s-2)">{user.email}</p>}
+  <PageHead title="Tài khoản" pill={user.email ?? 'Tài khoản của bạn'} icon="user" echo="EPC">
+    <p>Gói đang dùng, lịch học và nhắc qua Telegram.</p>
+  </PageHead>
+  <div class="wrap page">
+    <div class="grid-2">
 
-    <section class="part" aria-labelledby="goi">
-      <h2 id="goi">Gói đang dùng</h2>
-      <div class="plan" style="margin-top:var(--s-3)">
+    <section class="panel" aria-labelledby="goi">
+      <div class="panel-head"><span class="tile amber"><Icon name="card" /></span><h2 id="goi">Gói đang dùng</h2></div>
+      <div>
         {
           access.kind === 'premium' && (
             <p style="margin:0">
@@ -71,27 +75,8 @@ const telegramHref = bot && profile?.telegram_link_token ? startLink(bot, profil
       </div>
     </section>
 
-    <section class="part" aria-labelledby="lich">
-      <h2 id="lich">Lịch học</h2>
-      {saved && <p class="note ok" role="status">Đã lưu.</p>}
-      {error && <p class="note err" role="alert">{error}</p>}
-      <form method="post" style="margin-top:var(--s-4)">
-        <label class="field">
-          <span>Giờ họp standup</span>
-          <small class="muted">Lời nhắc qua Telegram gửi trước giờ này 30 đến 45 phút, thứ Hai đến thứ Sáu.</small>
-          <input type="time" name="standup_time" value={standup} required />
-        </label>
-        <label class="field">
-          <span>Ngày phỏng vấn <small class="muted">(không bắt buộc)</small></span>
-          <small class="muted">Có ngày phỏng vấn thì trang Hôm nay đếm ngược và gợi ý track Phỏng vấn.</small>
-          <input type="date" name="interview_date" value={profile?.interview_date ?? ''} />
-        </label>
-        <button class="btn btn-primary" type="submit">Lưu lịch học</button>
-      </form>
-    </section>
-
-    <section class="part" aria-labelledby="telegram">
-      <h2 id="telegram">Nhắc qua Telegram</h2>
+    <section class="panel" aria-labelledby="telegram">
+      <div class="panel-head"><span class="tile"><Icon name="send" /></span><h2 id="telegram">Nhắc qua Telegram</h2></div>
       {
         linked ? (
           <>
@@ -117,11 +102,33 @@ const telegramHref = bot && profile?.telegram_link_token ? startLink(bot, profil
       }
     </section>
 
-    <section class="part" aria-labelledby="dang-xuat">
-      <h2 id="dang-xuat" class="sr-only-label">Đăng xuất</h2>
+    <section class="panel" aria-labelledby="lich">
+      <div class="panel-head"><span class="tile"><Icon name="clock" /></span><h2 id="lich">Lịch học</h2></div>
+      {saved && <p class="note ok" role="status">Đã lưu.</p>}
+      {error && <p class="note err" role="alert">{error}</p>}
+      <form method="post" style="margin-top:var(--s-4)">
+        <label class="field">
+          <span>Giờ họp standup</span>
+          <small class="muted">Lời nhắc qua Telegram gửi trước giờ này 30 đến 45 phút, thứ Hai đến thứ Sáu.</small>
+          <input type="time" name="standup_time" value={standup} required />
+        </label>
+        <label class="field">
+          <span>Ngày phỏng vấn <small class="muted">(không bắt buộc)</small></span>
+          <small class="muted">Có ngày phỏng vấn thì trang Hôm nay đếm ngược và gợi ý track Phỏng vấn.</small>
+          <input type="date" name="interview_date" value={profile?.interview_date ?? ''} />
+        </label>
+        <button class="btn btn-primary" type="submit">Lưu lịch học</button>
+      </form>
+    </section>
+
+
+    <section class="panel" aria-labelledby="dang-xuat">
+      <div class="panel-head"><span class="tile amber"><Icon name="logout" /></span><h2 id="dang-xuat">Đăng xuất</h2></div>
+      <p class="muted">Dữ liệu học vẫn còn trong tài khoản. Lần sau đăng nhập bằng đúng tài khoản Google hoặc GitHub này.</p>
       <form method="post" action="/auth/signout">
         <button class="btn btn-quiet" type="submit">Đăng xuất</button>
       </form>
     </section>
+    </div>
   </div>
 </Base>

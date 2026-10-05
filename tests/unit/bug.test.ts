@@ -54,7 +54,7 @@ describe('văn bản chia sẻ', () => {
   it('ghi kết quả và link, không lộ câu sai hay câu đúng', () => {
     const text = shareText('2026-10-05', 2, 'https://epc.example/bug-hom-nay');
     expect(text).toBe(
-      'Bug của ngày 05/10/2026, English Personal Coach\nTìm ra ở lần thử 2 trên 3.\nThử tìm lỗi trong câu hôm nay: https://epc.example/bug-hom-nay',
+      'Tìm lỗi mỗi ngày 05/10/2026, English Personal Coach\nTìm ra ở lần thử 2 trên 3.\nThử tìm lỗi trong câu hôm nay: https://epc.example/bug-hom-nay',
     );
     expect(text).not.toContain(bug?.wrong ?? '?');
     expect(text).not.toContain(bug?.right ?? '?');

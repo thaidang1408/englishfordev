@@ -5,5 +5,5 @@ export const MAX_TRIES = 3;
 export function shareText(date: string, foundAt: number | null, url: string): string {
   const [y, m, d] = date.split('-');
   const result = foundAt ? `Tìm ra ở lần thử ${foundAt} trên ${MAX_TRIES}.` : `Chưa tìm ra sau ${MAX_TRIES} lần thử.`;
-  return `Bug của ngày ${d}/${m}/${y}, English Personal Coach\n${result}\nThử tìm lỗi trong câu hôm nay: ${url}`;
+  return `Tìm lỗi mỗi ngày ${d}/${m}/${y}, English Personal Coach\n${result}\nThử tìm lỗi trong câu hôm nay: ${url}`;
 }

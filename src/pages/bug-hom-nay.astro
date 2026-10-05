@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
 import ReviewDiff from '../components/ReviewDiff.astro';
 import { bugForDate, MAX_TRIES } from '../lib/bug/daily';
 import { lessons } from '../lib/content/lessons';
@@ -16,12 +17,13 @@ const lessonHref = bug ? (bug.lesson.free ? `/hoc/${bug.lesson.slug}` : `/mau-ca
 ---
 
 <Base
-  title="Bug của ngày: tìm lỗi trong câu tiếng Anh | EPC"
+  title="Tìm lỗi mỗi ngày: một câu tiếng Anh dev hay viết sai | EPC"
   description="Mỗi ngày một câu tiếng Anh dev hay viết sai. Bấm vào chỗ sai, 3 lần thử, xem giải thích bằng tiếng Việt."
 >
-  <div class="wrap read" style="padding-top:var(--s-6);padding-bottom:var(--s-7)">
-    <p class="muted" style="font-size:var(--fs-sm);margin-bottom:var(--s-1)">{formatVnDate(now)}</p>
-    <h1 style="font-size:var(--fs-2xl);line-height:1.2">Bug của ngày</h1>
+  <PageHead title="Tìm lỗi" highlight="mỗi ngày" pill={formatVnDate(now)} icon="target" width="narrow" echo="BUG">
+    <p>Mỗi ngày một câu tiếng Anh dev hay viết sai. Bấm vào chỗ sai, 3 lần thử, xem giải thích bằng tiếng Việt.</p>
+  </PageHead>
+  <div class="wrap page narrow">
     {
       !bug ? (
         <p class="muted" style="margin-top:var(--s-3)">Hôm nay chưa có câu nào. Quay lại vào ngày mai.</p>

@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
 import { PLANS, REFUND_DAYS, TRIAL_DAYS, formatVnd } from '../lib/pricing';
 
 /** Điều khoản và hoàn tiền (SPEC mục 2, 3). Số ngày và giá đọc từ pricing.ts để không lệch với bảng giá. */
@@ -9,9 +10,10 @@ import { PLANS, REFUND_DAYS, TRIAL_DAYS, formatVnd } from '../lib/pricing';
   title="Điều khoản sử dụng | English Personal Coach"
   description={`Điều khoản dùng English Personal Coach: dùng thử ${TRIAL_DAYS} ngày, Premium mua theo kỳ, hoàn tiền trong ${REFUND_DAYS} ngày đầu.`}
 >
-  <article class="wrap read legal" style="padding-top:var(--s-7);padding-bottom:var(--s-7)">
-    <h1 style="font-size:var(--fs-2xl);line-height:1.2">Điều khoản sử dụng</h1>
-    <p class="muted" style="margin-top:var(--s-3)">Cập nhật ngày 05/10/2026.</p>
+  <PageHead title="Điều khoản" highlight="sử dụng" pill="Cập nhật ngày 05/10/2026" icon="book" width="narrow">
+    <p>Dùng thử, thanh toán, hoàn tiền và giới hạn của AI sửa câu.</p>
+  </PageHead>
+  <article class="wrap page narrow legal panel-doc">
 
     <h2>EPC là gì</h2>
     <p>

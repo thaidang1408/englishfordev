@@ -67,6 +67,7 @@ const TREND = { up: 'tăng', down: 'giảm', same: 'giữ nguyên' } as const;
                       <b>{CATEGORY_NAMES[t.category]}</b>
                       <span class="muted">{t.count} lần</span>
                     </div>
+                    <span class="book-bar" aria-hidden="true"><i style={`width:${(t.count / (top[0]?.count || 1)) * 100}%`}></i></span>
                     <p class="cat-example" lang="en">
                       <del>{t.example.from || '(thiếu)'}</del> → <ins>{t.example.to || '(bỏ)'}</ins>
                     </p>

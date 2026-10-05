@@ -1,5 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Icon from '../components/Icon.astro';
 import { COMPARE, PLANS, REFUND_DAYS, TRIAL_DAYS, formatVnd } from '../lib/pricing';
 ---
 
@@ -7,33 +9,35 @@ import { COMPARE, PLANS, REFUND_DAYS, TRIAL_DAYS, formatVnd } from '../lib/prici
   title="Bảng giá | English Personal Coach"
   description={`Học thử miễn phí. ${TRIAL_DAYS} ngày dùng thử đủ quyền Premium, không cần thẻ. Premium ${formatVnd(PLANS['30d'].amount)} cho 30 ngày, mua theo kỳ.`}
 >
-  <div class="wrap" style="padding-top:var(--s-7);padding-bottom:var(--s-7)">
-    <div class="read">
-      <h1 style="font-size:var(--fs-2xl);line-height:1.2">Bảng giá</h1>
-      <p class="muted" style="margin-top:var(--s-3)">
+  <PageHead title="Bảng giá" highlight="rõ ràng" pill="Học thử không cần tài khoản" icon="card" echo="GIÁ">
+    <p>
         Học thử không cần tài khoản. Đăng ký xong bạn có {TRIAL_DAYS} ngày dùng thử đủ quyền Premium, tối đa 10 lần sửa
         câu mỗi ngày. Không cần thẻ, không cần làm gì thêm.
-      </p>
-      <p style="margin-top:var(--s-5)">
-        <a class="btn btn-primary" href="/hoc/hom-qua-da-lam-gi">Học thử bài 1, miễn phí</a>
-      </p>
-    </div>
+    </p>
+    <p style="margin-top:var(--s-4)">
+      <a class="btn btn-primary" href="/hoc/hom-qua-da-lam-gi">Học thử bài 1, miễn phí<Icon name="arrow" size={18} /></a>
+    </p>
+  </PageHead>
+  <div class="wrap page">
 
     <section class="part" aria-labelledby="goi-premium">
-      <h2 id="goi-premium">Premium</h2>
-      <div class="grid gap-4 sm:grid-cols-2" style="margin-top:var(--s-4);max-width:var(--w-read)">
-        <div class="plan">
+      <header class="sec-head">
+        <span class="pill"><Icon name="sparkle" size={14} />Premium</span>
+        <h2 id="goi-premium">Hai gói, <span class="hl">mua theo kỳ</span></h2>
+      </header>
+      <div class="cards2 plans">
+        <div class="plan card">
           <h3>30 ngày</h3>
           <p class="price">{formatVnd(PLANS['30d'].amount)}</p>
           <a class="btn btn-quiet" href="/nang-cap?goi=30d" style="margin-top:var(--s-3)">Mua gói 30 ngày</a>
         </div>
-        <div class="plan">
+        <div class="plan card plan-best">
           <h3>90 ngày</h3>
           <p class="price">{formatVnd(PLANS['90d'].amount)}</p>
           <a class="btn btn-quiet" href="/nang-cap?goi=90d" style="margin-top:var(--s-3)">Mua gói 90 ngày</a>
         </div>
       </div>
-      <ul class="read" style="margin-top:var(--s-4);padding-left:20px">
+      <ul class="ticks panel center-list">
         <li>Mua theo kỳ, không tự gia hạn. Hết kỳ thì tài khoản về gói miễn phí, dữ liệu còn nguyên.</li>
         <li>Hoàn tiền trong {REFUND_DAYS} ngày đầu, không hỏi lý do.</li>
         <li>Thanh toán bằng chuyển khoản qua mã VietQR do payOS tạo. Premium tự mở trong khoảng một phút sau khi nhận đúng số tiền.</li>
@@ -42,8 +46,11 @@ import { COMPARE, PLANS, REFUND_DAYS, TRIAL_DAYS, formatVnd } from '../lib/prici
     </section>
 
     <section class="part" aria-labelledby="so-sanh">
-      <h2 id="so-sanh">Miễn phí và Premium</h2>
-      <p class="muted">Cột miễn phí là sau khi hết {TRIAL_DAYS} ngày dùng thử.</p>
+      <header class="sec-head">
+        <span class="pill"><Icon name="compass" size={16} />So sánh</span>
+        <h2 id="so-sanh">Miễn phí và <span class="hl">Premium</span></h2>
+        <p class="sec-lede">Cột miễn phí là sau khi hết {TRIAL_DAYS} ngày dùng thử.</p>
+      </header>
       <table class="compare" style="margin-top:var(--s-3)">
         <thead>
           <tr>

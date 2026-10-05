@@ -11,32 +11,59 @@ const failed = Astro.url.searchParams.has('loi');
 ---
 
 <Base title="Đăng nhập | English Personal Coach" description="Đăng nhập bằng Google hoặc GitHub." index={false}>
-  <div class="wrap read" style="padding-top:var(--s-7);padding-bottom:var(--s-8)">
-    <h1 style="font-size:var(--fs-2xl);line-height:1.2">Đăng nhập</h1>
-    <p class="muted" style="margin-top:var(--s-3)">
-      Tài khoản mới có {TRIAL_DAYS} ngày dùng thử đủ quyền Premium. Không cần thẻ.
-    </p>
-    {
-      failed && (
-        <p class="note err" role="alert">
-          Chưa đăng nhập được. Thử lại, hoặc chọn cách đăng nhập còn lại.
+  <div class="page-head auth-bg">
+    <div class="wrap auth">
+      <div class="auth-card">
+        <span class="logo" aria-hidden="true"><i></i><i></i></span>
+        <h1>Đăng nhập</h1>
+        <p class="muted" style="margin:0">
+          Tài khoản mới có <b style="color:var(--text)">{TRIAL_DAYS} ngày dùng thử</b> đủ quyền Premium. Không cần thẻ.
         </p>
-      )
-    }
-    <div class="flex flex-col gap-3" style="margin-top:var(--s-5);max-width:22rem">
-      <form method="post" action="/auth/signin">
-        <input type="hidden" name="provider" value="google" />
-        <input type="hidden" name="next" value={next} />
-        <button class="btn btn-quiet w-full" type="submit">Đăng nhập bằng Google</button>
-      </form>
-      <form method="post" action="/auth/signin">
-        <input type="hidden" name="provider" value="github" />
-        <input type="hidden" name="next" value={next} />
-        <button class="btn btn-quiet w-full" type="submit">Đăng nhập bằng GitHub</button>
-      </form>
+        {
+          failed && (
+            <p class="note err" role="alert">
+              Chưa đăng nhập được. Thử lại, hoặc chọn cách đăng nhập còn lại.
+            </p>
+          )
+        }
+        <div class="auth-providers">
+          <form method="post" action="/auth/signin">
+            <input type="hidden" name="provider" value="google" />
+            <input type="hidden" name="next" value={next} />
+            <button class="btn btn-quiet" type="submit">
+              <svg viewBox="0 0 24 24" aria-hidden="true"
+                ><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5a5.6 5.6 0 0 1-2.4 3.6v3h3.9c2.3-2.1 3.5-5.2 3.5-8.8Z"
+                ></path><path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-2.9l-3.9-3c-1.1.7-2.5 1.2-4.1 1.2-3.1 0-5.8-2.1-6.7-5H1.3v3.1A12 12 0 0 0 12 24Z"
+                ></path><path fill="#FBBC05" d="M5.3 14.3a7.2 7.2 0 0 1 0-4.6V6.6h-4a12 12 0 0 0 0 10.8l4-3.1Z"></path><path
+                  fill="#EA4335"
+                  d="M12 4.8c1.8 0 3.3.6 4.6 1.8l3.4-3.4A11.5 11.5 0 0 0 12 0 12 12 0 0 0 1.3 6.6l4 3.1c.9-2.9 3.6-4.9 6.7-4.9Z"
+                ></path></svg
+              >
+              Đăng nhập bằng Google
+            </button>
+          </form>
+          <form method="post" action="/auth/signin">
+            <input type="hidden" name="provider" value="github" />
+            <input type="hidden" name="next" value={next} />
+            <button class="btn btn-quiet" type="submit">
+              <svg viewBox="0 0 24 24" aria-hidden="true"
+                ><path
+                  fill="currentColor"
+                  d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3Z"
+                ></path></svg
+              >
+              Đăng nhập bằng GitHub
+            </button>
+          </form>
+        </div>
+        <div class="auth-diff" aria-hidden="true">
+          <p class="del" lang="en">− I fixed bug login yesterday.</p>
+          <p class="add" lang="en">+ Yesterday I fixed the login bug.</p>
+        </div>
+        <p class="muted" style="margin-top:var(--s-4);font-size:var(--fs-sm)">
+          EPC chỉ lấy email và tên từ tài khoản Google hoặc GitHub của bạn. <a href="/bao-mat">Bảo mật</a>
+        </p>
+      </div>
     </div>
-    <p class="muted" style="margin-top:var(--s-5);font-size:var(--fs-sm)">
-      EPC chỉ lấy email và tên từ tài khoản Google hoặc GitHub của bạn.
-    </p>
   </div>
 </Base>

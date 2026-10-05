@@ -1,0 +1,264 @@
+---
+import { lessons } from '../../lib/content/lessons';
+import { lessonKey } from '../../lib/content/schema';
+import { TRACK_NAMES } from '../../lib/content/tracks';
+import { diffWords, type Segment } from '../../lib/lesson/diff';
+
+/**
+ * Hero trang chủ: người xem tự review một câu. Không có JS thì hiện ví dụ đầu, tĩnh.
+ * Có JS: gõ câu sai, mời bấm vào chữ sai (tối đa 3 lần bấm nhầm), rồi hiện câu đúng và lời Coach.
+ * Không ai bấm thì tự hiện bản sửa sau vài giây và sang ví dụ kế. Ví dụ lấy từ bài học thật.
+ */
+type Example = { head: string; before: Segment[]; after: Segment[]; why: string; count: number };
+
+const make = (head: string, before: string, after: string, why: string): Example => {
+  const d = diffWords(before, after);
+  return { head, before: d.before, after: d.after, why, count: d.after.filter((s) => s.changed).length || 1 };
+};
+
+const PICKS = ['standup-01', 'writing-03', 'standup-08', 'interview-02'];
+const examples: Example[] = [
+  make(
+    'Câu standup sáng nay của bạn',
+    'Yesterday I have fixed bug login and today I continue do the API.',
+    "Yesterday I fixed the login bug. Today I'm continuing with the API.",
+    'Có mốc thời gian đã qua như "yesterday" thì dùng quá khứ đơn. Từ bổ nghĩa đứng trước: "the login bug".',
+  ),
+  ...PICKS.flatMap((key) => {
+    const l = lessons.find((x) => lessonKey(x) === key);
+    const m = l?.mistakes[0];
+    return l && m ? [make(`${TRACK_NAMES[l.track]}: ${l.title}`, m.wrong, m.right, m.why_vi)] : [];
+  }),
+];
+const first = examples[0]!;
+const json = JSON.stringify(examples).replace(/</g, '\\u003c');
+const segs = (list: Segment[]) =>
+  list.map((s) => (s.changed ? { mark: s.text.trimEnd(), rest: s.text.slice(s.text.trimEnd().length) } : { text: s.text }));
+---
+
+<div class="demo" data-demo>
+  <figure class="review review-shadow" aria-label="Ví dụ một câu tiếng Anh được sửa">
+    <div class="review-head">
+      <span data-demo-head>{first.head}</span>
+      <span><span data-demo-count>{first.count}</span> chỗ sửa</span>
+    </div>
+    <div class="diff">
+      <div class="diff-line del">
+        <span class="sign" aria-hidden="true">−</span>
+        <span><span class="sr-only-label">Câu gốc: </span><span lang="en" data-demo-before>{segs(first.before).map((p) => ('mark' in p ? <><mark>{p.mark}</mark>{p.rest}</> : p.text))}</span></span>
+      </div>
+      <p class="demo-hint" data-demo-hint hidden aria-live="polite"></p>
+      <div class="diff-line add" data-demo-addline>
+        <span class="sign" aria-hidden="true">+</span>
+        <span><span class="sr-only-label">Câu đã sửa: </span><span lang="en" data-demo-after>{segs(first.after).map((p) => ('mark' in p ? <><mark>{p.mark}</mark>{p.rest}</> : p.text))}</span></span>
+      </div>
+    </div>
+    <div class="comment" data-demo-comment>
+      <span class="avatar" aria-hidden="true">C</span>
+      <div>
+        <p class="muted">Coach</p>
+        <p data-demo-why>{first.why}</p>
+      </div>
+    </div>
+  </figure>
+  <div class="demo-controls" hidden data-demo-controls>
+    <div class="demo-dots">
+      {examples.map((_, i) => <button type="button" data-demo-go={i} aria-label={`Ví dụ ${i + 1}`} aria-current={i === 0 ? 'true' : undefined}></button>)}
+    </div>
+    <div class="demo-actions">
+      <button type="button" class="demo-pause" data-demo-next>Câu khác</button>
+      <button type="button" class="demo-pause" data-demo-pause aria-pressed="false">Tạm dừng</button>
+    </div>
+  </div>
+  <script type="application/json" data-demo-data set:html={json} />
+</div>
+
+<script>
+  type Segment = { text: string; changed: boolean };
+  type Example = { head: string; before: Segment[]; after: Segment[]; why: string; count: number };
+
+  const root = document.querySelector<HTMLElement>('[data-demo]');
+  const raw = root?.querySelector('[data-demo-data]')?.textContent;
+  if (root && raw) {
+    const examples = JSON.parse(raw) as Example[];
+    const $ = <T extends HTMLElement>(sel: string) => root.querySelector<T>(sel)!;
+    const head = $('[data-demo-head]');
+    const count = $('[data-demo-count]');
+    const before = $('[data-demo-before]');
+    const after = $('[data-demo-after]');
+    const addLine = $('[data-demo-addline]');
+    const comment = $('[data-demo-comment]');
+    const why = $('[data-demo-why]');
+    const hint = $('[data-demo-hint]');
+    const pauseBtn = $<HTMLButtonElement>('[data-demo-pause]');
+    const nextBtn = $<HTMLButtonElement>('[data-demo-next]');
+    const dots = [...root.querySelectorAll<HTMLButtonElement>('[data-demo-go]')];
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let index = 0;
+    let paused = reduced;
+    let visible = true;
+    let touched = false; // người xem đã bấm: không tự sang ví dụ kế nữa
+    let run = 0; // tăng mỗi lần đổi ví dụ để huỷ chuỗi hiệu ứng cũ
+    let pending = false; // ví dụ đã chạy xong khi khung khuất màn hình: sang ví dụ kế khi khung hiện lại
+    const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+    // Đoạn đã gồm khoảng trắng ở cuối; chỉ tô chữ, không tô khoảng trắng (giống ReviewDiff.astro).
+    const marked = (el: HTMLElement, segs: Segment[]) => {
+      el.replaceChildren(
+        ...segs.flatMap((s) => {
+          if (!s.changed) return [document.createTextNode(s.text)];
+          const word = s.text.trimEnd();
+          return [Object.assign(document.createElement('mark'), { textContent: word }), document.createTextNode(s.text.slice(word.length))];
+        }),
+      );
+    };
+    const plain = (segs: Segment[]) => segs.map((s) => s.text).join('');
+    const words = (segs: Segment[]) =>
+      segs.flatMap((s) => s.text.split(/\s+/).filter(Boolean).map((w) => ({ w, bad: s.changed })));
+
+    async function type(el: HTMLElement, text: string, id: number) {
+      el.textContent = '';
+      el.classList.add('typing');
+      for (let i = 1; i <= text.length; i++) {
+        if (id !== run) return false;
+        el.textContent = text.slice(0, i);
+        await wait(text[i - 1] === ' ' ? 45 : 26);
+      }
+      el.classList.remove('typing');
+      return id === run;
+    }
+
+    /** Biến câu sai thành các chữ bấm được. Xong khi tìm hết chỗ sai, bấm nhầm 3 lần, hoặc hết giờ chờ. */
+    function hunt(ex: Example, id: number): Promise<void> {
+      return new Promise((done) => {
+        const list = words(ex.before);
+        const need = list.filter((x) => x.bad).length;
+        let found = 0;
+        let misses = 0;
+        let finished = false;
+        const finish = (msg: string) => {
+          if (finished) return;
+          finished = true;
+          hint.textContent = msg;
+          hint.hidden = true;
+          addLine.hidden = false;
+          comment.hidden = false;
+          done();
+        };
+        hint.hidden = false;
+        hint.textContent = 'Bấm vào chữ bạn thấy sai.';
+        addLine.hidden = true;
+        comment.hidden = true;
+        before.replaceChildren(
+          ...list.flatMap(({ w, bad }, i) => {
+            const b = Object.assign(document.createElement('button'), { type: 'button', textContent: w, className: 'demo-tok' });
+            b.addEventListener('click', () => {
+              if (finished || id !== run || b.disabled) return;
+              touched = true;
+              b.disabled = true;
+              if (bad) {
+                b.classList.add('hit');
+                found++;
+                if (found >= need) finish('Bạn tìm đủ chỗ sai. Đây là bản sửa.');
+              } else {
+                b.classList.add('miss');
+                misses++;
+                if (misses >= 3) finish('Chỗ sai đã được tô. Đây là bản sửa.');
+              }
+            });
+            return i < list.length - 1 ? [b, document.createTextNode(' ')] : [b];
+          }),
+        );
+        // Không ai bấm thì tự hiện bản sửa; đổi ví dụ giữa chừng thì dừng chờ.
+        void wait(5500).then(() => {
+          if (!touched && id === run) finish('');
+        });
+        const watch = setInterval(() => {
+          if (finished) clearInterval(watch);
+          else if (id !== run) {
+            clearInterval(watch);
+            finish('');
+          }
+        }, 200);
+      });
+    }
+
+    async function show(i: number, animate: boolean) {
+      const id = ++run;
+      pending = false;
+      index = i;
+      const ex = examples[i]!;
+      dots.forEach((d, j) => d.toggleAttribute('aria-current', j === i));
+      head.textContent = ex.head;
+      count.textContent = String(ex.count);
+      why.textContent = ex.why;
+      hint.hidden = true;
+      addLine.hidden = false;
+      comment.hidden = false;
+      if (!animate) {
+        marked(before, ex.before);
+        marked(after, ex.after);
+        addLine.classList.remove('demo-hide');
+        comment.classList.remove('demo-hide');
+        return;
+      }
+      addLine.classList.add('demo-hide');
+      comment.classList.add('demo-hide');
+      if (!(await type(before, plain(ex.before), id))) return;
+      await hunt(ex, id);
+      if (id !== run) return;
+      marked(before, ex.before);
+      root!.classList.add('flag');
+      await wait(450);
+      root!.classList.remove('flag');
+      addLine.classList.remove('demo-hide');
+      if (!(await type(after, plain(ex.after), id))) return;
+      marked(after, ex.after);
+      await wait(250);
+      if (id !== run) return;
+      comment.classList.remove('demo-hide');
+      if (touched) return; // người xem tự bấm "Câu khác" khi muốn
+      await wait(4200);
+      if (id !== run || paused || touched) return;
+      if (visible) void show((index + 1) % examples.length, true);
+      else pending = true;
+    }
+
+    $('[data-demo-controls]').hidden = false;
+    dots.forEach((d, j) =>
+      d.addEventListener('click', () => {
+        touched = true;
+        void show(j, !paused);
+      }),
+    );
+    nextBtn.addEventListener('click', () => {
+      touched = true;
+      void show((index + 1) % examples.length, !paused);
+    });
+    pauseBtn.addEventListener('click', () => {
+      paused = !paused;
+      pauseBtn.setAttribute('aria-pressed', String(paused));
+      pauseBtn.textContent = paused ? 'Chạy tiếp' : 'Tạm dừng';
+      if (paused) void show(index, false);
+      else {
+        touched = false;
+        void show((index + 1) % examples.length, true);
+      }
+    });
+    if (reduced) {
+      pauseBtn.hidden = true;
+    } else {
+      // Chỉ tự chạy khi khung đang trên màn hình.
+      new IntersectionObserver(([e]) => {
+        const was = visible;
+        visible = Boolean(e?.isIntersecting);
+        if (visible && !was && pending && !paused && !touched) {
+          pending = false;
+          void show((index + 1) % examples.length, true);
+        }
+      }).observe(root);
+      void wait(700).then(() => show(0, true));
+    }
+  }
+</script>

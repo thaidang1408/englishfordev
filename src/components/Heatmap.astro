@@ -6,19 +6,21 @@ interface Props {
   lessonsDone: number;
   corrections: number;
   repeating: number;
+  /** false khi trang đã hiện ba con số ở chỗ khác (đầu trang Hôm nay). */
+  stats?: boolean;
 }
 
-const { cells, lessonsDone, corrections, repeating } = Astro.props;
+const { cells, lessonsDone, corrections, repeating, stats = true } = Astro.props;
 const activeDays = cells.filter((c) => c.count > 0).length;
 const weeks = Math.round(cells.length / 7);
 ---
 
-<div class="heat">
-  <div class="stats">
+<div class:list={['heat', { bare: !stats }]}>
+  {stats && <div class="stats">
     <div><b>{lessonsDone}</b><span>bài đã xong</span></div>
     <div><b>{corrections}</b><span>câu đã được sửa</span></div>
     <div><b>{repeating}</b><span>lỗi còn lặp lại</span></div>
-  </div>
+  </div>}
   <div class="heat-scroll">
     <div class="heat-grid" role="img" aria-label={`Lịch luyện tập ${weeks} tuần gần nhất: ${activeDays} ngày có luyện tập.`}>
       {

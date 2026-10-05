@@ -1,5 +1,7 @@
 ---
 import LessonCore from './LessonCore.astro';
+import Icon from './Icon.astro';
+import PageHead from './PageHead.astro';
 import Quiz from './Quiz';
 import CorrectBox from './correct/CorrectBox';
 import { neighbours } from '../lib/content/lessons';
@@ -19,12 +21,11 @@ const nextLink = next ? { href: `/hoc/${next.slug}`, title: next.title } : undef
 const num = String(lesson.id).padStart(2, '0');
 ---
 
-  <article class="wrap read" style="padding-top:var(--s-6);padding-bottom:var(--s-7)" data-lesson-start={key}>
-    <p class="muted" style="font-size:var(--fs-sm);margin-bottom:var(--s-2)">
-      {TRACK_NAMES[lesson.track]}, bài <span class="num">{num}</span>
-    </p>
-    <h1 style="font-size:var(--fs-2xl);line-height:1.2">{lesson.title}</h1>
-    <p class="muted" style="margin-top:var(--s-3)">{lesson.goal_vi}</p>
+  <PageHead title={lesson.title} pill={`${TRACK_NAMES[lesson.track]}, bài ${num}`} icon="book" width="narrow" echo={num}>
+    <p>{lesson.goal_vi}</p>
+    <p class="lesson-meta"><span class="when-chip"><Icon name="clock" size={16} /> Khoảng 10 phút</span><span>5 phần</span><span>5 câu trắc nghiệm</span></p>
+  </PageHead>
+  <article class="wrap page narrow lesson-page" data-lesson-start={key}>
 
     <LessonCore lesson={lesson} numbered />
 

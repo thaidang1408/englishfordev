@@ -30,7 +30,7 @@ test.describe('khi tắt JavaScript', () => {
 
 test('trang chủ có nút học thử dẫn tới bài 1', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('link', { name: 'Học thử bài 1, miễn phí' })).toHaveAttribute('href', `/hoc/${lesson.slug}`);
+  await expect(page.getByRole('link', { name: 'Học thử miễn phí' })).toHaveAttribute('href', `/hoc/${lesson.slug}`);
 });
 
 test('giao diện đã chọn được áp dụng trước khi vẽ trang', async ({ page }) => {
@@ -92,4 +92,47 @@ test('POST /api/events từ trang khác bị chặn, tên chỉ server được 
   expect(evil.status()).toBe(403);
   const fake = await request.post('/api/events', { headers: { Origin: baseURL! }, data: { name: 'order_paid', anon_id } });
   expect(fake.status()).toBe(400);
+});
+
+test('thanh trên đánh dấu trang đang mở và dẫn tới các trang chính', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name === 'mobile', 'Màn hẹp dùng nút Menu, có test riêng.');
+  await page.goto('/bang-gia');
+  const nav = page.getByRole('navigation', { name: 'Điều hướng chính' });
+  await expect(nav.getByRole('link', { name: 'Bảng giá' })).toHaveAttribute('aria-current', 'page');
+  await expect(page.getByRole('link', { name: 'Học miễn phí' }).first()).toHaveAttribute('href', '/hom-nay');
+  const foot = page.getByRole('navigation', { name: 'Tài khoản' });
+  for (const name of ['Sổ lỗi', 'Phỏng vấn thử', 'Kiểm tra trình độ', 'Nâng cấp']) {
+    await expect(foot.getByRole('link', { name })).toBeVisible();
+  }
+});
+
+test.describe('điện thoại', () => {
+  test.use({ viewport: { width: 375, height: 800 } });
+
+  test('menu gom các trang, mở được cả khi tắt JavaScript', async ({ browser }) => {
+    const ctx = await browser.newContext({ viewport: { width: 375, height: 800 }, javaScriptEnabled: false });
+    const page = await ctx.newPage();
+    await page.goto('/');
+    await page.getByText('Menu', { exact: true }).click();
+    const menu = page.getByRole('navigation', { name: 'Menu' });
+    for (const name of ['Bài học', 'Tìm lỗi mỗi ngày', 'Bảng giá', 'Học miễn phí']) {
+      await expect(menu.getByRole('link', { name })).toBeVisible();
+    }
+    await ctx.close();
+  });
+});
+
+test('hero: người xem bấm chữ sai rồi thấy câu đúng và lời Coach', async ({ page }) => {
+  await page.goto('/');
+  const demo = page.locator('[data-demo]');
+  await demo.scrollIntoViewIfNeeded();
+  await expect(demo.getByText('Bấm vào chữ bạn thấy sai.')).toBeVisible({ timeout: 8000 });
+  // "have" là chữ sai trong ví dụ đầu; bấm nhầm thêm 3 chữ đúng để chắc chắn kết thúc.
+  await demo.locator('.demo-tok', { hasText: /^have$/ }).click();
+  for (const w of ['Yesterday', 'fixed', 'the']) {
+    const tok = demo.locator('.demo-tok:not([disabled])', { hasText: new RegExp(`^${w}$`) }).first();
+    if (await tok.count()) await tok.click();
+  }
+  await expect(demo.locator('[data-demo-addline]')).toBeVisible({ timeout: 8000 });
+  await expect(demo.locator('[data-demo-comment]')).toBeVisible({ timeout: 8000 });
 });

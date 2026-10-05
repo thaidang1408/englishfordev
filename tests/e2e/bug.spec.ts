@@ -12,7 +12,7 @@ const tok = (page: Page, i: number) => page.locator(`button.tok[data-i="${i}"]`)
 
 test('tìm ra chỗ sai thì hiện khung diff, giải thích và nút chép kết quả', async ({ page }) => {
   await page.goto('/bug-hom-nay');
-  await expect(page.locator('h1')).toHaveText('Bug của ngày');
+  await expect(page.locator('h1')).toHaveText('Tìm lỗi mỗi ngày');
   await expect(page.locator('#bug-answer')).toBeHidden();
   await expect(page.locator('#bug-share')).toBeHidden();
 

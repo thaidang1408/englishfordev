@@ -1,6 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
-import ReviewDiff from '../components/ReviewDiff.astro';
+import Icon from '../components/Icon.astro';
+import HeroDemo from '../components/home/HeroDemo.astro';
+import MistakeMarquee from '../components/home/MistakeMarquee.astro';
+import MorningStory from '../components/home/MorningStory.astro';
+import ErrorBookPreview from '../components/home/ErrorBookPreview.astro';
 import { lessons } from '../lib/content/lessons';
 import { TRACKS } from '../lib/content/schema';
 import { TRACK_NAMES, TRACK_OUTLINE } from '../lib/content/tracks';
@@ -9,156 +13,353 @@ import { PLANS, REFUND_DAYS, TRIAL_DAYS, formatVnd } from '../lib/pricing';
 const firstLesson = lessons.find((l) => l.free);
 const firstHref = firstLesson ? `/hoc/${firstLesson.slug}` : '/bang-gia';
 
-// Bài đã có file nội dung thì link sang trang mẫu câu.
 const slugFor = (track: string, id: number) => lessons.find((l) => l.track === track && l.id === id)?.slug;
-const trackNotes = {
-  standup: '3 bài đầu mở cho mọi người.',
-  writing: 'Pull request, review code, Slack, email.',
-  interview: 'Chỉ có ở Premium và dùng thử. Kèm phỏng vấn thử.',
+const TRACK_INFO = {
+  standup: { icon: 'chat', note: 'Báo việc, ước lượng, xin giúp, không đồng ý lịch sự. 3 bài đầu mở cho mọi người.', tone: '' },
+  writing: { icon: 'pen', note: 'Pull request, commit, review code, báo bug, Slack, email cho khách.', tone: 'amber' },
+  interview: { icon: 'mic', note: 'Giới thiệu bản thân, kể dự án, nói về lương. Chỉ có ở Premium và dùng thử.', tone: '' },
 } as const;
+
+// Phép tính thật, không phải số liệu người dùng.
+const saving = PLANS['30d'].amount * 3 - PLANS['90d'].amount;
 ---
 
 <Base
   title="Tiếng Anh cho dev, 10 phút mỗi sáng | English Personal Coach"
   description="Mỗi sáng 10 phút: học một mẫu câu dev dùng trong công việc, và câu tiếng Anh của chính bạn được sửa, giải thích bằng tiếng Việt."
 >
+  <!-- Hero -->
   <div class="wrap">
-    <section class="grid items-center gap-9 py-9 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-14 lg:pt-14 lg:pb-18" aria-labelledby="hero">
-      <div>
-        <h1 id="hero">Câu của bạn, được review như một pull request.</h1>
-        <p class="muted" style="font-size:var(--fs-lg);max-width:30em;margin:var(--s-5) 0 var(--s-6)">
-          Mỗi sáng 10 phút: học một mẫu câu dev dùng trong công việc, và câu tiếng Anh của chính bạn được sửa, giải
-          thích bằng tiếng Việt.
+    <section class="hero" aria-labelledby="hero">
+      <div class="hero-copy">
+        <p class="pills">
+          <span class="pill">Cho dev, QA, BA, PM</span>
+          <span class="pill pill-plain">10 phút mỗi sáng</span>
+          <span class="pill-dot" aria-hidden="true"></span>
         </p>
-        <div class="flex flex-wrap gap-3">
-          <a class="btn btn-primary" href={firstHref}>Học thử bài 1, miễn phí</a>
-          <a class="btn btn-quiet" href="/bang-gia">Xem bảng giá</a>
+        <h1 id="hero">
+          Câu của bạn, được <span class="hl">review</span>
+          <span class="spark" aria-hidden="true"><Icon name="sparkle" size={28} /></span>
+          như một pull request.
+        </h1>
+        <p class="hero-lede">
+          Mỗi sáng học một mẫu câu dev dùng trong công việc, rồi viết câu tiếng Anh của chính bạn. Câu được sửa và giải thích
+          bằng tiếng Việt.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href={firstHref}>Học thử miễn phí<Icon name="arrow" size={18} /></a>
+          <a class="go" href="/bang-gia">Xem bảng giá <span class="go-dot"><Icon name="arrow" size={16} /></span></a>
         </div>
-        <p class="muted" style="font-size:var(--fs-sm);margin-top:var(--s-4)">
-          Không cần đăng ký để học thử. Không cần cài app.
-        </p>
+        <p class="muted hero-note">Không cần đăng ký để học thử. Không cần cài app.</p>
+        <ul class="feats">
+          <li><span class="tile"><Icon name="diff" /></span><span><b>Sửa câu kiểu review</b><small>Giải thích bằng tiếng Việt</small></span></li>
+          <li><span class="tile amber"><Icon name="repeat" /></span><span><b>Ôn đúng lỗi của bạn</b><small>Sau 1, 3, 7, 14 ngày</small></span></li>
+          <li><span class="tile"><Icon name="bell" /></span><span><b>Nhắc qua Telegram</b><small>Trước giờ standup</small></span></li>
+        </ul>
       </div>
 
-      <ReviewDiff
-        before="Yesterday I have fixed bug login and today I continue do the API."
-        after="Yesterday I fixed the login bug. Today I'm continuing with the API."
-        headLeft="Câu standup sáng nay của bạn"
-        headRight="3 chỗ sửa"
-        label="Ví dụ một câu standup được sửa"
-        shadow
-        animate
-      >
-        <p class="muted">Coach</p>
-        <p>Có mốc thời gian đã qua như <code lang="en">yesterday</code> thì dùng quá khứ đơn: <code lang="en">fixed</code>, không dùng <code lang="en">have fixed</code>.</p>
-        <p>Tiếng Anh đặt từ bổ nghĩa lên trước: <code lang="en">the login bug</code>. Sau <code lang="en">continue</code> dùng <code lang="en">with</code> + danh từ, hoặc động từ thêm <code lang="en">-ing</code>.</p>
-      </ReviewDiff>
+      <div class="hero-art">
+        <div class="blob" aria-hidden="true"></div>
+        <span class="deco star" aria-hidden="true"><Icon name="sparkle" size={30} /></span>
+        <span class="deco ring" aria-hidden="true"></span>
+        <span class="deco dots" aria-hidden="true"></span>
+        <div class="float float-top" aria-hidden="true">
+          <span class="tile"><Icon name="book" /></span>
+          <span><b>Bài hôm nay</b><small>Standup 01, Hôm qua đã làm gì</small></span>
+          <span class="bar-track"><i style="width:40%"></i></span>
+          <small class="muted">Phần 2 trên 5</small>
+        </div>
+        <HeroDemo />
+        <div class="float float-bottom" aria-hidden="true">
+          <span class="tile amber"><Icon name="calendar" /></span>
+          <span><b>Ôn lại câu sai</b><small>Sau 1, 3, 7 và 14 ngày</small></span>
+          <span class="mini-heat"><i class="l1"></i><i class="l2"></i><i></i><i class="l3"></i><i class="l1"></i><i class="l4"></i><i class="l2"></i></span>
+        </div>
+      </div>
     </section>
   </div>
 
+  <MistakeMarquee />
+
+  <!-- Một buổi sáng -->
   <section class="sec" aria-labelledby="buoi-sang">
     <div class="wrap">
-      <div class="read">
-        <h2 id="buoi-sang">Một buổi sáng 10 phút</h2>
-        <p class="sec-lede">Làm trước giờ standup. Ví dụ dưới đây là bài số 1.</p>
-        <ol class="rows">
-          <li>
-            <div class="when">3 phút</div>
-            <div><h3>Học một mẫu câu</h3><p>Công thức, ba ví dụ lấy từ việc của dev, và những lỗi người Việt hay mắc.</p></div>
-          </li>
-          <li>
-            <div class="when">2 phút</div>
-            <div><h3>Làm 5 câu trắc nghiệm</h3><p>Chọn bằng phím 1, 2, 3. Câu sai được giải thích ngay bằng tiếng Việt.</p></div>
-          </li>
-          <li>
-            <div class="when">5 phút</div>
-            <div><h3>Viết câu của chính bạn</h3><p>Viết đúng điều bạn sắp nói trong buổi họp. AI sửa ít nhất có thể, giữ ý của bạn, và giải thích từng chỗ.</p></div>
-          </li>
-          <li>
-            <div class="when">Ngày sau</div>
-            <div><h3>Ôn đúng chỗ bạn sai</h3><p>Câu sai và lỗi trong câu của bạn quay lại sau 1, 3, 7 và 14 ngày. Có nhắc qua Telegram trước giờ standup.</p></div>
-          </li>
-        </ol>
+      <header class="sec-head" data-reveal>
+        <span class="echo" aria-hidden="true">10 PHÚT</span>
+        <span class="pill"><Icon name="compass" size={16} />Cách học</span>
+        <h2 id="buoi-sang">Một buổi sáng <span class="hl">10 phút</span>, trước giờ standup</h2>
+        <p class="sec-lede">Bốn bước, mỗi ngày một mẫu câu. Thứ Bảy và Chủ nhật không có bài mới, chỉ ôn.</p>
+      </header>
+      <MorningStory />
+      <div class="cta-band" data-reveal>
+        <span class="tile big"><Icon name="compass" size={26} /></span>
+        <div class="cta-text">
+          <h3>Chưa biết bắt đầu từ track nào?</h3>
+          <p class="muted">Làm bài kiểm tra 12 câu, khoảng 5 phút. EPC gợi ý track hợp với điểm yếu của bạn.</p>
+        </div>
+        <p class="cta-mid muted">{TRIAL_DAYS} ngày dùng thử đủ quyền Premium. Không cần thẻ.</p>
+        <a class="btn btn-quiet" href="/xep-trinh-do">Kiểm tra trình độ<Icon name="arrow" size={18} /></a>
       </div>
     </div>
   </section>
 
-  <section class="sec" aria-labelledby="hoc-gi">
+  <!-- Sổ lỗi -->
+  <section class="sec" aria-labelledby="so-loi-xem-truoc">
     <div class="wrap">
-      <h2 id="hoc-gi">Ba track, 30 bài</h2>
-      <p class="sec-lede">Mỗi bài một tình huống bạn gặp trong tuần làm việc. Thứ Bảy và Chủ nhật không có bài mới, chỉ ôn.</p>
-      <div class="tracks">
+      <header class="sec-head" data-reveal>
+        <span class="echo" aria-hidden="true">SỔ LỖI</span>
+        <span class="pill"><Icon name="diff" size={16} />Sổ lỗi</span>
+        <h2 id="so-loi-xem-truoc">Lỗi của <span class="hl">chính bạn</span>, xếp thành từng nhóm</h2>
+        <p class="sec-lede">App học từ vựng nhớ từ bạn hay quên. EPC nhớ câu bạn hay viết sai, và cho ôn đúng những lỗi đó.</p>
+      </header>
+      <div data-reveal><ErrorBookPreview /></div>
+    </div>
+  </section>
+
+  <!-- Ba track -->
+  <section class="sec" id="bai-hoc" aria-labelledby="hoc-gi">
+    <div class="wrap">
+      <header class="sec-head" data-reveal>
+        <span class="echo" aria-hidden="true">30 BÀI</span>
+        <span class="pill"><Icon name="book" size={16} />Bài học</span>
+        <h2 id="hoc-gi">Ba track, <span class="hl">30 bài</span> cho tuần làm việc của bạn</h2>
+        <p class="sec-lede">Mỗi bài một tình huống bạn gặp thật: standup, review code, phỏng vấn.</p>
+      </header>
+      <div class="cards3">
         {
-          TRACKS.map((track) => (
-            <div>
-              <h3>{TRACK_NAMES[track]}</h3>
-              <p class="muted" style="font-size:var(--fs-sm)">{trackNotes[track]}</p>
-              <ol style="margin:var(--s-3) 0 0;padding-left:22px;font-size:var(--fs-sm)">
-                {TRACK_OUTLINE[track].map((title, i) => {
-                  const slug = slugFor(track, i + 1);
-                  return <li style="margin:4px 0">{slug ? <a href={`/mau-cau/${slug}`}>{title}</a> : <span class="muted">{title}</span>}</li>;
-                })}
-              </ol>
-            </div>
-          ))
+          TRACKS.map((track, ti) => {
+            const info = TRACK_INFO[track];
+            const first = slugFor(track, 1);
+            return (
+              <article class="card track-card" data-reveal>
+                <div class="track-top">
+                  <span class={`tile ${info.tone}`}><Icon name={info.icon} /></span>
+                  <span class="no">{String(ti + 1).padStart(2, '0')}</span>
+                </div>
+                <h3>{TRACK_NAMES[track]}</h3>
+                <p class="muted">{info.note}</p>
+                <details class="track-list">
+                  <summary>
+                    <span>Xem 10 bài</span>
+                    <span class="chev" aria-hidden="true"><Icon name="arrow" size={14} /></span>
+                  </summary>
+                  <ol class="lesson-mini">
+                    {TRACK_OUTLINE[track].map((title, i) => {
+                      const l = lessons.find((x) => x.track === track && x.id === i + 1);
+                      const no = String(i + 1).padStart(2, '0');
+                      const inner = (
+                        <>
+                          <span class="lm-no">{no}</span>
+                          <span class="lm-text">
+                            <b>{title}</b>
+                            {l && <small lang="en">{l.pattern.formula}</small>}
+                          </span>
+                          {l?.free ? (
+                            <span class="lm-tag free">Miễn phí</span>
+                          ) : (
+                            <span class="lm-tag lock" title="Premium">
+                              <Icon name="lock" size={14} />
+                              <span class="sr-only-label">Premium</span>
+                            </span>
+                          )}
+                        </>
+                      );
+                      return (
+                        <li style={`--i:${i}`}>
+                          {l ? (
+                            <a class="lm" href={`/mau-cau/${l.slug}`}>
+                              {inner}
+                            </a>
+                          ) : (
+                            <span class="lm">{inner}</span>
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ol>
+                </details>
+                {first && (
+                  <a class:list={['go', info.tone]} href={`/mau-cau/${first}`}>
+                    Học thử bài 1 <span class="go-dot"><Icon name="arrow" size={16} /></span>
+                  </a>
+                )}
+              </article>
+            );
+          })
         }
       </div>
     </div>
   </section>
 
+  <!-- So sánh -->
+  <section class="sec" aria-labelledby="so-sanh">
+    <div class="wrap">
+      <header class="sec-head" data-reveal>
+        <span class="echo" aria-hidden="true">SO SÁNH</span>
+        <span class="pill"><Icon name="compass" size={16} />So sánh</span>
+        <h2 id="so-sanh">EPC khác <span class="hl">cách học quen thuộc</span> ở đâu</h2>
+        <p class="sec-lede">Không cách nào hơn hẳn mọi mặt. Bảng dưới để bạn chọn đúng thứ mình cần.</p>
+      </header>
+      <div class="cmp-scroll" data-reveal>
+        <table class="cmp">
+          <thead>
+            <tr>
+              <th scope="col"><span class="sr-only-label">Tiêu chí</span></th>
+              <th scope="col">Khóa học theo lớp</th>
+              <th scope="col">App học từ vựng</th>
+              <th scope="col" class="cmp-us"><span class="logo" aria-hidden="true"><i></i><i></i></span> EPC</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Bạn luyện gì</th>
+              <td>Giáo trình chung cho cả lớp</td>
+              <td>Từ và nghĩa của từ</td>
+              <td class="cmp-us">Câu bạn sắp nói ở standup, viết trong PR, trả lời khi phỏng vấn</td>
+            </tr>
+            <tr>
+              <th scope="row">Ai chỉ lỗi cho bạn</th>
+              <td>Giáo viên, trong giờ học</td>
+              <td>Đáp án đúng hoặc sai</td>
+              <td class="cmp-us">AI sửa ngay, giải thích từng chỗ bằng tiếng Việt</td>
+            </tr>
+            <tr>
+              <th scope="row">Lỗi của bạn được nhớ</th>
+              <td>Tùy giáo viên</td>
+              <td>Từ bạn hay quên</td>
+              <td class="cmp-us">Sổ lỗi theo nhóm, ôn lại sau 1, 3, 7, 14 ngày</td>
+            </tr>
+            <tr>
+              <th scope="row">Thời gian mỗi ngày</th>
+              <td>Buổi học 1,5 đến 2 giờ, theo lịch lớp</td>
+              <td>5 đến 10 phút</td>
+              <td class="cmp-us">10 phút, trước giờ standup</td>
+            </tr>
+            <tr>
+              <th scope="row">Luyện nói và phát âm</th>
+              <td>Có</td>
+              <td>Tùy app</td>
+              <td class="cmp-us">Chưa có. EPC chỉ luyện viết và cách diễn đạt</td>
+            </tr>
+            <tr>
+              <th scope="row">Trả tiền</th>
+              <td>Trọn khóa, thường vài triệu đồng</td>
+              <td>Gói tháng hoặc gói năm, thường tự gia hạn</td>
+              <td class="cmp-us">{formatVnd(PLANS['30d'].amount)} cho 30 ngày, không tự gia hạn</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dành cho ai -->
   <section class="sec" aria-labelledby="danh-cho-ai">
     <div class="wrap">
-      <div class="read">
-        <h2 id="danh-cho-ai">Dành cho ai</h2>
-        <div class="grid gap-7 sm:grid-cols-2" style="margin-top:var(--s-5)">
-          <div>
-            <h3 style="font-size:var(--fs-md)">Hợp với bạn nếu</h3>
-            <ul style="padding-left:20px;margin:var(--s-2) 0 0">
-              <li>Bạn là dev, QA, BA hay PM, đọc docs tiếng Anh được nhưng ngại nói và viết.</li>
-              <li>Team có họp hoặc nhắn tin bằng tiếng Anh, hoặc sắp có.</li>
-              <li>Bạn dành được 10 phút mỗi sáng.</li>
-            </ul>
-          </div>
-          <div class="muted">
-            <h3 style="font-size:var(--fs-md);color:var(--text)">Chưa hợp nếu</h3>
-            <ul style="padding-left:20px;margin:var(--s-2) 0 0">
-              <li>Bạn chưa đọc được câu tiếng Anh đơn giản.</li>
-              <li>Bạn cần luyện thi IELTS, TOEIC hay VSTEP.</li>
-              <li>Bạn muốn luyện nói và phát âm.</li>
-            </ul>
-          </div>
+      <header class="sec-head" data-reveal>
+        <span class="echo" aria-hidden="true">CHO DEV</span>
+        <span class="pill"><Icon name="check" size={16} />Dành cho ai</span>
+        <h2 id="danh-cho-ai">EPC có hợp với bạn không</h2>
+      </header>
+      <div class="cards2">
+        <div class="card" data-reveal>
+          <span class="tile"><Icon name="check" /></span>
+          <h3>Hợp với bạn nếu</h3>
+          <ul class="ticks">
+            <li>Bạn là dev, QA, BA hay PM, đọc docs tiếng Anh được nhưng ngại nói và viết.</li>
+            <li>Team có họp hoặc nhắn tin bằng tiếng Anh, hoặc sắp có.</li>
+            <li>Bạn dành được 10 phút mỗi sáng.</li>
+          </ul>
+        </div>
+        <div class="card" data-reveal>
+          <span class="tile amber"><Icon name="x" /></span>
+          <h3>Chưa hợp nếu</h3>
+          <ul class="ticks muted">
+            <li>Bạn chưa đọc được câu tiếng Anh đơn giản.</li>
+            <li>Bạn cần luyện thi IELTS, TOEIC hay VSTEP.</li>
+            <li>Bạn muốn luyện nói và phát âm.</li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Giá -->
   <section class="sec" aria-labelledby="gia">
     <div class="wrap">
-      <div class="read">
-        <h2 id="gia">Giá</h2>
-        <p class="sec-lede" style="margin-bottom:var(--s-4)">
-          Đăng ký xong có {TRIAL_DAYS} ngày dùng thử đủ quyền Premium, không cần thẻ. Sau đó vẫn học được 3 bài đầu và được sửa câu 1 lần mỗi 7 ngày.
+      <header class="sec-head" data-reveal>
+        <span class="echo" aria-hidden="true">GIÁ</span>
+        <span class="pill"><Icon name="sparkle" size={14} />Giá</span>
+        <h2 id="gia">Học thử miễn phí, <span class="hl">trả theo kỳ</span></h2>
+        <p class="sec-lede">
+          Đăng ký xong có {TRIAL_DAYS} ngày dùng thử đủ quyền Premium, không cần thẻ. Sau đó vẫn học được 3 bài đầu và được sửa
+          câu 1 lần mỗi 7 ngày.
         </p>
-        <div class="grid gap-4 sm:grid-cols-2">
-          <div class="plan">
-            <h3>Premium 30 ngày</h3>
-            <p class="price">{formatVnd(PLANS['30d'].amount)}</p>
-          </div>
-          <div class="plan">
-            <h3>Premium 90 ngày</h3>
-            <p class="price">{formatVnd(PLANS['90d'].amount)}</p>
-          </div>
+      </header>
+      <div class="cards2 plans">
+        <div class="card plan-card" data-reveal>
+          <h3>Premium 30 ngày</h3>
+          <p class="price">{formatVnd(PLANS['30d'].amount)}</p>
+          <p class="muted">Đủ 30 bài, sửa câu 30 lần mỗi ngày, sổ lỗi đầy đủ, phỏng vấn thử.</p>
+          <a class="go" href="/nang-cap?goi=30d">Mua gói 30 ngày <span class="go-dot"><Icon name="arrow" size={16} /></span></a>
         </div>
-        <p class="muted" style="margin-top:var(--s-4)">
-          Mua theo kỳ, không tự gia hạn. Hoàn tiền trong {REFUND_DAYS} ngày đầu. <a href="/bang-gia">Xem bảng so sánh đầy đủ</a>
-        </p>
+        <div class="card plan-card plan-best" data-reveal>
+          <span class="pill amber">Rẻ hơn {formatVnd(saving)} so với 3 gói 30 ngày</span>
+          <h3>Premium 90 ngày</h3>
+          <p class="price">{formatVnd(PLANS['90d'].amount)}</p>
+          <p class="muted">Như gói 30 ngày, đủ cho một vòng ôn cả ba track.</p>
+          <a class="go amber" href="/nang-cap?goi=90d">Mua gói 90 ngày <span class="go-dot"><Icon name="arrow" size={16} /></span></a>
+        </div>
       </div>
+      <p class="muted center-note">
+        Mua theo kỳ, không tự gia hạn. Hoàn tiền trong {REFUND_DAYS} ngày đầu. <a href="/bang-gia">Xem bảng so sánh đầy đủ</a>
+      </p>
     </div>
   </section>
 
+  <!-- Cam kết -->
+  <section class="sec" aria-labelledby="cam-ket">
+    <div class="wrap">
+      <header class="sec-head" data-reveal>
+        <span class="echo" aria-hidden="true">KHÔNG</span>
+        <span class="pill"><Icon name="check" size={16} />Nói thật</span>
+        <h2 id="cam-ket">Những điều EPC <span class="hl">không làm</span></h2>
+        <p class="sec-lede">EPC do một lập trình viên tự làm. Trang này không có số người dùng hay đánh giá 5 sao, vì EPC vừa ra mắt.</p>
+      </header>
+      <ul class="cards4 promise">
+        <li class="card" data-reveal>
+          <span class="tile"><Icon name="x" /></span>
+          <h3>Không quảng cáo, không popup</h3>
+          <p>Không banner ưu đãi chớp nháy, không đếm ngược giờ giảm giá, không cửa sổ chat tự bật.</p>
+        </li>
+        <li class="card" data-reveal>
+          <span class="tile amber"><Icon name="calendar" /></span>
+          <h3>Không tự gia hạn</h3>
+          <p>Mua theo kỳ bằng chuyển khoản. Hết kỳ thì về gói miễn phí. Hoàn tiền trong {REFUND_DAYS} ngày đầu, không hỏi lý do.</p>
+        </li>
+        <li class="card" data-reveal>
+          <span class="tile"><Icon name="lock" /></span>
+          <h3>Không bán dữ liệu</h3>
+          <p>Câu bạn viết chỉ dùng để sửa và tạo sổ lỗi cho bạn. Xem <a href="/bao-mat">trang bảo mật</a>.</p>
+        </li>
+        <li class="card" data-reveal>
+          <span class="tile amber"><Icon name="repeat" /></span>
+          <h3>Không xóa gì khi hết dùng thử</h3>
+          <p>Bài đã học và sổ lỗi vẫn còn. Bạn tiếp tục học 3 bài đầu miễn phí.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Hỏi đáp -->
   <section class="sec" aria-labelledby="hoi-dap">
     <div class="wrap">
-      <div class="read faq">
-        <h2 id="hoi-dap" style="margin-bottom:var(--s-5)">Câu hỏi thường gặp</h2>
+      <header class="sec-head" data-reveal>
+        <span class="echo" aria-hidden="true">HỎI ĐÁP</span>
+        <span class="pill"><Icon name="chat" size={16} />Hỏi đáp</span>
+        <h2 id="hoi-dap">Câu hỏi thường gặp</h2>
+      </header>
+      <div class="faq faq-cards">
         <details>
           <summary>Ai sửa câu cho tôi?</summary>
           <p>AI sửa, theo cách một đồng nghiệp review code: sửa ít nhất có thể, giữ ý và giọng của bạn, giải thích từng chỗ bằng tiếng Việt.</p>
@@ -182,4 +383,50 @@ const trackNotes = {
       </div>
     </div>
   </section>
+  <script>
+    // Hiệu ứng trang chủ: khối hiện dần khi cuộn tới, chữ nền trôi theo cuộn, vệt sáng theo con trỏ trên thẻ.
+    // Không có JS hoặc giảm chuyển động: mọi thứ hiện sẵn, đứng yên.
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduced) {
+      document.documentElement.classList.add('motion');
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (!e.isIntersecting) continue;
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        },
+        { rootMargin: '0px 0px -12% 0px' },
+      );
+      document.querySelectorAll('[data-reveal]').forEach((el, i) => {
+        (el as HTMLElement).style.setProperty('--stagger', `${(i % 3) * 90}ms`);
+        io.observe(el);
+      });
+
+      const echoes = [...document.querySelectorAll<HTMLElement>('.echo')];
+      let ticking = false;
+      const drift = () => {
+        ticking = false;
+        const vh = innerHeight;
+        for (const el of echoes) {
+          const r = el.parentElement!.getBoundingClientRect();
+          const t = (r.top + r.height / 2 - vh / 2) / vh; // -1 .. 1 quanh giữa màn hình
+          el.style.setProperty('--drift', `${(t * 80).toFixed(1)}px`);
+        }
+      };
+      addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(drift); } }, { passive: true });
+      drift();
+
+      if (matchMedia('(hover: hover)').matches) {
+        document.addEventListener('pointermove', (ev) => {
+          const card = (ev.target as Element).closest?.<HTMLElement>('.card, .float, .demo .review');
+          if (!card) return;
+          const r = card.getBoundingClientRect();
+          card.style.setProperty('--mx', `${ev.clientX - r.left}px`);
+          card.style.setProperty('--my', `${ev.clientY - r.top}px`);
+        });
+      }
+    }
+  </script>
 </Base>

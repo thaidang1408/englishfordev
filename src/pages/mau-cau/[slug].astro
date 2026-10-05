@@ -1,6 +1,7 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
 import LessonCore from '../../components/LessonCore.astro';
 import { lessons, neighbours } from '../../lib/content/lessons';
 import type { Lesson } from '../../lib/content/schema';
@@ -33,10 +34,10 @@ const jsonLd = {
 ---
 
 <Base title={`${lesson.title}: mẫu câu tiếng Anh cho dev`} description={description} jsonLd={jsonLd}>
-  <article class="wrap read" style="padding-top:var(--s-6);padding-bottom:var(--s-7)">
-    <p class="muted" style="font-size:var(--fs-sm);margin-bottom:var(--s-2)">Mẫu câu, {TRACK_NAMES[lesson.track]}</p>
-    <h1 style="font-size:var(--fs-2xl);line-height:1.2">{lesson.title}</h1>
-    <p class="muted" style="margin-top:var(--s-3)">{lesson.goal_vi}</p>
+  <PageHead title={lesson.title} pill={`Mẫu câu, ${TRACK_NAMES[lesson.track]}`} icon="book" width="narrow">
+    <p>{lesson.goal_vi}</p>
+  </PageHead>
+  <article class="wrap page narrow lesson-page">
 
     <LessonCore lesson={lesson} />
 

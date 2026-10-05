@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
 import { accessFrom, hasFullAccess } from '../lib/auth/access';
 import { GROUP_NAMES, LEVEL_NAMES, placement, scorePlacement } from '../lib/content/placement';
 import { TRACK_NAMES } from '../lib/content/tracks';
@@ -53,13 +54,23 @@ const tracks = TRACKS.filter((t) => t !== 'interview' || hasFullAccess(access));
 const questions = placement.questions.map((q) => ({ ...q, order: shuffledIndexes(q.options.length) }));
 ---
 
-<Base title="Test xếp trình độ | English Personal Coach" description="12 câu, khoảng 5 phút." app>
-  <div class="wrap read" style="padding-top:var(--s-6);padding-bottom:var(--s-7)">
+<Base title="Kiểm tra trình độ | English Personal Coach" description="12 câu, khoảng 5 phút." app>
+  {
+    done && profile ? (
+      <PageHead title="Kết quả" highlight="xếp trình độ" pill="12 câu" icon="target" width="narrow" echo="12">
+        <p>Kết quả chỉ dùng để gợi ý track học cho bạn.</p>
+      </PageHead>
+    ) : (
+      <PageHead title="Kiểm tra" highlight="trình độ" pill="12 câu, khoảng 5 phút" icon="target" width="narrow" echo="12">
+        <p>Đọc hiểu tin nhắn công việc, chọn câu đúng, chọn cách nói lịch sự hơn. Kết quả dùng để gợi ý track học.</p>
+      </PageHead>
+    )
+  }
+  <div class="wrap page narrow">
     {
       done && profile ? (
         <>
-          <h1 style="font-size:var(--fs-2xl);line-height:1.2">Kết quả xếp trình độ</h1>
-          <div class="plan" style="margin-top:var(--s-5)">
+          <div class="panel tint">
             {correct !== null && <p class="muted">Bạn đúng {correct} trên 12 câu.</p>}
             <p class="price">{profile.level ? LEVEL_NAMES[profile.level] : ''}</p>
             {profile.weak_area && (
@@ -72,7 +83,7 @@ const questions = placement.questions.map((q) => ({ ...q, order: shuffledIndexes
             </p>
           </div>
 
-          <form method="post" style="margin-top:var(--s-6)">
+          <form method="post" class="panel">
             <input type="hidden" name="action" value="track" />
             <fieldset style="border:0;padding:0;margin:0">
               <legend>
@@ -96,12 +107,8 @@ const questions = placement.questions.map((q) => ({ ...q, order: shuffledIndexes
         </>
       ) : (
         <>
-          <h1 style="font-size:var(--fs-2xl);line-height:1.2">Test xếp trình độ</h1>
-          <p class="muted" style="margin-top:var(--s-3)">
-            12 câu, khoảng 5 phút. Kết quả dùng để gợi ý track học, không ảnh hưởng gì khác.
-          </p>
           {error && <p class="note err" role="alert">{error}</p>}
-          <form method="post" class="stack" style="margin-top:var(--s-5)">
+          <form method="post" class="stack">
             <input type="hidden" name="action" value="answers" />
             {questions.map((q, i) => (
               <fieldset class="quiz" style="margin-inline:0">

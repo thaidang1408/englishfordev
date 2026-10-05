@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
 import ErrorBook from '../components/ErrorBook.astro';
 import { accessFrom, hasFullAccess } from '../lib/auth/access';
 import { getCorrections } from '../lib/db/corrections';
@@ -21,8 +22,10 @@ const full = hasFullAccess(accessFrom(ent, now));
 ---
 
 <Base title="Sổ lỗi | English Personal Coach" description="Lỗi trong câu của chính bạn và nhóm lỗi hay mắc." app>
-  <div class="wrap" style="max-width:calc(720px + 2 * var(--s-5));padding-top:var(--s-6);padding-bottom:var(--s-7)">
-    <h1 style="font-size:var(--fs-2xl);line-height:1.2">Sổ lỗi</h1>
+  <PageHead title="Sổ lỗi" highlight="của chính bạn" pill="28 ngày gần nhất" icon="diff" width="narrow" echo="SỔ LỖI">
+    <p>Mỗi chỗ AI sửa trong câu của bạn được xếp vào một nhóm lỗi. Lỗi đang lặp lại quay lại trong phần ôn.</p>
+  </PageHead>
+  <div class="wrap page narrow book-page">
     <ErrorBook entries={entries} repeating={repeating} full={full} now={now} />
   </div>
 </Base>

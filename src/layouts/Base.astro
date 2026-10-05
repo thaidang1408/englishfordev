@@ -8,6 +8,10 @@ import '@fontsource/jetbrains-mono/400.css';
 import '@fontsource/jetbrains-mono/600.css';
 import '../styles/global.css';
 import ProgressSync from '../components/ProgressSync.astro';
+import Icon from '../components/Icon.astro';
+import { serverEnv } from '../lib/env-server';
+import { accessFrom } from '../lib/auth/access';
+import { getEntitlement } from '../lib/db/queries';
 
 interface Props {
   title: string;
@@ -22,18 +26,34 @@ interface Props {
 
 const { title, description, jsonLd, app = false } = Astro.props;
 const index = app ? false : (Astro.props.index ?? true);
-const links = app
+// Trang tĩnh có thể có dấu / ở cuối; bỏ đi để so với link.
+const path = Astro.url.pathname.replace(/(.)\/$/, '$1');
+
+// Trang trong app render theo request nên biết người dùng; trang tĩnh thì không, Astro.locals.user là undefined.
+const user = app ? Astro.locals.user : null;
+const isAdmin = Boolean(user?.email && serverEnv().ADMIN_EMAILS.includes(user.email.toLowerCase()));
+// Người đã có Premium không cần thấy nút Nâng cấp.
+const isPremium = user ? accessFrom(await getEntitlement(Astro.locals.supabase, user.id), new Date()).kind === 'premium' : false;
+
+type NavLink = { href: string; label: string; match?: string[] };
+const links: NavLink[] = app
   ? [
-      { href: '/hom-nay', label: 'Hôm nay' },
+      { href: '/hom-nay', label: 'Học hôm nay' },
+      { href: '/on-tap', label: 'Ôn tập' },
       { href: '/so-loi', label: 'Sổ lỗi' },
-      { href: '/tai-khoan', label: 'Tài khoản' },
+      { href: '/phong-van-thu', label: 'Phỏng vấn thử' },
+      { href: '/tai-khoan', label: 'Tài khoản', match: ['/xep-trinh-do'] },
+      ...(isAdmin ? [{ href: '/admin', label: 'Admin' }] : []),
     ]
   : [
+      { href: '/#bai-hoc', label: 'Bài học', match: ['/hoc/', '/mau-cau/'] },
+      { href: '/bug-hom-nay', label: 'Tìm lỗi mỗi ngày' },
       { href: '/bang-gia', label: 'Bảng giá' },
-      { href: '/hom-nay', label: 'Vào học' },
     ];
+// Trang công khai không biết ai đã đăng nhập: /hom-nay tự chuyển người mới sang đăng nhập, người cũ vào học luôn.
+const cta = app ? (isPremium ? null : { href: '/nang-cap', label: 'Nâng cấp' }) : { href: '/hom-nay', label: 'Học miễn phí' };
+const isCurrent = (l: NavLink) => path === l.href || (l.match ?? []).some((m) => path.startsWith(m));
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const path = Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -76,24 +96,76 @@ const path = Astro.url.pathname;
   </head>
   <body>
     <a class="skip" href="#noi-dung">Bỏ qua, tới nội dung chính</a>
-    <div class="wrap">
-      <header class="bar">
-        <a class="brand" href="/" aria-label="English Personal Coach, trang chủ">
-          <b class="brand-full">English Personal Coach <span>cho dev</span></b>
+    <header class="topbar">
+      <div class="wrap bar">
+        <a class="brand" href={app ? '/hom-nay' : '/'} aria-label={app ? 'English Personal Coach, trang Hôm nay' : 'English Personal Coach, trang chủ'}>
+          <span class="logo" aria-hidden="true"><i></i><i></i></span>
+          <b class="brand-full">English Personal Coach</b>
           <b class="brand-short" aria-hidden="true">EPC</b>
         </a>
         <nav class="nav" aria-label="Điều hướng chính">
-          {links.map((l) => <a href={l.href} aria-current={path === l.href ? 'page' : undefined}>{l.label}</a>)}
-          <button class="theme" id="theme-toggle" type="button" hidden><span class="theme-prefix">Giao diện </span><span class="theme-word">tối</span></button>
+          {links.map((l) => <a href={l.href} aria-current={isCurrent(l) ? 'page' : undefined}>{l.label}</a>)}
         </nav>
-      </header>
-    </div>
+        <div class="bar-end">
+          <button class="theme" id="theme-toggle" type="button" hidden><span class="theme-prefix">Giao diện </span><span class="theme-word">tối</span></button>
+          {
+            cta && (
+              <a class="btn btn-quiet btn-sm bar-cta" href={cta.href} aria-current={path === cta.href ? 'page' : undefined}>
+                {cta.label}
+                <Icon name="arrow" size={16} />
+              </a>
+            )
+          }
+          <details class="menu">
+            <summary><Icon name="menu" size={18} /><span>Menu</span></summary>
+            <nav class="menu-panel" aria-label="Menu">
+              {links.map((l) => <a href={l.href} aria-current={isCurrent(l) ? 'page' : undefined}>{l.label}</a>)}
+              {cta && <a href={cta.href} aria-current={path === cta.href ? 'page' : undefined}>{cta.label}</a>}
+            </nav>
+          </details>
+        </div>
+      </div>
+    </header>
     <main id="noi-dung">
       <slot />
     </main>
     <footer class="site-foot">
-      <div class="wrap">
-        <p>English Personal Coach, do một lập trình viên tự làm. <a href="/bug-hom-nay">Bug của ngày</a> · <a href="/bang-gia">Bảng giá</a> · <a href="/dieu-khoan">Điều khoản</a> · <a href="/bao-mat">Bảo mật</a></p>
+      <div class="wrap foot-grid">
+        <div class="foot-about">
+          <a class="brand" href="/" aria-label="English Personal Coach, trang chủ">
+            <span class="logo" aria-hidden="true"><i></i><i></i></span>
+            <b>English Personal Coach</b>
+          </a>
+          <p>Tiếng Anh cho công việc của dev, 10 phút mỗi sáng. Do một lập trình viên tự làm.</p>
+        </div>
+        <nav aria-label="Học">
+          <h2>Học</h2>
+          <ul>
+            <li><a href="/hoc/hom-qua-da-lam-gi">Học thử bài 1</a></li>
+            <li><a href="/#bai-hoc">Danh sách 30 bài</a></li>
+            <li><a href="/bug-hom-nay">Tìm lỗi mỗi ngày</a></li>
+            <li><a href="/hom-nay">Học hôm nay</a></li>
+            <li><a href="/on-tap">Ôn tập</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Tài khoản">
+          <h2>Tài khoản</h2>
+          <ul>
+            <li><a href="/so-loi">Sổ lỗi</a></li>
+            <li><a href="/phong-van-thu">Phỏng vấn thử</a></li>
+            <li><a href="/xep-trinh-do">Kiểm tra trình độ</a></li>
+            <li><a href="/tai-khoan">Tài khoản và Telegram</a></li>
+            <li><a href="/nang-cap">Nâng cấp</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Thông tin">
+          <h2>Thông tin</h2>
+          <ul>
+            <li><a href="/bang-gia">Bảng giá</a></li>
+            <li><a href="/dieu-khoan">Điều khoản</a></li>
+            <li><a href="/bao-mat">Bảo mật</a></li>
+          </ul>
+        </nav>
       </div>
     </footer>
     {app && <ProgressSync />}

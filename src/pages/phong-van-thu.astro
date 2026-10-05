@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
 import MockInterview from '../components/correct/MockInterview';
 import { accessFrom } from '../lib/auth/access';
 import { lessons } from '../lib/content/lessons';
@@ -25,11 +26,13 @@ const stats = allowed ? null : await getErrorStats(db, user.id);
 ---
 
 <Base title="Phỏng vấn thử | English Personal Coach" description="Trả lời 5 câu hỏi phỏng vấn bằng tiếng Anh, AI sửa từng câu." app>
-  <div class="wrap read" style="padding-top:var(--s-6);padding-bottom:var(--s-7)">
-    <h1 style="font-size:var(--fs-2xl);line-height:1.2">Phỏng vấn thử</h1>
+  <PageHead title="Phỏng vấn thử" highlight="5 câu" pill="Premium và dùng thử" icon="mic" width="narrow" echo="Q&A">
+    <p>Câu hỏi tiếng Anh nhà tuyển dụng hay hỏi. Bạn gõ câu trả lời, AI sửa và gợi ý một cách trả lời tốt hơn, giữ đúng ý của bạn.</p>
+  </PageHead>
+  <div class="wrap page narrow">
     {
       !allowed ? (
-        <div style="margin-top:var(--s-5)">
+        <div>
           <UpgradeCard
             stats={stats ?? { corrections: 0, errors: 0, repeating: 0 }}
             fallback="Phỏng vấn thử có ở Premium"
@@ -37,13 +40,13 @@ const stats = allowed ? null : await getErrorStats(db, user.id);
           />
         </div>
       ) : questions.length === 0 ? (
-        <div class="today-card" style="margin-top:var(--s-5)">
+        <div class="panel">
           <p>Track Phỏng vấn đang được soạn bài, nên chưa có câu hỏi cho phỏng vấn thử. Trong lúc chờ, bạn có thể sửa câu ở trang Hôm nay.</p>
           <a class="btn btn-primary" href="/hom-nay">Về trang Hôm nay</a>
         </div>
       ) : (
         <>
-          <p class="muted" style="margin-top:var(--s-3)">
+          <p class="muted" style="margin:0">
             {questions.length} câu hỏi tiếng Anh. Gõ câu trả lời như khi nói với nhà tuyển dụng. Mỗi câu tính một lượt sửa. Không có
             điểm, không xếp loại.
           </p>

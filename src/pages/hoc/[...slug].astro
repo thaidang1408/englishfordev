@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import NotFound from '../../components/NotFound.astro';
+import PageHead from '../../components/PageHead.astro';
 import LessonView from '../../components/LessonView.astro';
 import UpgradeCard from '../../components/UpgradeCard.astro';
 import { accessFrom, hasFullAccess } from '../../lib/auth/access';
@@ -39,14 +40,13 @@ const num = lesson ? String(lesson.id).padStart(2, '0') : '';
     allowed ? (
       <LessonView lesson={lesson} />
     ) : (
-      <article class="wrap read" style="padding-top:var(--s-6);padding-bottom:var(--s-7)" data-lesson-key={lessonKey(lesson)}>
-        <p class="muted" style="font-size:var(--fs-sm);margin-bottom:var(--s-2)">
-          {TRACK_NAMES[lesson.track]}, bài <span class="num">{num}</span>
-        </p>
-        <h1 style="font-size:var(--fs-2xl);line-height:1.2">{lesson.title}</h1>
-        <p class="muted" style="margin-top:var(--s-3)">{lesson.goal_vi}</p>
-        <p class="formula" lang="en" style="margin-top:var(--s-4)">{lesson.pattern.formula}</p>
-        <div style="margin-top:var(--s-5)">
+      <>
+      <PageHead title={lesson.title} pill={`${TRACK_NAMES[lesson.track]}, bài ${num}`} icon="lock" width="narrow" echo={num}>
+        <p>{lesson.goal_vi}</p>
+      </PageHead>
+      <article class="wrap page narrow lesson-page" data-lesson-key={lessonKey(lesson)}>
+        <p class="formula" lang="en" style="margin-top:0">{lesson.pattern.formula}</p>
+        <div>
           {stats ? (
             <UpgradeCard stats={stats} fallback="Bài này có ở Premium" />
           ) : (
@@ -63,6 +63,7 @@ const num = lesson ? String(lesson.id).padStart(2, '0') : '';
           <a href={`/mau-cau/${lesson.slug}`}>Xem mẫu câu và ví dụ của bài này</a>
         </p>
       </article>
+      </>
     )
   }
 </Base>

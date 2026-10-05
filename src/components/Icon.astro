@@ -1,0 +1,26 @@
+---
+/** Icon nét 24px, tự vẽ, màu theo currentColor. Luôn là trang trí (aria-hidden); nghĩa nằm ở chữ bên cạnh. */
+import { ICON_PATHS as PATHS, type IconName } from './icons';
+
+interface Props {
+  name: IconName;
+  size?: number;
+  class?: string;
+}
+
+const { name, size = 20, class: className } = Astro.props;
+const filled = name === 'sparkle';
+---
+
+<svg
+  class={className}
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill={filled ? 'currentColor' : 'none'}
+  stroke={filled ? 'none' : 'currentColor'}
+  stroke-width="1.8"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"><path d={PATHS[name]} /></svg>

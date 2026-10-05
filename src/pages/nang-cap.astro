@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
 import Checkout from '../components/pay/Checkout';
 import { accessFrom } from '../lib/auth/access';
 import { getLatestOrder, getOwnOrder } from '../lib/db/orders';
@@ -31,18 +32,19 @@ if (row && fresh && (row.status === 'pending' || (row.status === 'paid' && valid
 ---
 
 <Base title="Nâng cấp | English Personal Coach" description="Chọn gói Premium và thanh toán bằng mã VietQR." app>
-  <div class="wrap read" style="padding-top:var(--s-6);padding-bottom:var(--s-7)">
-    <h1 style="font-size:var(--fs-2xl);line-height:1.2">Nâng cấp Premium</h1>
-    <p class="muted" style="margin-top:var(--s-3)">
+  <PageHead title="Nâng cấp" highlight="Premium" pill="Chuyển khoản qua VietQR" icon="card" width="narrow" echo="79K">
+    <p>
       {access.kind === 'premium' && `Bạn đang có Premium tới hết ngày ${formatVnDate(access.until)}. Mua thêm thì số ngày được cộng nối tiếp.`}
       {access.kind === 'trial' && `Bạn đang dùng thử, còn ${daysLeft(access.until, now)} ngày. Mua bây giờ thì Premium tính từ hôm nay.`}
       {access.kind === 'free' && 'Tài khoản của bạn đang ở gói miễn phí. Dữ liệu và sổ lỗi vẫn còn nguyên, nâng cấp là mở lại ngay.'}
     </p>
+  </PageHead>
+  <div class="wrap page narrow">
     <noscript><p class="note warn">Trang thanh toán cần bật JavaScript.</p></noscript>
-    <div style="margin-top:var(--s-5)">
+    <div class="panel">
       <Checkout client:load initialPlan={initialPlan} initialOrder={initialOrder} />
     </div>
-    <ul class="muted" style="margin-top:var(--s-6);padding-left:20px;font-size:var(--fs-sm)">
+    <ul class="ticks muted panel" style="font-size:var(--fs-sm)">
       <li>Mua theo kỳ: {PLANS['30d'].days} hoặc {PLANS['90d'].days} ngày, không tự gia hạn, không lưu thẻ.</li>
       <li>Thanh toán bằng chuyển khoản ngân hàng qua mã VietQR do payOS tạo.</li>
       <li>Hoàn tiền trong {REFUND_DAYS} ngày đầu, không hỏi lý do: {bot ? <>nhắn cho bot Telegram <a href={`https://t.me/${bot}`} rel="noopener">@{bot}</a></> : 'nhắn cho EPC'} kèm mã đơn.</li>

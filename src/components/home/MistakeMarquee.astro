@@ -1,0 +1,58 @@
+---
+import Icon from '../Icon.astro';
+import { lessons } from '../../lib/content/lessons';
+
+/**
+ * Hai dải chữ chạy ngược chiều: lỗi người Việt hay mắc và câu đúng, lấy từ mistakes[] của các bài.
+ * Bản sao thứ hai của mỗi dải chỉ để nối vòng, ẩn với trình đọc màn hình.
+ */
+const all = lessons.flatMap((l) => l.mistakes).filter((m) => m.wrong.length <= 42 && m.right.length <= 46);
+// Lấy đều trên các track, cố định lúc build.
+const step = Math.max(1, Math.floor(all.length / 16));
+const picked = all.filter((_, i) => i % step === 0).slice(0, 16);
+const rows = [picked.slice(0, 8), picked.slice(8, 16)];
+---
+
+<section class="marquee" aria-labelledby="loi-hay-gap">
+  <h2 id="loi-hay-gap" class="sr-only-label">Một số lỗi người Việt hay mắc và cách sửa</h2>
+  {
+    rows.map((row, r) => (
+      <div class:list={['mq-row', { reverse: r === 1 }]}>
+        <ul class="mq-track">
+          {row.map((m) => (
+            <li class="mq-chip">
+              <s lang="en">{m.wrong}</s>
+              <Icon name="arrow" size={16} />
+              <b lang="en">{m.right}</b>
+            </li>
+          ))}
+        </ul>
+        <ul class="mq-track" aria-hidden="true">
+          {row.map((m) => (
+            <li class="mq-chip">
+              <s lang="en">{m.wrong}</s>
+              <Icon name="arrow" size={16} />
+              <b lang="en">{m.right}</b>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
+  <div class="wrap mq-foot">
+    <button type="button" class="demo-pause" data-mq-pause aria-pressed="false" hidden>Dừng chạy chữ</button>
+  </div>
+</section>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('[data-mq-pause]');
+  const box = btn?.closest('.marquee');
+  if (btn && box && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    btn.hidden = false;
+    btn.addEventListener('click', () => {
+      const paused = box.classList.toggle('paused');
+      btn.setAttribute('aria-pressed', String(paused));
+      btn.textContent = paused ? 'Chạy chữ tiếp' : 'Dừng chạy chữ';
+    });
+  }
+</script>

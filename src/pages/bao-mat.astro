@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
 
 /** Dữ liệu thu thập (SPEC mục 3). Khớp với bảng ở SPEC mục 8 và sự kiện ở mục 10. Đổi dữ liệu thì sửa trang này. */
 ---
@@ -8,9 +9,10 @@ import Base from '../layouts/Base.astro';
   title="Bảo mật và dữ liệu | English Personal Coach"
   description="EPC thu thập dữ liệu gì, dùng để làm gì, gửi cho bên nào, và cách bạn xin xóa dữ liệu."
 >
-  <article class="wrap read legal" style="padding-top:var(--s-7);padding-bottom:var(--s-7)">
-    <h1 style="font-size:var(--fs-2xl);line-height:1.2">Bảo mật và dữ liệu</h1>
-    <p class="muted" style="margin-top:var(--s-3)">Cập nhật ngày 05/10/2026.</p>
+  <PageHead title="Bảo mật" highlight="và dữ liệu" pill="Cập nhật ngày 05/10/2026" icon="lock" width="narrow">
+    <p>EPC lưu gì, dùng để làm gì, gửi cho bên nào, và cách bạn xin xóa dữ liệu.</p>
+  </PageHead>
+  <article class="wrap page narrow legal panel-doc">
 
     <h2>Dữ liệu EPC lưu</h2>
     <ul>

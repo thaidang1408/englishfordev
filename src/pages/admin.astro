@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import NotFound from '../components/NotFound.astro';
 import { listOrdersForAdmin } from '../lib/db/orders';
 import FunnelTable from '../components/FunnelTable.astro';
+import PageHead from '../components/PageHead.astro';
 import { funnelSchema, type Funnel } from '../lib/events/funnel';
 import { createServiceDb } from '../lib/db/service';
 import { serverEnv } from '../lib/env-server';
@@ -39,17 +40,22 @@ const refundable = (paidAt: string | null) => paidAt !== null && Date.now() - Da
 
 {!isAdmin ? <NotFound /> : (
 <Base title="Admin | English Personal Coach" description="Quản lý đơn." app>
-  <div class="wrap" style="padding-top:var(--s-6);padding-bottom:var(--s-7)">
-    <h1 style="font-size:var(--fs-2xl);line-height:1.2">Admin</h1>
+  <PageHead title="Admin" pill="Chỉ email trong ADMIN_EMAILS" icon="lock" echo="ADMIN">
+    <p>Phễu 7 và 30 ngày, đơn hàng, xác nhận và hoàn tiền.</p>
+  </PageHead>
+  <div class="wrap page">
+    <section class="panel">
 
-    <h2 style="font-size:var(--fs-xl);margin-top:var(--s-5)">Phễu</h2>
+    <h2 style="font-size:var(--fs-xl)">Phễu</h2>
     {!f7 || !f30 ? (
       <p class="note err" style="margin-top:var(--s-3)">Chưa đọc được số liệu phễu. Kiểm tra đã chạy migration mới chưa (docs/SETUP.md, mục M7).</p>
     ) : (
       <FunnelTable f7={f7} f30={f30} />
     )}
 
-    <h2 style="font-size:var(--fs-xl);margin-top:var(--s-6)">Đơn hàng</h2>
+    </section>
+    <section class="panel">
+    <h2 style="font-size:var(--fs-xl)">Đơn hàng</h2>
     <p class="muted" style="margin-top:var(--s-3)">
       {orders.length} đơn gần nhất. Đơn trả qua payOS tự xác nhận. Bấm "Đã nhận tiền" chỉ khi đã thấy tiền vào tài khoản mà đơn vẫn chờ.
     </p>
@@ -111,6 +117,7 @@ const refundable = (paidAt: string | null) => paidAt !== null && Date.now() - Da
         </tbody>
       </table>
     </div>
+    </section>
   </div>
 </Base>
 )}

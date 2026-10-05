@@ -1,0 +1,47 @@
+---
+import Icon from './Icon.astro';
+import type { IconName } from './icons';
+
+/**
+ * Đầu trang dùng chung cho mọi trang bên trong (trong app và trang công khai không phải trang chủ):
+ * dải nền lavender, nhãn bo tròn có icon, tiêu đề lớn, đoạn dẫn, và chỗ bên phải cho số liệu hoặc nút.
+ * `echo`: chữ viền lớn mờ phía sau, như ở trang chủ. Không bắt buộc.
+ */
+interface Props {
+  title: string;
+  /** Phần tiêu đề được tô tím, đặt sau `title`. */
+  highlight?: string;
+  pill?: string;
+  icon?: IconName;
+  echo?: string;
+  /** narrow: trang tập trung một việc (ôn tập, thanh toán); wide: bảng điều khiển. */
+  width?: 'narrow' | 'wide';
+}
+
+const { title, highlight, pill, icon = 'sparkle', echo, width = 'wide' } = Astro.props;
+const hasAside = Astro.slots.has('aside');
+---
+
+<header class:list={['page-head', { 'has-aside': hasAside }]}>
+  <div class:list={['wrap', 'page-head-in', width]}>
+    {echo && <span class="page-echo" aria-hidden="true">{echo}</span>}
+    <div class="page-head-main">
+      {
+        pill && (
+          <p class="pills">
+            <span class="pill">
+              <Icon name={icon} size={16} />
+              {pill}
+            </span>
+          </p>
+        )
+      }
+      <h1>
+        {title}
+        {highlight && <span class="hl"> {highlight}</span>}
+      </h1>
+      {Astro.slots.has('default') && <div class="page-lede"><slot /></div>}
+    </div>
+    {hasAside && <div class="page-head-aside"><slot name="aside" /></div>}
+  </div>
+</header>
