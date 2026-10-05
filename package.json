@@ -14,7 +14,8 @@
     "check": "astro check && tsc --noEmit",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "deploy": "astro build && wrangler deploy"
+    "deploy": "astro build && wrangler deploy",
+    "setup": "node scripts/setup.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "14.3.3",

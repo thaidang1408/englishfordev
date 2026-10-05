@@ -1,0 +1,22 @@
+# Cấu hình đăng nhập đẩy lên project Supabase bằng `npm run setup` (supabase config push).
+# Chỉ khai báo những gì EPC cần; thiết lập nào không có ở đây thì giữ nguyên trên project.
+# Client ID và secret đọc từ biến môi trường, không ghi vào file này.
+project_id = "epc-app"
+
+[auth]
+site_url = "https://epc-app.englishfordev.workers.dev"
+additional_redirect_urls = [
+  "https://epc-app.englishfordev.workers.dev/auth/callback**",
+  "http://localhost:4321/auth/callback**",
+]
+
+[auth.external.github]
+enabled = true
+client_id = "env(SUPABASE_AUTH_EXTERNAL_GITHUB_CLIENT_ID)"
+secret = "env(SUPABASE_AUTH_EXTERNAL_GITHUB_SECRET)"
+
+[auth.external.google]
+enabled = true
+client_id = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID)"
+secret = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET)"
+skip_nonce_check = false
