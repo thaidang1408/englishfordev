@@ -9,7 +9,8 @@ import { DEFAULT_DAILY_CAP } from './correct/quota';
 const serverEnvSchema = z.object({
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(20).optional(),
   ANTHROPIC_API_KEY: z.string().min(20).optional(),
-  AI_MODEL: z.string().min(1).default('claude-haiku-4-5-20251001'),
+  // Không đặt thì dùng model mặc định của nhà cung cấp (src/lib/ai/correct.ts).
+  AI_MODEL: z.string().min(1).optional(),
   AI_DAILY_CALL_CAP: z.coerce.number().int().min(0).default(DEFAULT_DAILY_CAP),
 });
 

@@ -37,7 +37,7 @@ Tên miền riêng chưa cần ở bản 1. Khi cần: Cloudflare dashboard → 
 Danh sách đầy đủ ở `.env.example`. Có hai loại:
 
 - **Biến `PUBLIC_`** được nhúng vào bản build. Đặt trong file `.env` ở thư mục `epc-app` (đã nằm trong `.gitignore`). `npm run dev` và `npm run deploy` đều đọc file này. Đổi giá trị thì phải deploy lại.
-- **Bí mật** (key service role, key AI, token bot...) chỉ đọc lúc chạy. Đặt cho production bằng `npx wrangler secret put <TÊN_BIẾN>`, cho máy local trong file `.dev.vars`. Từ M4 có hai bí mật: `SUPABASE_SERVICE_ROLE_KEY` và `ANTHROPIC_API_KEY`, đặt bằng `npm run setup:ai`.
+- **Bí mật** (key service role, key AI, token bot...) chỉ đọc lúc chạy. Đặt cho production bằng `npx wrangler secret put <TÊN_BIẾN>`, cho máy local trong file `.dev.vars`. Từ M4 có bí mật `SUPABASE_SERVICE_ROLE_KEY` (và `ANTHROPIC_API_KEY` nếu dùng Claude), đặt bằng `npm run setup:ai`.
 
 ## M2: Supabase và đăng nhập Google, GitHub
 
@@ -70,31 +70,39 @@ Thêm migration mới sau này: `npx supabase db push`.
 
 ## M4: AI sửa câu
 
+Mặc định dùng **Cloudflare Workers AI**, miễn phí trong hạn mức 10.000 neuron mỗi ngày (khoảng 1.000 lần sửa với model Gemma 4), không cần key và không cần tài khoản mới. Kết quả so sánh model ở `docs/AI_MODEL_EVAL.md`.
+
 Chỉ cần một lệnh, trong thư mục `epc-app`, sau khi đã chạy `npm run setup` ở M2:
 
 ```bash
 npm run setup:ai
 ```
 
-Bạn chỉ phải tự làm một việc trên web: **lấy key Anthropic**.
-
-1. Mở https://console.anthropic.com/settings/keys và đăng nhập.
-2. Vào **Billing**, nạp tiền (ví dụ 5 USD) và đặt **Spend limit** theo tháng.
-3. Quay lại **API keys**, bấm **Create Key**, đặt tên `epc`, chép key bắt đầu bằng `sk-ant-` rồi dán vào lệnh.
-
-Lệnh tự làm phần còn lại:
+Lệnh hỏi key Anthropic: **bấm Enter để bỏ qua** và dùng AI miễn phí. Sau đó lệnh tự làm:
 
 - Lấy secret key của Supabase qua CLI. Key này cho server ghi kết quả sửa câu, không bao giờ tới trình duyệt.
 - Áp dụng migration `20261005130000_save_correction.sql` (`npx supabase db push`).
-- Đặt hai secret trên Cloudflare (`npx wrangler secret put`): `SUPABASE_SERVICE_ROLE_KEY`, `ANTHROPIC_API_KEY`.
-- Ghi hai key vào `.dev.vars` để `npm run dev` trên máy bạn sửa câu được. File này không commit.
-- Deploy.
+- Đặt secret `SUPABASE_SERVICE_ROLE_KEY` trên Cloudflare (`npx wrangler secret put`).
+- Ghi key vào `.dev.vars` để `npm run dev` trên máy bạn sửa câu được. File này không commit.
+- Deploy. Binding Workers AI đã khai trong `wrangler.jsonc` (`"ai": { "binding": "AI" }`).
 
-Thiếu một trong hai key thì ô sửa câu báo "Tính năng sửa câu đang tạm tắt" và không trừ lượt.
+Thiếu secret key Supabase thì ô sửa câu báo "Tính năng sửa câu đang tạm tắt" và không trừ lượt.
 
-Hai biến tùy chọn, không đặt thì dùng mặc định:
+Khi chạy `npm run dev`, Workers AI vẫn gọi lên Cloudflare thật và tính vào hạn mức miễn phí của ngày.
 
-- `AI_MODEL`: mặc định `claude-haiku-4-5-20251001`.
+**Gói Cloudflare:** với gói Workers Free, vượt 10.000 neuron trong ngày thì lời gọi bị từ chối, không mất tiền; người dùng thấy "Chưa sửa được câu này", lượt không bị trừ. Nếu sau này nâng lên gói Workers Paid, phần vượt bị tính 0,011 USD cho 1.000 neuron. `AI_DAILY_CALL_CAP` mặc định 500 lần, nằm dưới hạn mức miễn phí.
+
+**Muốn dùng Claude thay cho Workers AI** (trả phí theo lượt, khoảng 60 đồng một lần sửa): chạy lại `npm run setup:ai` và dán key Anthropic.
+
+1. Mở https://console.anthropic.com/settings/keys và đăng nhập.
+2. Vào **Billing**, nạp tiền và đặt **Spend limit** theo tháng.
+3. Quay lại **API keys**, bấm **Create Key**, chép key bắt đầu bằng `sk-ant-`.
+
+Có key Anthropic thì máy chủ dùng Claude. Muốn quay về Workers AI thì chạy lại lệnh và gõ `bo` ở câu hỏi key.
+
+Biến tùy chọn, không đặt thì dùng mặc định:
+
+- `AI_MODEL`: model của nhà cung cấp đang dùng. Mặc định `@cf/google/gemma-4-26b-a4b-it` (Workers AI) hoặc `claude-haiku-4-5-20251001` (Anthropic).
 - `AI_DAILY_CALL_CAP`: tổng lượt sửa toàn hệ thống mỗi ngày, mặc định 500. Đổi bằng `npx wrangler secret put AI_DAILY_CALL_CAP`.
 
 Hạn mức mỗi tài khoản (SPEC mục 7): Premium 30 lần mỗi ngày, dùng thử 10 lần mỗi ngày, miễn phí 1 lần mỗi 7 ngày. "Ngày" tính theo giờ Việt Nam.

@@ -54,10 +54,12 @@ Rules:
 - why_vi: one short sentence in Vietnamese explaining the rule, addressing the reader as "bạn". No praise, no exclamation marks, no emoji.
 - category: one of ${categories}.
 - tip_vi: one short Vietnamese sentence with a practical tip for next time, or an empty string if there is nothing useful to add.
-- Output only JSON that matches the schema.`;
+- Output only one JSON object, no markdown, no text before or after it, with exactly this shape:
+{"is_already_correct": boolean, "corrected": string, "changes": [{"from": string, "to": string, "why_vi": string, "category": string}], "tip_vi": string, "stronger": string (interview only)}`;
 
 const INTERVIEW_RULE = `This text is an answer to a job interview question, given in the field "question".
-Also fill "stronger": a better answer with the same meaning and facts, natural spoken English, at most 3 sentences. Do not invent achievements, numbers or technologies the user did not mention.`;
+Also fill "stronger": a better answer with the same meaning, natural spoken English, at most 3 sentences.
+"stronger" may only use facts that appear in the user's text. Do not add skills, results, numbers, technologies, responsibilities or goals the user did not write. Improve wording, order and clarity only.`;
 
 const WORK_RULE = 'Do not include the field "stronger".';
 
@@ -135,7 +137,83 @@ export function anthropicAsk({ apiKey, model }: { apiKey: string; model: string 
   };
 }
 
-/** Hàm đúng chữ ký SPEC mục 7, dựng từ cấu hình máy chủ. */
-export function createCorrector(config: { apiKey: string; model: string }): CorrectSentence {
-  return correctWith(anthropicAsk(config));
+/** Binding Workers AI (wrangler.jsonc: "ai": { "binding": "AI" }). Chỉ khai phần dùng tới. */
+export type WorkersAi = { run(model: string, input: Record<string, unknown>): Promise<unknown> };
+
+export function isWorkersAi(v: unknown): v is WorkersAi {
+  return typeof v === 'object' && v !== null && 'run' in v && typeof v.run === 'function';
+}
+
+const isObj = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null && !Array.isArray(v);
+
+/** Lấy chuỗi văn bản hoặc object JSON từ các dạng phản hồi khác nhau của model trên Workers AI. */
+export function extractWorkersAiJson(result: unknown): unknown {
+  if (!isObj(result)) throw new AiOutputError('empty');
+  let text: unknown = result.response;
+  if (isObj(text)) return text;
+  if (typeof text !== 'string') {
+    // Dạng OpenAI (choices) và dạng Responses (output) của một số model.
+    const choice = Array.isArray(result.choices) ? result.choices[0] : undefined;
+    const message = isObj(choice) && isObj(choice.message) ? choice.message : undefined;
+    if (message && typeof message.content === 'string') text = message.content;
+    else if (Array.isArray(result.output)) {
+      text = result.output
+        .flatMap((item) => (isObj(item) && item.type === 'message' && Array.isArray(item.content) ? item.content : []))
+        .map((c) => (isObj(c) && typeof c.text === 'string' ? c.text : ''))
+        .join('');
+    }
+  }
+  if (typeof text !== 'string') throw new AiOutputError('shape');
+  const start = text.indexOf('{');
+  const end = text.lastIndexOf('}');
+  if (start < 0 || end <= start) throw new AiOutputError('no json');
+  try {
+    return JSON.parse(text.slice(start, end + 1));
+  } catch {
+    throw new AiOutputError('json');
+  }
+}
+
+/** Gọi model trên Cloudflare Workers AI qua binding. Không cần key, dùng hạn mức miễn phí mỗi ngày. */
+export function workersAiAsk({ ai, model }: { ai: WorkersAi; model: string }): Ask {
+  return async (system, user, mode) => {
+    const max_tokens = mode === 'interview' ? 1500 : 1000;
+    const input: Record<string, unknown> = model.startsWith('@cf/openai/gpt-oss')
+      ? { instructions: system, input: user, reasoning: { effort: 'low' }, max_output_tokens: max_tokens }
+      : {
+          messages: [{ role: 'system', content: system }, { role: 'user', content: user }],
+          max_tokens,
+          temperature: 0.2,
+          // Tắt bước "suy nghĩ" của model có suy luận (Gemma 4, Qwen 3...): nhanh hơn, rẻ hơn nhiều neuron,
+          // và không hết max_tokens trước khi kịp trả JSON.
+          chat_template_kwargs: { enable_thinking: false },
+        };
+    let result: unknown;
+    try {
+      result = await ai.run(model, input);
+    } catch (e) {
+      // "JSON Mode couldn't be met" là kết quả không đạt, được gọi lại; lỗi khác là lỗi API.
+      if (e instanceof Error && /json/i.test(e.message)) throw new AiOutputError('json mode');
+      throw e;
+    }
+    return extractWorkersAiJson(result);
+  };
+}
+
+export const DEFAULT_MODELS = { anthropic: 'claude-haiku-4-5-20251001', workers: '@cf/google/gemma-4-26b-a4b-it' } as const;
+
+/**
+ * Hàm đúng chữ ký SPEC mục 7, dựng từ cấu hình máy chủ.
+ * Có ANTHROPIC_API_KEY thì dùng Claude; không có thì dùng Workers AI miễn phí.
+ */
+export function createCorrector(config: { apiKey?: string; ai?: WorkersAi; model?: string }): { correct: CorrectSentence; model: string } | null {
+  if (config.apiKey) {
+    const model = config.model ?? DEFAULT_MODELS.anthropic;
+    return { correct: correctWith(anthropicAsk({ apiKey: config.apiKey, model })), model };
+  }
+  if (config.ai) {
+    const model = config.model ?? DEFAULT_MODELS.workers;
+    return { correct: correctWith(workersAiAsk({ ai: config.ai, model })), model };
+  }
+  return null;
 }

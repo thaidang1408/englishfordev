@@ -1,5 +1,16 @@
 import { describe, expect, it } from 'vitest';
-import { AiError, AiOutputError, buildUserPrompt, correctWith, type Ask } from '../../src/lib/ai/correct';
+import {
+  AiError,
+  AiOutputError,
+  buildUserPrompt,
+  correctWith,
+  createCorrector,
+  extractWorkersAiJson,
+  isWorkersAi,
+  workersAiAsk,
+  type Ask,
+  type WorkersAi,
+} from '../../src/lib/ai/correct';
 import { correctionSchema } from '../../src/lib/ai/schema';
 
 const GOOD = {
@@ -95,5 +106,63 @@ describe('buildUserPrompt', () => {
     const prompt = buildUserPrompt('I am a dev.', { mode: 'interview', question: 'Tell me about yourself.' });
     expect(prompt).toContain('"question":"Tell me about yourself."');
     expect(prompt).toContain('stronger');
+  });
+});
+
+describe('Workers AI', () => {
+  it('đọc được JSON từ các dạng phản hồi khác nhau, kể cả bọc trong khối markdown', () => {
+    expect(extractWorkersAiJson({ response: GOOD })).toEqual(GOOD);
+    expect(extractWorkersAiJson({ response: '```json\n' + JSON.stringify(GOOD) + '\n```' })).toEqual(GOOD);
+    expect(extractWorkersAiJson({ choices: [{ message: { content: JSON.stringify(GOOD) } }] })).toEqual(GOOD);
+    expect(
+      extractWorkersAiJson({ output: [{ type: 'reasoning' }, { type: 'message', content: [{ type: 'output_text', text: JSON.stringify(GOOD) }] }] }),
+    ).toEqual(GOOD);
+  });
+
+  it('phản hồi không có JSON hoặc bị cắt là AiOutputError, để được gọi lại một lần', () => {
+    expect(() => extractWorkersAiJson({ choices: [{ message: { content: null } }] })).toThrow(AiOutputError);
+    expect(() => extractWorkersAiJson({ response: '{"is_already_correct": fal' })).toThrow(AiOutputError);
+    expect(() => extractWorkersAiJson(null)).toThrow(AiOutputError);
+  });
+
+  it('gửi system prompt, câu của người dùng và tắt bước suy nghĩ của model', async () => {
+    const inputs: Record<string, unknown>[] = [];
+    const ai: WorkersAi = {
+      run: async (_model, input) => {
+        inputs.push(input);
+        return { choices: [{ message: { content: JSON.stringify(GOOD) } }] };
+      },
+    };
+    const out = await correctWith(workersAiAsk({ ai, model: '@cf/google/gemma-4-26b-a4b-it' }))('I have fixed the bug.');
+    expect(out).toEqual(GOOD);
+    expect(inputs[0]).toMatchObject({ chat_template_kwargs: { enable_thinking: false } });
+    expect(JSON.stringify(inputs[0])).toContain('I have fixed the bug.');
+  });
+
+  it('lỗi "JSON Mode couldn’t be met" được gọi lại; lỗi khác là lỗi API', async () => {
+    let n = 0;
+    const flaky: WorkersAi = {
+      run: async () => {
+        if (n++ === 0) throw new Error("JSON Mode couldn't be met");
+        return { response: GOOD };
+      },
+    };
+    await expect(correctWith(workersAiAsk({ ai: flaky, model: 'm' }))('I have fixed the bug.')).resolves.toEqual(GOOD);
+    const down: WorkersAi = {
+      run: async () => {
+        throw new Error('3040: Capacity temporarily exceeded');
+      },
+    };
+    await expect(correctWith(workersAiAsk({ ai: down, model: 'm' }))('I have fixed the bug.')).rejects.toEqual(new AiError('api'));
+  });
+
+  it('chọn nhà cung cấp: có key Anthropic thì dùng Claude, không thì dùng Workers AI, không có gì thì tắt', () => {
+    const ai: WorkersAi = { run: async () => ({}) };
+    expect(isWorkersAi(ai)).toBe(true);
+    expect(isWorkersAi({})).toBe(false);
+    expect(createCorrector({ apiKey: 'sk-ant-xxxxxxxxxxxxxxxxxxxxxxxx', ai })?.model).toBe('claude-haiku-4-5-20251001');
+    expect(createCorrector({ ai })?.model).toBe('@cf/google/gemma-4-26b-a4b-it');
+    expect(createCorrector({ ai, model: '@cf/openai/gpt-oss-120b' })?.model).toBe('@cf/openai/gpt-oss-120b');
+    expect(createCorrector({})).toBeNull();
   });
 });

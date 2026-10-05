@@ -1,6 +1,7 @@
 // Bật tính năng AI sửa câu (M4) trong một lệnh: npm run setup:ai
-// Bạn chỉ cần dán key Anthropic. Script tự lấy service role key của Supabase qua CLI,
-// tạo hàm mới trong database, đặt hai secret trên Cloudflare, ghi .dev.vars cho máy bạn, rồi deploy.
+// Mặc định dùng Workers AI miễn phí, không cần key. Key Anthropic chỉ cần nếu muốn dùng Claude.
+// Script tự lấy service role key của Supabase qua CLI, tạo hàm mới trong database,
+// đặt secret trên Cloudflare, ghi .dev.vars cho máy bạn, rồi deploy.
 // Không in key ra màn hình. Chạy lại được nhiều lần.
 import { spawnSync } from 'node:child_process';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
@@ -24,7 +25,7 @@ function readVars(file) {
 
 function stop(message) {
   console.log(`\n${bold('Dừng ở đây.')} ${message}`);
-  console.log('Sửa xong thì chạy lại "npm run setup:ai". Key đã dán được giữ trong .dev.vars, lần sau chỉ cần bấm Enter.');
+  console.log('Sửa xong thì chạy lại "npm run setup:ai". Lần sau chỉ cần bấm Enter ở các câu hỏi.');
   process.exit(1);
 }
 
@@ -49,18 +50,20 @@ const vars = readVars(DEV_VARS);
 
 console.log(bold('\nBật AI sửa câu cho English Personal Coach'));
 
-// ---------- 1. Key Anthropic ----------
-step(1, 'Lấy key Anthropic');
-console.log('   1. Mở https://console.anthropic.com/settings/keys và đăng nhập.');
-console.log('   2. Vào Billing, nạp tiền (ví dụ 5 USD). Nên đặt Spend limit theo tháng để không bị trừ quá tay.');
-console.log('   3. Quay lại API keys, bấm "Create Key", đặt tên "epc", chép key bắt đầu bằng sk-ant-.');
+// ---------- 1. Key Anthropic (không bắt buộc) ----------
+step(1, 'Chọn AI sửa câu');
+console.log('   Mặc định dùng Workers AI của Cloudflare: miễn phí, khoảng 1.000 câu mỗi ngày, không cần key.');
+console.log('   Chỉ khi muốn dùng Claude (trả phí theo lượt) mới cần key Anthropic:');
+console.log('   https://console.anthropic.com/settings/keys, nạp tiền, đặt Spend limit, tạo key bắt đầu bằng sk-ant-.');
 let apiKey = '';
 for (;;) {
-  const hint = vars.ANTHROPIC_API_KEY ? ' (Enter để giữ key đã dán lần trước)' : '';
-  apiKey = (await rl.question(`   Dán key Anthropic${hint}: `)).trim() || vars.ANTHROPIC_API_KEY || '';
-  if (/^sk-ant-[A-Za-z0-9_-]{20,}$/.test(apiKey)) break;
-  console.log('   Key phải bắt đầu bằng sk-ant- và không có khoảng trắng. Thử lại.');
+  const hint = vars.ANTHROPIC_API_KEY ? ' (Enter để giữ key đã dán lần trước, gõ "bo" để bỏ)' : ' (Enter để bỏ qua, dùng AI miễn phí)';
+  const answer = (await rl.question(`   Key Anthropic${hint}: `)).trim();
+  apiKey = answer === 'bo' ? '' : answer || vars.ANTHROPIC_API_KEY || '';
+  if (apiKey === '' || /^sk-ant-[A-Za-z0-9_-]{20,}$/.test(apiKey)) break;
+  console.log('   Key phải bắt đầu bằng sk-ant- và không có khoảng trắng. Thử lại, hoặc bấm Enter để bỏ qua.');
 }
+console.log(apiKey ? '   Dùng Claude.' : '   Dùng Workers AI miễn phí của Cloudflare.');
 rl.close();
 
 // ---------- 2. Service role key ----------
@@ -90,7 +93,7 @@ writeFileSync(
   [
     '# Tạo bởi npm run setup:ai. Secret cho npm run dev. Không commit file này.',
     `SUPABASE_SERVICE_ROLE_KEY=${serviceKey}`,
-    `ANTHROPIC_API_KEY=${apiKey}`,
+    ...(apiKey ? [`ANTHROPIC_API_KEY=${apiKey}`] : []),
     '',
   ].join('\n'),
 );
@@ -102,7 +105,11 @@ run('Áp dụng migration mới', 'npx', ['supabase', 'db', 'push'], { env: { SU
 // ---------- 4. Cloudflare ----------
 step(4, 'Đặt secret trên Cloudflare');
 putSecret('SUPABASE_SERVICE_ROLE_KEY', serviceKey);
-putSecret('ANTHROPIC_API_KEY', apiKey);
+if (apiKey) putSecret('ANTHROPIC_API_KEY', apiKey);
+else if (vars.ANTHROPIC_API_KEY) {
+  // Trước đây có key, giờ bỏ: xóa secret để máy chủ chuyển sang Workers AI.
+  spawnSync('npx', ['wrangler', 'secret', 'delete', 'ANTHROPIC_API_KEY'], { input: 'y\n', stdio: ['pipe', 'inherit', 'inherit'], shell: true });
+}
 
 // ---------- 5. Deploy ----------
 step(5, 'Deploy');

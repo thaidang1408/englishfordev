@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
-import { createCorrector } from '../../lib/ai/correct';
+import { env as cf } from 'cloudflare:workers';
+import { createCorrector, isWorkersAi } from '../../lib/ai/correct';
 import { lessons } from '../../lib/content/lessons';
 import { handleCorrect } from '../../lib/correct/handler';
 import { correctRepo } from '../../lib/db/corrections';
@@ -13,12 +14,13 @@ export const prerender = false;
 export const ALL: APIRoute = async ({ request, locals }) => {
   try {
     const env = serverEnv();
+    const ai = createCorrector({ apiKey: env.ANTHROPIC_API_KEY, ai: isWorkersAi(cf.AI) ? cf.AI : undefined, model: env.AI_MODEL });
     return await handleCorrect({
       request,
       user: locals.user,
       repo: env.SUPABASE_SERVICE_ROLE_KEY ? correctRepo(locals.supabase, createServiceDb(env.SUPABASE_SERVICE_ROLE_KEY)) : null,
-      correct: env.ANTHROPIC_API_KEY ? createCorrector({ apiKey: env.ANTHROPIC_API_KEY, model: env.AI_MODEL }) : null,
-      model: env.AI_MODEL,
+      correct: ai?.correct ?? null,
+      model: ai?.model ?? 'none',
       lessons,
       now: new Date(),
       dailyCap: env.AI_DAILY_CALL_CAP,
