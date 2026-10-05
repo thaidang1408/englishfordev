@@ -59,7 +59,7 @@ test.describe('bắt đầu đăng nhập OAuth', () => {
     expect(res.status()).toBe(303);
     const location = new URL(res.headers()['location'] ?? '');
     // URL giả của Playwright, hoặc project thật nếu máy có .env (giá trị trong .env được ưu tiên khi build).
-    expect(location.hostname).toMatch(/.supabase.co$/);
+    expect(location.hostname).toMatch(/\.supabase\.co$/);
     expect(location.pathname).toBe('/auth/v1/authorize');
     expect(location.searchParams.get('provider')).toBe('github');
     expect(location.searchParams.get('code_challenge_method')).toBe('s256');
