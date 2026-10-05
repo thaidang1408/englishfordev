@@ -1,16 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { QuizItem } from '../lib/content/schema';
 import { shuffledIndexes } from '../lib/lesson/shuffle';
-import { syncLocalProgress, type SyncOutcome } from '../lib/progress/client-sync';
-import {
-  completeLesson,
-  countCorrect,
-  loadProgress,
-  recordAnswer,
-  resetLesson,
-  saveProgress,
-  type Progress,
-} from '../lib/lesson/progress';
+import { fetchAccountResult, saveAccountResult } from '../lib/progress/client-sync';
+import { completeLesson, loadProgress, recordAnswer, resetLesson, saveProgress } from '../lib/lesson/progress';
 import QuestionCard, { type Step } from './quiz/QuestionCard';
 import { useQuizKeys } from './quiz/useQuizKeys';
 
@@ -20,48 +12,95 @@ type Props = {
   next?: { href: string; title: string };
 };
 
+/**
+ * guest: chưa đăng nhập, tiến độ lưu localStorage, chuyển lên tài khoản ở lần đăng nhập đầu.
+ * account: đã đăng nhập, kết quả đọc và lưu thẳng ở tài khoản.
+ */
+type Mode = 'guest' | 'account';
 type Phase = 'loading' | 'question' | 'done';
+type Save = 'idle' | 'saving' | 'saved' | 'error';
 
-/** Phần 4 của bài học: 5 câu, tiến độ lưu localStorage, học xong thì gửi lên tài khoản nếu đã đăng nhập. */
+/** Phần 4 của bài học: 5 câu trắc nghiệm, mỗi lần một câu. */
 export default function Quiz({ lessonKey, items, next }: Props) {
+  const [mode, setMode] = useState<Mode>('guest');
   const [phase, setPhase] = useState<Phase>('loading');
-  const [progress, setProgress] = useState<Progress>({});
   const [orders, setOrders] = useState<number[][]>([]);
   const [index, setIndex] = useState(0);
   const [picked, setPicked] = useState<number | null>(null);
-  const [saved, setSaved] = useState<SyncOutcome | null>(null);
+  const [answers, setAnswers] = useState<Record<string, boolean>>({});
+  /** Điểm đã lưu trong tài khoản từ trước, khi chưa làm lại ở lần mở trang này. */
+  const [savedScore, setSavedScore] = useState<number | null>(null);
+  const [save, setSave] = useState<Save>('idle');
   const boxRef = useRef<HTMLDivElement>(null);
 
-  const answers = progress[lessonKey]?.answers ?? {};
   const item = items[index];
   const order = orders[index];
 
-  // Đảo đáp án và đọc tiến độ sau khi chạy ở trình duyệt.
+  const startFrom = useCallback(
+    (done: Record<string, boolean>) => {
+      setOrders(items.map((q) => shuffledIndexes(q.options.length)));
+      setAnswers(done);
+      const firstOpen = items.findIndex((q) => !(q.id in done));
+      setIndex(firstOpen === -1 ? items.length - 1 : firstOpen);
+      setPicked(null);
+      setPhase('question');
+    },
+    [items],
+  );
+
   useEffect(() => {
-    const stored = loadProgress();
-    const mine = stored[lessonKey];
-    setProgress(stored);
-    setOrders(items.map((q) => shuffledIndexes(q.options.length)));
-    if (mine?.completed_at) {
-      setPhase('done');
-      return;
-    }
-    const firstOpen = items.findIndex((q) => !(q.id in (mine?.answers ?? {})));
-    setIndex(firstOpen === -1 ? items.length - 1 : firstOpen);
-    setPhase('question');
-  }, [items, lessonKey]);
+    let cancelled = false;
+    fetchAccountResult(lessonKey).then((result) => {
+      if (cancelled) return;
+      if (result.kind === 'account') {
+        setMode('account');
+        setOrders(items.map((q) => shuffledIndexes(q.options.length)));
+        if (result.completed) {
+          setSavedScore(result.completed.score);
+          setPhase('done');
+        } else {
+          startFrom({});
+        }
+        return;
+      }
+      // Khách, hoặc không hỏi được máy chủ: dùng tiến độ trên trình duyệt. Lần vào app sau sẽ chuyển lên tài khoản.
+      setMode('guest');
+      const mine = loadProgress()[lessonKey];
+      if (mine?.completed_at) {
+        setAnswers(mine.answers);
+        setOrders(items.map((q) => shuffledIndexes(q.options.length)));
+        setPhase('done');
+      } else {
+        startFrom(mine?.answers ?? {});
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [items, lessonKey, startFrom]);
 
   const choose = useCallback(
     (shown: number) => {
       if (phase !== 'question' || picked !== null || !item || !order) return;
       const original = order[shown];
       if (original === undefined) return;
+      const correct = original === item.answer;
       setPicked(shown);
-      const updated = recordAnswer(progress, lessonKey, item.id, original === item.answer);
-      setProgress(updated);
-      saveProgress(updated);
+      // Chỉ tính lần chọn đầu tiên của mỗi câu, kể cả khi quay lại câu đã trả lời.
+      if (!(item.id in answers)) setAnswers({ ...answers, [item.id]: correct });
+      if (mode === 'guest') saveProgress(recordAnswer(loadProgress(), lessonKey, item.id, correct));
     },
-    [phase, picked, item, order, progress, lessonKey],
+    [phase, picked, item, order, answers, mode, lessonKey],
+  );
+
+  const persist = useCallback(
+    (final: Record<string, boolean>) => {
+      setSave('saving');
+      saveAccountResult(lessonKey, { answers: final, completed_at: new Date().toISOString() }).then((okSaved) =>
+        setSave(okSaved ? 'saved' : 'error'),
+      );
+    },
+    [lessonKey],
   );
 
   const goNext = useCallback(() => {
@@ -72,24 +111,19 @@ export default function Quiz({ lessonKey, items, next }: Props) {
       boxRef.current?.focus({ preventScroll: true });
       return;
     }
-    const updated = completeLesson(progress, lessonKey, new Date());
-    setProgress(updated);
-    saveProgress(updated);
+    setSavedScore(null);
     setPhase('done');
-    // Đã đăng nhập thì lưu lên tài khoản; khách nhận 401 và giữ tiến độ ở trình duyệt.
-    void syncLocalProgress().then(setSaved);
-  }, [picked, index, items.length, progress, lessonKey]);
+    if (mode === 'guest') saveProgress(completeLesson(loadProgress(), lessonKey, new Date()));
+    else persist(answers);
+  }, [picked, index, items.length, mode, lessonKey, persist, answers]);
 
   useQuizKeys(phase === 'question', boxRef, choose, goNext);
 
   const restart = () => {
-    const updated = resetLesson(progress, lessonKey);
-    setProgress(updated);
-    saveProgress(updated);
-    setOrders(items.map((q) => shuffledIndexes(q.options.length)));
-    setIndex(0);
-    setPicked(null);
-    setPhase('question');
+    if (mode === 'guest') saveProgress(resetLesson(loadProgress(), lessonKey));
+    setSave('idle');
+    setSavedScore(null);
+    startFrom({});
   };
 
   if (phase === 'loading') {
@@ -101,22 +135,39 @@ export default function Quiz({ lessonKey, items, next }: Props) {
   }
 
   if (phase === 'done') {
-    const correct = countCorrect(progress[lessonKey]);
+    const correct = savedScore ?? Object.values(answers).filter(Boolean).length;
     const wrong = items.length - correct;
+    let note: string;
+    if (mode === 'guest') {
+      note =
+        wrong > 0
+          ? 'Câu sai sẽ được đưa vào phần ôn khi bạn đăng nhập. Tiến độ đang lưu trên trình duyệt này.'
+          : 'Tiến độ đang lưu trên trình duyệt này. Đăng nhập để giữ lại khi đổi máy.';
+    } else if (savedScore !== null) {
+      note = 'Kết quả đã lưu trong tài khoản của bạn.';
+    } else if (save === 'saved') {
+      note = wrong > 0 ? 'Đã lưu vào tài khoản. Câu sai sẽ quay lại trong phần ôn ngày mai.' : 'Đã lưu vào tài khoản.';
+    } else if (save === 'error') {
+      note = '';
+    } else {
+      note = 'Đang lưu vào tài khoản.';
+    }
     return (
       <div className="quiz answer-in" ref={boxRef} tabIndex={-1}>
         <h3>
           Bạn đúng {correct} trên {items.length} câu.
         </h3>
-        <p className="muted">
-          {saved === 'synced'
-            ? wrong > 0
-              ? 'Đã lưu vào tài khoản. Câu sai sẽ quay lại trong phần ôn ngày mai.'
-              : 'Đã lưu vào tài khoản.'
-            : wrong > 0
-              ? 'Câu sai sẽ được đưa vào phần ôn khi bạn đăng nhập. Tiến độ đang lưu trên trình duyệt này.'
-              : 'Tiến độ đang lưu trên trình duyệt này. Đăng nhập để giữ lại khi đổi máy.'}
-        </p>
+        <div aria-live="polite">
+          {note && <p className="muted">{note}</p>}
+          {save === 'error' && (
+            <p className="note err">
+              Chưa lưu được vào tài khoản do lỗi kết nối.{' '}
+              <button type="button" className="btn-link" onClick={() => persist(answers)}>
+                Lưu lại
+              </button>
+            </p>
+          )}
+        </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--s-3)', marginTop: 'var(--s-4)' }}>
           {next && (
             <a className="btn btn-primary" href={next.href}>

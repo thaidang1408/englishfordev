@@ -163,6 +163,48 @@ describe('việc người dùng được tự làm', () => {
     expect(r.rows[0]).toEqual({ box: 2, t: '08:30:00' });
   });
 
+  it('làm lại bài: ghi đè điểm của mình và đưa câu sai đã có về mức 1 (câu lệnh PostgREST sinh ra)', async () => {
+    await as(db, 'authenticated', A, async () => {
+      // upsert onConflict user_id,lesson_key (merge-duplicates) ghi lại mọi cột gửi lên.
+      await db.query(
+        `insert into public.lesson_progress (user_id, lesson_key, score, completed_at) values ($1, 'standup-01', 2, now())
+         on conflict (user_id, lesson_key) do update set user_id = excluded.user_id, lesson_key = excluded.lesson_key,
+           score = excluded.score, completed_at = excluded.completed_at`,
+        [A],
+      );
+      // upsert ignoreDuplicates rồi update box, due_at cho câu đã có.
+      await db.query(
+        `insert into public.review_items (user_id, kind, lesson_key, ref, box, due_at) values ($1, 'quiz', 'standup-01', 's01q1', 1, now())
+         on conflict (user_id, kind, ref) do nothing`,
+        [A],
+      );
+      await db.query(
+        `update public.review_items set box = 1, due_at = now() + interval '1 day' where user_id = $1 and kind = 'quiz' and ref in ('s01q1')`,
+        [A],
+      );
+    });
+    const r = await db.query<{ score: number; box: number }>(
+      `select p.score, r.box from public.lesson_progress p join public.review_items r on r.user_id = p.user_id
+       where p.user_id = $1 and p.lesson_key = 'standup-01' and r.ref = 's01q1'`,
+      [A],
+    );
+    expect(r.rows).toEqual([{ score: 2, box: 1 }]);
+  });
+
+  it('upsert không ghi đè được điểm của người khác', async () => {
+    await expect(
+      as(db, 'authenticated', A, () =>
+        db.query(
+          `insert into public.lesson_progress (user_id, lesson_key, score) values ($1, 'standup-01', 0)
+           on conflict (user_id, lesson_key) do update set score = excluded.score`,
+          [B],
+        ),
+      ),
+    ).rejects.toThrow(/row-level security/);
+    const r = await db.query<{ score: number }>(`select score from public.lesson_progress where user_id = $1`, [B]);
+    expect(r.rows[0]?.score).toBe(4);
+  });
+
   it('khách chưa đăng nhập ghi được sự kiện không gắn người dùng', async () => {
     await as(db, 'anon', null, () => db.query(`insert into public.events (anon_id, name) values ('k1', 'page_view')`));
     expect(await count('events')).toBe(2);

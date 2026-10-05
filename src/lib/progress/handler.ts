@@ -1,4 +1,5 @@
 import type { Lesson } from '../content/schema';
+import { lessonKey } from '../content/schema';
 import { accessFrom } from '../auth/access';
 import type { EntitlementRow, LessonProgressRow, ReviewItemRow } from '../db/types';
 import { errors, ok, sameOrigin } from '../http/response';
@@ -6,9 +7,10 @@ import { planSync, syncBodySchema } from './sync';
 
 export type ProgressRepo = {
   getEntitlement(userId: string): Promise<EntitlementRow | null>;
-  /** Bài đã xong giữ lần xong đầu tiên: trùng khóa thì bỏ qua. */
+  getLesson(userId: string, key: string): Promise<LessonProgressRow | null>;
+  /** Lần học xong mới nhất ghi đè điểm và thời điểm xong. */
   saveLessons(rows: LessonProgressRow[]): Promise<void>;
-  /** Mục ôn đã có cho câu đó thì giữ nguyên mức và hạn ôn. */
+  /** Câu sai: tạo mục ôn mới, hoặc đưa mục đã có về mức 1 với hạn ôn trong `rows`. */
   saveReviews(rows: Pick<ReviewItemRow, 'user_id' | 'kind' | 'lesson_key' | 'ref' | 'due_at' | 'box'>[]): Promise<void>;
 };
 
@@ -21,10 +23,32 @@ type Input = {
   siteUrl?: string;
 };
 
-/** POST /api/progress: lưu tiến độ học của khách sau khi đăng nhập, và mỗi lần học xong một bài. */
-export async function handleProgress({ request, user, repo, lessons, now, siteUrl }: Input): Promise<Response> {
+/**
+ * /api/progress
+ * - GET ?lesson=standup-01: kết quả bài đó của tài khoản đang đăng nhập (trang bài học là trang tĩnh nên hỏi qua đây).
+ * - POST: lưu kết quả một lần học xong, hoặc tiến độ của khách khi lần đầu đăng nhập.
+ */
+export async function handleProgress(input: Input): Promise<Response> {
   // 1. Phương thức
-  if (request.method !== 'POST') return errors.method();
+  if (input.request.method === 'GET') return handleGet(input);
+  if (input.request.method === 'POST') return handlePost(input);
+  return errors.method();
+}
+
+async function handleGet({ request, user, repo, lessons }: Input): Promise<Response> {
+  // 2. Nguồn gốc: GET không đổi dữ liệu và phản hồi không cache, không cần kiểm Origin.
+  // 3. Danh tính
+  if (!user) return errors.unauthenticated();
+  // 4. Dữ liệu vào
+  const key = new URL(request.url).searchParams.get('lesson');
+  if (!key || !lessons.some((l) => lessonKey(l) === key)) return errors.badRequest('Không có bài này.');
+  // 5. Quyền: RLS chỉ trả về dòng của chính người dùng. 6. Việc chính
+  const row = await repo.getLesson(user.id, key);
+  // 7. Phản hồi
+  return ok({ lesson_key: key, completed: row ? { score: row.score, completed_at: row.completed_at } : null });
+}
+
+async function handlePost({ request, user, repo, lessons, now, siteUrl }: Input): Promise<Response> {
   // 2. Nguồn gốc
   if (!sameOrigin(request, siteUrl)) return errors.origin();
   // 3. Danh tính, từ session ở server
@@ -49,7 +73,7 @@ export async function handleProgress({ request, user, repo, lessons, now, siteUr
       : errors.badRequest('Tiến độ có bài hoặc câu hỏi không tồn tại.');
   }
 
-  // 6. Việc chính. Hai lệnh ghi đều idempotent, gửi lại không sinh dữ liệu trùng.
+  // 6. Việc chính
   await repo.saveLessons(plan.lessonRows);
   await repo.saveReviews(plan.reviewRows);
 

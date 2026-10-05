@@ -68,18 +68,32 @@ export async function updateProfile(db: Db, userId: string, patch: ProfileUpdate
 export function progressRepo(db: Db): ProgressRepo {
   return {
     getEntitlement: (userId) => getEntitlement(db, userId),
-    async saveLessons(rows) {
-      if (rows.length === 0) return;
-      check(
-        'saveLessons',
-        await db.from('lesson_progress').upsert(rows, { onConflict: 'user_id,lesson_key', ignoreDuplicates: true }),
+    async getLesson(userId, key) {
+      return check(
+        'getLesson',
+        await db.from('lesson_progress').select('*').eq('user_id', userId).eq('lesson_key', key).maybeSingle(),
       );
     },
-    async saveReviews(rows) {
+    async saveLessons(rows) {
       if (rows.length === 0) return;
+      check('saveLessons', await db.from('lesson_progress').upsert(rows, { onConflict: 'user_id,lesson_key' }));
+    },
+    async saveReviews(rows) {
+      const first = rows[0];
+      if (!first) return;
       check(
-        'saveReviews',
+        'saveReviews.insert',
         await db.from('review_items').upsert(rows, { onConflict: 'user_id,kind,ref', ignoreDuplicates: true }),
+      );
+      // Câu đã có trong phần ôn mà lại sai: về mức 1, ôn lại từ hạn đầu tiên.
+      check(
+        'saveReviews.reset',
+        await db
+          .from('review_items')
+          .update({ box: 1, due_at: first.due_at })
+          .eq('user_id', first.user_id)
+          .eq('kind', 'quiz')
+          .in('ref', rows.map((r) => r.ref)),
       );
     },
   };

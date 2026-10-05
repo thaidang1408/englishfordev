@@ -35,6 +35,11 @@ test.describe('khi chưa đăng nhập', () => {
     expect(res.headers()['cache-control']).toBe('no-store');
   });
 
+  test('GET /api/progress trả 401 để trang bài học dùng tiến độ trên trình duyệt', async ({ request }) => {
+    const res = await request.get('/api/progress?lesson=standup-01');
+    expect(res.status()).toBe(401);
+  });
+
   test('POST /api/review trả 401 khi chưa đăng nhập', async ({ request, baseURL }) => {
     const res = await request.post('/api/review', {
       headers: { Origin: baseURL ?? '' },

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { lessons } from '../../src/lib/content/lessons';
 import type { Lesson } from '../../src/lib/content/schema';
-import type { EntitlementRow } from '../../src/lib/db/types';
+import type { EntitlementRow, LessonProgressRow } from '../../src/lib/db/types';
 import { handleProgress, type ProgressRepo } from '../../src/lib/progress/handler';
 
 const NOW = new Date('2026-10-05T01:00:00Z');
@@ -13,10 +13,11 @@ const base = lessons[0]!;
 const paid: Lesson = { ...base, id: 4, slug: 'bai-tra-phi', free: false, quiz: base.quiz.map((q, i) => ({ ...q, id: `s04q${i + 1}` })) };
 const ALL = [...lessons, paid];
 
-function fakeRepo(ent: EntitlementRow | null) {
+function fakeRepo(ent: EntitlementRow | null, lessonRow: LessonProgressRow | null = null) {
   const saved = { lessons: [] as unknown[], reviews: [] as unknown[] };
   const repo: ProgressRepo = {
     getEntitlement: async () => ent,
+    getLesson: async () => lessonRow,
     saveLessons: async (rows) => void saved.lessons.push(...rows),
     saveReviews: async (rows) => void saved.reviews.push(...rows),
   };
@@ -51,8 +52,8 @@ async function run(request: Request, ent: EntitlementRow | null = trial, user: {
 }
 
 describe('POST /api/progress', () => {
-  it('405 khi không phải POST', async () => {
-    const { res } = await run(post(null, { method: 'GET' }));
+  it('405 khi không phải GET hay POST', async () => {
+    const { res } = await run(new Request(`${SITE}/api/progress`, { method: 'PUT', headers: { Origin: SITE }, body: '{}' }));
     expect(res.status).toBe(405);
   });
 
@@ -114,5 +115,31 @@ describe('POST /api/progress', () => {
     const body = { progress: { 'standup-01': { answers: {}, completed_at: '2030-01-01T00:00:00.000Z' } } };
     const { saved } = await run(post(body));
     expect((saved.lessons[0] as { completed_at: string }).completed_at).toBe(NOW.toISOString());
+  });
+});
+
+describe('GET /api/progress', () => {
+  const get = (lesson: string) => new Request(`${SITE}/api/progress?lesson=${lesson}`);
+  async function runGet(request: Request, user: { id: string } | null, row: LessonProgressRow | null = null) {
+    const { repo } = fakeRepo(trial, row);
+    const res = await handleProgress({ request, user, repo, lessons: ALL, now: NOW, siteUrl: SITE });
+    return { res, json: (await res.json()) as { data?: unknown } };
+  }
+
+  it('401 khi chưa đăng nhập, để trang bài học biết dùng tiến độ trên trình duyệt', async () => {
+    expect((await runGet(get('standup-01'), null)).res.status).toBe(401);
+  });
+
+  it('400 khi không có bài đó', async () => {
+    expect((await runGet(get('standup-99'), USER)).res.status).toBe(400);
+  });
+
+  it('trả kết quả đã lưu của tài khoản, hoặc null khi chưa học', async () => {
+    const row = { user_id: USER.id, lesson_key: 'standup-01', score: 4, completed_at: '2026-10-04T02:00:00.000Z' };
+    expect((await runGet(get('standup-01'), USER, row)).json.data).toEqual({
+      lesson_key: 'standup-01',
+      completed: { score: 4, completed_at: '2026-10-04T02:00:00.000Z' },
+    });
+    expect((await runGet(get('standup-01'), USER)).json.data).toEqual({ lesson_key: 'standup-01', completed: null });
   });
 });
