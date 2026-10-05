@@ -1,0 +1,60 @@
+/* EPC design tokens — nguồn duy nhất. Chép nguyên file này vào src/styles/tokens.css. */
+:root {
+  color-scheme: light;
+  --bg: #fbfcfd;
+  --panel: #ffffff;
+  --panel-2: #f3f5f8;
+  --line: #d9dfe7;
+  --text: #1b2430;
+  --muted: #566375;
+  --accent: #5b3fd6;          /* tím "merged" */
+  --accent-hover: #4429b8;
+  --accent-text: #4429b8;     /* chữ và link màu nhấn */
+  --accent-tint: #efebff;
+  --on-accent: #ffffff;
+  --del-bg: #ffe9e7;  --del-mark: #ffc9c4;  --del-text: #9a2a22;
+  --add-bg: #e3f6e8;  --add-mark: #b4e6c2;  --add-text: #1b6b3a;
+  --warn-bg: #fff4d6; --warn-text: #5c4300;
+  --heat-0: #e9edf2; --heat-1: #d5cbff; --heat-2: #a995f5; --heat-3: #7a5fe6; --heat-4: #4d31c4;
+  --shadow: 0 18px 40px -24px rgba(27, 36, 48, .35);
+  --focus: #5b3fd6;
+
+  --font-sans: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  /* cỡ chữ: tỉ lệ 1.25 */
+  --fs-xs: .8125rem; --fs-sm: .9375rem; --fs-md: 1.0625rem; --fs-lg: 1.3125rem;
+  --fs-xl: 1.625rem; --fs-2xl: 2.125rem; --fs-hero: clamp(2.125rem, 5.2vw, 3.625rem);
+
+  --r-sm: 6px; --r-md: 8px; --r-lg: 10px;
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 36px; --s-7: 56px; --s-8: 72px;
+  --w-read: 680px; --w-page: 1080px;
+}
+
+/* Giao diện tối: theo hệ thống, hoặc ép bằng data-theme trên <html> */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #10151d; --panel: #171e29; --panel-2: #1d2633; --line: #2a3546;
+    --text: #e6ebf2; --muted: #9aa7b8;
+    --accent: #6c54f0; --accent-hover: #7d67f5; --accent-text: #a999ff; --accent-tint: #241f45; --on-accent: #ffffff;
+    --del-bg: #3a1d20; --del-mark: #6b2a2c; --del-text: #ffa59c;
+    --add-bg: #173524; --add-mark: #23603c; --add-text: #86e3a6;
+    --warn-bg: #3a2f10; --warn-text: #f3d58a;
+    --heat-0: #1f2835; --heat-1: #33296b; --heat-2: #4c3ba6; --heat-3: #6c54f0; --heat-4: #a999ff;
+    --shadow: 0 18px 40px -22px rgba(0, 0, 0, .7);
+    --focus: #a999ff;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #10151d; --panel: #171e29; --panel-2: #1d2633; --line: #2a3546;
+  --text: #e6ebf2; --muted: #9aa7b8;
+  --accent: #6c54f0; --accent-hover: #7d67f5; --accent-text: #a999ff; --accent-tint: #241f45; --on-accent: #ffffff;
+  --del-bg: #3a1d20; --del-mark: #6b2a2c; --del-text: #ffa59c;
+  --add-bg: #173524; --add-mark: #23603c; --add-text: #86e3a6;
+  --warn-bg: #3a2f10; --warn-text: #f3d58a;
+  --heat-0: #1f2835; --heat-1: #33296b; --heat-2: #4c3ba6; --heat-3: #6c54f0; --heat-4: #a999ff;
+  --shadow: 0 18px 40px -22px rgba(0, 0, 0, .7);
+  --focus: #a999ff;
+}

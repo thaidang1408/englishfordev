@@ -1,0 +1,107 @@
+{
+  "id": 1,
+  "track": "standup",
+  "slug": "hom-qua-da-lam-gi",
+  "title": "Hôm qua đã làm gì",
+  "free": true,
+  "goal_vi": "Báo cáo việc đã xong hôm qua bằng một câu quá khứ đơn gọn.",
+  "pattern": {
+    "formula": "Yesterday I + V2/ed + object.",
+    "note_vi": "Việc đã xong, có mốc thời gian đã qua (yesterday, last week) thì dùng quá khứ đơn."
+  },
+  "examples": [
+    {
+      "en": "Yesterday I fixed the login bug.",
+      "vi": "Hôm qua mình đã sửa bug đăng nhập."
+    },
+    {
+      "en": "Yesterday I finished the payment API.",
+      "vi": "Hôm qua mình làm xong API thanh toán."
+    },
+    {
+      "en": "Yesterday I reviewed two pull requests.",
+      "vi": "Hôm qua mình review hai pull request."
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "Yesterday I have fixed the bug.",
+      "right": "Yesterday I fixed the bug.",
+      "why_vi": "Có yesterday thì không dùng have + V3."
+    },
+    {
+      "wrong": "I fixed bug login.",
+      "right": "I fixed the login bug.",
+      "why_vi": "Từ bổ nghĩa đứng trước danh từ chính, và cần the."
+    }
+  ],
+  "word_bank": [
+    "fixed",
+    "finished",
+    "implemented",
+    "reviewed",
+    "deployed",
+    "tested",
+    "investigated",
+    "refactored",
+    "merged"
+  ],
+  "quiz": [
+    {
+      "id": "s01q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "Yesterday I finished the login page.",
+        "Yesterday I have finished the login page.",
+        "Yesterday I finish the login page."
+      ],
+      "answer": 0,
+      "why_vi": "Mốc yesterday đi với quá khứ đơn: finished."
+    },
+    {
+      "id": "s01q2",
+      "prompt_vi": "Hôm qua mình đã sửa bug thanh toán.",
+      "options": [
+        "I fixed the payment bug yesterday.",
+        "I fixed bug payment yesterday.",
+        "I was fix the payment bug yesterday."
+      ],
+      "answer": 0,
+      "why_vi": "the payment bug: từ bổ nghĩa đứng trước. Không dùng was + động từ nguyên mẫu."
+    },
+    {
+      "id": "s01q3",
+      "prompt_vi": "Hôm qua mình review PR của Nam.",
+      "options": [
+        "Yesterday I reviewed Nam's PR.",
+        "Yesterday I review PR of Nam.",
+        "Yesterday I had review Nam PR."
+      ],
+      "answer": 0,
+      "why_vi": "Sở hữu của người dùng 's: Nam's PR. Động từ chia quá khứ: reviewed."
+    },
+    {
+      "id": "s01q4",
+      "prompt_vi": "Hôm qua mình deploy bản mới lên staging.",
+      "options": [
+        "Yesterday I deployed the new version to staging.",
+        "Yesterday I deployed new version on the staging.",
+        "Yesterday I did deploy new version in staging."
+      ],
+      "answer": 0,
+      "why_vi": "deploy something to staging. Cần the trước new version."
+    },
+    {
+      "id": "s01q5",
+      "prompt_vi": "Hôm qua mình viết xong unit test cho module user.",
+      "options": [
+        "Yesterday I finished writing unit tests for the user module.",
+        "Yesterday I finished to write unit test for module user.",
+        "Yesterday I have wrote unit tests for the user module."
+      ],
+      "answer": 0,
+      "why_vi": "finish + V-ing: finished writing. the user module: từ bổ nghĩa đứng trước."
+    }
+  ],
+  "write_prompt_vi": "Viết 1 đến 2 câu về việc bạn đã làm hôm qua."
+}

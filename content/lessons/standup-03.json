@@ -1,0 +1,109 @@
+{
+  "id": 3,
+  "track": "standup",
+  "slug": "dang-ket-o-dau",
+  "title": "Đang kẹt ở đâu",
+  "free": true,
+  "goal_vi": "Nói rõ mình đang bị chặn bởi cái gì, đang chờ ai, hoặc không vướng gì.",
+  "pattern": {
+    "formula": "I'm blocked by + noun. / I'm waiting for + someone + to V. / No blockers on my side.",
+    "note_vi": "blocked by: bị chặn bởi. waiting for: luôn có for."
+  },
+  "examples": [
+    {
+      "en": "I'm blocked by the missing API docs.",
+      "vi": "Mình đang kẹt vì thiếu tài liệu API."
+    },
+    {
+      "en": "I'm waiting for the design team to send the final mockups.",
+      "vi": "Mình đang chờ team design gửi mockup cuối."
+    },
+    {
+      "en": "No blockers on my side.",
+      "vi": "Bên mình không vướng gì."
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "I'm blocking by the server issue.",
+      "right": "I'm blocked by the server issue.",
+      "why_vi": "Mình bị chặn nên dùng bị động: blocked."
+    },
+    {
+      "wrong": "I'm waiting the review.",
+      "right": "I'm waiting for the review.",
+      "why_vi": "wait luôn đi với for trước thứ mình chờ."
+    },
+    {
+      "wrong": "I have no any blocker.",
+      "right": "I don't have any blockers.",
+      "why_vi": "no và any không đi cùng nhau. Nói gọn: No blockers."
+    }
+  ],
+  "word_bank": [
+    "blocked by",
+    "waiting for",
+    "need access to",
+    "depend on",
+    "stuck on",
+    "could someone"
+  ],
+  "quiz": [
+    {
+      "id": "s03q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "I'm blocked by the staging server issue.",
+        "I'm blocking by the staging server issue.",
+        "I blocked by staging server issue."
+      ],
+      "answer": 0,
+      "why_vi": "Bị động: am blocked by."
+    },
+    {
+      "id": "s03q2",
+      "prompt_vi": "Mình đang chờ backend làm xong API.",
+      "options": [
+        "I'm waiting for the backend team to finish the API.",
+        "I'm waiting the backend team finish the API.",
+        "I'm waiting for the backend team finish the API."
+      ],
+      "answer": 0,
+      "why_vi": "wait for + someone + to V."
+    },
+    {
+      "id": "s03q3",
+      "prompt_vi": "Mình không bị kẹt gì.",
+      "options": [
+        "No blockers on my side.",
+        "I have no any blocker.",
+        "I don't have blocker nothing."
+      ],
+      "answer": 0,
+      "why_vi": "Câu chuẩn trong standup. Không dùng hai phủ định cùng lúc."
+    },
+    {
+      "id": "s03q4",
+      "prompt_vi": "Mình cần quyền truy cập database production.",
+      "options": [
+        "I need access to the production database.",
+        "I need to access to the production database.",
+        "I need access production database."
+      ],
+      "answer": 0,
+      "why_vi": "Danh từ access đi với to. Động từ access thì không có to: I need to access the database."
+    },
+    {
+      "id": "s03q5",
+      "prompt_vi": "Ai review giúp mình PR này hôm nay được không?",
+      "options": [
+        "Could someone review my PR today?",
+        "Could someone to review my PR today?",
+        "Could someone reviewing my PR today?"
+      ],
+      "answer": 0,
+      "why_vi": "Sau could là động từ nguyên mẫu không to."
+    }
+  ],
+  "write_prompt_vi": "Viết 1 câu về thứ đang chặn bạn, hoặc nói rằng bạn không vướng gì."
+}

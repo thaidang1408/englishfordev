@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>14 ngày luyện tiếng Anh cho daily standup | English Personal Coach</title>
+<meta name="description" content="Mỗi sáng 10 phút trước giờ họp: một mẫu câu dev dùng thật, và câu standup của chính bạn được sửa, giải thích bằng tiếng Việt. Đợt đầu 30 suất.">
+<meta property="og:title" content="14 ngày luyện để nói được trong daily standup">
+<meta property="og:description" content="Gửi câu standup hôm nay, nhận bản sửa và giải thích bằng tiếng Việt trước giờ họp. Đợt đầu 30 suất.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<script>
+/* ============================================================
+   CẤU HÌNH — chỉ sửa trong khối này
+   ============================================================ */
+const CONFIG = {
+  // URL web app của Google Apps Script (xem apps-script/Code.gs)
+  formEndpoint: "",
+
+  // Tài khoản nhận tiền. bankId: mã BIN hoặc tên viết tắt, ví dụ "970422", "MB", "VCB"
+  bankId: "",
+  bankName: "",
+  accountNo: "",
+  accountName: "",
+
+  // Username Telegram để người mua nhắn bạn, không có dấu @
+  telegram: "",
+
+  price: 149000,
+  seats: 30,
+  startDate: "Thứ Hai, 19/10/2026",
+  refundDays: 3
+};
+</script>
+
+<style>
+:root{
+  --ink:#1b2430;
+  --ink-soft:#4d5a6b;
+  --paper:#fbfcfd;
+  --panel:#ffffff;
+  --line:#d9dfe7;
+  --merge:#5b3fd6;
+  --merge-deep:#4429b8;
+  --merge-tint:#efebff;
+  --del-bg:#ffe9e7;
+  --del-ink:#9a2a22;
+  --add-bg:#e3f6e8;
+  --add-ink:#1b6b3a;
+  --note-bg:#f3f5f8;
+  --sans:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--merge-deep)}
+:focus-visible{outline:3px solid var(--merge);outline-offset:3px;border-radius:4px}
+
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.narrow{max-width:680px}
+
+/* thanh cảnh báo cho chủ trang */
+.owner-warn{display:none;background:#fff4d6;border-bottom:1px solid #e8c768;color:#5c4300;font-size:14px;padding:10px 20px}
+.owner-warn.show{display:block}
+
+/* đầu trang */
+.top{padding:22px 0 0;font-size:15px;color:var(--ink-soft);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.top strong{color:var(--ink);font-weight:600}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:56px;align-items:center;padding:56px 0 72px}
+h1{font-size:clamp(34px,5.2vw,58px);line-height:1.08;font-weight:800;letter-spacing:-.025em;margin:0 0 22px}
+.lede{font-size:19px;color:var(--ink-soft);margin:0 0 30px;max-width:30em}
+.btn{
+  display:inline-block;background:var(--merge);color:#fff;text-decoration:none;
+  font:600 17px/1 var(--sans);padding:17px 26px;border-radius:8px;border:0;cursor:pointer;
+  transition:background .15s;
+}
+.btn:hover{background:var(--merge-deep)}
+.btn[disabled]{opacity:.6;cursor:progress}
+.under-btn{font-size:15px;color:var(--ink-soft);margin:14px 0 0}
+
+/* khung diff — phần đáng nhớ của trang */
+.review{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 18px 40px -24px rgba(27,36,48,.35)}
+.review-head{display:flex;justify-content:space-between;gap:12px;padding:11px 16px;border-bottom:1px solid var(--line);font-size:14px;color:var(--ink-soft);background:var(--note-bg)}
+.diff{font-family:var(--mono);font-size:15px;line-height:1.65;margin:0}
+.diff-line{display:grid;grid-template-columns:34px 1fr;padding:9px 16px 9px 0}
+.diff-line .sign{text-align:center;font-weight:600;user-select:none}
+.del{background:var(--del-bg);color:var(--del-ink)}
+.add{background:var(--add-bg);color:var(--add-ink)}
+.del mark{background:#ffc9c4;color:inherit;border-radius:3px;padding:0 2px}
+.add mark{background:#b4e6c2;color:inherit;border-radius:3px;padding:0 2px}
+.comment{display:grid;grid-template-columns:38px 1fr;gap:12px;padding:16px;border-top:1px solid var(--line)}
+.avatar{width:38px;height:38px;border-radius:50%;background:var(--merge-tint);color:var(--merge-deep);display:grid;place-items:center;font-weight:800;font-size:15px}
+.comment p{margin:0 0 8px;font-size:15.5px}
+.comment p:last-child{margin:0}
+.comment code{font-family:var(--mono);font-size:14px;background:var(--note-bg);padding:1px 5px;border-radius:4px}
+.who{font-size:14px;color:var(--ink-soft)}
+
+@media (prefers-reduced-motion:no-preference){
+  .add,.comment{opacity:0;transform:translateY(6px);animation:land .5s ease forwards}
+  .add{animation-delay:.7s}
+  .comment{animation-delay:1.3s}
+  @keyframes land{to{opacity:1;transform:none}}
+}
+
+/* các khối nội dung */
+section{padding:64px 0;border-top:1px solid var(--line)}
+h2{font-size:clamp(25px,3.2vw,34px);line-height:1.2;font-weight:800;letter-spacing:-.015em;margin:0 0 14px}
+.sec-lede{color:var(--ink-soft);margin:0 0 34px;max-width:36em}
+
+/* buổi sáng */
+.morning{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.morning li{display:grid;grid-template-columns:120px 1fr;gap:24px;padding:18px 0;border-top:1px solid var(--line)}
+.morning li:first-child{border-top:0;padding-top:0}
+.when{font-family:var(--mono);font-size:15px;color:var(--merge-deep);font-weight:600;padding-top:3px}
+.morning h3{font-size:18px;margin:0 0 4px;font-weight:600}
+.morning p{margin:0;color:var(--ink-soft)}
+
+/* 14 ngày */
+.weeks{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--panel)}
+.weeks > div{padding:24px;border-left:1px solid var(--line)}
+.weeks > div:first-child{border-left:0}
+.days{font-family:var(--mono);font-size:14px;color:var(--ink-soft)}
+.weeks h3{font-size:19px;margin:6px 0 10px;font-weight:600}
+.weeks ul{margin:0;padding-left:18px;color:var(--ink-soft);font-size:16px}
+.weeks li{margin:4px 0}
+
+/* hợp / không hợp */
+.fit{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.fit h3{font-size:18px;margin:0 0 10px;font-weight:600}
+.fit ul{margin:0;padding-left:20px}
+.fit li{margin:8px 0}
+.fit .no{color:var(--ink-soft)}
+
+/* giá + form */
+.offer{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1fr);gap:56px;align-items:start}
+.price{font-size:clamp(44px,6vw,64px);font-weight:800;letter-spacing:-.03em;line-height:1;margin:6px 0 6px}
+.price small{font-size:18px;font-weight:500;color:var(--ink-soft);letter-spacing:0}
+.terms{list-style:none;padding:0;margin:26px 0 0}
+.terms li{padding:12px 0;border-top:1px solid var(--line)}
+.terms b{font-weight:600}
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:28px}
+label{display:block;font-weight:600;font-size:15px;margin:18px 0 6px}
+label:first-of-type{margin-top:0}
+.hint{font-weight:400;color:var(--ink-soft)}
+input,select{
+  width:100%;font:400 16px/1.3 var(--sans);color:var(--ink);background:#fff;
+  border:1px solid #b8c2cf;border-radius:7px;padding:12px 13px;
+}
+input:focus,select:focus{border-color:var(--merge);outline:3px solid var(--merge-tint)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.card .btn{width:100%;margin-top:24px}
+.form-note{font-size:14px;color:var(--ink-soft);margin:12px 0 0}
+.err{display:none;background:var(--del-bg);color:var(--del-ink);border-radius:7px;padding:11px 13px;font-size:15px;margin-top:16px}
+.err.show{display:block}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+/* bước thanh toán */
+#pay{display:none}
+#pay.show{display:block}
+#pay h3{font-size:22px;margin:0 0 8px;font-weight:800;letter-spacing:-.01em}
+.bank{margin:18px 0;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.bank div{display:grid;grid-template-columns:130px 1fr;gap:12px;padding:11px 14px;border-top:1px solid var(--line);font-size:15.5px}
+.bank div:first-child{border-top:0}
+.bank span:first-child{color:var(--ink-soft)}
+.bank span:last-child{font-weight:600;word-break:break-word}
+.memo{font-family:var(--mono);background:var(--merge-tint);color:var(--merge-deep);padding:2px 7px;border-radius:5px}
+.qr[hidden]{display:none}
+.qr{display:block;width:100%;max-width:300px;height:auto;margin:6px auto 0;border-radius:8px}
+.copy{font:600 14px/1 var(--sans);background:none;border:1px solid var(--line);border-radius:6px;padding:7px 10px;margin-left:8px;cursor:pointer;color:var(--ink)}
+
+/* hỏi đáp */
+details{border-top:1px solid var(--line);padding:16px 0}
+details:last-of-type{border-bottom:1px solid var(--line)}
+summary{font-weight:600;cursor:pointer;font-size:17.5px}
+details p{margin:10px 0 0;color:var(--ink-soft);max-width:40em}
+
+footer{padding:36px 0 56px;border-top:1px solid var(--line);font-size:15px;color:var(--ink-soft)}
+footer p{margin:0;max-width:44em}
+
+@media (max-width:860px){
+  .hero{grid-template-columns:1fr;gap:36px;padding:36px 0 52px}
+  .offer{grid-template-columns:1fr;gap:36px}
+  .weeks{grid-template-columns:1fr}
+  .weeks > div{border-left:0;border-top:1px solid var(--line)}
+  .weeks > div:first-child{border-top:0}
+  .fit{grid-template-columns:1fr;gap:28px}
+  section{padding:48px 0}
+}
+@media (max-width:520px){
+  body{font-size:16px}
+  .morning li{grid-template-columns:1fr;gap:4px}
+  .row2{grid-template-columns:1fr}
+  .diff{font-size:13.5px}
+  .card{padding:22px 18px}
+  .bank div{grid-template-columns:1fr;gap:2px}
+}
+</style>
+</head>
+<body>
+
+<div class="owner-warn" id="ownerWarn" role="status"></div>
+
+<div class="wrap">
+  <div class="top">
+    <span><strong>English Personal Coach</strong> cho dev</span>
+    <span>Đợt đầu, <span data-seats>30</span> suất</span>
+  </div>
+
+  <header class="hero">
+    <div>
+      <h1>14 ngày luyện để nói được trong daily standup.</h1>
+      <p class="lede">Mỗi sáng 10 phút trước giờ họp: một mẫu câu dev dùng thật, và câu standup của chính bạn được sửa, giải thích bằng tiếng Việt.</p>
+      <a class="btn" href="#dang-ky">Giữ suất, <span data-price>149.000đ</span></a>
+      <p class="under-btn">Bắt đầu <span data-start>Thứ Hai, 19/10/2026</span>. Học qua Telegram, không cần cài app.</p>
+    </div>
+
+    <div class="review" aria-label="Ví dụ một câu standup được sửa">
+      <div class="review-head"><span>Câu standup sáng nay của bạn</span><span>3 chỗ sửa</span></div>
+      <div class="diff">
+        <div class="diff-line del"><span class="sign">−</span><span>Yesterday I <mark>have fixed</mark> <mark>bug login</mark> and today I <mark>continue do</mark> the API.</span></div>
+        <div class="diff-line add"><span class="sign">+</span><span>Yesterday I <mark>fixed</mark> <mark>the login bug</mark>. Today I'm <mark>continuing with</mark> the API.</span></div>
+      </div>
+      <div class="comment">
+        <div class="avatar" aria-hidden="true">C</div>
+        <div>
+          <p class="who">Coach, 8:41 sáng</p>
+          <p>Có mốc thời gian đã qua như <code>yesterday</code> thì dùng quá khứ đơn: <code>fixed</code>, không dùng <code>have fixed</code>.</p>
+          <p>Tiếng Anh đặt từ bổ nghĩa lên trước: <code>the login bug</code>. Sau <code>continue</code> dùng <code>with</code> + danh từ, hoặc động từ thêm <code>-ing</code>.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+</div>
+
+<section>
+  <div class="wrap narrow">
+    <h2>Một buổi sáng trong 14 ngày</h2>
+    <p class="sec-lede">Bạn chọn giờ. Ví dụ dưới đây là cho team họp standup lúc 9 giờ.</p>
+    <ol class="morning">
+      <li><div class="when">8:30</div><div><h3>Nhận mẫu câu của ngày</h3><p>Một mẫu câu, ba ví dụ lấy từ việc của dev, và cách đọc. Đọc hết trong 3 phút.</p></div></li>
+      <li><div class="when">8:35</div><div><h3>Gửi câu standup thật của bạn</h3><p>Viết đúng điều bạn sắp nói trong buổi họp hôm nay. Sai cũng được, đó là mục đích.</p></div></li>
+      <li><div class="when">Trước 9:00</div><div><h3>Nhận bản sửa</h3><p>Câu đã sửa, kèm lý do bằng tiếng Việt. Bạn mang nguyên câu đó vào buổi họp.</p></div></li>
+      <li><div class="when">Cuối tuần</div><div><h3>Ôn lỗi của chính bạn</h3><p>Những lỗi bạn lặp lại trong tuần được gom thành một bài ôn 5 phút.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Học gì trong 14 ngày</h2>
+    <p class="sec-lede">Mười bài, mỗi bài một tình huống bạn gặp trong tuần làm việc. Hai cuối tuần dành để ôn.</p>
+    <div class="weeks">
+      <div>
+        <span class="days">Tuần 1, thứ Hai đến thứ Sáu</span>
+        <h3>Báo cáo trong standup</h3>
+        <ul><li>Hôm qua đã làm gì</li><li>Hôm nay làm gì</li><li>Đang kẹt ở đâu</li><li>Việc xong, việc còn dở</li><li>Ước lượng bao lâu thì xong</li></ul>
+      </div>
+      <div>
+        <span class="days">Tuần 2, thứ Hai đến thứ Sáu</span>
+        <h3>Khi có vấn đề, và khi phải viết</h3>
+        <ul><li>Hỏi lại khi chưa hiểu</li><li>Xin người khác giúp</li><li>Báo trễ và đề xuất mốc mới</li><li>Mô tả pull request</li><li>Comment khi review code</li></ul>
+      </div>
+      <div>
+        <span class="days">Hai cuối tuần</span>
+        <h3>Ôn lỗi của chính bạn</h3>
+        <ul><li>Những lỗi bạn lặp lại trong tuần</li><li>Một bài ôn 5 phút</li><li>Sổ lỗi cá nhân, bạn giữ lại sau khóa</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap narrow">
+    <h2>Chương trình này dành cho ai</h2>
+    <div class="fit">
+      <div>
+        <h3>Hợp với bạn nếu</h3>
+        <ul>
+          <li>Bạn đọc docs tiếng Anh được nhưng ngại nói và viết.</li>
+          <li>Team có họp hoặc nhắn tin bằng tiếng Anh, hoặc sắp có.</li>
+          <li>Bạn dành được 10 phút mỗi sáng trong 14 ngày.</li>
+        </ul>
+      </div>
+      <div class="no">
+        <h3>Chưa hợp nếu</h3>
+        <ul>
+          <li>Bạn chưa đọc được câu tiếng Anh đơn giản.</li>
+          <li>Bạn cần luyện thi IELTS, TOEIC hay VSTEP.</li>
+          <li>Bạn muốn luyện phát âm với giáo viên.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="dang-ky">
+  <div class="wrap offer">
+    <div>
+      <h2>Giữ suất cho đợt đầu</h2>
+      <p class="price"><span data-price>149.000đ</span> <small>cho 14 ngày</small></p>
+      <ul class="terms">
+        <li><b><span data-seats>30</span> suất.</b> Mỗi câu được sửa riêng nên đợt đầu chỉ nhận chừng đó.</li>
+        <li><b>Bắt đầu <span data-start>Thứ Hai, 19/10/2026</span>.</b> Bài mới từ thứ Hai đến thứ Sáu, cuối tuần ôn lỗi.</li>
+        <li><b>Hoàn tiền trong <span data-refund>3</span> ngày đầu.</b> Thấy không hợp thì nhắn một câu, nhận lại đủ tiền.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <form id="signup" novalidate>
+        <label for="name">Tên của bạn</label>
+        <input id="name" name="name" autocomplete="name" required>
+
+        <label for="contact">Username Telegram hoặc email <span class="hint">(để gửi bài mỗi sáng)</span></label>
+        <input id="contact" name="contact" required placeholder="@tencuaban hoặc ban@email.com">
+
+        <div class="row2">
+          <div>
+            <label for="role">Bạn đang làm gì</label>
+            <select id="role" name="role">
+              <option>Dev</option><option>QA / Tester</option><option>BA / PM</option><option>Sinh viên IT</option><option>Khác</option>
+            </select>
+          </div>
+          <div>
+            <label for="standup">Giờ họp standup <span class="hint">(nếu có)</span></label>
+            <input id="standup" name="standup" type="time">
+          </div>
+        </div>
+
+        <label for="need">Lần tới bạn cần dùng tiếng Anh cho việc gì</label>
+        <select id="need" name="need">
+          <option>Họp với khách hoặc team nước ngoài</option><option>Phỏng vấn</option><option>Viết PR, tài liệu, tin nhắn</option><option>Chưa có việc cụ thể</option>
+        </select>
+
+        <div class="hp" aria-hidden="true"><label for="website">Bỏ trống ô này</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+
+        <div class="err" id="err" role="alert"></div>
+        <button class="btn" type="submit" id="submitBtn">Giữ suất của tôi</button>
+        <p class="form-note">Bước tiếp theo là thông tin chuyển khoản. Suất được xác nhận khi nhận được tiền.</p>
+      </form>
+
+      <div id="pay" tabindex="-1">
+        <h3>Đã giữ suất cho bạn trong 24 giờ</h3>
+        <p>Chuyển khoản để xác nhận. Nhận được tiền, mình nhắn bạn trong ngày để hẹn giờ gửi bài.</p>
+        <div class="bank">
+          <div><span>Số tiền</span><span data-price>149.000đ</span></div>
+          <div><span>Ngân hàng</span><span id="pBank"></span></div>
+          <div><span>Số tài khoản</span><span><span id="pAcc"></span><button class="copy" type="button" data-copy="pAcc">Chép</button></span></div>
+          <div><span>Chủ tài khoản</span><span id="pName"></span></div>
+          <div><span>Nội dung</span><span><span class="memo" id="pMemo"></span><button class="copy" type="button" data-copy="pMemo">Chép</button></span></div>
+        </div>
+        <img class="qr" id="pQr" alt="Mã QR chuyển khoản" hidden>
+        <p class="form-note" id="pHelp"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap narrow">
+    <h2>Câu hỏi thường gặp</h2>
+    <details><summary>Ai sửa câu cho tôi?</summary><p>Một lập trình viên, người làm chương trình này. Mình có dùng công cụ AI để soát, và đọc lại từng câu trước khi gửi cho bạn.</p></details>
+    <details><summary>Team tôi không họp standup thì sao?</summary><p>Vẫn học được. Mỗi sáng bạn viết 2 đến 3 câu về việc đang làm, như một bản cập nhật gửi sếp hoặc khách.</p></details>
+    <details><summary>Tôi bỏ lỡ một ngày thì sao?</summary><p>Bài vẫn nằm trong Telegram. Bạn gửi bù lúc nào cũng được trong 14 ngày, mình vẫn sửa.</p></details>
+    <details><summary>Sau 14 ngày thì sao?</summary><p>Bạn giữ toàn bộ bài và sổ lỗi của mình. Nếu có đợt tiếp theo, người học đợt đầu được báo trước.</p></details>
+    <details><summary>Hoàn tiền thế nào?</summary><p>Trong <span data-refund>3</span> ngày đầu của chương trình, nhắn "hoàn tiền" qua Telegram. Mình chuyển lại đủ số tiền, không hỏi lý do.</p></details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Đây là đợt đầu tiên, do một lập trình viên tự làm. Chưa có app. Bài được gửi và sửa cho từng người qua Telegram. <span id="fContact"></span></p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+  const vnd = (n) => n.toLocaleString("vi-VN") + "đ";
+  const params = new URLSearchParams(location.search);
+  const src = (params.get("src") || "direct").slice(0, 40);
+
+  // điền các giá trị từ CONFIG vào trang
+  document.querySelectorAll("[data-price]").forEach(el => el.textContent = vnd(CONFIG.price));
+  document.querySelectorAll("[data-seats]").forEach(el => el.textContent = CONFIG.seats);
+  document.querySelectorAll("[data-start]").forEach(el => el.textContent = CONFIG.startDate);
+  document.querySelectorAll("[data-refund]").forEach(el => el.textContent = CONFIG.refundDays);
+  if (CONFIG.telegram) {
+    $("fContact").innerHTML = 'Cần hỏi gì, nhắn <a href="https://t.me/' + encodeURIComponent(CONFIG.telegram) + '">@' + CONFIG.telegram + '</a>.';
+  }
+
+  // cảnh báo cho chủ trang khi cấu hình còn thiếu
+  const missing = [];
+  if (!CONFIG.formEndpoint) missing.push("formEndpoint");
+  if (!CONFIG.bankId || !CONFIG.accountNo || !CONFIG.accountName) missing.push("tài khoản ngân hàng");
+  if (!CONFIG.telegram) missing.push("telegram");
+  if (missing.length) {
+    $("ownerWarn").textContent = "Trang chưa sẵn sàng để đăng. Còn thiếu trong CONFIG: " + missing.join(", ") + ".";
+    $("ownerWarn").classList.add("show");
+  }
+
+  function send(payload){
+    if (!CONFIG.formEndpoint) { console.warn("Chưa có formEndpoint, bỏ qua gửi:", payload); return Promise.resolve(); }
+    // text/plain + no-cors: Apps Script nhận được mà không cần preflight
+    return fetch(CONFIG.formEndpoint, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
+  }
+
+  // đếm lượt xem, mỗi trình duyệt một lần
+  try {
+    if (!localStorage.getItem("epc_viewed")) {
+      localStorage.setItem("epc_viewed", "1");
+      send({ type: "view", src: src, ref: document.referrer.slice(0, 120) }).catch(() => {});
+    }
+  } catch (e) {}
+
+  function showPay(code){
+    $("signup").style.display = "none";
+    $("pBank").textContent = CONFIG.bankName || CONFIG.bankId || "(chưa cấu hình)";
+    $("pAcc").textContent = CONFIG.accountNo || "(chưa cấu hình)";
+    $("pName").textContent = CONFIG.accountName || "(chưa cấu hình)";
+    $("pMemo").textContent = code;
+    if (CONFIG.bankId && CONFIG.accountNo) {
+      const qr = "https://img.vietqr.io/image/" + encodeURIComponent(CONFIG.bankId) + "-" + encodeURIComponent(CONFIG.accountNo) +
+        "-compact2.png?amount=" + CONFIG.price + "&addInfo=" + encodeURIComponent(code) + "&accountName=" + encodeURIComponent(CONFIG.accountName);
+      const img = $("pQr");
+      img.onerror = () => { img.hidden = true; };
+      img.src = qr; img.hidden = false;
+    }
+    $("pHelp").innerHTML = "Ghi đúng nội dung <b>" + code + "</b> để mình biết là bạn." +
+      (CONFIG.telegram ? ' Chuyển xong có thể nhắn <a href="https://t.me/' + encodeURIComponent(CONFIG.telegram) + '">@' + CONFIG.telegram + "</a> để được xác nhận nhanh hơn." : "");
+    $("pay").classList.add("show");
+    $("pay").focus({ preventScroll: true });
+    $("pay").scrollIntoView({ block: "nearest", behavior: "smooth" });
+  }
+
+  // đã đăng ký rồi thì hiện lại thông tin chuyển khoản
+  try { const saved = localStorage.getItem("epc_code"); if (saved) showPay(saved); } catch (e) {}
+
+  $("signup").addEventListener("submit", function(ev){
+    ev.preventDefault();
+    const f = ev.target, err = $("err"), btn = $("submitBtn");
+    err.classList.remove("show");
+    if (f.website.value) return; // bot
+    const name = f.name.value.trim(), contact = f.contact.value.trim();
+    if (!name) { err.textContent = "Nhập tên để mình biết gọi bạn là gì."; err.classList.add("show"); f.name.focus(); return; }
+    const okContact = /^@?[A-Za-z0-9_]{4,32}$/.test(contact) || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact);
+    if (!okContact) { err.textContent = "Nhập username Telegram (ví dụ @tencuaban) hoặc một địa chỉ email."; err.classList.add("show"); f.contact.focus(); return; }
+
+    const code = "EPC" + Math.random().toString(36).slice(2, 6).toUpperCase();
+    btn.disabled = true; btn.textContent = "Đang giữ suất…";
+    send({ type: "signup", code: code, name: name, contact: contact, role: f.role.value, standup: f.standup.value, need: f.need.value, src: src })
+      .then(function(){
+        try { localStorage.setItem("epc_code", code); } catch (e) {}
+        showPay(code);
+      })
+      .catch(function(){
+        btn.disabled = false; btn.textContent = "Giữ suất của tôi";
+        err.textContent = "Chưa gửi được đăng ký, có thể do mạng. Thử lại" + (CONFIG.telegram ? ", hoặc nhắn thẳng @" + CONFIG.telegram + "." : ".");
+        err.classList.add("show");
+      });
+  });
+
+  document.querySelectorAll("[data-copy]").forEach(function(b){
+    b.addEventListener("click", function(){
+      const text = $(b.dataset.copy).textContent;
+      (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(function(){
+        b.textContent = "Đã chép"; setTimeout(() => b.textContent = "Chép", 1500);
+      }).catch(function(){});
+    });
+  });
+})();
+</script>
+</body>
+</html>

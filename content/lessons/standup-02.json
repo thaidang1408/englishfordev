@@ -1,0 +1,106 @@
+{
+  "id": 2,
+  "track": "standup",
+  "slug": "hom-nay-lam-gi",
+  "title": "Hôm nay làm gì",
+  "free": true,
+  "goal_vi": "Nói kế hoạch hôm nay bằng ba mẫu: I'm working on, I'm going to, I'll.",
+  "pattern": {
+    "formula": "Today I'm working on + noun. / Today I'm going to + V. / Today I'll + V.",
+    "note_vi": "working on cho việc đang làm dở. going to và I'll cho việc sẽ làm trong ngày."
+  },
+  "examples": [
+    {
+      "en": "Today I'm working on the search feature.",
+      "vi": "Hôm nay mình làm tính năng tìm kiếm."
+    },
+    {
+      "en": "Today I'm going to write tests for the checkout flow.",
+      "vi": "Hôm nay mình sẽ viết test cho luồng checkout."
+    },
+    {
+      "en": "Today I'll continue with the API integration.",
+      "vi": "Hôm nay mình làm tiếp phần tích hợp API."
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "Today I will working on the report.",
+      "right": "Today I'll work on the report.",
+      "why_vi": "Sau will là động từ nguyên mẫu. Hoặc dùng I'm working on."
+    },
+    {
+      "wrong": "Today I continue do the API.",
+      "right": "Today I'll continue with the API.",
+      "why_vi": "continue with + danh từ, hoặc continue + V-ing."
+    }
+  ],
+  "word_bank": [
+    "work on",
+    "start",
+    "continue with",
+    "look into",
+    "write tests for",
+    "set up",
+    "update",
+    "investigate"
+  ],
+  "quiz": [
+    {
+      "id": "s02q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "Today I'm working on the search feature.",
+        "Today I working on the search feature.",
+        "Today I'm work on the search feature."
+      ],
+      "answer": 0,
+      "why_vi": "Hiện tại tiếp diễn: am + V-ing."
+    },
+    {
+      "id": "s02q2",
+      "prompt_vi": "Hôm nay mình sẽ viết test cho luồng checkout.",
+      "options": [
+        "Today I'm going to write tests for the checkout flow.",
+        "Today I'm going to writing tests for the checkout flow.",
+        "Today I going write tests for checkout flow."
+      ],
+      "answer": 0,
+      "why_vi": "be going to + động từ nguyên mẫu."
+    },
+    {
+      "id": "s02q3",
+      "prompt_vi": "Hôm nay mình làm tiếp phần tích hợp API.",
+      "options": [
+        "Today I'll continue with the API integration.",
+        "Today I'll continue do the API integration.",
+        "Today I continue to the API integration."
+      ],
+      "answer": 0,
+      "why_vi": "continue with + danh từ."
+    },
+    {
+      "id": "s02q4",
+      "prompt_vi": "Hôm nay mình bắt đầu ticket đăng nhập bằng Google.",
+      "options": [
+        "Today I'm starting the Google login ticket.",
+        "Today I start doing ticket login Google.",
+        "Today I'm start the Google login ticket."
+      ],
+      "answer": 0,
+      "why_vi": "am + V-ing. the Google login ticket: từ bổ nghĩa đứng trước."
+    },
+    {
+      "id": "s02q5",
+      "prompt_vi": "Sau đó mình sẽ xem bug mà QA báo.",
+      "options": [
+        "After that, I'll look into the bug that QA reported.",
+        "After that, I'll look the bug QA report.",
+        "After that, I look into the bug what QA reported."
+      ],
+      "answer": 0,
+      "why_vi": "look into = tìm hiểu nguyên nhân. Mệnh đề quan hệ dùng that, và reported ở quá khứ."
+    }
+  ],
+  "write_prompt_vi": "Viết 1 đến 2 câu về việc bạn sẽ làm hôm nay."
+}
