@@ -1,0 +1,59 @@
+---
+import ReviewDiff from './ReviewDiff.astro';
+import type { Lesson } from '../lib/content/schema';
+
+interface Props {
+  lesson: Lesson;
+  /** Hiện nhãn "Phần 1 trên 5" như trong trình học bài. */
+  numbered?: boolean;
+}
+
+const { lesson, numbered = false } = Astro.props;
+const label = (n: number) => (numbered ? `Phần ${n} trên 5` : undefined);
+---
+
+<section class="part" aria-labelledby="mau-cau">
+  {label(1) && <span class="part-label">{label(1)}</span>}
+  <h2 id="mau-cau">Mẫu câu</h2>
+  <p class="formula" lang="en">{lesson.pattern.formula}</p>
+  <p class="muted">{lesson.pattern.note_vi}</p>
+  {
+    lesson.word_bank.length > 0 && (
+      <>
+        <h3 style="font-size:var(--fs-sm);margin-top:var(--s-4)">Từ hay dùng</h3>
+        <ul class="chips" lang="en">
+          {lesson.word_bank.map((w) => <li>{w}</li>)}
+        </ul>
+      </>
+    )
+  }
+</section>
+
+<section class="part" aria-labelledby="vi-du">
+  {label(2) && <span class="part-label">{label(2)}</span>}
+  <h2 id="vi-du">Ví dụ</h2>
+  <ul class="examples">
+    {
+      lesson.examples.map((ex) => (
+        <li>
+          <span class="en" lang="en">{ex.en}</span>
+          <span class="vi">{ex.vi}</span>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<section class="part" aria-labelledby="loi-hay-gap">
+  {label(3) && <span class="part-label">{label(3)}</span>}
+  <h2 id="loi-hay-gap">Lỗi hay gặp</h2>
+  <div class="stack" style="margin-top:var(--s-3)">
+    {
+      lesson.mistakes.map((m) => (
+        <ReviewDiff before={m.wrong} after={m.right}>
+          <p>{m.why_vi}</p>
+        </ReviewDiff>
+      ))
+    }
+  </div>
+</section>

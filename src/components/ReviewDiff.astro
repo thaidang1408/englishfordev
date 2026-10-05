@@ -1,0 +1,62 @@
+---
+import { diffWords, type Segment } from '../lib/lesson/diff';
+
+interface Props {
+  before: string;
+  after: string;
+  headLeft?: string;
+  headRight?: string;
+  shadow?: boolean;
+  /** Hiệu ứng ở trang chủ: dòng xanh và comment hiện sau dòng đỏ. */
+  animate?: boolean;
+  label?: string;
+}
+
+const { before, after, headLeft, headRight, shadow = false, animate = false, label } = Astro.props;
+const diff = diffWords(before, after);
+const hasComment = Astro.slots.has('default');
+
+// Tô chữ, không tô khoảng trắng ở cuối đoạn.
+const parts = (segments: Segment[]) =>
+  segments.map((s) => ({ text: s.text.trimEnd(), trail: s.text.endsWith(' ') ? ' ' : '', changed: s.changed }));
+const lines = [
+  { cls: 'del', sign: '−', sr: 'Câu gốc: ', parts: parts(diff.before) },
+  { cls: 'add', sign: '+', sr: 'Câu đã sửa: ', parts: parts(diff.after) },
+];
+---
+
+<figure class:list={['review', { 'review-shadow': shadow, land: animate }]} aria-label={label}>
+  {
+    (headLeft || headRight) && (
+      <div class="review-head">
+        <span>{headLeft}</span>
+        <span>{headRight}</span>
+      </div>
+    )
+  }
+  <div class="diff">
+    {
+      lines.map((line) => (
+        <div class={`diff-line ${line.cls}`}>
+          <span class="sign" aria-hidden="true">{line.sign}</span>
+          <span>
+            <span class="sr-only-label">{line.sr}</span>
+            <span lang="en">
+              {line.parts.map((p) => (p.changed ? <><mark>{p.text}</mark>{p.trail}</> : <>{p.text}{p.trail}</>))}
+            </span>
+          </span>
+        </div>
+      ))
+    }
+  </div>
+  {
+    hasComment && (
+      <figcaption class="comment">
+        <div class="avatar" aria-hidden="true">C</div>
+        <div>
+          <slot />
+        </div>
+      </figcaption>
+    )
+  }
+</figure>

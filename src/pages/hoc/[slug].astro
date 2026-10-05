@@ -1,0 +1,53 @@
+---
+import type { GetStaticPaths } from 'astro';
+import Base from '../../layouts/Base.astro';
+import LessonCore from '../../components/LessonCore.astro';
+import Quiz from '../../components/Quiz';
+import { lessons, neighbours } from '../../lib/content/lessons';
+import { lessonKey, type Lesson } from '../../lib/content/schema';
+import { TRACK_NAMES } from '../../lib/content/tracks';
+
+// M1: chỉ dựng bài miễn phí. Bài Premium được khóa ở server từ M5.
+export const getStaticPaths = (() =>
+  lessons.filter((l) => l.free).map((lesson) => ({ params: { slug: lesson.slug }, props: { lesson } }))) satisfies GetStaticPaths;
+
+interface Props {
+  lesson: Lesson;
+}
+
+const { lesson } = Astro.props;
+const key = lessonKey(lesson);
+const { next } = neighbours(lesson);
+const nextLink = next?.free ? { href: `/hoc/${next.slug}`, title: next.title } : undefined;
+const num = String(lesson.id).padStart(2, '0');
+---
+
+<Base
+  title={`Bài ${num}: ${lesson.title} | English Personal Coach`}
+  description={`${lesson.goal_vi} Bài học 10 phút cho dev: mẫu câu, ví dụ, lỗi hay gặp và trắc nghiệm.`}
+>
+  <article class="wrap read" style="padding-top:var(--s-6);padding-bottom:var(--s-7)">
+    <p class="muted" style="font-size:var(--fs-sm);margin-bottom:var(--s-2)">
+      {TRACK_NAMES[lesson.track]}, bài <span class="num">{num}</span>
+    </p>
+    <h1 style="font-size:var(--fs-2xl);line-height:1.2">{lesson.title}</h1>
+    <p class="muted" style="margin-top:var(--s-3)">{lesson.goal_vi}</p>
+
+    <LessonCore lesson={lesson} numbered />
+
+    <section class="part" aria-labelledby="luyen-tap">
+      <span class="part-label">Phần 4 trên 5</span>
+      <h2 id="luyen-tap">Luyện tập</h2>
+      <p class="muted kbd-hint">Phím <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> để chọn, <kbd>Enter</kbd> để sang câu sau.</p>
+      <noscript><p class="note warn">Phần trắc nghiệm cần bật JavaScript.</p></noscript>
+      <Quiz client:visible lessonKey={key} items={lesson.quiz} next={nextLink} />
+    </section>
+
+    <section class="part" aria-labelledby="cau-cua-ban">
+      <span class="part-label">Phần 5 trên 5</span>
+      <h2 id="cau-cua-ban">Câu của bạn</h2>
+      <p>{lesson.write_prompt_vi}</p>
+      <p class="note info">Phần này cần tài khoản để AI sửa câu của bạn. Đăng nhập sẽ có ở bản cập nhật tới.</p>
+    </section>
+  </article>
+</Base>

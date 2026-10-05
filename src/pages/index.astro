@@ -1,10 +1,185 @@
 ---
 import Base from '../layouts/Base.astro';
+import ReviewDiff from '../components/ReviewDiff.astro';
+import { lessons } from '../lib/content/lessons';
+import { TRACKS } from '../lib/content/schema';
+import { TRACK_NAMES, TRACK_OUTLINE } from '../lib/content/tracks';
+import { PLANS, REFUND_DAYS, TRIAL_DAYS, formatVnd } from '../lib/pricing';
+
+const firstLesson = lessons.find((l) => l.free);
+const firstHref = firstLesson ? `/hoc/${firstLesson.slug}` : '/bang-gia';
+
+// Bài đã có file nội dung thì link sang trang mẫu câu.
+const slugFor = (track: string, id: number) => lessons.find((l) => l.track === track && l.id === id)?.slug;
+const trackNotes = {
+  standup: '3 bài đầu mở cho mọi người.',
+  writing: 'Pull request, review code, Slack, email.',
+  interview: 'Chỉ có ở Premium và dùng thử. Kèm phỏng vấn thử.',
+} as const;
 ---
 
-<Base title="English Personal Coach">
-  <main class="mx-auto max-w-[680px] px-4 py-16">
-    <h1 class="text-3xl font-extrabold tracking-tight">English Personal Coach</h1>
-    <p class="mt-4">Trang này chỉ để kiểm tra bản deploy. Bạn thấy dòng này nghĩa là trang đã chạy trên Cloudflare.</p>
-  </main>
+<Base
+  title="Tiếng Anh cho dev, 10 phút mỗi sáng | English Personal Coach"
+  description="Mỗi sáng 10 phút: học một mẫu câu dev dùng trong công việc, và câu tiếng Anh của chính bạn được sửa, giải thích bằng tiếng Việt."
+>
+  <div class="wrap">
+    <section class="grid items-center gap-9 py-9 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-14 lg:pt-14 lg:pb-18" aria-labelledby="hero">
+      <div>
+        <h1 id="hero">Câu của bạn, được review như một pull request.</h1>
+        <p class="muted" style="font-size:var(--fs-lg);max-width:30em;margin:var(--s-5) 0 var(--s-6)">
+          Mỗi sáng 10 phút: học một mẫu câu dev dùng trong công việc, và câu tiếng Anh của chính bạn được sửa, giải
+          thích bằng tiếng Việt.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a class="btn btn-primary" href={firstHref}>Học thử bài 1, miễn phí</a>
+          <a class="btn btn-quiet" href="/bang-gia">Xem bảng giá</a>
+        </div>
+        <p class="muted" style="font-size:var(--fs-sm);margin-top:var(--s-4)">
+          Không cần đăng ký để học thử. Không cần cài app.
+        </p>
+      </div>
+
+      <ReviewDiff
+        before="Yesterday I have fixed bug login and today I continue do the API."
+        after="Yesterday I fixed the login bug. Today I'm continuing with the API."
+        headLeft="Câu standup sáng nay của bạn"
+        headRight="3 chỗ sửa"
+        label="Ví dụ một câu standup được sửa"
+        shadow
+        animate
+      >
+        <p class="muted">Coach</p>
+        <p>Có mốc thời gian đã qua như <code lang="en">yesterday</code> thì dùng quá khứ đơn: <code lang="en">fixed</code>, không dùng <code lang="en">have fixed</code>.</p>
+        <p>Tiếng Anh đặt từ bổ nghĩa lên trước: <code lang="en">the login bug</code>. Sau <code lang="en">continue</code> dùng <code lang="en">with</code> + danh từ, hoặc động từ thêm <code lang="en">-ing</code>.</p>
+      </ReviewDiff>
+    </section>
+  </div>
+
+  <section class="sec" aria-labelledby="buoi-sang">
+    <div class="wrap">
+      <div class="read">
+        <h2 id="buoi-sang">Một buổi sáng 10 phút</h2>
+        <p class="sec-lede">Làm trước giờ standup. Ví dụ dưới đây là bài số 1.</p>
+        <ol class="rows">
+          <li>
+            <div class="when">3 phút</div>
+            <div><h3>Học một mẫu câu</h3><p>Công thức, ba ví dụ lấy từ việc của dev, và những lỗi người Việt hay mắc.</p></div>
+          </li>
+          <li>
+            <div class="when">2 phút</div>
+            <div><h3>Làm 5 câu trắc nghiệm</h3><p>Chọn bằng phím 1, 2, 3. Câu sai được giải thích ngay bằng tiếng Việt.</p></div>
+          </li>
+          <li>
+            <div class="when">5 phút</div>
+            <div><h3>Viết câu của chính bạn</h3><p>Viết đúng điều bạn sắp nói trong buổi họp. AI sửa ít nhất có thể, giữ ý của bạn, và giải thích từng chỗ.</p></div>
+          </li>
+          <li>
+            <div class="when">Ngày sau</div>
+            <div><h3>Ôn đúng chỗ bạn sai</h3><p>Câu sai và lỗi trong câu của bạn quay lại sau 1, 3, 7 và 14 ngày. Có nhắc qua Telegram trước giờ standup.</p></div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="hoc-gi">
+    <div class="wrap">
+      <h2 id="hoc-gi">Ba track, 30 bài</h2>
+      <p class="sec-lede">Mỗi bài một tình huống bạn gặp trong tuần làm việc. Thứ Bảy và Chủ nhật không có bài mới, chỉ ôn.</p>
+      <div class="tracks">
+        {
+          TRACKS.map((track) => (
+            <div>
+              <h3>{TRACK_NAMES[track]}</h3>
+              <p class="muted" style="font-size:var(--fs-sm)">{trackNotes[track]}</p>
+              <ol style="margin:var(--s-3) 0 0;padding-left:22px;font-size:var(--fs-sm)">
+                {TRACK_OUTLINE[track].map((title, i) => {
+                  const slug = slugFor(track, i + 1);
+                  return <li style="margin:4px 0">{slug ? <a href={`/mau-cau/${slug}`}>{title}</a> : <span class="muted">{title}</span>}</li>;
+                })}
+              </ol>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="danh-cho-ai">
+    <div class="wrap">
+      <div class="read">
+        <h2 id="danh-cho-ai">Dành cho ai</h2>
+        <div class="grid gap-7 sm:grid-cols-2" style="margin-top:var(--s-5)">
+          <div>
+            <h3 style="font-size:var(--fs-md)">Hợp với bạn nếu</h3>
+            <ul style="padding-left:20px;margin:var(--s-2) 0 0">
+              <li>Bạn là dev, QA, BA hay PM, đọc docs tiếng Anh được nhưng ngại nói và viết.</li>
+              <li>Team có họp hoặc nhắn tin bằng tiếng Anh, hoặc sắp có.</li>
+              <li>Bạn dành được 10 phút mỗi sáng.</li>
+            </ul>
+          </div>
+          <div class="muted">
+            <h3 style="font-size:var(--fs-md);color:var(--text)">Chưa hợp nếu</h3>
+            <ul style="padding-left:20px;margin:var(--s-2) 0 0">
+              <li>Bạn chưa đọc được câu tiếng Anh đơn giản.</li>
+              <li>Bạn cần luyện thi IELTS, TOEIC hay VSTEP.</li>
+              <li>Bạn muốn luyện nói và phát âm.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="gia">
+    <div class="wrap">
+      <div class="read">
+        <h2 id="gia">Giá</h2>
+        <p class="sec-lede" style="margin-bottom:var(--s-4)">
+          Đăng ký xong có {TRIAL_DAYS} ngày dùng thử đủ quyền Premium, không cần thẻ. Sau đó vẫn học được 3 bài đầu và được sửa câu 1 lần mỗi 7 ngày.
+        </p>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div class="plan">
+            <h3>Premium 30 ngày</h3>
+            <p class="price">{formatVnd(PLANS['30d'].amount)}</p>
+          </div>
+          <div class="plan">
+            <h3>Premium 90 ngày</h3>
+            <p class="price">{formatVnd(PLANS['90d'].amount)}</p>
+          </div>
+        </div>
+        <p class="muted" style="margin-top:var(--s-4)">
+          Mua theo kỳ, không tự gia hạn. Hoàn tiền trong {REFUND_DAYS} ngày đầu. <a href="/bang-gia">Xem bảng so sánh đầy đủ</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="hoi-dap">
+    <div class="wrap">
+      <div class="read faq">
+        <h2 id="hoi-dap" style="margin-bottom:var(--s-5)">Câu hỏi thường gặp</h2>
+        <details>
+          <summary>Ai sửa câu cho tôi?</summary>
+          <p>AI sửa, theo cách một đồng nghiệp review code: sửa ít nhất có thể, giữ ý và giọng của bạn, giải thích từng chỗ bằng tiếng Việt.</p>
+        </details>
+        <details>
+          <summary>Team tôi không họp standup thì sao?</summary>
+          <p>Vẫn học được. Track Viết cho team dành cho pull request, review code, Slack và email.</p>
+        </details>
+        <details>
+          <summary>Hết 7 ngày dùng thử thì sao?</summary>
+          <p>Không mất gì. Bài đã học và sổ lỗi vẫn còn. Bạn tiếp tục học 3 bài đầu miễn phí, hoặc nâng cấp để học tiếp và ôn lỗi của chính mình.</p>
+        </details>
+        <details>
+          <summary>Thanh toán thế nào?</summary>
+          <p>Chuyển khoản qua mã VietQR. Tài khoản được mở Premium khi đã xác nhận nhận tiền. Không lưu thẻ, không tự gia hạn.</p>
+        </details>
+        <details>
+          <summary>Hoàn tiền thế nào?</summary>
+          <p>Trong {REFUND_DAYS} ngày đầu sau khi mua, nhắn yêu cầu hoàn tiền. Bạn nhận lại đủ số tiền, không cần nêu lý do.</p>
+        </details>
+      </div>
+    </div>
+  </section>
 </Base>

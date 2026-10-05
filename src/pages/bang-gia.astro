@@ -1,0 +1,67 @@
+---
+import Base from '../layouts/Base.astro';
+import { COMPARE, PLANS, REFUND_DAYS, TRIAL_DAYS, formatVnd } from '../lib/pricing';
+---
+
+<Base
+  title="Bảng giá | English Personal Coach"
+  description={`Học thử miễn phí. ${TRIAL_DAYS} ngày dùng thử đủ quyền Premium, không cần thẻ. Premium ${formatVnd(PLANS['30d'].amount)} cho 30 ngày, mua theo kỳ.`}
+>
+  <div class="wrap" style="padding-top:var(--s-7);padding-bottom:var(--s-7)">
+    <div class="read">
+      <h1 style="font-size:var(--fs-2xl);line-height:1.2">Bảng giá</h1>
+      <p class="muted" style="margin-top:var(--s-3)">
+        Học thử không cần tài khoản. Đăng ký xong bạn có {TRIAL_DAYS} ngày dùng thử đủ quyền Premium, tối đa 10 lần sửa
+        câu mỗi ngày. Không cần thẻ, không cần làm gì thêm.
+      </p>
+      <p style="margin-top:var(--s-5)">
+        <a class="btn btn-primary" href="/hoc/hom-qua-da-lam-gi">Học thử bài 1, miễn phí</a>
+      </p>
+    </div>
+
+    <section class="part" aria-labelledby="goi-premium">
+      <h2 id="goi-premium">Premium</h2>
+      <div class="grid gap-4 sm:grid-cols-2" style="margin-top:var(--s-4);max-width:var(--w-read)">
+        <div class="plan">
+          <h3>30 ngày</h3>
+          <p class="price">{formatVnd(PLANS['30d'].amount)}</p>
+        </div>
+        <div class="plan">
+          <h3>90 ngày</h3>
+          <p class="price">{formatVnd(PLANS['90d'].amount)}</p>
+        </div>
+      </div>
+      <ul class="read" style="margin-top:var(--s-4);padding-left:20px">
+        <li>Mua theo kỳ, không tự gia hạn. Hết kỳ thì tài khoản về gói miễn phí, dữ liệu còn nguyên.</li>
+        <li>Hoàn tiền trong {REFUND_DAYS} ngày đầu, không hỏi lý do.</li>
+        <li>Thanh toán bằng chuyển khoản qua mã VietQR. Tài khoản được mở Premium khi đã xác nhận nhận tiền.</li>
+        <li>Mua ở trang Nâng cấp sau khi đăng nhập.</li>
+      </ul>
+    </section>
+
+    <section class="part" aria-labelledby="so-sanh">
+      <h2 id="so-sanh">Miễn phí và Premium</h2>
+      <p class="muted">Cột miễn phí là sau khi hết {TRIAL_DAYS} ngày dùng thử.</p>
+      <table class="compare" style="margin-top:var(--s-3)">
+        <thead>
+          <tr>
+            <th scope="col">Tính năng</th>
+            <th scope="col">Miễn phí</th>
+            <th scope="col">Premium</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            COMPARE.map((row) => (
+              <tr>
+                <th scope="row">{row.feature}</th>
+                <td data-label="Miễn phí">{row.free}</td>
+                <td data-label="Premium">{row.premium}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </section>
+  </div>
+</Base>

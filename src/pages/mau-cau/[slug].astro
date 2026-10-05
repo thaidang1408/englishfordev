@@ -1,0 +1,73 @@
+---
+import type { GetStaticPaths } from 'astro';
+import Base from '../../layouts/Base.astro';
+import LessonCore from '../../components/LessonCore.astro';
+import { lessons, neighbours } from '../../lib/content/lessons';
+import type { Lesson } from '../../lib/content/schema';
+import { TRACK_NAMES } from '../../lib/content/tracks';
+
+export const getStaticPaths = (() =>
+  lessons.map((lesson) => ({ params: { slug: lesson.slug }, props: { lesson } }))) satisfies GetStaticPaths;
+
+interface Props {
+  lesson: Lesson;
+}
+
+const { lesson } = Astro.props;
+const { prev, next } = neighbours(lesson);
+const url = new URL(Astro.url.pathname, Astro.site).href;
+const description = `${lesson.goal_vi} Công thức, ba ví dụ dev dùng thật và lỗi người Việt hay mắc.`.slice(0, 155);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LearningResource',
+  name: `Mẫu câu: ${lesson.title}`,
+  description,
+  url,
+  inLanguage: 'vi',
+  learningResourceType: 'Mẫu câu',
+  educationalLevel: 'Người đi làm ngành phần mềm',
+  teaches: lesson.pattern.formula,
+  isAccessibleForFree: true,
+};
+---
+
+<Base title={`${lesson.title}: mẫu câu tiếng Anh cho dev`} description={description} jsonLd={jsonLd}>
+  <article class="wrap read" style="padding-top:var(--s-6);padding-bottom:var(--s-7)">
+    <p class="muted" style="font-size:var(--fs-sm);margin-bottom:var(--s-2)">Mẫu câu, {TRACK_NAMES[lesson.track]}</p>
+    <h1 style="font-size:var(--fs-2xl);line-height:1.2">{lesson.title}</h1>
+    <p class="muted" style="margin-top:var(--s-3)">{lesson.goal_vi}</p>
+
+    <LessonCore lesson={lesson} />
+
+    <section class="part">
+      <h2>Luyện mẫu câu này</h2>
+      <p class="muted">Bài học có thêm 5 câu trắc nghiệm, và phần viết câu của chính bạn để được sửa.</p>
+      <a class="btn btn-primary" href={`/hoc/${lesson.slug}`}>Học bài này</a>
+    </section>
+
+    {
+      (prev || next) && (
+        <nav class="part" aria-label="Mẫu câu liền kề">
+          <h2 style="font-size:var(--fs-lg)">Mẫu câu khác</h2>
+          <div class="lessons" style="margin-top:var(--s-3)">
+            {prev && (
+              <a class="lrow" href={`/mau-cau/${prev.slug}`}>
+                <span class="num">{String(prev.id).padStart(2, '0')}</span>
+                <span><b>{prev.title}</b><small lang="en">{prev.pattern.formula}</small></span>
+                <span class="muted" aria-hidden="true">Trước</span>
+              </a>
+            )}
+            {next && (
+              <a class="lrow" href={`/mau-cau/${next.slug}`}>
+                <span class="num">{String(next.id).padStart(2, '0')}</span>
+                <span><b>{next.title}</b><small lang="en">{next.pattern.formula}</small></span>
+                <span class="muted" aria-hidden="true">Sau</span>
+              </a>
+            )}
+          </div>
+        </nav>
+      )
+    }
+  </article>
+</Base>
