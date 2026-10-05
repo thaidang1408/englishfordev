@@ -6,6 +6,8 @@ import { lessons } from '../lib/content/lessons';
 import { canInterview } from '../lib/correct/quota';
 import { getEntitlement, getLessonProgress } from '../lib/db/queries';
 import { pickInterviewQuestions } from '../lib/interview/session';
+import UpgradeCard from '../components/UpgradeCard.astro';
+import { getErrorStats } from '../lib/db/corrections';
 
 export const prerender = false;
 
@@ -19,6 +21,7 @@ const allowed = canInterview(accessFrom(ent, now));
 // Câu hỏi chỉ gửi cho tài khoản có quyền (skill security: khóa ở server, không khóa bằng CSS).
 const questions = allowed ? pickInterviewQuestions(lessons, new Set(progress.map((p) => p.lesson_key))) : [];
 if (!allowed) Astro.response.status = 403;
+const stats = allowed ? null : await getErrorStats(db, user.id);
 ---
 
 <Base title="Phỏng vấn thử | English Personal Coach" description="Trả lời 5 câu hỏi phỏng vấn bằng tiếng Anh, AI sửa từng câu." app>
@@ -26,10 +29,12 @@ if (!allowed) Astro.response.status = 403;
     <h1 style="font-size:var(--fs-2xl);line-height:1.2">Phỏng vấn thử</h1>
     {
       !allowed ? (
-        <div class="paywall" style="margin-top:var(--s-5)">
-          <h3>Phỏng vấn thử có ở Premium</h3>
-          <p>Bạn trả lời 5 câu hỏi nhà tuyển dụng hay hỏi. AI sửa từng câu trả lời và gợi ý một cách trả lời tốt hơn.</p>
-          <a class="btn btn-primary" href="/bang-gia">Xem bảng giá</a>
+        <div style="margin-top:var(--s-5)">
+          <UpgradeCard
+            stats={stats ?? { corrections: 0, errors: 0, repeating: 0 }}
+            fallback="Phỏng vấn thử có ở Premium"
+            points={['Trả lời 5 câu hỏi nhà tuyển dụng hay hỏi, AI sửa từng câu', 'Gợi ý một cách trả lời tốt hơn, giữ đúng ý của bạn', 'Tất cả 30 bài, gồm 10 bài luyện phỏng vấn']}
+          />
         </div>
       ) : questions.length === 0 ? (
         <div class="today-card" style="margin-top:var(--s-5)">

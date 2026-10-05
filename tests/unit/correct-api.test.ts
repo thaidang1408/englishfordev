@@ -39,6 +39,7 @@ function fakeRepo(ent: EntitlementRow | null, rows: Date[] = [], others = 0) {
   const mine = [...rows];
   const repo: CorrectRepo = {
     getEntitlement: async () => ent,
+    getErrorStats: async () => ({ corrections: 4, errors: 6, repeating: 2 }),
     countUserCorrections: async (_u, since) => mine.filter((d) => d >= since).length,
     countAllCorrections: async (since) => others + mine.filter((d) => d >= since).length,
     save: async (input) => {
@@ -156,8 +157,10 @@ describe('mức chặn 1: hạn mức theo tài khoản', () => {
 
     const second = await run(post({ sentence }), { ent: expired, rows: [daysAgo(6)] });
     expect(second.res.status).toBe(429);
-    expect(second.json.error?.code).toBe('quota_exceeded');
+    // Tài khoản miễn phí: mã riêng để giao diện hiện link nâng cấp, câu mời có số liệu thật.
+    expect(second.json.error?.code).toBe('free_quota_exceeded');
     expect(second.json.error?.message).toContain('1 câu mỗi 7 ngày');
+    expect(second.json.error?.message).toContain('Sổ lỗi của bạn có 6 lỗi, 2 lỗi đang lặp lại.');
     expect(second.calls).toHaveLength(0);
   });
 
@@ -197,6 +200,14 @@ describe('mức chặn 1: hạn mức theo tài khoản', () => {
     const ok = await run(post({ sentence, mode: 'interview', question: QUESTION }), { ent: premium });
     expect(ok.res.status).toBe(200);
     expect(ok.saved[0]).toMatchObject({ mode: 'interview', lesson_key: 'interview-01' });
+  });
+
+  it('gửi kèm bài Premium khi đã hết dùng thử: 403, không gọi AI', async () => {
+    const { res, json, calls } = await run(post({ sentence, lessonKey: 'interview-01' }), { ent: expired });
+    expect(res.status).toBe(403);
+    expect(json.error?.code).toBe('premium_required');
+    expect(calls).toHaveLength(0);
+    expect((await run(post({ sentence, lessonKey: 'interview-01' }), { ent: trial })).res.status).toBe(200);
   });
 
   it('mode interview chỉ nhận câu hỏi có trong nội dung', async () => {

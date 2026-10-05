@@ -42,21 +42,23 @@ const standup = profile?.standup_time.slice(0, 5) ?? '09:00';
         {
           access.kind === 'premium' && (
             <p style="margin:0">
-              <b>Premium</b> tới hết ngày {formatVnDate(access.until)}, còn {daysLeft(access.until, now)} ngày.
+              <b>Premium</b> tới hết ngày {formatVnDate(access.until)}, còn {daysLeft(access.until, now)} ngày.{' '}
+              <a href="/nang-cap">Mua thêm ngày</a>
             </p>
           )
         }
         {
           access.kind === 'trial' && (
             <p style="margin:0">
-              <b>Dùng thử</b> đủ quyền Premium tới {formatVnDate(access.until)}, còn {daysLeft(access.until, now)} ngày.
+              <b>Dùng thử</b> đủ quyền Premium tới {formatVnDate(access.until)}, còn {daysLeft(access.until, now)} ngày.{' '}
+              <a href="/nang-cap">Xem gói Premium</a>
             </p>
           )
         }
         {
           access.kind === 'free' && (
             <p style="margin:0">
-              <b>Miễn phí.</b> {access.trialEndedAt && `Dùng thử đã hết ngày ${formatVnDate(access.trialEndedAt)}.`} Dữ liệu của bạn vẫn còn nguyên. <a href="/bang-gia">Xem bảng giá</a>
+              <b>Miễn phí.</b> {access.trialEndedAt && `Dùng thử đã hết ngày ${formatVnDate(access.trialEndedAt)}.`} Dữ liệu của bạn vẫn còn nguyên. <a href="/nang-cap">Nâng cấp</a>
             </p>
           )
         }

@@ -1,0 +1,47 @@
+---
+import LessonCore from './LessonCore.astro';
+import Quiz from './Quiz';
+import CorrectBox from './correct/CorrectBox';
+import { neighbours } from '../lib/content/lessons';
+import { lessonKey, type Lesson } from '../lib/content/schema';
+import { TRACK_NAMES } from '../lib/content/tracks';
+
+/** Toàn bộ một bài học, năm phần (SPEC mục 4). Chỉ render khi người xem có quyền học bài này. */
+interface Props {
+  lesson: Lesson;
+}
+
+const { lesson } = Astro.props;
+const key = lessonKey(lesson);
+const { next } = neighbours(lesson);
+// Bài sau bị khóa thì trang bài đó hiện lời mời nâng cấp (SPEC mục 2), nên vẫn dẫn tới.
+const nextLink = next ? { href: `/hoc/${next.slug}`, title: next.title } : undefined;
+const num = String(lesson.id).padStart(2, '0');
+---
+
+  <article class="wrap read" style="padding-top:var(--s-6);padding-bottom:var(--s-7)">
+    <p class="muted" style="font-size:var(--fs-sm);margin-bottom:var(--s-2)">
+      {TRACK_NAMES[lesson.track]}, bài <span class="num">{num}</span>
+    </p>
+    <h1 style="font-size:var(--fs-2xl);line-height:1.2">{lesson.title}</h1>
+    <p class="muted" style="margin-top:var(--s-3)">{lesson.goal_vi}</p>
+
+    <LessonCore lesson={lesson} numbered />
+
+    <section class="part" aria-labelledby="luyen-tap">
+      <span class="part-label">Phần 4 trên 5</span>
+      <h2 id="luyen-tap">Luyện tập</h2>
+      <p class="muted kbd-hint">Phím <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> để chọn, <kbd>Enter</kbd> để sang câu sau.</p>
+      <noscript><p class="note warn">Phần trắc nghiệm cần bật JavaScript.</p></noscript>
+      <Quiz client:visible lessonKey={key} items={lesson.quiz} next={nextLink} />
+    </section>
+
+    <section class="part" aria-labelledby="cau-cua-ban">
+      <span class="part-label">Phần 5 trên 5</span>
+      <h2 id="cau-cua-ban">Câu của bạn</h2>
+      <p>{lesson.write_prompt_vi}</p>
+      <p class="muted" style="font-size:var(--fs-sm)">Phần này cần đăng nhập. AI sửa câu của bạn và giải thích bằng tiếng Việt.</p>
+      <noscript><p class="note warn">Phần sửa câu cần bật JavaScript.</p></noscript>
+      <CorrectBox client:visible lessonKey={key} next={`/hoc/${lesson.slug}#cau-cua-ban`} />
+    </section>
+  </article>

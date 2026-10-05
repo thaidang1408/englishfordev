@@ -42,6 +42,18 @@ test('giao diện đã chọn được áp dụng trước khi vẽ trang', asyn
   expect(await page.evaluate(() => localStorage.getItem('epc:theme'))).toBe('light');
 });
 
+test('bài không tồn tại dưới /hoc cũng trả về 404 có nội dung riêng', async ({ page }) => {
+  const res = await page.goto('/hoc/khong-co-bai-nay');
+  expect(res?.status()).toBe(404);
+  await expect(page.locator('h1')).toHaveText('Không có trang ở đường dẫn này');
+});
+
+test('bảng giá có nút mua từng gói, dẫn tới trang nâng cấp', async ({ page }) => {
+  await page.goto('/bang-gia');
+  await expect(page.getByRole('link', { name: 'Mua gói 30 ngày' })).toHaveAttribute('href', '/nang-cap?goi=30d');
+  await expect(page.getByRole('link', { name: 'Mua gói 90 ngày' })).toHaveAttribute('href', '/nang-cap?goi=90d');
+});
+
 test('đường dẫn không tồn tại trả về 404 có nội dung riêng', async ({ page }) => {
   const res = await page.goto('/khong-co-trang-nay');
   expect(res?.status()).toBe(404);

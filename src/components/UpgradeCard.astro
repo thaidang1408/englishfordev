@@ -1,0 +1,31 @@
+---
+import { PLANS, formatVnd } from '../lib/pricing';
+import { upsellHeadline, type ErrorStats } from '../lib/pay/upsell';
+
+/**
+ * Lời mời nâng cấp theo reference/styleguide.html. Chỉ đặt ở bốn chỗ SPEC mục 2 cho phép.
+ * `primary`: nút tím khi đây là việc chính của màn hình; trang đã có nút tím khác thì để false.
+ */
+interface Props {
+  stats: ErrorStats;
+  /** Tiêu đề khi người dùng chưa có lỗi nào được ghi. */
+  fallback: string;
+  points?: string[];
+  primary?: boolean;
+}
+
+const {
+  stats,
+  fallback,
+  points = ['Ôn tiếp đúng những lỗi bạn hay mắc', 'Tất cả 30 bài, luyện phỏng vấn và phỏng vấn thử', 'Sửa câu của bạn 30 lần mỗi ngày'],
+  primary = true,
+} = Astro.props;
+---
+
+<div class="paywall">
+  <h3>{upsellHeadline(stats, fallback)}</h3>
+  <ul>{points.map((p) => <li>{p}</li>)}</ul>
+  <a class:list={['btn', primary ? 'btn-primary' : 'btn-quiet']} href="/nang-cap?goi=30d">
+    Nâng cấp 30 ngày, {formatVnd(PLANS['30d'].amount)}
+  </a>
+</div>

@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test.describe('khi chưa đăng nhập', () => {
-  for (const path of ['/hom-nay', '/tai-khoan', '/xep-trinh-do', '/on-tap', '/so-loi', '/phong-van-thu']) {
+  for (const path of ['/hom-nay', '/tai-khoan', '/xep-trinh-do', '/on-tap', '/so-loi', '/phong-van-thu', '/nang-cap', '/admin']) {
     test(`${path} chuyển tới trang đăng nhập`, async ({ page }) => {
       await page.goto(path);
       await expect(page).toHaveURL((url) => url.pathname === '/dang-nhap' && url.searchParams.get('next') === path);
@@ -55,6 +55,17 @@ test.describe('khi chưa đăng nhập', () => {
     const evil = await request.post('/api/correct', { headers: { Origin: 'https://evil.example' }, data: { sentence: 'x' } });
     expect(evil.status()).toBe(403);
     expect((await request.get('/api/correct')).status()).toBe(405);
+  });
+
+  test('API thanh toán: tạo đơn và admin cần đăng nhập, webhook sai chữ ký không làm gì', async ({ request, baseURL }) => {
+    const headers = { Origin: baseURL ?? '' };
+    expect((await request.post('/api/orders', { headers, data: { plan: '30d' } })).status()).toBe(401);
+    expect((await request.get('/api/orders/7b0c6a43-4c1e-4a43-9a3a-2f0f1b9f1a01')).status()).toBe(401);
+    const admin = await request.post('/api/admin/orders/7b0c6a43-4c1e-4a43-9a3a-2f0f1b9f1a01/confirm', { headers });
+    expect(admin.status()).toBe(401);
+    // Máy test không có PAYOS_CHECKSUM_KEY: webhook bị từ chối, không bao giờ xác nhận đơn.
+    const hook = await request.post('/api/payos/webhook', { data: { code: '00', data: { orderCode: 1 }, signature: 'a'.repeat(64) } });
+    expect([401, 500, 503]).toContain(hook.status());
   });
 
   test('POST /api/progress từ trang khác bị chặn', async ({ request }) => {

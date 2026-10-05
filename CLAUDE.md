@@ -10,8 +10,8 @@ Một người làm, chi phí hạ tầng 0đ. Đặc tả đầy đủ ở `doc
   cách tự kiểm bằng tay, và việc nào cần chủ dự án làm (tạo tài khoản, dán key). Dừng ở đó, chờ "OK".
 - Không thêm tính năng ngoài SPEC. Thấy thiếu thì ghi vào `docs/BACKLOG.md`, không tự build.
 - Thư viện hay API nào không chắc cú pháp hiện tại thì đọc tài liệu chính thức trước khi viết code.
-  Đặc biệt: Astro + adapter Cloudflare, Supabase SSR auth, Telegram Bot API, VietQR Quick Link.
-- Việc gì cần tài khoản bên ngoài (Supabase, Cloudflare, Google/GitHub OAuth, BotFather, API key AI)
+  Đặc biệt: Astro + adapter Cloudflare, Supabase SSR auth, Telegram Bot API, payOS.
+- Việc gì cần tài khoản bên ngoài (Supabase, Cloudflare, Google/GitHub OAuth, BotFather, payOS, API key AI)
   thì viết hướng dẫn từng bước vào `docs/SETUP.md` và dừng lại cho chủ dự án làm. Không bịa key.
 
 ## Skill của dự án
@@ -66,5 +66,5 @@ npm run deploy   # wrangler deploy
 
 ## Không làm trong bản 1
 
-Quảng cáo, app mobile, thanh toán tự động, luyện nói và chấm phát âm, bảng xếp hạng,
+Quảng cáo, app mobile, trừ tiền tự động định kỳ (gia hạn tự động; tự xác nhận chuyển khoản qua payOS thì có), luyện nói và chấm phát âm, bảng xếp hạng,
 đa ngôn ngữ, blog, trang SEO sinh hàng loạt.

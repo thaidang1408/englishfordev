@@ -1,0 +1,68 @@
+---
+import Base from '../../layouts/Base.astro';
+import NotFound from '../../components/NotFound.astro';
+import LessonView from '../../components/LessonView.astro';
+import UpgradeCard from '../../components/UpgradeCard.astro';
+import { accessFrom, hasFullAccess } from '../../lib/auth/access';
+import { lessons } from '../../lib/content/lessons';
+import { TRACK_NAMES } from '../../lib/content/tracks';
+import { getErrorStats } from '../../lib/db/corrections';
+import { getEntitlement } from '../../lib/db/queries';
+
+/**
+ * Bài Premium (SPEC mục 3). Bài miễn phí đã render sẵn ở hoc/[slug].astro, nên route này chỉ nhận
+ * slug không có trong danh sách đó. Quyền kiểm ở server mỗi request: tài khoản không đủ quyền
+ * không nhận được nội dung bài, chỉ thấy tên bài và lời mời nâng cấp.
+ */
+export const prerender = false;
+
+const lesson = lessons.find((l) => !l.free && l.slug === Astro.params.slug);
+if (!lesson) Astro.response.status = 404;
+
+const user = Astro.locals.user;
+const db = Astro.locals.supabase;
+const now = new Date();
+const allowed = user && lesson ? hasFullAccess(accessFrom(await getEntitlement(db, user.id), now)) : false;
+const stats = user && lesson && !allowed ? await getErrorStats(db, user.id) : null;
+if (lesson && !allowed) Astro.response.status = 403;
+const num = lesson ? String(lesson.id).padStart(2, '0') : '';
+---
+
+{!lesson ? <NotFound /> : (
+<Base
+  title={`Bài ${num}: ${lesson.title} | English Personal Coach`}
+  description={`${lesson.goal_vi} Bài học 10 phút cho dev: mẫu câu, ví dụ, lỗi hay gặp và trắc nghiệm.`}
+  index={false}
+>
+  {
+    allowed ? (
+      <LessonView lesson={lesson} />
+    ) : (
+      <article class="wrap read" style="padding-top:var(--s-6);padding-bottom:var(--s-7)">
+        <p class="muted" style="font-size:var(--fs-sm);margin-bottom:var(--s-2)">
+          {TRACK_NAMES[lesson.track]}, bài <span class="num">{num}</span>
+        </p>
+        <h1 style="font-size:var(--fs-2xl);line-height:1.2">{lesson.title}</h1>
+        <p class="muted" style="margin-top:var(--s-3)">{lesson.goal_vi}</p>
+        <p class="formula" lang="en" style="margin-top:var(--s-4)">{lesson.pattern.formula}</p>
+        <div style="margin-top:var(--s-5)">
+          {stats ? (
+            <UpgradeCard stats={stats} fallback="Bài này có ở Premium" />
+          ) : (
+            <div class="paywall">
+              <h3>Bài này có ở Premium</h3>
+              <p>Đăng nhập để có 7 ngày dùng thử đủ quyền Premium, không cần thẻ.</p>
+              <a class="btn btn-primary" href={`/dang-nhap?next=/hoc/${lesson.slug}`}>
+                Đăng nhập để dùng thử
+              </a>
+            </div>
+          )}
+        </div>
+        <p style="margin-top:var(--s-5);font-size:var(--fs-sm)">
+          <a href={`/mau-cau/${lesson.slug}`}>Xem mẫu câu và ví dụ của bài này</a>
+        </p>
+      </article>
+    )
+  }
+</Base>
+)}

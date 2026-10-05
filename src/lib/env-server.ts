@@ -1,6 +1,16 @@
 import { z } from 'zod';
-import { AI_DAILY_CALL_CAP, AI_MODEL, ANTHROPIC_API_KEY, SUPABASE_SERVICE_ROLE_KEY } from 'astro:env/server';
+import {
+  ADMIN_EMAILS,
+  AI_DAILY_CALL_CAP,
+  AI_MODEL,
+  ANTHROPIC_API_KEY,
+  PAYOS_API_KEY,
+  PAYOS_CHECKSUM_KEY,
+  PAYOS_CLIENT_ID,
+  SUPABASE_SERVICE_ROLE_KEY,
+} from 'astro:env/server';
 import { DEFAULT_DAILY_CAP } from './correct/quota';
+import type { PayosConfig } from './pay/payos';
 
 /**
  * Biến bí mật, chỉ import từ code server (endpoint, trang render theo request).
@@ -12,9 +22,23 @@ const serverEnvSchema = z.object({
   // Không đặt thì dùng model mặc định của nhà cung cấp (src/lib/ai/correct.ts).
   AI_MODEL: z.string().min(1).optional(),
   AI_DAILY_CALL_CAP: z.coerce.number().int().min(0).default(DEFAULT_DAILY_CAP),
+  // Email admin, cách nhau bằng dấu phẩy. Không đặt thì không ai vào được /admin.
+  ADMIN_EMAILS: z
+    .string()
+    .optional()
+    .transform((v) => (v ?? '').split(',').map((e) => e.trim().toLowerCase()).filter(Boolean)),
+  PAYOS_CLIENT_ID: z.string().min(8).optional(),
+  PAYOS_API_KEY: z.string().min(8).optional(),
+  PAYOS_CHECKSUM_KEY: z.string().min(16).optional(),
 });
 
 export type ServerEnv = z.infer<typeof serverEnvSchema>;
+
+/** Cấu hình payOS, hoặc null khi chưa chạy npm run setup:pay. */
+export function payosConfig(env: ServerEnv): PayosConfig | null {
+  if (!env.PAYOS_CLIENT_ID || !env.PAYOS_API_KEY || !env.PAYOS_CHECKSUM_KEY) return null;
+  return { clientId: env.PAYOS_CLIENT_ID, apiKey: env.PAYOS_API_KEY, checksumKey: env.PAYOS_CHECKSUM_KEY };
+}
 
 export function serverEnv(): ServerEnv {
   const blank = (v: string | undefined) => (v && v.trim() !== '' ? v.trim() : undefined);
@@ -23,6 +47,10 @@ export function serverEnv(): ServerEnv {
     ANTHROPIC_API_KEY: blank(ANTHROPIC_API_KEY),
     AI_MODEL: blank(AI_MODEL),
     AI_DAILY_CALL_CAP: blank(AI_DAILY_CALL_CAP),
+    ADMIN_EMAILS: blank(ADMIN_EMAILS),
+    PAYOS_CLIENT_ID: blank(PAYOS_CLIENT_ID),
+    PAYOS_API_KEY: blank(PAYOS_API_KEY),
+    PAYOS_CHECKSUM_KEY: blank(PAYOS_CHECKSUM_KEY),
   });
   if (!result.success) {
     const names = [...new Set(result.error.issues.map((i) => String(i.path[0])))].join(', ');

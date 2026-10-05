@@ -120,8 +120,8 @@ describe('POST /api/progress', () => {
 
 describe('GET /api/progress', () => {
   const get = (lesson: string) => new Request(`${SITE}/api/progress?lesson=${lesson}`);
-  async function runGet(request: Request, user: { id: string } | null, row: LessonProgressRow | null = null) {
-    const { repo } = fakeRepo(trial, row);
+  async function runGet(request: Request, user: { id: string } | null, row: LessonProgressRow | null = null, ent: EntitlementRow = trial) {
+    const { repo } = fakeRepo(ent, row);
     const res = await handleProgress({ request, user, repo, lessons: ALL, now: NOW, siteUrl: SITE });
     return { res, json: (await res.json()) as { data?: unknown } };
   }
@@ -141,5 +141,11 @@ describe('GET /api/progress', () => {
       completed: { score: 4, completed_at: '2026-10-04T02:00:00.000Z' },
     });
     expect((await runGet(get('standup-01'), USER)).json.data).toEqual({ lesson_key: 'standup-01', completed: null });
+  });
+
+  it('gọi thẳng API bài Premium khi đã hết dùng thử: 403', async () => {
+    const { res } = await runGet(get('standup-04'), USER, null, expired);
+    expect(res.status).toBe(403);
+    expect((await runGet(get('standup-04'), USER, null, trial)).res.status).toBe(200);
   });
 });

@@ -1,7 +1,8 @@
 import { z } from 'zod';
 import { correctionSchema, type Correction, type Mode } from '../ai/schema';
 import type { CorrectRepo } from '../correct/handler';
-import { getEntitlement } from './queries';
+import type { ErrorStats } from '../pay/upsell';
+import { countRepeatingErrors, getEntitlement } from './queries';
 import type { Db } from './supabase';
 
 function check<T>(label: string, res: { data: T; error: { message: string } | null }): T {
@@ -25,6 +26,7 @@ const saveResultSchema = z.union([
 export function correctRepo(db: Db, service: Db): CorrectRepo {
   return {
     getEntitlement: (userId) => getEntitlement(db, userId),
+    getErrorStats: (userId) => getErrorStats(db, userId),
     async countUserCorrections(userId, since) {
       const res = await db
         .from('corrections')
@@ -92,4 +94,18 @@ export async function getCorrections(
     const result = correctionSchema.safeParse(r.result);
     return result.success ? [{ ...r, result: result.data }] : [];
   });
+}
+
+/** Số liệu cho lời mời nâng cấp: số câu đã sửa, tổng số lỗi đã ghi, số lỗi đang lặp lại. */
+export async function getErrorStats(db: Db, userId: string): Promise<ErrorStats> {
+  const [rows, repeating] = await Promise.all([
+    db.from('corrections').select('result').eq('user_id', userId).limit(1000),
+    countRepeatingErrors(db, userId),
+  ]);
+  const list = check('getErrorStats', rows) ?? [];
+  const errors = list.reduce((n, r) => {
+    const parsed = correctionSchema.safeParse(r.result);
+    return n + (parsed.success ? parsed.data.changes.length : 0);
+  }, 0);
+  return { corrections: list.length, errors, repeating };
 }

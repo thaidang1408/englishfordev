@@ -88,14 +88,13 @@ try {
 if (!serviceKey) stop('Chưa lấy được service role key. Kiểm tra "npx supabase login" còn hiệu lực.');
 console.log('   Đã lấy được service role key. Key này chỉ nằm trên máy chủ, không tới trình duyệt.');
 
+// Giữ các secret khác trong .dev.vars (ví dụ của npm run setup:pay), chỉ cập nhật hai key của AI.
+const merged = { ...vars, SUPABASE_SERVICE_ROLE_KEY: serviceKey };
+if (apiKey) merged.ANTHROPIC_API_KEY = apiKey;
+else delete merged.ANTHROPIC_API_KEY;
 writeFileSync(
   DEV_VARS,
-  [
-    '# Tạo bởi npm run setup:ai. Secret cho npm run dev. Không commit file này.',
-    `SUPABASE_SERVICE_ROLE_KEY=${serviceKey}`,
-    ...(apiKey ? [`ANTHROPIC_API_KEY=${apiKey}`] : []),
-    '',
-  ].join('\n'),
+  ['# Secret cho npm run dev. Không commit file này.', ...Object.entries(merged).map(([k, v]) => `${k}=${v}`), ''].join('\n'),
 );
 
 // ---------- 3. Database ----------

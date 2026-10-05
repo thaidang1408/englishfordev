@@ -2,6 +2,9 @@
 import Base from '../layouts/Base.astro';
 import Heatmap from '../components/Heatmap.astro';
 import CorrectBox from '../components/correct/CorrectBox';
+import UpgradeCard from '../components/UpgradeCard.astro';
+import { getErrorStats } from '../lib/db/corrections';
+import { showTodayCard } from '../lib/pay/upsell';
 import { accessFrom, hasFullAccess } from '../lib/auth/access';
 import { lessons } from '../lib/content/lessons';
 import { lessonKey } from '../lib/content/schema';
@@ -18,7 +21,7 @@ import {
 import { lessonOfTheDay } from '../lib/lesson/today';
 import { SESSION_SIZE } from '../lib/review/leitner';
 import { buildHeatmap } from '../lib/stats/heatmap';
-import { addDaysTo, formatVnDate } from '../lib/time';
+import { addDaysTo, daysLeft, formatVnDate } from '../lib/time';
 
 export const prerender = false;
 
@@ -51,13 +54,16 @@ const rows = TRACK_OUTLINE[profile.track].map((title, i) => {
   const result = done.get(key);
   const locked = !lesson?.free && !hasFullAccess(access);
   const isToday = today.kind === 'lesson' && today.lesson.id === id;
-  // M1-M2: chỉ bài miễn phí có trang học. Bài khác mở ở M5.
-  const href = lesson?.free ? `/hoc/${lesson.slug}` : undefined;
+  // Bài bị khóa vẫn dẫn tới trang bài, nơi hiện lời mời nâng cấp (SPEC mục 2).
+  const href = lesson ? `/hoc/${lesson.slug}` : undefined;
   return { id, title, formula: lesson?.pattern.formula, result, locked, isToday, href };
 });
 const doneInTrack = rows.filter((r) => r.result).length;
 // Mỗi màn hình một nút tím: khi không có bài để học hôm nay thì ôn tập là việc chính.
-const reviewIsMain = !(today.kind === 'lesson' && today.lesson.free);
+const todayOpen = today.kind === 'lesson' && (today.lesson.free || hasFullAccess(access));
+const reviewIsMain = !todayOpen;
+// Thẻ mời nâng cấp từ ngày thứ 5 của dùng thử (SPEC mục 2), với số liệu thật của người dùng.
+const upsell = showTodayCard(access, now) ? await getErrorStats(db, user.id) : null;
 ---
 
 <Base title="Hôm nay | English Personal Coach" description="Bài của ngày và câu cần ôn." app>
@@ -78,16 +84,14 @@ const reviewIsMain = !(today.kind === 'lesson' && today.lesson.free);
               </p>
               <h3>{today.lesson.title}</h3>
               <p class="muted" lang="en">{today.lesson.pattern.formula}</p>
-              {today.lesson.free || hasFullAccess(access) ? (
-                today.lesson.free ? (
-                  <a class="btn btn-primary" href={`/hoc/${today.lesson.slug}`} style="margin-top:var(--s-2)">
-                    Học bài hôm nay
-                  </a>
-                ) : (
-                  <p class="note info">Bài này sẽ mở ở bản cập nhật tới.</p>
-                )
+              {todayOpen ? (
+                <a class="btn btn-primary" href={`/hoc/${today.lesson.slug}`} style="margin-top:var(--s-2)">
+                  Học bài hôm nay
+                </a>
               ) : (
-                <p class="note info">Bài này cần Premium.</p>
+                <p class="note info">
+                  Bài này cần Premium. <a href={`/hoc/${today.lesson.slug}`}>Xem bài</a>
+                </p>
               )}
             </>
           )
@@ -126,6 +130,18 @@ const reviewIsMain = !(today.kind === 'lesson' && today.lesson.free);
         }
       </div>
     </section>
+
+    {
+      upsell && (
+        <section class="part" aria-label="Nâng cấp Premium">
+          <UpgradeCard
+            stats={upsell}
+            fallback={access.kind === 'trial' ? `Dùng thử còn ${daysLeft(access.until, now)} ngày` : 'Dùng thử đã hết, dữ liệu của bạn vẫn còn'}
+            primary={false}
+          />
+        </section>
+      )
+    }
 
     <section class="part" aria-labelledby="sua-cau">
       <h2 id="sua-cau">Sửa câu của tôi</h2>

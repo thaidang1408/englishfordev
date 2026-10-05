@@ -1,13 +1,14 @@
 import { z } from 'zod';
 import { AiError, type CorrectContext, type CorrectSentence } from '../ai/correct';
 import { MODES, SENTENCE_MAX, SENTENCE_MIN, type Correction, type Mode } from '../ai/schema';
-import { accessFrom } from '../auth/access';
+import { accessFrom, hasFullAccess } from '../auth/access';
 import { lessonKey, type Lesson } from '../content/schema';
 import type { EntitlementRow } from '../db/types';
 import { errors, fail, ok, sameOrigin } from '../http/response';
 import { firstDue } from '../review/leitner';
 import { vnStartOfDay } from '../time';
-import { canInterview, keepsOwnErrors, quotaFor, quotaMessage, SYSTEM_CAP_MESSAGE } from './quota';
+import type { ErrorStats } from '../pay/upsell';
+import { canInterview, keepsOwnErrors, quotaFor, quotaMessage, SYSTEM_CAP_MESSAGE, type Quota } from './quota';
 
 export const correctBodySchema = z.object({
   // Giới hạn thô trước khi trim; độ dài thật kiểm ở dưới theo mode.
@@ -41,6 +42,8 @@ export type SaveResult = { status: 'ok'; id: string } | { status: 'quota' } | { 
 
 export type CorrectRepo = {
   getEntitlement(userId: string): Promise<EntitlementRow | null>;
+  /** Số liệu thật cho lời mời nâng cấp khi tài khoản miễn phí hết lượt (SPEC mục 2). */
+  getErrorStats(userId: string): Promise<ErrorStats>;
   countUserCorrections(userId: string, since: Date): Promise<number>;
   /** Tổng số lần sửa toàn hệ thống (AI_DAILY_CALL_CAP). */
   countAllCorrections(since: Date): Promise<number>;
@@ -60,6 +63,17 @@ type Input = {
   dailyCap: number;
   siteUrl?: string;
 };
+
+/**
+ * Hết lượt. Tài khoản miễn phí nhận mã riêng để giao diện hiện link nâng cấp; câu mời dùng số liệu
+ * của chính người đó, không có lỗi nào được ghi thì không nêu số.
+ */
+async function quotaExceeded(kind: Quota['kind'], repo: CorrectRepo, userId: string): Promise<Response> {
+  if (kind !== 'free') return fail(429, 'quota_exceeded', quotaMessage(kind));
+  const stats = await repo.getErrorStats(userId);
+  const book = stats.errors > 0 ? ` Sổ lỗi của bạn có ${stats.errors} lỗi, ${stats.repeating} lỗi đang lặp lại.` : '';
+  return fail(429, 'free_quota_exceeded', `${quotaMessage(kind)}${book} Nâng cấp để sửa câu mỗi ngày.`);
+}
 
 const unavailable = () => fail(503, 'ai_unavailable', 'Tính năng sửa câu đang tạm tắt. Lượt sửa của bạn chưa bị trừ.');
 
@@ -113,9 +127,12 @@ export async function handleCorrect(input: Input): Promise<Response> {
   if (mode === 'interview' && !canInterview(access)) {
     return fail(403, 'premium_required', 'Phỏng vấn thử chỉ có ở Premium và trong 7 ngày dùng thử.');
   }
+  if (lesson && !lesson.free && !hasFullAccess(access)) {
+    return fail(403, 'premium_required', 'Bài này cần Premium. Nâng cấp để học tiếp.');
+  }
   const quota = quotaFor(access, now);
   const used = await repo.countUserCorrections(user.id, quota.since);
-  if (used >= quota.limit) return fail(429, 'quota_exceeded', quotaMessage(quota.kind));
+  if (used >= quota.limit) return quotaExceeded(quota.kind, repo, user.id);
   const capSince = vnStartOfDay(now);
   if ((await repo.countAllCorrections(capSince)) >= dailyCap) return fail(429, 'system_cap', SYSTEM_CAP_MESSAGE);
 
@@ -147,7 +164,7 @@ export async function handleCorrect(input: Input): Promise<Response> {
     daily_cap: dailyCap,
     cap_since: capSince.toISOString(),
   });
-  if (saved.status === 'quota') return fail(429, 'quota_exceeded', quotaMessage(quota.kind));
+  if (saved.status === 'quota') return quotaExceeded(quota.kind, repo, user.id);
   if (saved.status === 'cap') return fail(429, 'system_cap', SYSTEM_CAP_MESSAGE);
 
   // 7. Phản hồi

@@ -70,3 +70,40 @@
     .paywall { padding: var(--s-4); }
   }
 }
+
+/* M5: nâng cấp, thanh toán, admin */
+@layer components {
+  .plan-pick { display: grid; gap: var(--s-3); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
+  .plan-option { display: grid; gap: 2px; text-align: left; font: inherit; color: var(--text); cursor: pointer; }
+  .plan-option:hover:not([disabled]) { border-color: var(--accent); }
+  .plan-option.picked { border-color: var(--accent); background: var(--accent-tint); box-shadow: inset 0 0 0 1px var(--accent); }
+  .plan-name { font-weight: 600; }
+  .plan-note { font-size: var(--fs-xs); }
+
+  .checkout { display: grid; gap: var(--s-5); grid-template-columns: minmax(0, 15rem) minmax(0, 1fr); align-items: start; }
+  .qr-box { background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--s-3); }
+  .qr-box svg { display: block; width: 100%; height: auto; }
+  .checkout-info dl { margin: 0 0 var(--s-3); display: grid; gap: var(--s-3); }
+  .checkout-info dt { font-size: var(--fs-xs); color: var(--muted); font-weight: 600; }
+  .checkout-info dd { margin: 0; font-size: var(--fs-md); }
+  .mono { font-family: var(--font-mono); }
+  .code-pay { font-weight: 600; font-size: var(--fs-lg); letter-spacing: .04em; }
+  .wait { display: flex; align-items: center; gap: var(--s-2); font-size: var(--fs-sm); font-weight: 600; margin: var(--s-3) 0; }
+  .wait .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+  @media (prefers-reduced-motion: no-preference) {
+    .wait .dot { animation: pulse 1.6s ease-in-out infinite; }
+    @keyframes pulse { 50% { opacity: .25; } }
+  }
+  @media (max-width: 560px) {
+    .checkout { grid-template-columns: 1fr; }
+    .qr-box { max-width: 16rem; }
+  }
+
+  .orders { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
+  .orders th, .orders td { text-align: left; padding: var(--s-2) var(--s-2) var(--s-2) 0; border-top: 1px solid var(--line); vertical-align: top; }
+  .orders thead th { border-top: 0; color: var(--muted); font-size: var(--fs-xs); font-weight: 600; }
+  .orders-scroll { overflow-x: auto; }
+  .tag.st-pending { background: var(--warn-bg); color: var(--warn-text); }
+  .tag.st-paid { background: var(--add-bg); color: var(--add-text); }
+  .tag.st-refunded, .tag.st-expired { background: var(--panel-2); color: var(--muted); }
+}

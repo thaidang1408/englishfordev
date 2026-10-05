@@ -60,6 +60,26 @@ export type CorrectionRow = {
   created_at: string;
 };
 
+export type OrderPlan = '30d' | '90d';
+export type OrderStatus = 'pending' | 'paid' | 'refunded' | 'expired';
+export type OrderRow = {
+  id: string;
+  user_id: string;
+  code: string;
+  plan: OrderPlan;
+  amount: number;
+  status: OrderStatus;
+  created_at: string;
+  paid_at: string | null;
+  order_number: number;
+  checkout_url: string | null;
+  qr_code: string | null;
+  bank_ref: string | null;
+  paid_by: string | null;
+};
+type OrderInsert = Pick<OrderRow, 'user_id' | 'code' | 'plan' | 'amount'>;
+type OrderUpdate = Partial<Pick<OrderRow, 'checkout_url' | 'qr_code' | 'status'>>;
+
 export type Database = {
   public: {
     Tables: {
@@ -68,6 +88,7 @@ export type Database = {
       lesson_progress: Table<LessonProgressRow, Omit<LessonProgressRow, 'completed_at'> & { completed_at?: string }>;
       review_items: Table<ReviewItemRow, ReviewItemInsert, Partial<Pick<ReviewItemRow, 'box' | 'due_at'>>>;
       corrections: Table<CorrectionRow, never, never>;
+      orders: Table<OrderRow, OrderInsert, OrderUpdate>;
     };
     Views: Record<string, never>;
     Functions: {
@@ -88,6 +109,11 @@ export type Database = {
         };
         Returns: Json;
       };
+      confirm_order: {
+        Args: { p_order_id: string; p_bank_ref: string | null; p_paid_by: string; p_paid_amount: number | null };
+        Returns: Json;
+      };
+      refund_order: { Args: { p_order_id: string }; Returns: Json };
     };
     Enums: Record<string, never>;
     CompositeTypes: Record<string, never>;

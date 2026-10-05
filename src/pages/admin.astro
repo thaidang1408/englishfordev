@@ -1,0 +1,129 @@
+---
+import Base from '../layouts/Base.astro';
+import NotFound from '../components/NotFound.astro';
+import { listOrdersForAdmin } from '../lib/db/orders';
+import { createServiceDb } from '../lib/db/service';
+import { serverEnv } from '../lib/env-server';
+import { PLANS, REFUND_DAYS, formatVnd } from '../lib/pricing';
+
+/**
+ * Trang admin (SPEC mục 3): danh sách đơn, "Đã nhận tiền", "Hoàn tiền". Bảng phễu làm ở M7.
+ * Kiểm email trong ADMIN_EMAILS ở server mỗi request. Người khác nhận 404, không biết trang này tồn tại.
+ */
+export const prerender = false;
+
+const user = Astro.locals.user;
+if (!user) return Astro.redirect('/dang-nhap?next=/admin', 303);
+const env = serverEnv();
+const email = user.email?.toLowerCase();
+const isAdmin = Boolean(email && env.ADMIN_EMAILS.includes(email) && env.SUPABASE_SERVICE_ROLE_KEY);
+if (!isAdmin) Astro.response.status = 404;
+
+const orders = isAdmin && env.SUPABASE_SERVICE_ROLE_KEY ? await listOrdersForAdmin(createServiceDb(env.SUPABASE_SERVICE_ROLE_KEY)) : [];
+const fmt = new Intl.DateTimeFormat('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', dateStyle: 'short', timeStyle: 'short' });
+const STATUS = { pending: 'Chờ', paid: 'Đã trả', refunded: 'Đã hoàn', expired: 'Hết hạn' } as const;
+const refundable = (paidAt: string | null) => paidAt !== null && Date.now() - Date.parse(paidAt) < REFUND_DAYS * 86_400_000;
+---
+
+{!isAdmin ? <NotFound /> : (
+<Base title="Admin | English Personal Coach" description="Quản lý đơn." app>
+  <div class="wrap" style="padding-top:var(--s-6);padding-bottom:var(--s-7)">
+    <h1 style="font-size:var(--fs-2xl);line-height:1.2">Đơn hàng</h1>
+    <p class="muted" style="margin-top:var(--s-3)">
+      {orders.length} đơn gần nhất. Đơn trả qua payOS tự xác nhận. Bấm "Đã nhận tiền" chỉ khi đã thấy tiền vào tài khoản mà đơn vẫn chờ.
+    </p>
+    <p class="note err" id="admin-error" hidden></p>
+    <div class="orders-scroll" style="margin-top:var(--s-4)">
+      <table class="orders">
+        <thead>
+          <tr>
+            <th scope="col">Mã</th>
+            <th scope="col">Người mua</th>
+            <th scope="col">Gói</th>
+            <th scope="col">Trạng thái</th>
+            <th scope="col">Tạo lúc</th>
+            <th scope="col">Trả lúc</th>
+            <th scope="col"><span class="sr-only-label">Thao tác</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            orders.map((o) => (
+              <tr>
+                <td class="mono">{o.code}</td>
+                <td>
+                  {o.name ?? ''}
+                  <br />
+                  <span class="muted">{o.email ?? o.user_id.slice(0, 8)}</span>
+                </td>
+                <td>
+                  {PLANS[o.plan].days} ngày
+                  <br />
+                  <span class="muted">{formatVnd(o.amount)}</span>
+                </td>
+                <td>
+                  <span class:list={['tag', `st-${o.status}`]}>{STATUS[o.status]}</span>
+                  {o.paid_by && (
+                    <>
+                      <br />
+                      <span class="muted">{o.paid_by === 'payos' ? 'payOS' : 'xác nhận tay'}</span>
+                    </>
+                  )}
+                </td>
+                <td>{fmt.format(new Date(o.created_at))}</td>
+                <td>{o.paid_at ? fmt.format(new Date(o.paid_at)) : ''}</td>
+                <td>
+                  {(o.status === 'pending' || o.status === 'expired') && (
+                    <button type="button" class="btn btn-quiet" data-action="confirm" data-id={o.id} data-code={o.code}>
+                      Đã nhận tiền
+                    </button>
+                  )}
+                  {o.status === 'paid' && (
+                    <button type="button" class="btn btn-quiet" data-action="refund" data-id={o.id} data-code={o.code}>
+                      Hoàn tiền{refundable(o.paid_at) ? '' : ' (quá 3 ngày)'}
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</Base>
+)}
+
+<script>
+  const errorBox = document.getElementById('admin-error');
+  const QUESTION: Record<string, string> = {
+    confirm: 'Xác nhận đã nhận tiền cho đơn {code}? Premium sẽ được mở ngay.',
+    refund: 'Hoàn tiền đơn {code}? Premium của người này hết ngay. Bạn vẫn phải tự chuyển trả tiền.',
+  };
+  document.addEventListener('click', async (e) => {
+    const btn = e.target instanceof Element ? e.target.closest<HTMLButtonElement>('button[data-action]') : null;
+    if (!btn) return;
+    const { action, id, code } = btn.dataset;
+    if (!action || !id || !window.confirm((QUESTION[action] ?? '').replace('{code}', code ?? ''))) return;
+    btn.disabled = true;
+    try {
+      const res = await fetch(`/api/admin/orders/${id}/${action}`, { method: 'POST', credentials: 'same-origin' });
+      const body: unknown = await res.json().catch(() => null);
+      if (res.ok) return location.reload();
+      const message =
+        body && typeof body === 'object' && 'error' in body && body.error && typeof body.error === 'object' && 'message' in body.error
+          ? String(body.error.message)
+          : 'Chưa làm được. Thử lại.';
+      if (errorBox) {
+        errorBox.textContent = message;
+        errorBox.hidden = false;
+      }
+    } catch {
+      if (errorBox) {
+        errorBox.textContent = 'Lỗi kết nối. Thử lại.';
+        errorBox.hidden = false;
+      }
+    }
+    btn.disabled = false;
+  });
+</script>

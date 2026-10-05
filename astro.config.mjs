@@ -28,6 +28,10 @@ export default defineConfig({
       ANTHROPIC_API_KEY: envField.string({ context: 'server', access: 'secret', optional: true }),
       AI_MODEL: envField.string({ context: 'server', access: 'secret', optional: true }),
       AI_DAILY_CALL_CAP: envField.string({ context: 'server', access: 'secret', optional: true }),
+      ADMIN_EMAILS: envField.string({ context: 'server', access: 'secret', optional: true }),
+      PAYOS_CLIENT_ID: envField.string({ context: 'server', access: 'secret', optional: true }),
+      PAYOS_API_KEY: envField.string({ context: 'server', access: 'secret', optional: true }),
+      PAYOS_CHECKSUM_KEY: envField.string({ context: 'server', access: 'secret', optional: true }),
     },
   },
 

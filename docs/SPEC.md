@@ -43,7 +43,7 @@ Hết dùng thử không xóa gì. Dữ liệu của người dùng vẫn còn, 
 
 **Giá:** 79.000đ cho 30 ngày, 179.000đ cho 90 ngày. Mua theo kỳ, không tự gia hạn.
 **Hoàn tiền:** trong 3 ngày đầu, không hỏi lý do.
-**Thanh toán:** chuyển khoản qua mã VietQR, chủ dự án xác nhận tay trong trang admin.
+**Thanh toán:** chuyển khoản qua mã VietQR do payOS tạo cho từng đơn (miễn phí, tài khoản cá nhân MB Bank). Khi payOS báo đã nhận đúng số tiền của đơn, tài khoản tự mở Premium. Chủ dự án vẫn xác nhận tay được trong trang admin, dùng khi người dùng chuyển sai nội dung hoặc webhook lỗi. Đổi ngày 05/10/2026 theo quyết định của chủ dự án.
 
 Điểm mời nâng cấp (chỉ bốn chỗ này, không popup): mở bài bị khóa; hết lượt sửa; mở sổ lỗi hoặc phân tích lỗi; và một thẻ ở `/hom-nay` từ ngày thứ 5 của dùng thử cho tới khi nâng cấp.
 
@@ -72,7 +72,7 @@ Cần đăng nhập:
 | `/on-tap` | Phiên ôn các mục đến hạn |
 | `/so-loi` | Sổ lỗi cá nhân và phân tích lỗi. Mục 5b |
 | `/phong-van-thu` | Phỏng vấn thử, chỉ Premium và dùng thử. Mục 7b |
-| `/nang-cap` | Chọn gói → tạo đơn → hiện mã QR và nội dung chuyển khoản |
+| `/nang-cap` | Chọn gói → tạo đơn → hiện mã QR và nội dung chuyển khoản → tự báo khi đã nhận tiền |
 | `/tai-khoan` | Giờ standup, ngày phỏng vấn (không bắt buộc), liên kết Telegram, hạn dùng thử và Premium, đăng xuất |
 | `/admin` | Chỉ email trong `ADMIN_EMAILS`. Danh sách đơn, nút "Đã nhận tiền", "Hoàn tiền", bảng phễu |
 
@@ -81,7 +81,9 @@ API (server):
 | Endpoint | Việc |
 | --- | --- |
 | `POST /api/correct` | AI sửa câu. Mục 7 |
-| `POST /api/orders` | Tạo đơn `pending` với mã `EPC` + 5 ký tự |
+| `POST /api/orders` | Tạo đơn `pending` với mã `EPC` + 5 ký tự và link thanh toán payOS |
+| `GET /api/orders/:id` | Trạng thái đơn của chính người dùng. Đơn còn chờ thì hỏi lại payOS, đã trả thì xác nhận như webhook |
+| `POST /api/payos/webhook` | payOS báo giao dịch. Kiểm chữ ký bằng `PAYOS_CHECKSUM_KEY`, khớp mã đơn và số tiền, rồi xác nhận đơn |
 | `POST /api/admin/orders/:id/confirm` | Đánh dấu `paid`, cộng ngày vào `premium_until` |
 | `POST /api/admin/orders/:id/refund` | Đánh dấu `refunded`, đặt `premium_until` về hiện tại |
 | `POST /api/events` | Ghi sự kiện phễu, cho cả khách chưa đăng nhập |
@@ -247,7 +249,10 @@ corrections   (id uuid pk, user_id uuid, lesson_key text, mode text, original te
                model text, created_at timestamptz)
 orders        (id uuid pk, user_id uuid, code text unique, plan text check (plan in ('30d','90d')),
                amount int, status text check (status in ('pending','paid','refunded','expired')),
-               created_at timestamptz, paid_at timestamptz)
+               created_at timestamptz, paid_at timestamptz,
+               order_number bigint unique,   -- orderCode gửi payOS (payOS chỉ nhận số)
+               checkout_url text, qr_code text, -- link và chuỗi QR payOS trả về, để hiện lại khi tải lại trang
+               bank_ref text, paid_by text)  -- mã giao dịch ngân hàng; 'payos' hoặc email admin đã xác nhận
 events        (id bigserial pk, user_id uuid null, anon_id text, name text, props jsonb,
                created_at timestamptz)
 ```
@@ -282,7 +287,7 @@ PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY
 ANTHROPIC_API_KEY (không bắt buộc), AI_MODEL, AI_DAILY_CALL_CAP
 TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_USERNAME, TELEGRAM_WEBHOOK_SECRET
 CRON_SECRET, ADMIN_EMAILS
-BANK_ID, BANK_NAME, BANK_ACCOUNT_NO, BANK_ACCOUNT_NAME
+PAYOS_CLIENT_ID, PAYOS_API_KEY, PAYOS_CHECKSUM_KEY
 PUBLIC_SITE_URL
 ```
 
@@ -299,7 +304,7 @@ Mỗi milestone kết thúc bằng: check, test, build đều qua; mô tả các
 | M2 | Supabase: migration, RLS, đăng nhập Google và GitHub. Chuyển tiến độ lên tài khoản. Test xếp trình độ. Trang `/hom-nay` có lịch luyện tập, `/tai-khoan` | Hai tài khoản thử không đọc được dữ liệu của nhau (có test RLS). Đăng nhập xong thấy tiến độ đã học lúc là khách |
 | M3 | Ôn tập Leitner cho mục `quiz`. Trang `/on-tap`. Trang `/bug-hom-nay` (mục 4c) | Câu trả lời sai hôm nay xuất hiện trong phiên ôn khi chỉnh `due_at` về quá khứ. Có test cho luật lên mức, về mức 1 |
 | M4 | `/api/correct` với hai mode, giao diện diff kết quả, các mức chặn, mục ôn `own_error`, trang `/so-loi` có phân tích lỗi, trang `/phong-van-thu` | Tài khoản hết dùng thử bị chặn ở lần sửa thứ 2 trong 7 ngày. Tài khoản dùng thử bị chặn ở lần thứ 11 trong ngày. Kết quả sai schema không làm hỏng trang và không trừ lượt. Có test cho từng mức chặn với AI giả lập |
-| M5 | Khóa bài và tính năng Premium ở server. Bốn điểm mời nâng cấp dùng số liệu thật của người dùng. `/nang-cap`, tạo đơn, mã VietQR. `/admin` xác nhận và hoàn tiền | Đặt `trial_until` về quá khứ thì tài khoản mất quyền Premium ngay nhưng dữ liệu còn nguyên. Gọi thẳng API bài bị khóa trả 403. Xác nhận đơn xong tài khoản mở khóa ngay |
+| M5 | Khóa bài và tính năng Premium ở server. Bốn điểm mời nâng cấp dùng số liệu thật của người dùng. `/nang-cap`, tạo đơn, mã VietQR qua payOS, tự mở Premium khi nhận đúng tiền. `/admin` xác nhận và hoàn tiền | Đặt `trial_until` về quá khứ thì tài khoản mất quyền Premium ngay nhưng dữ liệu còn nguyên. Gọi thẳng API bài bị khóa trả 403. Xác nhận đơn xong tài khoản mở khóa ngay |
 | M6 | Bot Telegram, liên kết, worker cron, tin nhắc, báo cáo tuần, đếm ngược phỏng vấn | Đặt giờ standup sau hiện tại 40 phút thì nhận đúng một tin. Gọi tay hàm báo cáo tuần thì tài khoản Premium có câu đã sửa nhận đúng một tin. `/stop` hoạt động |
 | M7 | Sự kiện phễu và bảng trong `/admin`. Trang điều khoản, bảo mật. Sitemap, thẻ OG, favicon. Soạn 27 bài còn lại và `placement.json`. Chạy `docs/LAUNCH_CHECKLIST.md` | Mọi mục trong checklist ra mắt được đánh dấu, gồm cả việc chủ dự án đã duyệt nội dung |
 

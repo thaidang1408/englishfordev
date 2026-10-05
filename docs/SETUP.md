@@ -125,6 +125,46 @@ update public.review_items set due_at = now() - interval '1 minute'
 where kind = 'own_error' and user_id = (select id from auth.users where email = 'ban@example.com');
 ```
 
+## M5: Thanh toán payOS và trang admin
+
+Thanh toán dùng **payOS**: miễn phí, tài khoản cá nhân, tạo mã VietQR riêng cho từng đơn. Khi tiền vào đúng số, payOS báo về máy chủ và tài khoản tự mở Premium. Tiền vào thẳng tài khoản MB của bạn.
+
+Cần chạy `npm run setup` (M2) và `npm run setup:ai` (M4) trước. Sau đó, trong thư mục `epc-app`:
+
+```bash
+npm run setup:pay
+```
+
+Bạn tự làm trên web, khoảng 10 phút:
+
+1. Mở https://my.payos.vn, đăng ký tài khoản cá nhân bằng CCCD.
+2. Liên kết tài khoản ngân hàng **MB** theo hướng dẫn trên trang payOS. BIDV cũng được, nhưng MB là ngân hàng liên kết đầu tiên của payOS nên đơn giản nhất.
+3. Vào **Kênh thanh toán** → **Tạo kênh thanh toán**, đặt tên `EPC`, chọn tài khoản vừa liên kết. Ô Webhook URL để trống.
+4. Mở kênh vừa tạo, chép **Client ID**, **Api Key**, **Checksum Key** dán vào lệnh.
+5. Lệnh hỏi email admin: nhập email bạn dùng để đăng nhập EPC. Chỉ email này vào được `/admin`.
+
+Lệnh tự làm phần còn lại:
+
+- Áp dụng migration `20261005150000_orders_payos.sql`.
+- Đặt 4 secret trên Cloudflare: `PAYOS_CLIENT_ID`, `PAYOS_API_KEY`, `PAYOS_CHECKSUM_KEY`, `ADMIN_EMAILS`.
+- Ghi vào `.dev.vars` cho máy bạn.
+- Deploy.
+- Đăng ký địa chỉ webhook `https://<site>/api/payos/webhook` với payOS.
+
+### Khi có người chuyển khoản
+
+- **Bình thường:** không phải làm gì. Đơn tự thành "Đã trả", Premium tự mở. Trang `/nang-cap` của người mua tự đổi sang "Đã nhận".
+- **Người mua chuyển sai nội dung hoặc thiếu tiền:** đơn vẫn "Chờ". Bạn kiểm tiền trong app MB, rồi vào `/admin` bấm **Đã nhận tiền** ở đơn đó.
+- **Hoàn tiền** (trong 3 ngày đầu, SPEC mục 2): vào `/admin` bấm **Hoàn tiền**. Premium của người đó hết ngay. Bạn tự chuyển trả tiền qua app MB.
+
+### Thử thanh toán thật với số tiền nhỏ
+
+payOS không có môi trường thử riêng. Cách thử an toàn: mua gói 30 ngày bằng chính tài khoản của bạn, quét mã QR bằng app BIDV (chuyển từ BIDV sang tài khoản MB của chính bạn), xem Premium tự mở, rồi vào `/admin` bấm **Hoàn tiền** để đưa tài khoản về như cũ.
+
+### Thử mất quyền Premium
+
+Trong Supabase → **SQL Editor**, câu SQL "Cho tài khoản hết dùng thử ngay" ở mục M4. Tải lại `/hom-nay`: bài Premium hiện khóa, sổ lỗi chỉ hiện 3 lỗi gần nhất, dữ liệu vẫn còn.
+
 ### Xóa tài khoản khi người dùng yêu cầu
 
 Supabase → **Authentication → Users**, tìm theo email, bấm **Delete user**. Mọi dòng dữ liệu của người đó bị xóa theo (khóa ngoại `on delete cascade`). Riêng bảng `events` giữ lại sự kiện nhưng bỏ liên kết với người dùng.

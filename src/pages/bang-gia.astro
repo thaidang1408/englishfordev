@@ -25,16 +25,18 @@ import { COMPARE, PLANS, REFUND_DAYS, TRIAL_DAYS, formatVnd } from '../lib/prici
         <div class="plan">
           <h3>30 ngày</h3>
           <p class="price">{formatVnd(PLANS['30d'].amount)}</p>
+          <a class="btn btn-quiet" href="/nang-cap?goi=30d" style="margin-top:var(--s-3)">Mua gói 30 ngày</a>
         </div>
         <div class="plan">
           <h3>90 ngày</h3>
           <p class="price">{formatVnd(PLANS['90d'].amount)}</p>
+          <a class="btn btn-quiet" href="/nang-cap?goi=90d" style="margin-top:var(--s-3)">Mua gói 90 ngày</a>
         </div>
       </div>
       <ul class="read" style="margin-top:var(--s-4);padding-left:20px">
         <li>Mua theo kỳ, không tự gia hạn. Hết kỳ thì tài khoản về gói miễn phí, dữ liệu còn nguyên.</li>
         <li>Hoàn tiền trong {REFUND_DAYS} ngày đầu, không hỏi lý do.</li>
-        <li>Thanh toán bằng chuyển khoản qua mã VietQR. Tài khoản được mở Premium khi đã xác nhận nhận tiền.</li>
+        <li>Thanh toán bằng chuyển khoản qua mã VietQR do payOS tạo. Premium tự mở trong khoảng một phút sau khi nhận đúng số tiền.</li>
         <li>Mua ở trang Nâng cấp sau khi đăng nhập.</li>
       </ul>
     </section>

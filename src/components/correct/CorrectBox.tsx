@@ -17,7 +17,7 @@ type State =
   | { kind: 'busy' }
   | { kind: 'done'; data: CorrectData }
   | { kind: 'login' }
-  | { kind: 'error'; message: string };
+  | { kind: 'error'; message: string; upgrade?: boolean };
 
 const MAX = SENTENCE_MAX.work;
 
@@ -42,7 +42,14 @@ export default function CorrectBox({ lessonKey, next, primary = false, label = '
     }
     setState({ kind: 'busy' });
     const out = await requestCorrection({ sentence: trimmed, lessonKey });
-    setState(out.kind === 'ok' ? { kind: 'done', data: out.data } : out.kind === 'login' ? { kind: 'login' } : { kind: 'error', message: out.message });
+    setState(
+      out.kind === 'ok'
+        ? { kind: 'done', data: out.data }
+        : out.kind === 'login'
+          ? { kind: 'login' }
+          : // Hết lượt của tài khoản miễn phí: một trong bốn chỗ được mời nâng cấp (SPEC mục 2).
+            { kind: 'error', message: out.message, upgrade: out.code === 'free_quota_exceeded' },
+    );
   }
 
   function onKey(e: KeyboardEvent<HTMLTextAreaElement>) {
@@ -121,7 +128,17 @@ export default function CorrectBox({ lessonKey, next, primary = false, label = '
             Cần đăng nhập để AI sửa câu của bạn. <a href={`/dang-nhap?next=${encodeURIComponent(next)}`}>Đăng nhập</a>
           </p>
         )}
-        {state.kind === 'error' && <p className="note err">{state.message}</p>}
+        {state.kind === 'error' && (
+          <p className="note err">
+            {state.message}
+            {state.upgrade && (
+              <>
+                {' '}
+                <a href="/nang-cap?goi=30d">Xem gói nâng cấp</a>
+              </>
+            )}
+          </p>
+        )}
       </div>
     </form>
   );

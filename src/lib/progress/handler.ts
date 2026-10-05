@@ -1,6 +1,6 @@
 import type { Lesson } from '../content/schema';
 import { lessonKey } from '../content/schema';
-import { accessFrom } from '../auth/access';
+import { accessFrom, hasFullAccess } from '../auth/access';
 import type { EntitlementRow, LessonProgressRow, ReviewItemRow } from '../db/types';
 import { errors, ok, sameOrigin } from '../http/response';
 import { planSync, syncBodySchema } from './sync';
@@ -35,14 +35,20 @@ export async function handleProgress(input: Input): Promise<Response> {
   return errors.method();
 }
 
-async function handleGet({ request, user, repo, lessons }: Input): Promise<Response> {
+async function handleGet({ request, user, repo, lessons, now }: Input): Promise<Response> {
   // 2. Nguồn gốc: GET không đổi dữ liệu và phản hồi không cache, không cần kiểm Origin.
   // 3. Danh tính
   if (!user) return errors.unauthenticated();
   // 4. Dữ liệu vào
   const key = new URL(request.url).searchParams.get('lesson');
-  if (!key || !lessons.some((l) => lessonKey(l) === key)) return errors.badRequest('Không có bài này.');
-  // 5. Quyền: RLS chỉ trả về dòng của chính người dùng. 6. Việc chính
+  const lesson = key ? lessons.find((l) => lessonKey(l) === key) : undefined;
+  if (!key || !lesson) return errors.badRequest('Không có bài này.');
+  // 5. Quyền: bài Premium cần Premium hoặc dùng thử, đọc entitlements ngay lúc này.
+  // RLS chỉ trả về dòng của chính người dùng.
+  if (!lesson.free && !hasFullAccess(accessFrom(await repo.getEntitlement(user.id), now))) {
+    return errors.forbidden('Bài này cần Premium. Nâng cấp để học tiếp.');
+  }
+  // 6. Việc chính
   const row = await repo.getLesson(user.id, key);
   // 7. Phản hồi
   return ok({ lesson_key: key, completed: row ? { score: row.score, completed_at: row.completed_at } : null });

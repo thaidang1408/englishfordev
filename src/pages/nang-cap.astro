@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+import Checkout from '../components/pay/Checkout';
+import { accessFrom } from '../lib/auth/access';
+import { getLatestOrder, getOwnOrder } from '../lib/db/orders';
+import { getEntitlement } from '../lib/db/queries';
+import { LINK_TTL_HOURS, planSchema, toView, type OrderView } from '../lib/pay/order';
+import { PLANS, REFUND_DAYS } from '../lib/pricing';
+import { daysLeft, formatVnDate } from '../lib/time';
+
+export const prerender = false;
+
+const user = Astro.locals.user;
+if (!user) return Astro.redirect('/dang-nhap?next=/nang-cap', 303);
+const db = Astro.locals.supabase;
+const now = new Date();
+const params = Astro.url.searchParams;
+
+const access = accessFrom(await getEntitlement(db, user.id), now);
+const initialPlan = planSchema.catch('30d').parse(params.get('goi'));
+
+// Quay lại từ trang payOS (?don=...) hoặc tải lại trang: hiện lại đơn đang chờ thay vì tạo đơn mới.
+let initialOrder: OrderView | null = null;
+const wanted = params.get('don');
+const validId = wanted && /^[0-9a-f-]{36}$/i.test(wanted) ? wanted : null;
+const row = validId ? await getOwnOrder(db, user.id, validId) : await getLatestOrder(db, user.id);
+const fresh = row && now.getTime() - Date.parse(row.created_at) < LINK_TTL_HOURS * 3600_000;
+if (row && fresh && (row.status === 'pending' || (row.status === 'paid' && validId === row.id))) initialOrder = toView(row);
+---
+
+<Base title="Nâng cấp | English Personal Coach" description="Chọn gói Premium và thanh toán bằng mã VietQR." app>
+  <div class="wrap read" style="padding-top:var(--s-6);padding-bottom:var(--s-7)">
+    <h1 style="font-size:var(--fs-2xl);line-height:1.2">Nâng cấp Premium</h1>
+    <p class="muted" style="margin-top:var(--s-3)">
+      {access.kind === 'premium' && `Bạn đang có Premium tới hết ngày ${formatVnDate(access.until)}. Mua thêm thì số ngày được cộng nối tiếp.`}
+      {access.kind === 'trial' && `Bạn đang dùng thử, còn ${daysLeft(access.until, now)} ngày. Mua bây giờ thì Premium tính từ hôm nay.`}
+      {access.kind === 'free' && 'Tài khoản của bạn đang ở gói miễn phí. Dữ liệu và sổ lỗi vẫn còn nguyên, nâng cấp là mở lại ngay.'}
+    </p>
+    <noscript><p class="note warn">Trang thanh toán cần bật JavaScript.</p></noscript>
+    <div style="margin-top:var(--s-5)">
+      <Checkout client:load initialPlan={initialPlan} initialOrder={initialOrder} />
+    </div>
+    <ul class="muted" style="margin-top:var(--s-6);padding-left:20px;font-size:var(--fs-sm)">
+      <li>Mua theo kỳ: {PLANS['30d'].days} hoặc {PLANS['90d'].days} ngày, không tự gia hạn, không lưu thẻ.</li>
+      <li>Thanh toán bằng chuyển khoản ngân hàng qua mã VietQR do payOS tạo.</li>
+      <li>Hoàn tiền trong {REFUND_DAYS} ngày đầu, không hỏi lý do: nhắn cho EPC kèm mã đơn.</li>
+      <li>Chuyển sai số tiền hoặc sai nội dung: nhắn cho EPC kèm ảnh giao dịch, EPC xác nhận tay.</li>
+    </ul>
+  </div>
+</Base>

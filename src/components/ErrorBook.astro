@@ -4,6 +4,7 @@ import { CATEGORY_NAMES } from '../lib/ai/schema';
 import type { CorrectionEntry } from '../lib/db/corrections';
 import { flattenErrors, topCategories, totalErrors, weeklyTrend } from '../lib/stats/errors';
 import { formatVnDate } from '../lib/time';
+import { PLANS, formatVnd } from '../lib/pricing';
 
 /**
  * Nội dung sổ lỗi (SPEC mục 2 và 5b). `full` là Premium hoặc dùng thử.
@@ -174,7 +175,7 @@ const TREND = { up: 'tăng', down: 'giảm', same: 'giữ nguyên' } as const;
               <li>Ba nhóm lỗi hay mắc nhất và xu hướng theo tuần</li>
               <li>Sửa câu của bạn 30 lần mỗi ngày</li>
             </ul>
-            <a class="btn btn-primary" href="/bang-gia">Xem bảng giá</a>
+            <a class="btn btn-primary" href="/nang-cap?goi=30d">Nâng cấp 30 ngày, {formatVnd(PLANS['30d'].amount)}</a>
           </div>
         </>
       )}
