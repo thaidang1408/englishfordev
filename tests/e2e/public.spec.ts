@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import lesson from '../../content/lessons/standup-01.json' with { type: 'json' };
 
-const PAGES = ['/', '/bang-gia', `/hoc/${lesson.slug}`, `/mau-cau/${lesson.slug}`];
+const PAGES = ['/', '/bang-gia', '/bug-hom-nay', `/hoc/${lesson.slug}`, `/mau-cau/${lesson.slug}`];
 
 for (const path of PAGES) {
   test(`${path} không cuộn ngang và có đúng một h1`, async ({ page }) => {

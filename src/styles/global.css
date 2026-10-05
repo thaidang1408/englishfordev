@@ -131,6 +131,29 @@
   label.opt:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 2px; }
   fieldset.quiz { min-width: 0; }
 
+  /* Bug của ngày */
+  .bug { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--s-5); margin-top: var(--s-5); }
+  .bug-line { font: 400 var(--fs-lg)/2.2 var(--font-mono); margin: 0; overflow-wrap: anywhere; }
+  .tok {
+    font: inherit; color: var(--text); background: var(--panel-2); border: 1px solid var(--line);
+    border-radius: var(--r-sm); padding: 2px 6px; cursor: pointer; line-height: 1.5;
+  }
+  .tok:hover:not([disabled]) { border-color: var(--accent); }
+  .tok[disabled] { cursor: default; }
+  /* Không chỉ báo bằng màu: chữ đã thử bị gạch, chỗ sai được gạch chân lượn sóng. */
+  .tok.miss { color: var(--muted); text-decoration: line-through; opacity: .7; }
+  .tok.hit { background: var(--del-mark); color: var(--del-text); border-color: var(--del-text); text-decoration: underline wavy; text-underline-offset: 4px; }
+  .bug-status { margin: var(--s-4) 0 0; font-size: var(--fs-sm); min-height: 1.6em; }
+  .bug-answer { margin-top: var(--s-5); }
+  .bug-answer summary { cursor: pointer; font-weight: 600; }
+  .bug-share { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3); margin-top: var(--s-4); }
+  .bug-share[hidden] { display: none; }
+  .bug-share-text { width: 100%; font: 400 var(--fs-sm)/1.5 var(--font-sans); color: var(--text); background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--s-2); }
+  @media (max-width: 520px) {
+    .bug { padding: var(--s-4); }
+    .bug-line { font-size: var(--fs-md); }
+  }
+
   /* ô nhập */
   .field { display: grid; gap: var(--s-1); margin: 0 0 var(--s-5); }
   .field > span { font-weight: 600; font-size: var(--fs-sm); }

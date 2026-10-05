@@ -5,6 +5,22 @@ export type Segment = { text: string; changed: boolean };
  * đoạn `changed` là chỗ được tô trong khung review.
  */
 export function diffWords(before: string, after: string): { before: Segment[]; after: Segment[] } {
+  const { a, b, keepA, keepB } = alignWords(before, after);
+  return { before: toSegments(a, keepA), after: toSegments(b, keepB) };
+}
+
+export type Alignment = {
+  a: string[];
+  b: string[];
+  /** keepA[i]: từ thứ i của câu gốc nằm trong phần giống nhau. */
+  keepA: boolean[];
+  keepB: boolean[];
+  /** Các cặp (i, j) từ giống nhau, theo thứ tự. */
+  pairs: [number, number][];
+};
+
+/** Ghép từ của hai câu theo chuỗi con chung dài nhất (LCS). */
+export function alignWords(before: string, after: string): Alignment {
   const a = before.split(/\s+/).filter(Boolean);
   const b = after.split(/\s+/).filter(Boolean);
 
@@ -20,10 +36,12 @@ export function diffWords(before: string, after: string): { before: Segment[]; a
 
   const keepA = new Array<boolean>(a.length).fill(false);
   const keepB = new Array<boolean>(b.length).fill(false);
+  const pairs: [number, number][] = [];
   let i = 0;
   let j = 0;
   while (i < a.length && j < b.length) {
     if (a[i] === b[j]) {
+      pairs.push([i, j]);
       keepA[i++] = true;
       keepB[j++] = true;
     } else if (at(i + 1, j) >= at(i, j + 1)) {
@@ -33,7 +51,7 @@ export function diffWords(before: string, after: string): { before: Segment[]; a
     }
   }
 
-  return { before: toSegments(a, keepA), after: toSegments(b, keepB) };
+  return { a, b, keepA, keepB, pairs };
 }
 
 function toSegments(words: string[], keep: boolean[]): Segment[] {

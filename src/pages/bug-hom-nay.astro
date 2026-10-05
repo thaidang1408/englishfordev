@@ -1,0 +1,183 @@
+---
+import Base from '../layouts/Base.astro';
+import ReviewDiff from '../components/ReviewDiff.astro';
+import { bugForDate, MAX_TRIES } from '../lib/bug/daily';
+import { lessons } from '../lib/content/lessons';
+import { formatVnDate, vnDateKey } from '../lib/time';
+
+// Mỗi ngày một câu theo giờ Việt Nam nên render theo request, không build sẵn.
+export const prerender = false;
+
+const now = new Date();
+const bug = bugForDate(lessons, vnDateKey(now));
+const pageUrl = new URL('/bug-hom-nay', Astro.site).href;
+// Bài miễn phí có trang học; bài khác dẫn sang trang mẫu câu, từ đó vào bài học.
+const lessonHref = bug ? (bug.lesson.free ? `/hoc/${bug.lesson.slug}` : `/mau-cau/${bug.lesson.slug}`) : '/';
+---
+
+<Base
+  title="Bug của ngày: tìm lỗi trong câu tiếng Anh | EPC"
+  description="Mỗi ngày một câu tiếng Anh dev hay viết sai. Bấm vào chỗ sai, 3 lần thử, xem giải thích bằng tiếng Việt."
+>
+  <div class="wrap read" style="padding-top:var(--s-6);padding-bottom:var(--s-7)">
+    <p class="muted" style="font-size:var(--fs-sm);margin-bottom:var(--s-1)">{formatVnDate(now)}</p>
+    <h1 style="font-size:var(--fs-2xl);line-height:1.2">Bug của ngày</h1>
+    {
+      !bug ? (
+        <p class="muted" style="margin-top:var(--s-3)">Hôm nay chưa có câu nào. Quay lại vào ngày mai.</p>
+      ) : (
+        <>
+          <p class="muted" style="margin-top:var(--s-3)">
+            Câu dưới đây có một chỗ sai mà dev người Việt hay mắc. Bấm vào chữ bạn nghĩ là sai. Bạn có {MAX_TRIES} lần thử.
+          </p>
+
+          <div
+            class="bug"
+            id="bug"
+            data-date={bug.date}
+            data-targets={JSON.stringify(bug.targets)}
+            data-url={pageUrl}
+          >
+            <p class="bug-line" lang="en">
+              {bug.words.map((w, i) => (
+                <>
+                  <button type="button" class="tok" data-i={i} disabled>
+                    {w}
+                  </button>{' '}
+                </>
+              ))}
+            </p>
+            <p class="bug-status" id="bug-status" aria-live="polite">
+              <noscript>Cần bật JavaScript để chơi. Bạn vẫn xem được đáp án bên dưới.</noscript>
+            </p>
+          </div>
+
+          <details class="bug-answer" id="bug-answer">
+            <summary>Xem đáp án</summary>
+            <div style="margin-top:var(--s-3)">
+              <ReviewDiff before={bug.wrong} after={bug.right} headLeft="Đáp án">
+                <p>{bug.why_vi}</p>
+              </ReviewDiff>
+            </div>
+          </details>
+
+          <div class="bug-share" id="bug-share" hidden>
+            <button type="button" class="btn btn-quiet" id="bug-copy">
+              Chép kết quả
+            </button>
+            <span class="muted" style="font-size:var(--fs-sm)">Chỉ có kết quả, không lộ đáp án.</span>
+          </div>
+
+          <section class="part" aria-labelledby="mau-cau">
+            <h2 id="mau-cau">Mẫu câu: {bug.lesson.title}</h2>
+            <p class="muted">Lỗi này nằm trong bài học về mẫu câu trên: công thức, ví dụ và 5 câu luyện tập.</p>
+            <a class="btn btn-primary" href={lessonHref}>
+              Học bài này
+            </a>
+          </section>
+        </>
+      )
+    }
+  </div>
+</Base>
+
+<script>
+  import { MAX_TRIES, shareText } from '../lib/bug/share';
+
+  type State = { tries: number[]; found: boolean };
+
+  const root = document.getElementById('bug');
+  const status = document.getElementById('bug-status');
+  const answer = document.getElementById('bug-answer');
+  const share = document.getElementById('bug-share');
+  const copy = document.getElementById('bug-copy');
+
+  if (root && status && answer instanceof HTMLDetailsElement && share && copy) {
+    const date = root.dataset.date ?? '';
+    const url = root.dataset.url ?? location.href;
+    const parsed: unknown = JSON.parse(root.dataset.targets ?? '[]');
+    const targets = new Set(Array.isArray(parsed) ? parsed.filter((n): n is number => typeof n === 'number') : []);
+    const buttons = [...root.querySelectorAll<HTMLButtonElement>('button.tok')];
+    const key = `epc:bug:${date}`;
+
+    // Nhớ kết quả trong ngày trên trình duyệt này, để tải lại trang không được thử lại.
+    const load = (): State => {
+      try {
+        const v: unknown = JSON.parse(localStorage.getItem(key) ?? 'null');
+        if (v && typeof v === 'object' && 'tries' in v && 'found' in v && Array.isArray(v.tries) && typeof v.found === 'boolean') {
+          return { tries: v.tries.filter((n): n is number => typeof n === 'number'), found: v.found };
+        }
+      } catch {
+        // Dữ liệu hỏng hoặc bị chặn: chơi lại từ đầu.
+      }
+      return { tries: [], found: false };
+    };
+    const save = (s: State) => {
+      try {
+        localStorage.setItem(key, JSON.stringify(s));
+      } catch {
+        // Không lưu được thì thôi, trang vẫn chơi được.
+      }
+    };
+
+    let state = load();
+    const done = () => state.found || state.tries.length >= MAX_TRIES;
+
+    const render = () => {
+      const finished = done();
+      for (const b of buttons) {
+        const i = Number(b.dataset.i);
+        const tried = state.tries.includes(i);
+        b.disabled = finished || tried;
+        b.classList.toggle('miss', tried && !targets.has(i));
+        b.classList.toggle('hit', finished && targets.has(i));
+        b.setAttribute('aria-label', tried && !targets.has(i) ? `${b.textContent ?? ''}, không phải chỗ sai` : finished && targets.has(i) ? `${b.textContent ?? ''}, chỗ sai` : (b.textContent ?? ''));
+      }
+      const left = MAX_TRIES - state.tries.length;
+      if (state.found) {
+        status.textContent = `Đúng, chỗ sai ở đây. Bạn tìm ra ở lần thử thứ ${state.tries.length}.`;
+      } else if (finished) {
+        status.textContent = `Hết ${MAX_TRIES} lần thử. Chỗ sai đã được tô, xem giải thích bên dưới.`;
+      } else if (state.tries.length > 0) {
+        status.textContent = `Chưa phải chỗ này. Còn ${left} lần thử.`;
+      } else {
+        status.textContent = `Còn ${left} lần thử.`;
+      }
+      answer.hidden = !finished;
+      answer.open = finished;
+      share.hidden = !finished;
+    };
+
+    root.addEventListener('click', (e) => {
+      const b = e.target instanceof Element ? e.target.closest<HTMLButtonElement>('button.tok') : null;
+      if (!b || done()) return;
+      const i = Number(b.dataset.i);
+      if (state.tries.includes(i)) return;
+      state = { tries: [...state.tries, i], found: targets.has(i) };
+      save(state);
+      render();
+      if (done()) answer.scrollIntoView({ block: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    });
+
+    copy.addEventListener('click', async () => {
+      const text = shareText(date, state.found ? state.tries.length : null, url);
+      let copied = false;
+      try {
+        await navigator.clipboard.writeText(text);
+        copied = true;
+      } catch {
+        // Trình duyệt không cho dùng clipboard: chọn sẵn văn bản để người dùng tự chép.
+        const area = document.createElement('textarea');
+        area.value = text;
+        area.className = 'bug-share-text';
+        area.rows = 3;
+        area.readOnly = true;
+        copy.after(area);
+        area.select();
+      }
+      copy.textContent = copied ? 'Đã chép' : 'Chọn và chép đoạn bên cạnh';
+    });
+
+    render();
+  }
+</script>

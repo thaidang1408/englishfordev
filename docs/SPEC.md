@@ -59,6 +59,7 @@ Công khai, render sẵn HTML:
 | `/hoc/[slug]` | Trình học bài. 3 bài miễn phí mở cho mọi người, bài khác cần Premium |
 | `/mau-cau/[slug]` | Trang mẫu câu sinh từ mỗi bài: công thức, ví dụ, lỗi hay gặp, nút sang bài học. Dùng cho SEO |
 | `/bang-gia` | Bảng ở mục 2 và hai gói giá |
+| `/bug-hom-nay` | Bug của ngày, mục 4c. Không cần đăng nhập |
 | `/dieu-khoan`, `/bao-mat` | Điều khoản, hoàn tiền, dữ liệu thu thập |
 
 Cần đăng nhập:
@@ -108,6 +109,17 @@ Theo skill `design-system` và `reference/styleguide.html`. Ba thứ thuộc ph�
 - Giao diện sáng và tối, theo hệ thống, có nút đổi, không nháy màu khi tải.
 - Phím tắt trong trắc nghiệm (`1` `2` `3`, `Enter`) và ô sửa câu (`Ctrl` hoặc `Cmd` + `Enter`).
 - Lịch luyện tập 16 tuần ở `/hom-nay`, tính từ `lesson_progress`, `corrections` và các phiên ôn. Kèm ba con số: bài đã xong, câu đã được sửa, lỗi còn lặp lại.
+
+## 4c. Bug của ngày
+
+Thêm ngày 05/10/2026 theo quyết định của chủ dự án, làm trong M3 (không chờ điều kiện bên dưới).
+
+- Trang công khai `/bug-hom-nay`, mỗi ngày một câu có lỗi, lấy từ `mistakes[]` của các bài.
+- Bấm vào chỗ sai, tối đa 3 lần thử, rồi hiện khung diff và `why_vi`.
+- Nút chép kết quả dạng văn bản để chia sẻ. Không cần đăng nhập.
+- Cuối trang: nút sang bài học của mẫu câu đó.
+- Chỉ làm khi: thiếu người mới, hoặc tỷ lệ quay lại ngày 7 dưới 15%.
+- Không làm: điểm số, bảng xếp hạng, nhiều game khác nhau.
 
 ## 5. Ôn tập
 
@@ -284,7 +296,7 @@ Mỗi milestone kết thúc bằng: check, test, build đều qua; mô tả các
 | M0 | Khởi tạo Astro + React + Tailwind + adapter Cloudflare. Trang "hello". `docs/SETUP.md` hướng dẫn deploy | Chủ dự án mở được link trên Cloudflare |
 | M1 | Schema nội dung + zod. Trang chủ port từ `reference/landing.html`. Trình học bài phần 1 đến 4 cho 3 bài mẫu, lưu `localStorage`. Trang `/mau-cau/[slug]`, `/bang-gia` | Học hết bài 1 trên điện thoại không cần đăng nhập, dùng được phím tắt trên máy tính. Tắt JS vẫn đọc được mẫu câu và ví dụ. Giao diện sáng và tối qua `design-review`. Lighthouse mobile từ 90 ở cả bốn mục cho `/` |
 | M2 | Supabase: migration, RLS, đăng nhập Google và GitHub. Chuyển tiến độ lên tài khoản. Test xếp trình độ. Trang `/hom-nay` có lịch luyện tập, `/tai-khoan` | Hai tài khoản thử không đọc được dữ liệu của nhau (có test RLS). Đăng nhập xong thấy tiến độ đã học lúc là khách |
-| M3 | Ôn tập Leitner cho mục `quiz`. Trang `/on-tap` | Câu trả lời sai hôm nay xuất hiện trong phiên ôn khi chỉnh `due_at` về quá khứ. Có test cho luật lên mức, về mức 1 |
+| M3 | Ôn tập Leitner cho mục `quiz`. Trang `/on-tap`. Trang `/bug-hom-nay` (mục 4c) | Câu trả lời sai hôm nay xuất hiện trong phiên ôn khi chỉnh `due_at` về quá khứ. Có test cho luật lên mức, về mức 1 |
 | M4 | `/api/correct` với hai mode, giao diện diff kết quả, các mức chặn, mục ôn `own_error`, trang `/so-loi` có phân tích lỗi, trang `/phong-van-thu` | Tài khoản hết dùng thử bị chặn ở lần sửa thứ 2 trong 7 ngày. Tài khoản dùng thử bị chặn ở lần thứ 11 trong ngày. Kết quả sai schema không làm hỏng trang và không trừ lượt. Có test cho từng mức chặn với AI giả lập |
 | M5 | Khóa bài và tính năng Premium ở server. Bốn điểm mời nâng cấp dùng số liệu thật của người dùng. `/nang-cap`, tạo đơn, mã VietQR. `/admin` xác nhận và hoàn tiền | Đặt `trial_until` về quá khứ thì tài khoản mất quyền Premium ngay nhưng dữ liệu còn nguyên. Gọi thẳng API bài bị khóa trả 403. Xác nhận đơn xong tài khoản mở khóa ngay |
 | M6 | Bot Telegram, liên kết, worker cron, tin nhắc, báo cáo tuần, đếm ngược phỏng vấn | Đặt giờ standup sau hiện tại 40 phút thì nhận đúng một tin. Gọi tay hàm báo cáo tuần thì tài khoản Premium có câu đã sửa nhận đúng một tin. `/stop` hoạt động |
