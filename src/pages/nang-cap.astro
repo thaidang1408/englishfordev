@@ -7,6 +7,7 @@ import { getEntitlement } from '../lib/db/queries';
 import { LINK_TTL_HOURS, planSchema, toView, type OrderView } from '../lib/pay/order';
 import { PLANS, REFUND_DAYS } from '../lib/pricing';
 import { daysLeft, formatVnDate } from '../lib/time';
+import { serverEnv } from '../lib/env-server';
 
 export const prerender = false;
 
@@ -16,6 +17,7 @@ const db = Astro.locals.supabase;
 const now = new Date();
 const params = Astro.url.searchParams;
 
+const bot = serverEnv().TELEGRAM_BOT_USERNAME;
 const access = accessFrom(await getEntitlement(db, user.id), now);
 const initialPlan = planSchema.catch('30d').parse(params.get('goi'));
 
@@ -43,8 +45,8 @@ if (row && fresh && (row.status === 'pending' || (row.status === 'paid' && valid
     <ul class="muted" style="margin-top:var(--s-6);padding-left:20px;font-size:var(--fs-sm)">
       <li>Mua theo kỳ: {PLANS['30d'].days} hoặc {PLANS['90d'].days} ngày, không tự gia hạn, không lưu thẻ.</li>
       <li>Thanh toán bằng chuyển khoản ngân hàng qua mã VietQR do payOS tạo.</li>
-      <li>Hoàn tiền trong {REFUND_DAYS} ngày đầu, không hỏi lý do: nhắn cho EPC kèm mã đơn.</li>
-      <li>Chuyển sai số tiền hoặc sai nội dung: nhắn cho EPC kèm ảnh giao dịch, EPC xác nhận tay.</li>
+      <li>Hoàn tiền trong {REFUND_DAYS} ngày đầu, không hỏi lý do: {bot ? <>nhắn cho bot Telegram <a href={`https://t.me/${bot}`} rel="noopener">@{bot}</a></> : 'nhắn cho EPC'} kèm mã đơn.</li>
+      <li>Chuyển sai số tiền hoặc sai nội dung: {bot ? <>nhắn cho bot Telegram <a href={`https://t.me/${bot}`} rel="noopener">@{bot}</a></> : 'nhắn cho EPC'} kèm ảnh giao dịch, EPC xác nhận tay.</li>
     </ul>
   </div>
 </Base>

@@ -68,6 +68,20 @@ test.describe('khi chưa đăng nhập', () => {
     expect([401, 500, 503]).toContain(hook.status());
   });
 
+  test('webhook Telegram và cron từ chối request thiếu hoặc sai secret', async ({ request }) => {
+    const update = { update_id: 1, message: { message_id: 1, chat: { id: 1, type: 'private' }, text: '/start abc' } };
+    expect((await request.post('/api/telegram/webhook', { data: update })).status()).toBe(401);
+    expect(
+      (await request.post('/api/telegram/webhook', { data: update, headers: { 'X-Telegram-Bot-Api-Secret-Token': 'sai' } })).status(),
+    ).toBe(401);
+    // Gửi như worker cron: JSON, không có Origin.
+    expect((await request.post('/api/cron/tick', { data: {} })).status()).toBe(401);
+    expect((await request.post('/api/cron/tick', { data: {}, headers: { Authorization: 'Bearer sai' } })).status()).toBe(401);
+    // Không có Content-Type thì Astro chặn trước (403): worker cron phải gửi JSON.
+    expect((await request.post('/api/cron/tick')).status()).toBe(403);
+    expect((await request.get('/api/cron/tick')).status()).toBe(405);
+  });
+
   test('POST /api/progress từ trang khác bị chặn', async ({ request }) => {
     const res = await request.post('/api/progress', { headers: { Origin: 'https://evil.example' }, data: { progress: {} } });
     expect(res.status()).toBe(403);

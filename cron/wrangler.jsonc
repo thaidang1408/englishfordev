@@ -1,0 +1,16 @@
+{
+	"$schema": "../node_modules/wrangler/config-schema.json",
+	// Worker cron riêng (SPEC mục 9). Deploy: npx wrangler deploy --config cron/wrangler.jsonc
+	"name": "epc-cron",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-10-01",
+	"workers_dev": false,
+	"triggers": {
+		"crons": ["*/15 * * * *"]
+	},
+	// Gọi app qua service binding, không qua Internet.
+	"services": [{ "binding": "APP", "service": "epc-app" }],
+	"observability": {
+		"enabled": true
+	}
+}

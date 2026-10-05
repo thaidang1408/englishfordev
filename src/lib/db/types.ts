@@ -26,10 +26,16 @@ export type ProfileRow = {
   telegram_chat_id: number | null;
   telegram_link_token: string | null;
   created_at: string;
+  reminded_on: string | null;
+  reported_on: string | null;
 };
 export type ProfileUpdate = Partial<
   Pick<ProfileRow, 'display_name' | 'level' | 'weak_area' | 'track' | 'standup_time' | 'interview_date'>
 >;
+
+/** Cột chỉ server ghi (service role): liên kết Telegram, ngày đã nhắc, ngày đã báo cáo. */
+export type ServerProfileUpdate = ProfileUpdate &
+  Partial<Pick<ProfileRow, 'telegram_chat_id' | 'telegram_link_token' | 'reminded_on' | 'reported_on'>>;
 
 export type EntitlementRow = { user_id: string; premium_until: string | null; trial_until: string | null };
 
@@ -83,7 +89,7 @@ type OrderUpdate = Partial<Pick<OrderRow, 'checkout_url' | 'qr_code' | 'status'>
 export type Database = {
   public: {
     Tables: {
-      profiles: Table<ProfileRow, never, ProfileUpdate>;
+      profiles: Table<ProfileRow, never, ServerProfileUpdate>;
       entitlements: Table<EntitlementRow, never, never>;
       lesson_progress: Table<LessonProgressRow, Omit<LessonProgressRow, 'completed_at'> & { completed_at?: string }>;
       review_items: Table<ReviewItemRow, ReviewItemInsert, Partial<Pick<ReviewItemRow, 'box' | 'due_at'>>>;

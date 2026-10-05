@@ -237,7 +237,8 @@ Supabase Postgres. Bật RLS trên mọi bảng. Người dùng chỉ đọc đ�
 ```sql
 profiles      (id uuid pk → auth.users, display_name text, level text, weak_area text,
                track text default 'standup', standup_time time default '09:00', interview_date date,
-               telegram_chat_id bigint, telegram_link_token text unique, created_at timestamptz)
+               telegram_chat_id bigint, telegram_link_token text unique, created_at timestamptz,
+               reminded_on date, reported_on date)  -- ngày đã gửi tin nhắc, Chủ nhật đã gửi báo cáo tuần (thêm 05/10/2026)
 entitlements  (user_id uuid pk → auth.users, premium_until timestamptz,
                trial_until timestamptz)         -- đặt bằng now() + 7 ngày khi tạo tài khoản
 lesson_progress (user_id uuid, lesson_key text, score int, completed_at timestamptz,

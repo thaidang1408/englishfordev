@@ -32,6 +32,10 @@ export default defineConfig({
       PAYOS_CLIENT_ID: envField.string({ context: 'server', access: 'secret', optional: true }),
       PAYOS_API_KEY: envField.string({ context: 'server', access: 'secret', optional: true }),
       PAYOS_CHECKSUM_KEY: envField.string({ context: 'server', access: 'secret', optional: true }),
+      TELEGRAM_BOT_TOKEN: envField.string({ context: 'server', access: 'secret', optional: true }),
+      TELEGRAM_BOT_USERNAME: envField.string({ context: 'server', access: 'secret', optional: true }),
+      TELEGRAM_WEBHOOK_SECRET: envField.string({ context: 'server', access: 'secret', optional: true }),
+      CRON_SECRET: envField.string({ context: 'server', access: 'secret', optional: true }),
     },
   },
 

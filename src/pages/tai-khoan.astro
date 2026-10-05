@@ -6,6 +6,8 @@ import { getEntitlement, getProfile, updateProfile } from '../lib/db/queries';
 import { publicEnv } from '../lib/env';
 import { sameOrigin } from '../lib/http/response';
 import { daysLeft, formatVnDate } from '../lib/time';
+import { serverEnv } from '../lib/env-server';
+import { startLink } from '../lib/telegram/bot';
 
 export const prerender = false;
 
@@ -29,6 +31,10 @@ const [profile, ent] = await Promise.all([getProfile(db, user.id), getEntitlemen
 const access = accessFrom(ent, now);
 const saved = Astro.url.searchParams.has('da-luu');
 const standup = profile?.standup_time.slice(0, 5) ?? '09:00';
+const bot = serverEnv().TELEGRAM_BOT_USERNAME;
+const linked = profile?.telegram_chat_id != null;
+// Mã liên kết là bí mật của riêng tài khoản này; trang không cache (middleware đặt no-store).
+const telegramHref = bot && profile?.telegram_link_token ? startLink(bot, profile.telegram_link_token) : null;
 ---
 
 <Base title="Tài khoản | English Personal Coach" description="Giờ standup, ngày phỏng vấn, gói đang dùng." app>
@@ -86,7 +92,29 @@ const standup = profile?.standup_time.slice(0, 5) ?? '09:00';
 
     <section class="part" aria-labelledby="telegram">
       <h2 id="telegram">Nhắc qua Telegram</h2>
-      <p class="muted">Liên kết Telegram sẽ có ở bản cập nhật tới.</p>
+      {
+        linked ? (
+          <>
+            <p class="note ok" style="margin-top:var(--s-3)">
+              Đã liên kết. Từ thứ Hai đến thứ Sáu, bot nhắc bạn trước {standup} từ 30 đến 45 phút, nếu hôm đó bạn chưa học bài.
+              {access.kind !== 'free' && ' Tối Chủ nhật 20:00 bạn nhận báo cáo tuần.'}
+            </p>
+            <p class="muted" style="font-size:var(--fs-sm)">Muốn tắt, gõ /stop trong chat với bot.</p>
+          </>
+        ) : telegramHref ? (
+          <>
+            <p>Bot nhắc bạn học trước giờ standup, mỗi ngày tối đa một tin. Premium có thêm báo cáo tuần.</p>
+            <a class="btn btn-quiet" href={telegramHref} rel="noopener">
+              Liên kết Telegram
+            </a>
+            <p class="muted" style="font-size:var(--fs-sm);margin-top:var(--s-3)">
+              Telegram mở chat với bot, bạn bấm Start. Xong thì tải lại trang này.
+            </p>
+          </>
+        ) : (
+          <p class="muted">Nhắc qua Telegram đang tạm tắt.</p>
+        )
+      }
     </section>
 
     <section class="part" aria-labelledby="dang-xuat">

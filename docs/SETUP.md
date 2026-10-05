@@ -165,6 +165,60 @@ payOS không có môi trường thử riêng. Cách thử an toàn: mua gói 30 
 
 Trong Supabase → **SQL Editor**, câu SQL "Cho tài khoản hết dùng thử ngay" ở mục M4. Tải lại `/hom-nay`: bài Premium hiện khóa, sổ lỗi chỉ hiện 3 lỗi gần nhất, dữ liệu vẫn còn.
 
+## M6: Bot Telegram, nhắc học, báo cáo tuần
+
+Cần chạy `npm run setup:ai` trước. Sau đó, trong thư mục `epc-app`:
+
+```bash
+npm run setup:bot
+```
+
+Bạn tự làm một việc trong Telegram, khoảng 2 phút:
+
+1. Tìm **@BotFather** (có dấu tích xanh), bấm Start.
+2. Gõ `/newbot`. Đặt tên hiển thị, ví dụ `English Personal Coach`.
+3. Đặt username kết thúc bằng `bot`, ví dụ `epc_coach_bot`.
+4. Chép token BotFather gửi, dán vào lệnh.
+
+Lệnh tự làm phần còn lại:
+
+- Kiểm token với Telegram và lấy username của bot.
+- Tạo ngẫu nhiên `TELEGRAM_WEBHOOK_SECRET` và `CRON_SECRET`.
+- Áp dụng migration `20261005170000_telegram.sql` (cột ngày đã nhắc, ngày đã báo cáo).
+- Đặt 4 secret cho app: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_BOT_USERNAME`, `TELEGRAM_WEBHOOK_SECRET`, `CRON_SECRET`.
+- Deploy app.
+- Deploy worker cron `epc-cron` (thư mục `cron/`, chạy mỗi 15 phút), đặt `CRON_SECRET` cho worker đó.
+- Đăng ký webhook `https://<site>/api/telegram/webhook` với Telegram.
+
+Việc cuối cùng: mở `/tai-khoan`, bấm **Liên kết Telegram**, bấm Start trong Telegram. Bạn là admin (`ADMIN_EMAILS`), nên tin nhắn liên hệ người dùng gửi cho bot sẽ được chuyển tới chat này.
+
+### Bot làm gì
+
+- **Nhắc học:** thứ Hai đến thứ Sáu, trước giờ standup 30 đến 45 phút, nếu hôm đó người dùng chưa học bài. Mỗi người tối đa một tin mỗi ngày.
+- **Báo cáo tuần:** Chủ nhật 20:00 cho Premium và người đang dùng thử, nếu tuần đó có câu được sửa.
+- **Liên hệ:** người dùng nhắn bất kỳ tin thường nào cho bot (ví dụ chuyển sai nội dung, xin hoàn tiền), bot chuyển nguyên tin tới chat của admin. Bạn trả lời người đó trực tiếp trong Telegram, qua username hiện ở tin chuyển tới.
+- `/stop`: người dùng gỡ liên kết, tắt nhắc.
+- Mỗi lần cron chạy còn có một truy vấn nhẹ vào Supabase, đủ để project gói Free không bị tạm dừng.
+
+### Thử bằng tay
+
+**Nhắc học:** ở `/tai-khoan`, đặt giờ standup sau giờ hiện tại khoảng 40 phút (vào ngày thường), lưu. Trong vòng 15 phút bạn nhận đúng một tin. Muốn thử lại cùng ngày, xóa dấu đã nhắc trong Supabase → **SQL Editor**:
+
+```sql
+update public.profiles set reminded_on = null
+where id = (select id from auth.users where email = 'ban@example.com');
+```
+
+**Báo cáo tuần (gọi tay):** lấy `CRON_SECRET` trong file `.dev.vars`, rồi chạy (thay giá trị):
+
+```bash
+curl -X POST "https://<site>/api/cron/tick?task=report" -H "Authorization: Bearer <CRON_SECRET>" -H "Content-Type: application/json" -d "{}"
+```
+
+Tài khoản Premium hoặc đang dùng thử, đã liên kết Telegram, có câu được sửa trong 7 ngày qua, nhận đúng một tin. Gọi lại trong cùng ngày không gửi thêm. Muốn thử lại thì đặt `reported_on = null` như câu SQL ở trên.
+
+**Xem worker cron chạy:** Cloudflare dashboard → Workers → `epc-cron` → Logs, hoặc `npx wrangler tail epc-cron`.
+
 ### Xóa tài khoản khi người dùng yêu cầu
 
 Supabase → **Authentication → Users**, tìm theo email, bấm **Delete user**. Mọi dòng dữ liệu của người đó bị xóa theo (khóa ngoại `on delete cascade`). Riêng bảng `events` giữ lại sự kiện nhưng bỏ liên kết với người dùng.

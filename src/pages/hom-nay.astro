@@ -5,6 +5,7 @@ import CorrectBox from '../components/correct/CorrectBox';
 import UpgradeCard from '../components/UpgradeCard.astro';
 import { getErrorStats } from '../lib/db/corrections';
 import { showTodayCard } from '../lib/pay/upsell';
+import { daysUntil } from '../lib/notify/schedule';
 import { accessFrom, hasFullAccess } from '../lib/auth/access';
 import { lessons } from '../lib/content/lessons';
 import { lessonKey } from '../lib/content/schema';
@@ -44,6 +45,8 @@ const [progress, due, repeating, correctionCount, correctionTimes] = await Promi
 ]);
 
 const done = new Map(progress.map((p) => [p.lesson_key, p]));
+// Đếm ngược phỏng vấn (SPEC mục 5b): có ngày phỏng vấn chưa qua thì hiện và gợi ý track Phỏng vấn.
+const interviewIn = profile.interview_date ? daysUntil(profile.interview_date, now) : null;
 const today = lessonOfTheDay(lessons, profile.track, new Set(done.keys()), now);
 const cells = buildHeatmap([...progress.map((p) => new Date(p.completed_at)), ...correctionTimes], now, WEEKS);
 
@@ -72,6 +75,25 @@ const upsell = showTodayCard(access, now) ? await getErrorStats(db, user.id) : n
     <h1 style="font-size:var(--fs-2xl);line-height:1.2">
       {profile.display_name ? `Chào ${profile.display_name}` : 'Hôm nay'}
     </h1>
+
+    {
+      interviewIn !== null && (
+        <div class="countdown" role="status">
+          <p>
+            <b>{interviewIn === 0 ? 'Hôm nay là buổi phỏng vấn.' : `Còn ${interviewIn} ngày tới buổi phỏng vấn.`}</b>{' '}
+            {/* Track Phỏng vấn chỉ mở cho Premium và dùng thử, nên chỉ gợi ý khi chọn được. */}
+            {hasFullAccess(access) &&
+              (profile.track !== 'interview' ? (
+                <>
+                  Gợi ý: học track Phỏng vấn trong những ngày này. <a href="/xep-trinh-do">Đổi track</a>
+                </>
+              ) : (
+                <a href="/phong-van-thu">Phỏng vấn thử 5 câu</a>
+              ))}
+          </p>
+        </div>
+      )
+    }
 
     <section class="part" aria-labelledby="bai-hom-nay">
       <h2 id="bai-hom-nay">Bài hôm nay</h2>

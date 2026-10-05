@@ -8,6 +8,10 @@ import {
   PAYOS_CHECKSUM_KEY,
   PAYOS_CLIENT_ID,
   SUPABASE_SERVICE_ROLE_KEY,
+  TELEGRAM_BOT_TOKEN,
+  TELEGRAM_BOT_USERNAME,
+  TELEGRAM_WEBHOOK_SECRET,
+  CRON_SECRET,
 } from 'astro:env/server';
 import { DEFAULT_DAILY_CAP } from './correct/quota';
 import type { PayosConfig } from './pay/payos';
@@ -30,6 +34,11 @@ const serverEnvSchema = z.object({
   PAYOS_CLIENT_ID: z.string().min(8).optional(),
   PAYOS_API_KEY: z.string().min(8).optional(),
   PAYOS_CHECKSUM_KEY: z.string().min(16).optional(),
+  TELEGRAM_BOT_TOKEN: z.string().regex(/^\d+:[A-Za-z0-9_-]{30,}$/).optional(),
+  TELEGRAM_BOT_USERNAME: z.string().regex(/^[A-Za-z0-9_]{5,32}$/).optional(),
+  // Secret token của webhook Telegram: chỉ A-Z, a-z, 0-9, _ và -.
+  TELEGRAM_WEBHOOK_SECRET: z.string().regex(/^[A-Za-z0-9_-]{16,256}$/).optional(),
+  CRON_SECRET: z.string().min(16).optional(),
 });
 
 export type ServerEnv = z.infer<typeof serverEnvSchema>;
@@ -51,6 +60,10 @@ export function serverEnv(): ServerEnv {
     PAYOS_CLIENT_ID: blank(PAYOS_CLIENT_ID),
     PAYOS_API_KEY: blank(PAYOS_API_KEY),
     PAYOS_CHECKSUM_KEY: blank(PAYOS_CHECKSUM_KEY),
+    TELEGRAM_BOT_TOKEN: blank(TELEGRAM_BOT_TOKEN),
+    TELEGRAM_BOT_USERNAME: blank(TELEGRAM_BOT_USERNAME),
+    TELEGRAM_WEBHOOK_SECRET: blank(TELEGRAM_WEBHOOK_SECRET),
+    CRON_SECRET: blank(CRON_SECRET),
   });
   if (!result.success) {
     const names = [...new Set(result.error.issues.map((i) => String(i.path[0])))].join(', ');

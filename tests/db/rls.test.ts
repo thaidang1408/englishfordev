@@ -128,8 +128,8 @@ describe('quyền chỉ server được ghi', () => {
     }
   });
 
-  it('người dùng không tự đặt được chat Telegram hay token liên kết', async () => {
-    for (const col of ['telegram_chat_id = 123', `telegram_link_token = 'x'`]) {
+  it('người dùng không tự đặt được chat Telegram, token liên kết, hay ngày đã nhắc', async () => {
+    for (const col of ['telegram_chat_id = 123', `telegram_link_token = 'x'`, `reminded_on = '2030-01-01'`, `reported_on = '2030-01-01'`]) {
       await expect(
         as(db, 'authenticated', A, () => db.query(`update public.profiles set ${col} where id = $1`, [A])),
       ).rejects.toThrow(/permission denied/);
@@ -208,5 +208,13 @@ describe('việc người dùng được tự làm', () => {
   it('khách chưa đăng nhập ghi được sự kiện không gắn người dùng', async () => {
     await as(db, 'anon', null, () => db.query(`insert into public.events (anon_id, name) values ('k1', 'page_view')`));
     expect(await count('events')).toBe(2);
+  });
+});
+
+describe('Telegram', () => {
+  it('một chat Telegram chỉ gắn với một tài khoản', async () => {
+    await db.query('update public.profiles set telegram_chat_id = 777 where id = $1', [A]);
+    await expect(db.query('update public.profiles set telegram_chat_id = 777 where id = $1', [B])).rejects.toThrow(/unique|duplicate/);
+    await db.query('update public.profiles set telegram_chat_id = null where id = $1', [A]);
   });
 });

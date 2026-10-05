@@ -17,7 +17,8 @@
     "deploy": "astro build && wrangler deploy",
     "setup": "node scripts/setup.mjs",
     "setup:ai": "node scripts/setup-ai.mjs",
-    "setup:pay": "node scripts/setup-pay.mjs"
+    "setup:pay": "node scripts/setup-pay.mjs",
+    "setup:bot": "node scripts/setup-bot.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.131.0",
