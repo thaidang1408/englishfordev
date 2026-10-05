@@ -1,0 +1,159 @@
+---
+import Base from '../layouts/Base.astro';
+import Heatmap from '../components/Heatmap.astro';
+import { accessFrom, hasFullAccess } from '../lib/auth/access';
+import { lessons } from '../lib/content/lessons';
+import { lessonKey } from '../lib/content/schema';
+import { TRACK_NAMES, TRACK_OUTLINE } from '../lib/content/tracks';
+import {
+  countCorrections,
+  countDueReviews,
+  countRepeatingErrors,
+  getCorrectionTimes,
+  getEntitlement,
+  getLessonProgress,
+  getProfile,
+} from '../lib/db/queries';
+import { lessonOfTheDay } from '../lib/lesson/today';
+import { buildHeatmap } from '../lib/stats/heatmap';
+import { addDaysTo, formatVnDate } from '../lib/time';
+
+export const prerender = false;
+
+const WEEKS = 16;
+const user = Astro.locals.user;
+if (!user) return Astro.redirect('/dang-nhap?next=/hom-nay', 303);
+const db = Astro.locals.supabase;
+const now = new Date();
+
+const profile = await getProfile(db, user.id);
+if (!profile?.level) return Astro.redirect('/xep-trinh-do', 303);
+
+const [ent, progress, due, repeating, correctionCount, correctionTimes] = await Promise.all([
+  getEntitlement(db, user.id),
+  getLessonProgress(db, user.id),
+  countDueReviews(db, user.id, now),
+  countRepeatingErrors(db, user.id),
+  countCorrections(db, user.id),
+  getCorrectionTimes(db, user.id, addDaysTo(now, -WEEKS * 7)),
+]);
+
+const access = accessFrom(ent, now);
+const done = new Map(progress.map((p) => [p.lesson_key, p]));
+const today = lessonOfTheDay(lessons, profile.track, new Set(done.keys()), now);
+const cells = buildHeatmap([...progress.map((p) => new Date(p.completed_at)), ...correctionTimes], now, WEEKS);
+
+const rows = TRACK_OUTLINE[profile.track].map((title, i) => {
+  const id = i + 1;
+  const lesson = lessons.find((l) => l.track === profile.track && l.id === id);
+  const key = lessonKey({ track: profile.track, id });
+  const result = done.get(key);
+  const locked = !lesson?.free && !hasFullAccess(access);
+  const isToday = today.kind === 'lesson' && today.lesson.id === id;
+  // M1-M2: chỉ bài miễn phí có trang học. Bài khác mở ở M5.
+  const href = lesson?.free ? `/hoc/${lesson.slug}` : undefined;
+  return { id, title, formula: lesson?.pattern.formula, result, locked, isToday, href };
+});
+const doneInTrack = rows.filter((r) => r.result).length;
+---
+
+<Base title="Hôm nay | English Personal Coach" description="Bài của ngày và câu cần ôn." app>
+  <div class="wrap" style="max-width:calc(720px + 2 * var(--s-5));padding-top:var(--s-6);padding-bottom:var(--s-7)">
+    <p class="muted" style="font-size:var(--fs-sm);margin-bottom:var(--s-1)">{formatVnDate(now)}</p>
+    <h1 style="font-size:var(--fs-2xl);line-height:1.2">
+      {profile.display_name ? `Chào ${profile.display_name}` : 'Hôm nay'}
+    </h1>
+
+    <section class="part" aria-labelledby="bai-hom-nay">
+      <h2 id="bai-hom-nay">Bài hôm nay</h2>
+      <div class="today-card" style="margin-top:var(--s-3)">
+        {
+          today.kind === 'lesson' && (
+            <>
+              <p class="muted" style="font-size:var(--fs-sm);margin-bottom:var(--s-1)">
+                {TRACK_NAMES[profile.track]}, bài <span class="num">{String(today.lesson.id).padStart(2, '0')}</span>
+              </p>
+              <h3>{today.lesson.title}</h3>
+              <p class="muted" lang="en">{today.lesson.pattern.formula}</p>
+              {today.lesson.free || hasFullAccess(access) ? (
+                today.lesson.free ? (
+                  <a class="btn btn-primary" href={`/hoc/${today.lesson.slug}`} style="margin-top:var(--s-2)">
+                    Học bài hôm nay
+                  </a>
+                ) : (
+                  <p class="note info">Bài này sẽ mở ở bản cập nhật tới.</p>
+                )
+              ) : (
+                <p class="note info">Bài này cần Premium.</p>
+              )}
+            </>
+          )
+        }
+        {
+          today.kind === 'weekend' && (
+            <p style="margin:0">Cuối tuần không có bài mới. Hôm nay dành để ôn những câu đến hạn.</p>
+          )
+        }
+        {
+          today.kind === 'track_done' && (
+            <p style="margin:0">
+              Bạn đã học hết track {TRACK_NAMES[profile.track]}. <a href="/xep-trinh-do">Chọn track khác</a>
+            </p>
+          )
+        }
+        {
+          today.kind === 'empty' && (
+            <p style="margin:0">
+              Track {TRACK_NAMES[profile.track]} đang được soạn bài. Trong lúc chờ, bạn có thể học track Standup và họp.{' '}
+              <a href="/xep-trinh-do">Đổi track</a>
+            </p>
+          )
+        }
+        <p class="muted" style="font-size:var(--fs-sm);margin:var(--s-4) 0 0">
+          {due > 0 ? `${due} câu đến hạn ôn.` : 'Chưa có câu nào đến hạn ôn.'}
+        </p>
+      </div>
+    </section>
+
+    <section class="part" aria-labelledby="luyen-tap">
+      <h2 id="luyen-tap">Lịch luyện tập</h2>
+      <div style="margin-top:var(--s-3)">
+        <Heatmap cells={cells} lessonsDone={progress.length} corrections={correctionCount} repeating={repeating} />
+      </div>
+    </section>
+
+    <section class="part" aria-labelledby="tien-do">
+      <h2 id="tien-do">{TRACK_NAMES[profile.track]}</h2>
+      <p class="muted">Đã xong {doneInTrack} trên {rows.length} bài.</p>
+      <div class="lessons" style="margin-top:var(--s-3)">
+        {
+          rows.map((r) => {
+            const inner = (
+              <>
+                <span class="num">{String(r.id).padStart(2, '0')}</span>
+                <span>
+                  <b>{r.title}</b>
+                  {r.formula && <small lang="en">{r.formula}</small>}
+                </span>
+                {r.result ? (
+                  <span class="tag done">Đúng {r.result.score} trên 5</span>
+                ) : r.isToday ? (
+                  <span class="tag today">Bài hôm nay</span>
+                ) : r.locked ? (
+                  <span class="tag lock">Premium</span>
+                ) : (
+                  <span class="tag lock">Chưa học</span>
+                )}
+              </>
+            );
+            return r.href ? (
+              <a class="lrow" href={r.href}>{inner}</a>
+            ) : (
+              <div class:list={['lrow', { locked: r.locked }]}>{inner}</div>
+            );
+          })
+        }
+      </div>
+    </section>
+  </div>
+</Base>

@@ -1,0 +1,12 @@
+---
+/** Trong app: chuyển tiến độ đã học lúc là khách lên tài khoản (SPEC mục 4). */
+---
+
+<script>
+  import { syncLocalProgress } from '../lib/progress/client-sync';
+
+  syncLocalProgress().then((outcome) => {
+    // Trang đang hiện số liệu trước khi đồng bộ: tải lại một lần. Dấu "đã gửi" ngăn vòng lặp.
+    if (outcome === 'synced') location.reload();
+  });
+</script>

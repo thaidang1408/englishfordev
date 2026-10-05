@@ -7,6 +7,7 @@ import '@fontsource/be-vietnam-pro/800.css';
 import '@fontsource/jetbrains-mono/400.css';
 import '@fontsource/jetbrains-mono/600.css';
 import '../styles/global.css';
+import ProgressSync from '../components/ProgressSync.astro';
 
 interface Props {
   title: string;
@@ -15,9 +16,21 @@ interface Props {
   index?: boolean;
   /** Dữ liệu có cấu trúc JSON-LD, đã là object thuần. */
   jsonLd?: Record<string, unknown>;
+  /** Trang trong app, cần đăng nhập: thanh điều hướng riêng, không index. */
+  app?: boolean;
 }
 
-const { title, description, index = true, jsonLd } = Astro.props;
+const { title, description, jsonLd, app = false } = Astro.props;
+const index = app ? false : (Astro.props.index ?? true);
+const links = app
+  ? [
+      { href: '/hom-nay', label: 'Hôm nay' },
+      { href: '/tai-khoan', label: 'Tài khoản' },
+    ]
+  : [
+      { href: '/bang-gia', label: 'Bảng giá' },
+      { href: '/hom-nay', label: 'Vào học' },
+    ];
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const path = Astro.url.pathname;
 ---
@@ -62,8 +75,8 @@ const path = Astro.url.pathname;
           <b class="brand-short" aria-hidden="true">EPC</b>
         </a>
         <nav class="nav" aria-label="Điều hướng chính">
-          <a href="/bang-gia" aria-current={path === '/bang-gia' ? 'page' : undefined}>Bảng giá</a>
-          <button class="theme" id="theme-toggle" type="button" hidden>Giao diện tối</button>
+          {links.map((l) => <a href={l.href} aria-current={path === l.href ? 'page' : undefined}>{l.label}</a>)}
+          <button class="theme" id="theme-toggle" type="button" hidden><span class="theme-prefix">Giao diện </span><span class="theme-word">tối</span></button>
         </nav>
       </header>
     </div>
@@ -75,6 +88,7 @@ const path = Astro.url.pathname;
         <p>English Personal Coach, do một lập trình viên tự làm. <a href="/bang-gia">Bảng giá</a></p>
       </div>
     </footer>
+    {app && <ProgressSync />}
     <script is:inline>
       (() => {
         const root = document.documentElement;
@@ -82,8 +96,11 @@ const path = Astro.url.pathname;
         if (!btn) return;
         const isDark = () =>
           root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+        const word = btn.querySelector('.theme-word');
         const label = () => {
-          btn.textContent = isDark() ? 'Giao diện sáng' : 'Giao diện tối';
+          const next = isDark() ? 'sáng' : 'tối';
+          if (word) word.textContent = next;
+          btn.setAttribute('aria-label', `Giao diện ${next}`);
         };
         btn.hidden = false;
         label();

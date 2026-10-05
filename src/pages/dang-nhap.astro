@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import { safeNext } from '../lib/auth/redirect';
+import { TRIAL_DAYS } from '../lib/pricing';
+
+export const prerender = false;
+
+const next = safeNext(Astro.url.searchParams.get('next'));
+if (Astro.locals.user) return Astro.redirect(next, 303);
+const failed = Astro.url.searchParams.has('loi');
+---
+
+<Base title="Đăng nhập | English Personal Coach" description="Đăng nhập bằng Google hoặc GitHub." index={false}>
+  <div class="wrap read" style="padding-top:var(--s-7);padding-bottom:var(--s-8)">
+    <h1 style="font-size:var(--fs-2xl);line-height:1.2">Đăng nhập</h1>
+    <p class="muted" style="margin-top:var(--s-3)">
+      Tài khoản mới có {TRIAL_DAYS} ngày dùng thử đủ quyền Premium. Không cần thẻ.
+    </p>
+    {
+      failed && (
+        <p class="note err" role="alert">
+          Chưa đăng nhập được. Thử lại, hoặc chọn cách đăng nhập còn lại.
+        </p>
+      )
+    }
+    <div class="flex flex-col gap-3" style="margin-top:var(--s-5);max-width:22rem">
+      <form method="post" action="/auth/signin">
+        <input type="hidden" name="provider" value="google" />
+        <input type="hidden" name="next" value={next} />
+        <button class="btn btn-quiet w-full" type="submit">Đăng nhập bằng Google</button>
+      </form>
+      <form method="post" action="/auth/signin">
+        <input type="hidden" name="provider" value="github" />
+        <input type="hidden" name="next" value={next} />
+        <button class="btn btn-quiet w-full" type="submit">Đăng nhập bằng GitHub</button>
+      </form>
+    </div>
+    <p class="muted" style="margin-top:var(--s-5);font-size:var(--fs-sm)">
+      EPC chỉ lấy email và tên từ tài khoản Google hoặc GitHub của bạn.
+    </p>
+  </div>
+</Base>

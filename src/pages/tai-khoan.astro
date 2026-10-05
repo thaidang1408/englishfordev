@@ -1,0 +1,97 @@
+---
+import Base from '../layouts/Base.astro';
+import { parseAccountForm } from '../lib/account/form';
+import { accessFrom } from '../lib/auth/access';
+import { getEntitlement, getProfile, updateProfile } from '../lib/db/queries';
+import { publicEnv } from '../lib/env';
+import { sameOrigin } from '../lib/http/response';
+import { daysLeft, formatVnDate } from '../lib/time';
+
+export const prerender = false;
+
+const user = Astro.locals.user;
+if (!user) return Astro.redirect('/dang-nhap?next=/tai-khoan', 303);
+const db = Astro.locals.supabase;
+const now = new Date();
+let error: string | null = null;
+
+if (Astro.request.method === 'POST') {
+  if (!sameOrigin(Astro.request, publicEnv().PUBLIC_SITE_URL)) return Astro.redirect('/tai-khoan', 303);
+  const patch = parseAccountForm(await Astro.request.formData(), now);
+  if (patch) {
+    await updateProfile(db, user.id, patch);
+    return Astro.redirect('/tai-khoan?da-luu', 303);
+  }
+  error = 'Chưa lưu được. Kiểm lại giờ standup, và ngày phỏng vấn phải trong vòng một năm tới.';
+}
+
+const [profile, ent] = await Promise.all([getProfile(db, user.id), getEntitlement(db, user.id)]);
+const access = accessFrom(ent, now);
+const saved = Astro.url.searchParams.has('da-luu');
+const standup = profile?.standup_time.slice(0, 5) ?? '09:00';
+---
+
+<Base title="Tài khoản | English Personal Coach" description="Giờ standup, ngày phỏng vấn, gói đang dùng." app>
+  <div class="wrap read" style="padding-top:var(--s-6);padding-bottom:var(--s-7)">
+    <h1 style="font-size:var(--fs-2xl);line-height:1.2">Tài khoản</h1>
+    {user.email && <p class="muted" style="margin-top:var(--s-2)">{user.email}</p>}
+
+    <section class="part" aria-labelledby="goi">
+      <h2 id="goi">Gói đang dùng</h2>
+      <div class="plan" style="margin-top:var(--s-3)">
+        {
+          access.kind === 'premium' && (
+            <p style="margin:0">
+              <b>Premium</b> tới hết ngày {formatVnDate(access.until)}, còn {daysLeft(access.until, now)} ngày.
+            </p>
+          )
+        }
+        {
+          access.kind === 'trial' && (
+            <p style="margin:0">
+              <b>Dùng thử</b> đủ quyền Premium tới {formatVnDate(access.until)}, còn {daysLeft(access.until, now)} ngày.
+            </p>
+          )
+        }
+        {
+          access.kind === 'free' && (
+            <p style="margin:0">
+              <b>Miễn phí.</b> {access.trialEndedAt && `Dùng thử đã hết ngày ${formatVnDate(access.trialEndedAt)}.`} Dữ liệu của bạn vẫn còn nguyên. <a href="/bang-gia">Xem bảng giá</a>
+            </p>
+          )
+        }
+      </div>
+    </section>
+
+    <section class="part" aria-labelledby="lich">
+      <h2 id="lich">Lịch học</h2>
+      {saved && <p class="note ok" role="status">Đã lưu.</p>}
+      {error && <p class="note err" role="alert">{error}</p>}
+      <form method="post" style="margin-top:var(--s-4)">
+        <label class="field">
+          <span>Giờ họp standup</span>
+          <small class="muted">Lời nhắc qua Telegram gửi trước giờ này 30 đến 45 phút, thứ Hai đến thứ Sáu.</small>
+          <input type="time" name="standup_time" value={standup} required />
+        </label>
+        <label class="field">
+          <span>Ngày phỏng vấn <small class="muted">(không bắt buộc)</small></span>
+          <small class="muted">Có ngày phỏng vấn thì trang Hôm nay đếm ngược và gợi ý track Phỏng vấn.</small>
+          <input type="date" name="interview_date" value={profile?.interview_date ?? ''} />
+        </label>
+        <button class="btn btn-primary" type="submit">Lưu lịch học</button>
+      </form>
+    </section>
+
+    <section class="part" aria-labelledby="telegram">
+      <h2 id="telegram">Nhắc qua Telegram</h2>
+      <p class="muted">Liên kết Telegram sẽ có ở bản cập nhật tới.</p>
+    </section>
+
+    <section class="part" aria-labelledby="dang-xuat">
+      <h2 id="dang-xuat" class="sr-only-label">Đăng xuất</h2>
+      <form method="post" action="/auth/signout">
+        <button class="btn btn-quiet" type="submit">Đăng xuất</button>
+      </form>
+    </section>
+  </div>
+</Base>

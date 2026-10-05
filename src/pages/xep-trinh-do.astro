@@ -1,0 +1,132 @@
+---
+import Base from '../layouts/Base.astro';
+import { accessFrom, hasFullAccess } from '../lib/auth/access';
+import { GROUP_NAMES, LEVEL_NAMES, placement, scorePlacement } from '../lib/content/placement';
+import { TRACK_NAMES } from '../lib/content/tracks';
+import { TRACKS } from '../lib/content/schema';
+import { getEntitlement, getProfile, updateProfile } from '../lib/db/queries';
+import { publicEnv } from '../lib/env';
+import { sameOrigin } from '../lib/http/response';
+import { shuffledIndexes } from '../lib/lesson/shuffle';
+import { parseAnswers, trackFormSchema } from '../lib/placement/form';
+
+export const prerender = false;
+
+const user = Astro.locals.user;
+if (!user) return Astro.redirect('/dang-nhap?next=/xep-trinh-do', 303);
+const db = Astro.locals.supabase;
+const now = new Date();
+const access = accessFrom(await getEntitlement(db, user.id), now);
+
+let error: string | null = null;
+
+if (Astro.request.method === 'POST') {
+  if (!sameOrigin(Astro.request, publicEnv().PUBLIC_SITE_URL)) return Astro.redirect('/xep-trinh-do', 303);
+  const form = await Astro.request.formData();
+
+  if (form.get('action') === 'track') {
+    const parsed = trackFormSchema.safeParse(Object.fromEntries(form));
+    if (parsed.success && (parsed.data.track !== 'interview' || hasFullAccess(access))) {
+      await updateProfile(db, user.id, { track: parsed.data.track });
+      return Astro.redirect('/hom-nay', 303);
+    }
+    error = 'Chưa đổi được track. Chọn lại một track trong danh sách.';
+  } else {
+    const answers = parseAnswers(form, placement.questions);
+    if (answers) {
+      const result = scorePlacement(placement.questions, answers);
+      await updateProfile(db, user.id, { level: result.level, weak_area: result.weakArea, track: result.suggestedTrack });
+      return Astro.redirect(`/xep-trinh-do?dung=${result.correct}`, 303);
+    }
+    error = 'Bạn chưa trả lời đủ 12 câu. Mỗi câu chọn một đáp án.';
+  }
+}
+
+const profile = await getProfile(db, user.id);
+const done = Boolean(profile?.level);
+const correctParam = Number(Astro.url.searchParams.get('dung'));
+const correct = Number.isInteger(correctParam) && correctParam >= 0 && correctParam <= 12 ? correctParam : null;
+const tracks = TRACKS.filter((t) => t !== 'interview' || hasFullAccess(access));
+const questions = placement.questions.map((q) => ({ ...q, order: shuffledIndexes(q.options.length) }));
+---
+
+<Base title="Test xếp trình độ | English Personal Coach" description="12 câu, khoảng 5 phút." app>
+  <div class="wrap read" style="padding-top:var(--s-6);padding-bottom:var(--s-7)">
+    {
+      done && profile ? (
+        <>
+          <h1 style="font-size:var(--fs-2xl);line-height:1.2">Kết quả xếp trình độ</h1>
+          <div class="plan" style="margin-top:var(--s-5)">
+            {correct !== null && <p class="muted">Bạn đúng {correct} trên 12 câu.</p>}
+            <p class="price">{profile.level ? LEVEL_NAMES[profile.level] : ''}</p>
+            {profile.weak_area && (
+              <p style="margin-top:var(--s-3)">
+                Phần cần luyện thêm: <b>{GROUP_NAMES[profile.weak_area]}</b>.
+              </p>
+            )}
+            <p class="muted" style="font-size:var(--fs-sm)">
+              Đây không phải trình độ CEFR. Kết quả chỉ dùng để gợi ý track học cho bạn.
+            </p>
+          </div>
+
+          <form method="post" style="margin-top:var(--s-6)">
+            <input type="hidden" name="action" value="track" />
+            <fieldset style="border:0;padding:0;margin:0">
+              <legend>
+                <h2 style="font-size:var(--fs-xl)">Chọn track để bắt đầu</h2>
+              </legend>
+              <div class="lessons" style="margin-top:var(--s-3)">
+                {tracks.map((t) => (
+                  <label class="lrow" style="grid-template-columns:auto 1fr auto;cursor:pointer">
+                    <input type="radio" name="track" value={t} checked={profile.track === t} required />
+                    <span>
+                      <b>{TRACK_NAMES[t]}</b>
+                    </span>
+                    {profile.track === t && <span class="tag free">Gợi ý</span>}
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+            {error && <p class="note err" role="alert">{error}</p>}
+            <button class="btn btn-primary" type="submit" style="margin-top:var(--s-5)">Bắt đầu học</button>
+          </form>
+        </>
+      ) : (
+        <>
+          <h1 style="font-size:var(--fs-2xl);line-height:1.2">Test xếp trình độ</h1>
+          <p class="muted" style="margin-top:var(--s-3)">
+            12 câu, khoảng 5 phút. Kết quả dùng để gợi ý track học, không ảnh hưởng gì khác.
+          </p>
+          {error && <p class="note err" role="alert">{error}</p>}
+          <form method="post" class="stack" style="margin-top:var(--s-5)">
+            <input type="hidden" name="action" value="answers" />
+            {questions.map((q, i) => (
+              <fieldset class="quiz" style="margin-inline:0">
+                <legend class="sr-only-label">Câu {i + 1}</legend>
+                <p class="quiz-top">Câu {i + 1} trên 12</p>
+                {q.context_en && (
+                  <blockquote lang="en" class="formula" style="font-size:var(--fs-md);font-weight:500;margin-top:0">
+                    {q.context_en}
+                  </blockquote>
+                )}
+                <p class="prompt">{q.prompt_vi}</p>
+                {q.order.map((original) => (
+                  <label class="opt">
+                    <input type="radio" name={q.id} value={original} required />
+                    <span lang={q.group === 'reading' ? 'vi' : 'en'} style={q.group === 'reading' ? 'font-family:var(--font-sans)' : undefined}>
+                      {q.options[original]}
+                    </span>
+                    <span class="opt-mark">{''}</span>
+                  </label>
+                ))}
+              </fieldset>
+            ))}
+            <div>
+              <button class="btn btn-primary" type="submit">Xem kết quả</button>
+            </div>
+          </form>
+        </>
+      )
+    }
+  </div>
+</Base>

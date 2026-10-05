@@ -1,0 +1,152 @@
+{
+  "questions": [
+    {
+      "id": "p01",
+      "group": "reading",
+      "context_en": "LGTM, but can you add a unit test for the null case before merging?",
+      "prompt_vi": "Người review muốn bạn làm gì?",
+      "options": [
+        "Thêm unit test cho trường hợp null rồi mới merge.",
+        "Merge ngay, unit test viết sau cũng được.",
+        "Bỏ trường hợp null ra khỏi code."
+      ],
+      "answer": 0,
+      "why_vi": "LGTM là đồng ý, nhưng \"before merging\" nghĩa là phải thêm test trước khi merge."
+    },
+    {
+      "id": "p02",
+      "group": "reading",
+      "context_en": "Heads up: staging will be down for maintenance from 2 to 3 PM today.",
+      "prompt_vi": "Tin nhắn này báo điều gì?",
+      "options": [
+        "Staging sẽ không dùng được từ 2 đến 3 giờ chiều nay.",
+        "Bạn cần deploy lên staging trước 2 giờ chiều.",
+        "Staging đã bị lỗi từ 2 giờ chiều."
+      ],
+      "answer": 0,
+      "why_vi": "\"will be down\" là sẽ ngừng chạy trong tương lai, \"for maintenance\" là để bảo trì."
+    },
+    {
+      "id": "p03",
+      "group": "reading",
+      "context_en": "Could you take a look at this PR when you get a chance? No rush.",
+      "prompt_vi": "Người gửi muốn bạn làm gì?",
+      "options": [
+        "Xem PR khi bạn rảnh, không gấp.",
+        "Xem PR ngay bây giờ.",
+        "Đóng PR này lại."
+      ],
+      "answer": 0,
+      "why_vi": "\"when you get a chance\" là khi nào bạn rảnh, \"No rush\" là không vội."
+    },
+    {
+      "id": "p04",
+      "group": "reading",
+      "context_en": "I'm OOO tomorrow. Ping Linh if anything comes up with the release.",
+      "prompt_vi": "Ngày mai bản release có vấn đề thì bạn nhắn ai?",
+      "options": [
+        "Nhắn cho Linh.",
+        "Nhắn cho người viết tin này.",
+        "Không nhắn ai, chờ hôm sau."
+      ],
+      "answer": 0,
+      "why_vi": "OOO là out of office, nghỉ làm. \"Ping Linh\" là nhắn cho Linh."
+    },
+    {
+      "id": "p05",
+      "group": "grammar",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "I'm working on the payment API today.",
+        "I'm work on payment API today.",
+        "I working on the payment API today."
+      ],
+      "answer": 0,
+      "why_vi": "Việc đang làm: am/is/are + V-ing. Cần the trước payment API."
+    },
+    {
+      "id": "p06",
+      "group": "grammar",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "Yesterday I deployed the fix to staging.",
+        "Yesterday I have deployed the fix to staging.",
+        "Yesterday I deploy the fix on staging."
+      ],
+      "answer": 0,
+      "why_vi": "Có yesterday thì dùng quá khứ đơn. Deploy something to staging."
+    },
+    {
+      "id": "p07",
+      "group": "grammar",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "Could you review my pull request?",
+        "Could you review for my pull request?",
+        "Could you reviewing my pull request?"
+      ],
+      "answer": 0,
+      "why_vi": "Sau could you là động từ nguyên mẫu. Review đi thẳng với tân ngữ, không cần for."
+    },
+    {
+      "id": "p08",
+      "group": "grammar",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "There are two bugs in the login flow.",
+        "There is two bugs in login flow.",
+        "It has two bugs in the login flow."
+      ],
+      "answer": 0,
+      "why_vi": "\"Có\" theo nghĩa tồn tại là there is/there are, không dùng it has. Hai bug thì dùng are."
+    },
+    {
+      "id": "p09",
+      "group": "polite",
+      "prompt_vi": "Bạn cần thêm một ngày để làm xong task. Chọn câu lịch sự và rõ hơn.",
+      "options": [
+        "Could I have one more day to finish this task?",
+        "Give me more time.",
+        "I need more time, okay?"
+      ],
+      "answer": 0,
+      "why_vi": "Could I... là cách xin lịch sự, và nói rõ cần thêm bao lâu."
+    },
+    {
+      "id": "p10",
+      "group": "polite",
+      "prompt_vi": "Bạn chưa hiểu yêu cầu của PM. Chọn câu lịch sự và rõ hơn.",
+      "options": [
+        "Sorry, could you explain what you mean by \"sync the data\"?",
+        "I don't understand.",
+        "What? Say again."
+      ],
+      "answer": 0,
+      "why_vi": "Hỏi lại đúng chỗ chưa hiểu thì người kia biết phải giải thích gì."
+    },
+    {
+      "id": "p11",
+      "group": "polite",
+      "prompt_vi": "Bạn không đồng ý với cách làm của đồng nghiệp. Chọn câu lịch sự và rõ hơn.",
+      "options": [
+        "I see your point, but caching here might return stale data.",
+        "Your idea is wrong.",
+        "No, this is a bad idea."
+      ],
+      "answer": 0,
+      "why_vi": "Ghi nhận ý của người kia trước, rồi nói lý do cụ thể."
+    },
+    {
+      "id": "p12",
+      "group": "polite",
+      "prompt_vi": "Bạn phải báo API sẽ xong trễ. Chọn câu lịch sự và rõ hơn.",
+      "options": [
+        "The API will be one day late because of the auth bug. I'll have it ready by Thursday.",
+        "The API is late.",
+        "Sorry, API not done yet."
+      ],
+      "answer": 0,
+      "why_vi": "Báo trễ bao lâu, vì sao, và mốc mới."
+    }
+  ]
+}

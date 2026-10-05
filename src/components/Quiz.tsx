@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { QuizItem } from '../lib/content/schema';
 import { shuffledIndexes } from '../lib/lesson/shuffle';
+import { syncLocalProgress, type SyncOutcome } from '../lib/progress/client-sync';
 import {
   completeLesson,
   countCorrect,
@@ -31,6 +32,7 @@ export default function Quiz({ lessonKey, items, next }: Props) {
   const [orders, setOrders] = useState<number[][]>([]);
   const [index, setIndex] = useState(0);
   const [picked, setPicked] = useState<number | null>(null);
+  const [saved, setSaved] = useState<SyncOutcome | null>(null);
 
   const boxRef = useRef<HTMLDivElement>(null);
   const nextBtnRef = useRef<HTMLButtonElement>(null);
@@ -42,9 +44,9 @@ export default function Quiz({ lessonKey, items, next }: Props) {
 
   // Đảo đáp án và đọc tiến độ sau khi chạy ở trình duyệt.
   useEffect(() => {
-    const saved = loadProgress();
-    const mine = saved[lessonKey];
-    setProgress(saved);
+    const stored = loadProgress();
+    const mine = stored[lessonKey];
+    setProgress(stored);
     setOrders(items.map((q) => shuffledIndexes(q.options.length)));
     if (mine?.completed_at) {
       setPhase('done');
@@ -91,6 +93,8 @@ export default function Quiz({ lessonKey, items, next }: Props) {
     setProgress(updated);
     saveProgress(updated);
     setPhase('done');
+    // Đã đăng nhập thì lưu lên tài khoản; khách nhận 401 và giữ tiến độ ở trình duyệt.
+    void syncLocalProgress().then(setSaved);
   }, [picked, index, items.length, progress, lessonKey]);
 
   const restart = () => {
@@ -142,9 +146,13 @@ export default function Quiz({ lessonKey, items, next }: Props) {
           Bạn đúng {correct} trên {items.length} câu.
         </h3>
         <p className="muted">
-          {wrong > 0
-            ? 'Câu sai sẽ được đưa vào phần ôn khi bạn đăng nhập. Tiến độ đang lưu trên trình duyệt này.'
-            : 'Tiến độ đang lưu trên trình duyệt này. Đăng nhập để giữ lại khi đổi máy.'}
+          {saved === 'synced'
+            ? wrong > 0
+              ? 'Đã lưu vào tài khoản. Câu sai sẽ quay lại trong phần ôn ngày mai.'
+              : 'Đã lưu vào tài khoản.'
+            : wrong > 0
+              ? 'Câu sai sẽ được đưa vào phần ôn khi bạn đăng nhập. Tiến độ đang lưu trên trình duyệt này.'
+              : 'Tiến độ đang lưu trên trình duyệt này. Đăng nhập để giữ lại khi đổi máy.'}
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--s-3)', marginTop: 'var(--s-4)' }}>
           {next && (

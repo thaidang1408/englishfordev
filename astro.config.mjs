@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, envField } from 'astro/config';
 
 import cloudflare from '@astrojs/cloudflare';
 import react from '@astrojs/react';
@@ -16,6 +16,15 @@ export default defineConfig({
   integrations: [react()],
   // CSS nhỏ, nhúng thẳng vào HTML để không chặn lần vẽ đầu.
   build: { inlineStylesheets: 'always' },
+  // Biến PUBLIC_ được nhúng lúc build. Để optional cho build và test chạy được khi chưa có key;
+  // src/lib/env.ts kiểm lại lúc chạy và báo đúng tên biến còn thiếu.
+  env: {
+    schema: {
+      PUBLIC_SUPABASE_URL: envField.string({ context: 'client', access: 'public', optional: true }),
+      PUBLIC_SUPABASE_ANON_KEY: envField.string({ context: 'client', access: 'public', optional: true }),
+      PUBLIC_SITE_URL: envField.string({ context: 'client', access: 'public', optional: true }),
+    },
+  },
 
   vite: {
     plugins: [tailwindcss()]

@@ -1,7 +1,9 @@
 import { z } from 'zod';
 
-/** Tiến độ của khách chưa đăng nhập, lưu trong localStorage. M2 chuyển lên tài khoản. */
-export const PROGRESS_KEY = 'epc:progress:v1';
+import { PROGRESS_KEY } from '../progress/client-sync';
+
+/** Tiến độ của khách chưa đăng nhập, lưu trong localStorage. Sau khi đăng nhập được gửi lên tài khoản. */
+export { PROGRESS_KEY };
 
 const lessonProgressSchema = z.object({
   // id câu trắc nghiệm → trả lời đúng ở lần chọn đầu tiên hay không
