@@ -134,7 +134,7 @@
       ],
       "answer": 0,
       "answer_vi": "Hôm nay bạn review PR giúp mình được không? Nó đang chặn bản release ngày mai.",
-      "why_vi": "Câu đầu nói rõ việc, lúc nào và vì sao gấp. Câu hai là mệnh lệnh, nghe gắt. Câu ba vòng vo và giấu mất chuyện đang gấp, nên người kia không biết cần ưu tiên."
+      "why_vi": "\"Could you review my PR today?\" nói rõ việc, lúc nào và vì sao gấp. \"Review my PR now.\" là mệnh lệnh, nghe gắt. \"Sorry to disturb you\" vòng vo và giấu mất chuyện đang gấp, nên người kia không biết cần ưu tiên."
     },
     {
       "id": "s07q6",
@@ -146,7 +146,7 @@
       ],
       "answer": 0,
       "answer_vi": "Chào Minh, mình đang kẹt ở bước chuyển hướng OAuth. Mình đã kiểm tra callback URL và log rồi. Bạn có 15 phút xem giúp mình không?",
-      "why_vi": "Câu đầu có bối cảnh, việc đã thử và thời gian cụ thể trong một tin. Câu hai cụt, không có bối cảnh. Câu ba chỉ chào rồi chờ, người kia phải hỏi lại mới biết bạn cần gì."
+      "why_vi": "\"I'm stuck on the OAuth redirect\" có bối cảnh, việc đã thử và thời gian cụ thể trong một tin. \"Help me with OAuth.\" cụt, không có bối cảnh. \"Hi Minh, are you there?\" chỉ chào rồi chờ, người kia phải hỏi lại mới biết bạn cần gì."
     },
     {
       "id": "s07q7",
@@ -158,7 +158,7 @@
       ],
       "answer": 0,
       "answer_vi": "Cảm ơn bạn, sửa vậy là được rồi. Test đã chạy qua hết.",
-      "why_vi": "Câu đầu cảm ơn và báo kết quả, người giúp biết việc đã xong. Câu hai cụt, người kia không biết đã ổn chưa. Câu ba quá trang trọng cho một việc nhỏ ở chỗ làm."
+      "why_vi": "\"Thanks, that fixed it\" cảm ơn và báo kết quả, người giúp biết việc đã xong. \"OK.\" cụt, người kia không biết đã ổn chưa. \"I will never forget your kindness\" quá trang trọng cho một việc nhỏ ở chỗ làm."
     },
     {
       "id": "s07q8",

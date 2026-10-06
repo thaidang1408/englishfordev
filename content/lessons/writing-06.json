@@ -134,7 +134,7 @@
       ],
       "answer": 0,
       "answer_vi": "Chào Lan, mình hỏi nhanh: bạn có biết staging credentials để ở đâu không? Mình xem wiki rồi mà không thấy.",
-      "why_vi": "Chỉ gửi \"Hi Lan\" bắt người kia phải chờ bạn gõ tiếp. Câu thứ ba xin lỗi và rào đón quá nhiều. Câu đầu hỏi ngay, kèm việc đã thử."
+      "why_vi": "Chỉ gửi \"Hi Lan\" bắt người kia phải chờ bạn gõ tiếp. \"I'm so sorry to bother you, I know you're really busy\" xin lỗi và rào đón quá nhiều. \"quick question: do you know where...\" hỏi ngay, kèm việc đã thử."
     },
     {
       "id": "w06q6",
@@ -146,7 +146,7 @@
       ],
       "answer": 0,
       "answer_vi": "Có ai biết sao CI trên main đang fail không? Lỗi bắt đầu sau lần merge lúc 10:30, mình đã chạy lại hai lần rồi.",
-      "why_vi": "\"Who broke CI?\" nghe như đổ lỗi. Câu thứ ba tự hạ mình không cần thiết. Câu đầu hỏi về vấn đề, có mốc thời gian và việc đã thử."
+      "why_vi": "\"Who broke CI?\" nghe như đổ lỗi. \"this is probably a stupid question\" tự hạ mình không cần thiết. \"Does anyone know why CI is failing on main?\" hỏi về vấn đề, có mốc thời gian và việc đã thử."
     },
     {
       "id": "w06q7",
@@ -158,7 +158,7 @@
       ],
       "answer": 0,
       "answer_vi": "Bạn có biết khi nào bản mới lên staging không? Buổi demo với khách lúc 3 giờ chiều, nên muộn nhất 2 giờ mình cần có.",
-      "why_vi": "Câu thứ hai cụt và giục ép. Câu thứ ba nói \"no pressure\" nên người đọc không biết việc đang gấp. Câu đầu nói rõ lý do và mốc cần."
+      "why_vi": "\"When's the deploy? Need it now.\" cụt và giục ép. Câu có \"no pressure at all\" làm người đọc không biết việc đang gấp. \"The client demo is at 3 PM, so I'd need it by 2\" nói rõ lý do và mốc cần."
     },
     {
       "id": "w06q8",

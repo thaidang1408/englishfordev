@@ -10,7 +10,7 @@ export const syncBodySchema = z.object({
     .record(
       z.string().regex(/^(standup|writing|interview)-\d{2}$/),
       z.object({
-        answers: z.record(z.string().regex(/^[swi]\d{2}q[1-5]$/), z.boolean()),
+        answers: z.record(z.string().regex(/^[swi]\d{2}q([1-9]|10)$/), z.boolean()),
         completed_at: z.iso.datetime().optional(),
       }),
     )

@@ -39,7 +39,7 @@ function post(body: unknown, init: { origin?: string | null; method?: string } =
 
 const guestProgress = {
   'standup-01': {
-    answers: { s01q1: true, s01q2: false, s01q3: true, s01q4: true, s01q5: false },
+    answers: { s01q1: true, s01q2: false, s01q3: true, s01q4: true, s01q10: false },
     completed_at: '2026-10-04T02:00:00.000Z',
   },
   'standup-02': { answers: { s02q1: false } },
@@ -95,7 +95,7 @@ describe('POST /api/progress', () => {
       { user_id: USER.id, lesson_key: 'standup-01', score: 3, completed_at: '2026-10-04T02:00:00.000Z' },
     ]);
     expect(saved.reviews).toEqual(
-      ['s01q2', 's01q5', 's02q1'].map((ref) => ({
+      ['s01q2', 's01q10', 's02q1'].map((ref) => ({
         user_id: USER.id,
         kind: 'quiz',
         lesson_key: ref.startsWith('s01') ? 'standup-01' : 'standup-02',

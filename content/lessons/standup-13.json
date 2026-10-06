@@ -133,7 +133,7 @@
       ],
       "answer": 0,
       "answer_vi": "Khá vui, cảm ơn bạn. Mình đưa các con đi biển. Còn bạn thì sao?",
-      "why_vi": "Câu đầu ngắn, có một chi tiết và hỏi lại khách. Câu hai cụt, làm cuộc trò chuyện dừng lại. Câu ba kể quá dài và toàn chuyện không vui cho một câu hỏi xã giao."
+      "why_vi": "\"Pretty good, thanks.\" ngắn, có một chi tiết và hỏi lại khách. \"Fine.\" cụt, làm cuộc trò chuyện dừng lại. \"Not great, honestly.\" kể quá dài và toàn chuyện không vui cho một câu hỏi xã giao."
     },
     {
       "id": "s13q6",
@@ -145,7 +145,7 @@
       ],
       "answer": 0,
       "answer_vi": "Thôi, mình biết là chỉ có 30 phút. Mình bắt đầu nhé?",
-      "why_vi": "Câu đầu chuyển nhẹ nhàng và có lý do. Câu hai nghe như ra lệnh, cộc với khách. Câu ba xin lỗi quá nhiều cho một việc bình thường."
+      "why_vi": "\"I know we only have 30 minutes\" chuyển nhẹ nhàng và có lý do. \"OK, enough chatting.\" nghe như ra lệnh, cộc với khách. \"I'm very sorry to stop this nice conversation\" xin lỗi quá nhiều cho một việc bình thường."
     },
     {
       "id": "s13q7",
@@ -157,7 +157,7 @@
       ],
       "answer": 0,
       "answer_vi": "Khá nóng và ẩm, khoảng 34 độ. Ở Melbourne thì sao?",
-      "why_vi": "Câu đầu trả lời ngắn, có chi tiết và hỏi lại. Câu hai cụt, khách không biết nói tiếp gì. Câu ba tự hạ mình, chỉ cần một câu đơn giản là đủ."
+      "why_vi": "\"Pretty hot and humid, about 34 degrees\" trả lời ngắn, có chi tiết và hỏi lại. \"Hot.\" cụt, khách không biết nói tiếp gì. \"my English is not good for small talk\" tự hạ mình, chỉ cần một câu đơn giản là đủ."
     },
     {
       "id": "s13q8",

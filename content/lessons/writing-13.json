@@ -142,7 +142,7 @@
       ],
       "answer": 0,
       "answer_vi": "Khi không có sản phẩm nào khớp từ khoá, lúc người dùng tìm kiếm, thì họ phải thấy \"No results found\".",
-      "why_vi": "Câu thứ hai mơ hồ, không test được: nhanh là bao nhiêu? Câu thứ ba tả cách code bên trong, không phải điều người dùng thấy. Câu đầu có Given, When, Then và kết quả kiểm được."
+      "why_vi": "\"fast and user-friendly\" mơ hồ, không test được: nhanh là bao nhiêu? \"The SearchService should call Elasticsearch\" tả cách code bên trong, không phải điều người dùng thấy. Câu theo dạng Given, When, Then có kết quả kiểm được."
     },
     {
       "id": "w13q6",
@@ -154,7 +154,7 @@
       ],
       "answer": 0,
       "answer_vi": "Regression trên build 3.2 đã xong: 58 đạt, 2 không đạt, 0 bị chặn. Cả hai lỗi đều là lỗi giao diện nhỏ trên Safari, nên mình nghĩ có thể phát hành được.",
-      "why_vi": "Câu thứ hai không có số liệu, PM không quyết định được. Câu thứ ba tự hạ mình và nói chuyện đổ lỗi thay vì báo kết quả. Câu đầu có số liệu, mức độ lỗi và ý kiến của QA."
+      "why_vi": "\"Testing done. Some fails.\" không có số liệu, PM không quyết định được. \"please don't blame me\" tự hạ mình và nói chuyện đổ lỗi thay vì báo kết quả. \"58 passed, 2 failed, 0 blocked\" có số liệu, mức độ lỗi và ý kiến của QA."
     },
     {
       "id": "w13q7",
@@ -166,7 +166,7 @@
       ],
       "answer": 0,
       "answer_vi": "AC2 không đạt trên staging: link đã hết hạn vẫn dùng được. Các bước và video có trong QA-214.",
-      "why_vi": "Câu thứ hai nhắm vào người, không nói lỗi gì. Câu thứ ba rào đón quá nhiều và không có thông tin để sửa. Câu đầu nói AC nào, ở đâu, lỗi gì, và chỗ xem chi tiết."
+      "why_vi": "\"Your code doesn't work again.\" nhắm vào người, không nói lỗi gì. \"maybe there could possibly be a small problem\" rào đón quá nhiều và không có thông tin để sửa. \"AC2 failed on staging\" nói AC nào, ở đâu, lỗi gì, và chỗ xem chi tiết."
     },
     {
       "id": "w13q8",

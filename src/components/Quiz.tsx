@@ -113,6 +113,8 @@ export default function Quiz({ lessonKey, pool, next }: Props) {
       setIndex(index + 1);
       setPicked(null);
       boxRef.current?.focus({ preventScroll: true });
+      // Câu mới ngắn hơn câu cũ thì trang không tự cuộn lên: kéo đầu câu vào màn hình.
+      if (boxRef.current && boxRef.current.getBoundingClientRect().top < 0) boxRef.current.scrollIntoView({ block: 'start' });
       return;
     }
     setSavedScore(null);
@@ -175,18 +177,17 @@ export default function Quiz({ lessonKey, pool, next }: Props) {
           )}
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--s-3)', marginTop: 'var(--s-4)' }}>
-          {next && (
-            <a className="btn btn-primary" href={next.href}>
-              Học bài tiếp theo
-            </a>
-          )}
+          {/* Phần 5 (viết câu, AI sửa) là phần giá trị nhất, nên là bước chính sau trắc nghiệm. */}
+          <a className="btn btn-primary" href="#cau-cua-ban">
+            Sang phần 5: Viết câu của bạn
+          </a>
           <button className="btn btn-quiet" type="button" onClick={restart}>
             Làm lượt mới, câu khác
           </button>
         </div>
         {next && (
           <p className="muted" style={{ marginTop: 'var(--s-3)', fontSize: 'var(--fs-sm)' }}>
-            Bài tiếp theo: {next.title}
+            Bài tiếp theo: <a href={next.href}>{next.title}</a>
           </p>
         )}
       </div>

@@ -133,7 +133,7 @@
       ],
       "answer": 0,
       "answer_vi": "Mình báo trước: trang báo cáo sẽ không xong muộn nhất thứ Sáu vì hôm qua API thay đổi. Muộn nhất thứ Ba mình sẽ xong.",
-      "why_vi": "Câu đầu báo sớm, có lý do và mốc mới. Câu hai cụt, không có lý do. Câu ba nghe tích cực nhưng giấu rủi ro, tới thứ Sáu PM mới biết là trễ."
+      "why_vi": "\"Heads-up\" báo sớm, có lý do và mốc mới. \"Report page is late. Tuesday.\" cụt, không có lý do. \"I'll try my best\" nghe tích cực nhưng giấu rủi ro, tới thứ Sáu PM mới biết là trễ."
     },
     {
       "id": "s08q6",
@@ -145,7 +145,7 @@
       ],
       "answer": 0,
       "answer_vi": "Bên mình có thể ra đăng nhập và tìm kiếm vào thứ Sáu như kế hoạch, còn bộ lọc vào thứ Tư tuần sau. Như vậy có ổn với bạn không?",
-      "why_vi": "Câu đầu đưa ra phương án cụ thể và hỏi ý khách. Câu hai cụt, không có mốc mới. Câu ba xin lỗi quá mức nhưng không nói khi nào xong, khách vẫn không biết phải làm gì."
+      "why_vi": "\"filters next Wednesday. Would that work for you?\" đưa ra phương án cụ thể và hỏi ý khách. \"Filters will be late.\" cụt, không có mốc mới. \"We are terribly sorry\" xin lỗi quá mức nhưng không nói khi nào xong, khách vẫn không biết phải làm gì."
     },
     {
       "id": "s08q7",
@@ -157,7 +157,7 @@
       ],
       "answer": 0,
       "answer_vi": "Rất tiếc, bản release sẽ lùi sang thứ Ba tuần sau vì bên cung cấp thanh toán đã đổi API.",
-      "why_vi": "Câu đầu nói rõ lùi tới khi nào và vì sao. Câu hai thiếu mốc mới và nghe như đổ lỗi. Câu ba vòng vo, nghe như né tránh và cũng không có ngày mới."
+      "why_vi": "\"will slip to next Tuesday\" nói rõ lùi tới khi nào và vì sao. \"The release is late because of the payment provider\" thiếu mốc mới và nghe như đổ lỗi. \"Due to unforeseen circumstances\" vòng vo, nghe như né tránh và cũng không có ngày mới."
     },
     {
       "id": "s08q8",

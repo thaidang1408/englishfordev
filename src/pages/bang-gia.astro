@@ -2,7 +2,12 @@
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import Icon from '../components/Icon.astro';
-import { COMPARE, PLANS, REFUND_DAYS, TRIAL_DAYS, formatVnd } from '../lib/pricing';
+import PremiumValue from '../components/PremiumValue.astro';
+import { lessons } from '../lib/content/lessons';
+import { compareRows, perDay, PLANS, REFUND_DAYS, TRIAL_DAYS, formatVnd } from '../lib/pricing';
+
+const rows = compareRows(lessons.length);
+const preview = lessons.find((l) => l.track === 'writing' && l.id === 1);
 ---
 
 <Base
@@ -20,6 +25,18 @@ import { COMPARE, PLANS, REFUND_DAYS, TRIAL_DAYS, formatVnd } from '../lib/prici
   </PageHead>
   <div class="wrap page">
 
+    <section class="part" aria-labelledby="vi-sao">
+      <header class="sec-head">
+        <span class="pill"><Icon name="target" size={14} />Premium</span>
+        <h2 id="vi-sao">Premium giúp bạn <span class="hl">làm được gì</span></h2>
+        <p class="sec-lede">
+          Ba việc mà khóa học theo lớp và app học từ vựng không làm cho bạn.
+          {preview && <> <a href={`/hoc/${preview.slug}`}>Xem trước một bài Premium</a>.</>}
+        </p>
+      </header>
+      <PremiumValue />
+    </section>
+
     <section class="part" aria-labelledby="goi-premium">
       <header class="sec-head">
         <span class="pill"><Icon name="sparkle" size={14} />Premium</span>
@@ -29,11 +46,13 @@ import { COMPARE, PLANS, REFUND_DAYS, TRIAL_DAYS, formatVnd } from '../lib/prici
         <div class="plan card">
           <h3>30 ngày</h3>
           <p class="price">{formatVnd(PLANS['30d'].amount)}</p>
+          <p class="muted per-day">Khoảng {formatVnd(perDay('30d'))} mỗi ngày</p>
           <a class="btn btn-quiet" href="/nang-cap?goi=30d" style="margin-top:var(--s-3)">Mua gói 30 ngày</a>
         </div>
         <div class="plan card plan-best">
           <h3>90 ngày</h3>
           <p class="price">{formatVnd(PLANS['90d'].amount)}</p>
+          <p class="muted per-day">Khoảng {formatVnd(perDay('90d'))} mỗi ngày</p>
           <a class="btn btn-quiet" href="/nang-cap?goi=90d" style="margin-top:var(--s-3)">Mua gói 90 ngày</a>
         </div>
       </div>
@@ -61,7 +80,7 @@ import { COMPARE, PLANS, REFUND_DAYS, TRIAL_DAYS, formatVnd } from '../lib/prici
         </thead>
         <tbody>
           {
-            COMPARE.map((row) => (
+            rows.map((row) => (
               <tr>
                 <th scope="row">{row.feature}</th>
                 <td data-label="Miễn phí">{row.free}</td>

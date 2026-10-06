@@ -133,7 +133,7 @@ export async function runCorrection(input: RunInput): Promise<CorrectOutcome> {
     mode,
     question,
     writerRoles: roles.length ? roles.map((r) => ROLE_SHORT[r]).join(', ') : undefined,
-    lesson: lesson ? { title: lesson.title, formula: lesson.pattern.formula, checklist: mode === 'work' ? lesson.checklist_vi : undefined } : undefined,
+    lesson: lesson ? { title: lesson.title, formula: lesson.pattern.formula, checklist: lesson.checklist_vi } : undefined,
   };
   let result: Correction;
   try {

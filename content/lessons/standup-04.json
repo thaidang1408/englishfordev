@@ -144,7 +144,7 @@
       ],
       "answer": 0,
       "answer_vi": "Bản fix xong rồi, nhưng mình chưa test trên staging. Sau giờ trưa mình sẽ xác nhận.",
-      "why_vi": "Nói đúng tình trạng và khi nào chắc chắn. Câu thứ hai giấu việc chưa test, câu thứ ba rào đón quá nhiều nên PM không biết gì hơn."
+      "why_vi": "Nói đúng tình trạng và khi nào chắc chắn. \"Yes, it's done.\" giấu việc chưa test, \"technically it's sort of done\" rào đón quá nhiều nên PM không biết gì hơn."
     },
     {
       "id": "s04q7",
@@ -156,7 +156,7 @@
       ],
       "answer": 0,
       "answer_vi": "Phần UI xong rồi, nhưng phần export vẫn đang làm. Mình đang chờ API spec bản cuối, sau standup mình sẽ nhắn Minh.",
-      "why_vi": "Có lý do và việc bạn sẽ làm tiếp. Câu thứ hai nghe như đổ lỗi cho Minh trước cả team, câu thứ ba thiếu lý do."
+      "why_vi": "Có lý do và việc bạn sẽ làm tiếp. \"Minh still hasn't sent the API spec\" nghe như đổ lỗi cho Minh trước cả team, câu chỉ có \"The export is still in progress.\" thiếu lý do."
     },
     {
       "id": "s04q8",

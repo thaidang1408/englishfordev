@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
 import { CATEGORY_NAMES, type Correction } from '../../lib/ai/schema';
-import { markFragments, sameSentence } from '../../lib/correct/selfcheck';
+import { fixedCount, markFragments, sameSentence } from '../../lib/correct/selfcheck';
 import { isSubmitKey } from './api';
 
 export type SelfFixOutcome = { kind: 'right' } | { kind: 'miss'; attempt: string } | { kind: 'skip' };
@@ -21,6 +21,7 @@ const TRIES = 2;
 export default function SelfFix({ original, result, primary = false, onDone }: Props) {
   const [text, setText] = useState(original);
   const [tries, setTries] = useState(0);
+  const [fixed, setFixed] = useState(0);
   const areaRef = useRef<HTMLTextAreaElement>(null);
   const id = useId();
   const pieces = markFragments(
@@ -33,9 +34,11 @@ export default function SelfFix({ original, result, primary = false, onDone }: P
 
   function check(e?: { preventDefault(): void }) {
     e?.preventDefault();
-    if (sameSentence(text, result.corrected)) return onDone({ kind: 'right' });
+    const count = fixedCount(text, result.changes);
+    if (sameSentence(text, result.corrected) || count === result.changes.length) return onDone({ kind: 'right' });
     const next = tries + 1;
     if (next >= TRIES) return onDone({ kind: 'miss', attempt: text.trim() });
+    setFixed(count);
     setTries(next);
   }
 
@@ -55,7 +58,7 @@ export default function SelfFix({ original, result, primary = false, onDone }: P
         <span className="muted"> Nhóm lỗi: {groups.join(', ')}.</span>
       </p>
       <p className="own-original" lang="en">
-        {pieces.map((p, i) => (p.mark ? <mark key={i}>{p.text}</mark> : <span key={i}>{p.text}</span>))}
+        {pieces.map((p, i) => (p.mark ? <mark key={i}><span className="sr-only-label">Chỗ cần sửa: </span>{p.text}</mark> : <span key={i}>{p.text}</span>))}
       </p>
       <label className="field" htmlFor={id} style={{ margin: 'var(--s-4) 0 0' }}>
         <span>Thử tự sửa trước khi xem đáp án</span>
@@ -72,7 +75,9 @@ export default function SelfFix({ original, result, primary = false, onDone }: P
         onKeyDown={onKey}
       />
       <div aria-live="polite">
-        {tries > 0 && <p className="note info">Chưa khớp với bản sửa. Bạn thử thêm một lần, hoặc xem đáp án.</p>}
+        {tries > 0 && <p className="note info">
+            Bạn đã sửa đúng {fixed} trên {result.changes.length} chỗ. Thử thêm một lần, hoặc xem đáp án.
+          </p>}
       </div>
       <div className="correct-foot">
         <button className="btn btn-quiet" type="button" onClick={() => onDone({ kind: 'skip' })}>

@@ -4,7 +4,7 @@ import ReviewDiffView from '../ReviewDiffView';
 type Props = { original: string; result: Correction; headLeft?: string };
 
 /** Ý còn thiếu so với danh sách "Bài viết nên có" của bài (SPEC mục 15). */
-function Missing({ items }: { items?: string[] }) {
+function Missing({ items }: { items?: string[] | null }) {
   if (!items?.length) return null;
   return (
     <div className="note info missing">

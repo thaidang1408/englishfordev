@@ -84,7 +84,7 @@
       ],
       "answer": 0,
       "answer_vi": "Mình đang kẹt vì lỗi server staging.",
-      "why_vi": "Mình là người bị chặn: am blocked by. Thiếu am thì câu thành \"mình đã chặn\"."
+      "why_vi": "Mình là người bị chặn nên dùng bị động: am blocked by. I'm blocking là mình đang chặn người khác, còn I blocked thiếu am nên thành \"mình đã chặn\"."
     },
     {
       "id": "s03q2",
@@ -132,7 +132,7 @@
       ],
       "answer": 0,
       "answer_vi": "Mình đang kẹt ở API thanh toán. Mình đã xem log nhưng chưa tìm ra nguyên nhân. Sau standup có ai ngồi cùng mình xem được không?",
-      "why_vi": "Báo vướng tốt có ba ý: kẹt ở đâu, đã thử gì, cần ai giúp. Câu thứ hai thiếu lời nhờ, câu thứ ba giấu vấn đề nên team không giúp được."
+      "why_vi": "Báo vướng tốt có ba ý: kẹt ở đâu, đã thử gì, cần ai giúp. \"The payment API is broken\" thiếu lời nhờ, \"It's probably my fault\" giấu vấn đề nên team không giúp được."
     },
     {
       "id": "s03q6",
@@ -144,7 +144,7 @@
       ],
       "answer": 0,
       "answer_vi": "PR tính năng xuất file của mình chờ review từ thứ Ba. Hôm nay có ai xem giúp được không?",
-      "why_vi": "Nói sự thật và một lời nhờ có mốc. Câu thứ hai nghe như trách móc, câu thứ ba nói \"no rush\" trong khi việc đang bị chặn."
+      "why_vi": "Nói sự thật và một lời nhờ có mốc. \"Nobody has reviewed my PR again\" nghe như trách móc, còn câu có \"no rush at all\" nói không gấp trong khi việc đang bị chặn."
     },
     {
       "id": "s03q7",
@@ -156,7 +156,7 @@
       ],
       "answer": 0,
       "answer_vi": "Bên mình không vướng gì. Chiều nay mình rảnh, ai cần phụ test thì cứ nói.",
-      "why_vi": "Nói gọn là không vướng và mở lời giúp team. Câu thứ hai nói quá, câu thứ ba rào đón khiến người nghe không biết có vướng hay không."
+      "why_vi": "Nói gọn là không vướng và mở lời giúp team. \"everything is perfect\" nói quá, \"I'm not 100% sure\" rào đón khiến người nghe không biết có vướng hay không."
     },
     {
       "id": "s03q8",

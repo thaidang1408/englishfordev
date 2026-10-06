@@ -137,7 +137,7 @@
       ],
       "answer": 0,
       "answer_vi": "Cảm ơn góp ý. Mình giữ vòng lặp vì danh sách lúc nào cũng nhỏ, nhưng nếu bạn thấy thật sự cần thì mình đổi.",
-      "why_vi": "Không đồng ý vẫn được, miễn có lý do và để ngỏ cho trao đổi. No, the loop is fine nghe cụt và gạt đi. Câu thứ ba tự hạ mình và bỏ luôn lý do kỹ thuật của bạn."
+      "why_vi": "Không đồng ý vẫn được, miễn có lý do và để ngỏ cho trao đổi. No, the loop is fine nghe cụt và gạt đi. \"I'm not good at this\" tự hạ mình và bỏ luôn lý do kỹ thuật của bạn."
     },
     {
       "id": "w04q6",
@@ -149,7 +149,7 @@
       ],
       "answer": 0,
       "answer_vi": "Bạn nói rõ hơn giúp mình \"simplify this\" là ý gì được không? Có phải là gộp hai hàm lại không?",
-      "why_vi": "Hỏi lại kèm một cách hiểu cụ thể giúp reviewer trả lời nhanh. What? quá cụt. Câu thứ ba tự chê mình và không hỏi được điều gì cụ thể."
+      "why_vi": "Hỏi lại kèm một cách hiểu cụ thể giúp reviewer trả lời nhanh. What? quá cụt. \"my English is bad\" tự chê mình và không hỏi được điều gì cụ thể."
     },
     {
       "id": "w04q7",
@@ -161,7 +161,7 @@
       ],
       "answer": 0,
       "answer_vi": "Ý hay đấy. Phần này cần sửa nhiều, nên mình đã tạo ticket #412 để làm trong một PR sau.",
-      "why_vi": "Câu đầu ghi nhận góp ý, nói lý do để sau và có ticket để theo dõi. Not in this PR cụt và không hẹn khi nào. Câu thứ ba hứa quá mức, làm chậm cả bản phát hành."
+      "why_vi": "\"I've opened #412 to handle it in a follow-up PR\" ghi nhận góp ý, nói lý do để sau và có ticket để theo dõi. Not in this PR cụt và không hẹn khi nào. \"I'll rewrite the whole module right now\" hứa quá mức, làm chậm cả bản phát hành."
     },
     {
       "id": "w04q8",

@@ -50,7 +50,6 @@ const links: NavLink[] = app
       { href: '/bug-hom-nay', label: 'Tìm lỗi mỗi ngày' },
       { href: '/bang-gia', label: 'Bảng giá' },
     ];
-// Trang công khai không biết ai đã đăng nhập: /hom-nay tự chuyển người mới sang đăng nhập, người cũ vào học luôn.
 // Thanh tab dưới đáy (điện thoại, trang trong app): nhãn ngắn, có icon.
 const tabs: (NavLink & { icon: 'book' | 'repeat' | 'diff' | 'mic' | 'user' })[] = [
   { href: '/hom-nay', label: 'Học', icon: 'book' },
@@ -59,7 +58,16 @@ const tabs: (NavLink & { icon: 'book' | 'repeat' | 'diff' | 'mic' | 'user' })[] 
   { href: '/phong-van-thu', label: 'Phỏng vấn', icon: 'mic' },
   { href: '/tai-khoan', label: 'Tài khoản', icon: 'user', match: ['/xep-trinh-do', '/nang-cap'] },
 ];
-const cta = app ? (isPremium ? null : { href: '/nang-cap', label: 'Nâng cấp' }) : { href: '/hom-nay', label: 'Học miễn phí' };
+// Trang công khai render theo request (/hoc/*) biết người dùng: đã đăng nhập thì vào thẳng app.
+// Khách thì học thử bài 1 ngay, không bị đẩy sang màn đăng nhập.
+const signedIn = !app && Boolean(Astro.locals.user);
+const cta = app
+  ? isPremium
+    ? null
+    : { href: '/nang-cap', label: 'Nâng cấp' }
+  : signedIn
+    ? { href: '/hom-nay', label: 'Vào học' }
+    : { href: '/hoc/hom-qua-da-lam-gi', label: 'Học miễn phí' };
 const isCurrent = (l: NavLink) => path === l.href || (l.match ?? []).some((m) => path.startsWith(m));
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---

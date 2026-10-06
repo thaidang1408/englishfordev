@@ -1,0 +1,48 @@
+---
+import type { Lesson } from '../lib/content/schema';
+
+/**
+ * Xem trước bài Premium cho người chưa mở được (SPEC mục 2, điểm mời "mở bài bị khóa"):
+ * nói rõ trong bài có gì, cho xem một ví dụ và dòng đầu của tin hoàn chỉnh. Phần còn lại không có trong HTML.
+ */
+interface Props {
+  lesson: Lesson;
+}
+const { lesson } = Astro.props;
+const first = lesson.examples[0];
+const firstLine = lesson.model.en.split('\n')[0];
+---
+
+<section class="panel teaser" aria-labelledby="trong-bai">
+  <h2 id="trong-bai">Trong bài này có gì</h2>
+  <ol class="teaser-parts">
+    <li><b>Mẫu câu</b> <span lang="en">{lesson.pattern.formula}</span></li>
+    <li><b>5 ví dụ</b> trong các tình huống công việc khác nhau</li>
+    <li><b>Tin hoàn chỉnh:</b> {lesson.model.title_vi}</li>
+    <li><b>3 lỗi người Việt hay mắc</b>, có giải thích</li>
+    <li><b>10 câu trắc nghiệm</b>: ngữ pháp, giọng điệu, đọc hiểu tin nhắn đồng nghiệp</li>
+    <li><b>Bài viết của bạn</b>, AI sửa và kiểm đủ {lesson.checklist_vi.length} ý</li>
+  </ol>
+
+  {first && (
+    <div class="teaser-sample">
+      <p class="muted">Một ví dụ trong bài</p>
+      <p lang="en"><b>{first.en}</b></p>
+      <p class="muted">{first.vi}</p>
+    </div>
+  )}
+
+  <div class="teaser-sample">
+    <p class="muted">Tin hoàn chỉnh: {lesson.model.title_vi}</p>
+    <div class="model-msg teaser-fade" lang="en">
+      {firstLine}
+      <span class="teaser-lines" aria-hidden="true"><i></i><i></i><i></i></span>
+    </div>
+    <p class="muted" style="font-size:var(--fs-sm)">Phần còn lại mở khi bạn có Premium hoặc đang dùng thử.</p>
+  </div>
+
+  <div class="teaser-sample">
+    <p class="muted">Bài viết của bạn nên có</p>
+    <ul class="ticks">{lesson.checklist_vi.map((c) => <li>{c}</li>)}</ul>
+  </div>
+</section>

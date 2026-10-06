@@ -134,7 +134,7 @@
       ],
       "answer": 0,
       "answer_vi": "Xin lỗi mình chen vào. Điều này có áp dụng cho người dùng hiện tại không?",
-      "why_vi": "Câu đầu xin lỗi ngắn rồi hỏi thẳng vào ý. Câu hai cộc, nghe như ngắt lời khách. Câu ba xin lỗi quá nhiều mà chưa nói được câu hỏi."
+      "why_vi": "\"Sorry to jump in\" xin lỗi ngắn rồi hỏi thẳng vào ý. \"Wait. Existing users?\" cộc, nghe như ngắt lời khách. \"I really don't want to interrupt you\" xin lỗi quá nhiều mà chưa nói được câu hỏi."
     },
     {
       "id": "s11q6",
@@ -146,7 +146,7 @@
       ],
       "answer": 0,
       "answer_vi": "Xin lỗi, bạn nói chậm lại một chút được không? Mình muốn chắc là mình hiểu đúng.",
-      "why_vi": "Câu đầu nhờ lịch sự và nêu lý do là muốn hiểu đúng. Câu hai nghe như trách người kia. Câu ba tự hạ mình, không cần nói tiếng Anh của bạn kém."
+      "why_vi": "\"could you slow down a bit?\" nhờ lịch sự và nêu lý do là muốn hiểu đúng. \"You talk too fast.\" nghe như trách người kia. \"my English is not good\" tự hạ mình, không cần nói tiếng Anh của bạn kém."
     },
     {
       "id": "s11q7",
@@ -158,7 +158,7 @@
       ],
       "answer": 0,
       "answer_vi": "Vậy ý bạn là làm trang đăng nhập trước, phần báo cáo để sau. Đúng không?",
-      "why_vi": "Câu đầu nhắc lại ý cụ thể để PM chỉ cần xác nhận. Câu hai không kiểm tra gì, dễ hiểu sai mà không biết. Câu ba bắt PM nói lại từ đầu, mất thời gian của cả nhóm."
+      "why_vi": "\"So what you're saying is\" nhắc lại ý cụ thể để PM chỉ cần xác nhận. \"OK, got it.\" không kiểm tra gì, dễ hiểu sai mà không biết. \"explain everything again from the start\" bắt PM nói lại từ đầu, mất thời gian của cả nhóm."
     },
     {
       "id": "s11q8",

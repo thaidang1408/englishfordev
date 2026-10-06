@@ -15,6 +15,13 @@ describe('nội dung bài học', () => {
     }
   });
 
+  it('giải thích quiz không gọi đáp án theo vị trí, vì UI xáo trộn thứ tự', () => {
+    const positional =
+      /(?<!\p{L})(?:[Cc]âu|[Tt]in|[Ýý]) (?:thứ \p{L}+|đầu|cuối|hai|ba)(?!\p{L})|[ĐđPp](?:áp|hương) án (?:đầu|cuối|thứ)/u;
+    const hits = lessons.flatMap((l) => l.quiz.filter((q) => positional.test(q.why_vi)).map((q) => q.id));
+    expect(hits).toEqual([]);
+  });
+
   it('chỉ standup 1 đến 3 là bài miễn phí', () => {
     expect(lessons.filter((l) => l.free).map(lessonKey)).toEqual(['standup-01', 'standup-02', 'standup-03']);
   });

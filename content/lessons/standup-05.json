@@ -133,7 +133,7 @@
       ],
       "answer": 0,
       "answer_vi": "Mình chưa chắc. Để mình xem code, muộn nhất trưa nay mình báo lại ước lượng.",
-      "why_vi": "Chưa biết thì nói chưa biết, kèm khi nào bạn trả lời. Câu thứ hai hứa quá chắc, câu thứ ba không cho PM bước tiếp theo."
+      "why_vi": "Chưa biết thì nói chưa biết, kèm khi nào bạn trả lời. \"Tomorrow, 100 percent\" hứa quá chắc, \"I really can't say\" không cho PM bước tiếp theo."
     },
     {
       "id": "s05q6",
@@ -145,7 +145,7 @@
       ],
       "answer": 0,
       "answer_vi": "Chắc mất khoảng ba ngày, với điều kiện API thanh toán sẵn sàng muộn nhất thứ Ba.",
-      "why_vi": "Đưa con số và nói rõ điều kiện. Câu thứ hai chắc chắn quá mức, câu thứ ba nêu phụ thuộc nhưng không đưa ước lượng nào."
+      "why_vi": "Đưa con số và nói rõ điều kiện. \"exactly three days\" chắc chắn quá mức, \"I have no idea how long\" nêu phụ thuộc nhưng không đưa ước lượng nào."
     },
     {
       "id": "s05q7",
@@ -157,7 +157,7 @@
       ],
       "answer": 0,
       "answer_vi": "Hai ngày là gấp với toàn bộ phạm vi. Bên mình có thể giao bản cơ bản muộn nhất thứ Sáu và phần còn lại tuần sau.",
-      "why_vi": "Nói rõ rủi ro và đưa phương án. Câu thứ hai từ chối cụt, câu thứ ba nhận lời dù biết không kịp."
+      "why_vi": "Nói rõ rủi ro và đưa phương án. \"That's impossible.\" từ chối cụt, \"I'll try my best\" nhận lời dù biết không kịp."
     },
     {
       "id": "s05q8",

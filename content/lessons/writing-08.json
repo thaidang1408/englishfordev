@@ -134,7 +134,7 @@
       ],
       "answer": 0,
       "answer_vi": "Mình muốn xin nghỉ thứ Sáu vì việc gia đình. Các ticket của mình sẽ xong muộn nhất thứ Năm.",
-      "why_vi": "Câu thứ hai cụt như ghi chú cho mình. Câu thứ ba xin lỗi quá nhiều cho một việc bình thường. Câu đầu nói rõ ngày, lý do và cho biết việc không bị ảnh hưởng."
+      "why_vi": "\"Friday off. Family stuff.\" cụt như ghi chú cho mình. \"I'm really sorry to ask\" xin lỗi quá nhiều cho một việc bình thường. \"I'd like to take Friday off for a family matter\" nói rõ ngày, lý do và cho biết việc không bị ảnh hưởng."
     },
     {
       "id": "w08q6",
@@ -146,7 +146,7 @@
       ],
       "answer": 0,
       "answer_vi": "Mình dời cuộc gọi ngày mai sang 3 giờ chiều được không? Nếu không, sáng thứ Năm mình cũng rảnh.",
-      "why_vi": "Câu thứ hai ra lệnh cho khách. Câu thứ ba vòng vo và không đề xuất giờ nào. Câu đầu hỏi lịch sự và đưa sẵn hai lựa chọn."
+      "why_vi": "\"Tomorrow doesn't work. Let's do 3 PM.\" ra lệnh cho khách. \"I'm terribly sorry for any inconvenience\" vòng vo và không đề xuất giờ nào. \"Would it be possible to move tomorrow's call to 3 PM?\" hỏi lịch sự và đưa sẵn hai lựa chọn."
     },
     {
       "id": "w08q7",
@@ -158,7 +158,7 @@
       ],
       "answer": 0,
       "answer_vi": "Báo trước: thứ Sáu mình nghỉ. Trong lúc mình vắng, Nam sẽ review code thay mình.",
-      "why_vi": "Báo cho team thì chỉ cần thông báo, không cần xin phép trang trọng như câu thứ hai. Câu thứ ba quá cụt và không nói ai lo việc thay."
+      "why_vi": "Báo cho team thì chỉ cần thông báo, không cần xin phép trang trọng như \"I would like to kindly request your permission\". \"Not here Friday.\" quá cụt và không nói ai lo việc thay."
     },
     {
       "id": "w08q8",

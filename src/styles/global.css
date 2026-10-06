@@ -155,7 +155,7 @@
   .opt {
     display: grid; grid-template-columns: auto 1fr auto; gap: var(--s-3); align-items: center; width: 100%;
     text-align: left; background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: var(--r-md);
-    padding: 13px 14px; margin-top: var(--s-2); font: 400 var(--fs-sm)/1.5 var(--font-mono); cursor: pointer;
+    padding: 13px 14px; margin-top: var(--s-2); font: 400 var(--fs-md)/1.5 var(--font-sans); cursor: pointer;
   }
   .opt:hover:not([disabled]) { border-color: var(--accent); }
   .opt[disabled] { cursor: default; }
@@ -421,6 +421,8 @@
   .cards4, .cards3, .cards2 { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s-4); }
   @media (min-width: 640px) { .cards4, .cards2 { grid-template-columns: repeat(2, 1fr); } }
   @media (min-width: 1000px) { .cards4 { grid-template-columns: repeat(4, 1fr); } .cards3 { grid-template-columns: repeat(3, 1fr); } }
+  /* Mở danh sách bài ở một thẻ thì hai thẻ bên cạnh không bị kéo dài thành khung trống. */
+  .cards3:has(.track-list[open]) { align-items: start; }
   .cards2 .card, .cards3 .card { padding: var(--s-5); }
 
   .card-art {
@@ -925,6 +927,8 @@
   /* Chừa chỗ cuối trang để nút không che chữ ở chân trang. */
   .site-foot { padding-bottom: 84px; }
   @media print { .tg-fab { display: none; } }
+  /* Đang gõ (bàn phím điện thoại mở) thì ẩn nút, để không che nút Kiểm tra và cuối dòng chữ. */
+  body:has(:is(textarea, input[type="text"], input[type="email"]):focus) .tg-fab { display: none; }
 }
 
 /* chuyển động: một khoảnh khắc ở trang chủ, dòng xanh và comment hiện sau dòng đỏ */
@@ -1001,6 +1005,25 @@
   #bai-hoc:has(#loc-qa:checked) .lesson-mini li[data-roles]:not([data-roles~="qa"]),
   #bai-hoc:has(#loc-ba:checked) .lesson-mini li[data-roles]:not([data-roles~="ba"]),
   #bai-hoc:has(#loc-pm:checked) .lesson-mini li[data-roles]:not([data-roles~="pm"]) { display: none; }
+}
+
+/* Premium: ba lý do, giá mỗi ngày, xem trước bài bị khóa */
+@layer components {
+  .value-grid { display: grid; gap: var(--s-4); margin-top: var(--s-5); }
+  @media (min-width: 860px) { .value-grid { grid-template-columns: repeat(3, 1fr); } .value-grid.compact { grid-template-columns: 1fr; } }
+  .value-card h3 { margin: var(--s-3) 0 var(--s-2); font-size: var(--fs-lg); }
+  .value-card .ticks { font-size: var(--fs-sm); }
+  .value-head { margin: var(--s-6) 0 0; font-size: var(--fs-xl); }
+  .per-day { margin: 0; font-size: var(--fs-sm); }
+  .teaser h2 { font-size: var(--fs-xl); margin: 0 0 var(--s-3); }
+  .teaser-parts { margin: 0; padding-left: 22px; display: grid; gap: 6px; }
+  .teaser-parts span[lang] { font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--accent-text); }
+  .teaser-sample { margin-top: var(--s-5); padding-top: var(--s-4); border-top: 1px dashed var(--line); }
+  .teaser-sample > p { margin: 0 0 6px; }
+  .teaser-lines { display: grid; gap: 8px; margin-top: 10px; }
+  .teaser-lines i { display: block; height: 10px; border-radius: 6px; background: linear-gradient(90deg, var(--line), transparent); }
+  .teaser-lines i:nth-child(2) { width: 85%; }
+  .teaser-lines i:nth-child(3) { width: 60%; }
 }
 
 /* Nút nổi bật hơn (06/10/2026): nút chính chuyển màu tím, viền sáng, bóng màu, nhấc lên khi rê, lún khi bấm, vệt sáng lướt qua.

@@ -134,7 +134,7 @@
       ],
       "answer": 0,
       "answer_vi": "Mình e là sprint này mình không nhận thêm ticket được. Mình vẫn đang làm các bug thanh toán, nhưng sprint sau mình có thể nhận.",
-      "why_vi": "\"No, I'm busy.\" cụt và nghe khó chịu. Câu thứ ba xin lỗi nhiều mà vẫn không rõ là có nhận hay không. Câu đầu từ chối rõ, có lý do và phương án khác."
+      "why_vi": "\"No, I'm busy.\" cụt và nghe khó chịu. \"I really wish I could\" xin lỗi nhiều mà vẫn không rõ là có nhận hay không. \"I'm afraid I can't take on another ticket this sprint\" từ chối rõ, có lý do và phương án khác."
     },
     {
       "id": "w10q6",
@@ -146,7 +146,7 @@
       ],
       "answer": 0,
       "answer_vi": "Bên mình cần thêm hai ngày để test xong tính năng export. Bên mình có thể giao muộn nhất thứ Tư thay vì thứ Hai.",
-      "why_vi": "Câu thứ hai báo trễ mà không có mốc mới. Câu thứ ba nghe cố gắng nhưng giấu việc trễ và không có ngày. Câu đầu nói rõ cần bao lâu và mốc mới."
+      "why_vi": "\"The export will be late.\" báo trễ mà không có mốc mới. \"We'll try our best\" nghe cố gắng nhưng giấu việc trễ và không có ngày. \"We need two more days\" nói rõ cần bao lâu và mốc mới."
     },
     {
       "id": "w10q7",
@@ -158,7 +158,7 @@
       ],
       "answer": 0,
       "answer_vi": "Mình không xong cả tính năng trong thứ Sáu được, nhưng đến thứ Sáu mình có thể giao phần tìm kiếm cơ bản và tuần sau thêm bộ lọc. Như vậy được không?",
-      "why_vi": "\"Friday is impossible.\" chỉ chặn lại, không đưa lựa chọn. Câu thứ ba hứa điều không làm được, tới thứ Sáu sẽ thành tin xấu. Câu đầu đề xuất bớt phạm vi để giữ mốc."
+      "why_vi": "\"Friday is impossible.\" chỉ chặn lại, không đưa lựa chọn. \"OK, I'll get everything done by Friday.\" hứa điều không làm được, tới thứ Sáu sẽ thành tin xấu. \"I can ship the basic search by then\" đề xuất bớt phạm vi để giữ mốc."
     },
     {
       "id": "w10q8",

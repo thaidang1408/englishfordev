@@ -8,6 +8,8 @@ import { isSubmitKey, requestCorrection, type CorrectData } from './api';
 
 type Props = {
   lessonKey?: string;
+  /** Bài track Phỏng vấn: gửi ở chế độ phỏng vấn (câu dài hơn, có câu trả lời tốt hơn). */
+  question?: string;
   /** Đường dẫn quay lại sau khi đăng nhập. */
   next: string;
   /** Nút gửi màu tím khi đây là hành động chính của màn hình. */
@@ -24,17 +26,36 @@ type State =
   | { kind: 'login' }
   | { kind: 'error'; message: string; upgrade?: boolean };
 
-const MAX = SENTENCE_MAX.work;
+// Câu đang gõ giữ trong sessionStorage, để đi đăng nhập rồi quay lại không mất.
+const draftKey = (lessonKey?: string) => `epc-draft:${lessonKey ?? 'home'}`;
 
 /** Ô "Sửa câu của tôi" (SPEC mục 4 phần 5 và trang /hom-nay). */
-export default function CorrectBox({ lessonKey, next, primary = false, label = 'Câu tiếng Anh của bạn' }: Props) {
+export default function CorrectBox({ lessonKey, question, next, primary = false, label = 'Câu tiếng Anh của bạn' }: Props) {
+  const MAX = SENTENCE_MAX[question ? 'interview' : 'work'];
   const [text, setText] = useState('');
   const [state, setState] = useState<State>({ kind: 'idle' });
   const areaRef = useRef<HTMLTextAreaElement>(null);
   const id = useId();
   // HTML render sẵn khóa ô nhập cho tới khi React sẵn sàng, để form không bị gửi kiểu cũ và tải lại trang.
   const [ready, setReady] = useState(false);
-  useEffect(() => setReady(true), []);
+  useEffect(() => {
+    try {
+      const saved = sessionStorage.getItem(draftKey(lessonKey));
+      if (saved) setText(saved);
+    } catch {
+      // Không có sessionStorage (chế độ riêng tư): bỏ qua.
+    }
+    setReady(true);
+  }, [lessonKey]);
+  function keep(value: string) {
+    setText(value);
+    try {
+      if (value) sessionStorage.setItem(draftKey(lessonKey), value);
+      else sessionStorage.removeItem(draftKey(lessonKey));
+    } catch {
+      // Bỏ qua như trên.
+    }
+  }
   const trimmed = text.trim();
   const tooShort = trimmed.length < SENTENCE_MIN;
 
@@ -46,7 +67,8 @@ export default function CorrectBox({ lessonKey, next, primary = false, label = '
       return;
     }
     setState({ kind: 'busy' });
-    const out = await requestCorrection({ sentence: trimmed, lessonKey });
+    const out = await requestCorrection(question ? { sentence: trimmed, lessonKey, mode: 'interview', question } : { sentence: trimmed, lessonKey });
+    if (out.kind === 'ok') keep('');
     if (out.kind === 'error' && out.code === 'free_quota_exceeded') track('paywall_view', lessonKey ? { lesson_key: lessonKey } : {});
     setState(
       out.kind === 'ok'
@@ -68,7 +90,7 @@ export default function CorrectBox({ lessonKey, next, primary = false, label = '
   }
 
   function again() {
-    setText('');
+    keep('');
     setState({ kind: 'idle' });
     areaRef.current?.focus();
   }
@@ -93,6 +115,12 @@ export default function CorrectBox({ lessonKey, next, primary = false, label = '
           </div>
         )}
         <CorrectionResult original={data.original} result={data.result} />
+        {data.result.stronger && (
+          <section className="stronger answer-in" aria-labelledby={`${id}-s`}>
+            <h4 id={`${id}-s`}>Một cách trả lời tốt hơn</h4>
+            <p lang="en">{data.result.stronger}</p>
+          </section>
+        )}
         <p className="muted" style={{ fontSize: 'var(--fs-sm)', margin: 'var(--s-3) 0 0' }}>
           {data.review_items > 0 && `${data.review_items} chỗ sửa đã vào sổ lỗi và sẽ quay lại trong phần ôn. `}
           {data.period === 'day'
@@ -128,7 +156,7 @@ export default function CorrectBox({ lessonKey, next, primary = false, label = '
         rows={5}
         maxLength={MAX}
         value={text}
-        onChange={(e) => setText(e.target.value)}
+        onChange={(e) => keep(e.target.value)}
         onKeyDown={onKey}
         placeholder="Viết bằng tiếng Anh ở đây"
         aria-describedby={`${id}-count`}

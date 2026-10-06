@@ -47,6 +47,8 @@ Hết dùng thử không xóa gì. Dữ liệu của người dùng vẫn còn, 
 
 Điểm mời nâng cấp (chỉ bốn chỗ này, không popup): mở bài bị khóa; hết lượt sửa; mở sổ lỗi hoặc phân tích lỗi; và một thẻ ở `/hom-nay` từ ngày thứ 5 của dùng thử cho tới khi nâng cấp.
 
+**Cho thấy giá trị (06/10/2026):** bảng so sánh ở `/bang-gia` theo các tính năng hiện có (tin hoàn chỉnh, bản đồ lỗi, bot sửa câu, số bài thật). `/bang-gia` và `/nang-cap` có phần "Premium giúp bạn làm được gì" nói ba lý do trả tiền bằng việc làm được, kèm giá chia theo ngày (phép chia thật). Mở bài bị khóa thì thấy bài có gì, một ví dụ, dòng đầu của tin hoàn chỉnh và danh sách "Bài viết nên có"; phần còn lại không có trong HTML. Thẻ mời cho người đang dùng thử nói rõ hết dùng thử còn gì.
+
 Lời mời luôn dùng số liệu của chính người đó, ví dụ: "Sổ lỗi của bạn có 14 lỗi, 5 lỗi đang lặp lại. Nâng cấp để ôn tiếp." Không có số liệu thì không bịa.
 
 ## 3. Trang và đường dẫn
@@ -200,7 +202,7 @@ Quy tắc viết bài:
 
 Kiểm theo thứ tự, sai thì trả lỗi tương ứng:
 
-1. `sentence` từ 3 đến 700 ký tự sau khi trim (`interview`: tới 1200). Nâng ngày 06/10/2026 để viết được tin hoàn chỉnh (mục 15).
+1. `sentence` từ 3 đến 700 ký tự sau khi trim (`interview`: tới 1200; phần 5 của bài track Phỏng vấn gửi ở mode `interview` với `question_en` của bài, nên có thêm "Một cách trả lời tốt hơn"). Nâng ngày 06/10/2026 để viết được tin hoàn chỉnh (mục 15).
 2. Hạn mức, đếm từ bảng `corrections`: Premium dưới 30 lần hôm nay; đang dùng thử dưới 10 lần hôm nay; còn lại dưới 1 lần trong 7 ngày gần nhất. `mode: "interview"` chỉ cho Premium và dùng thử.
 3. Tổng số lần gọi toàn hệ thống hôm nay dưới `AI_DAILY_CALL_CAP` (mặc định 500). Vượt thì trả "Hôm nay hệ thống đã hết lượt, thử lại ngày mai".
 
@@ -342,7 +344,7 @@ Dòng "5 câu được sửa trong 7 ngày" là dòng quan trọng nhất: ngư�
 Thêm ngày 06/10/2026 theo quyết định của chủ dự án, sau khi xem báo cáo mở rộng sang ngành khác. EPC chỉ phục vụ người làm phần mềm (dev, QA, BA, PM), không mở sang ngành khác.
 
 - **Nghĩa tiếng Việt của câu đúng** ở mọi chỗ hiện đáp án: kết quả sửa câu (`corrected_vi`), lỗi hay gặp (`right_vi`), trắc nghiệm (`answer_vi`), Bug của ngày, phần ôn.
-- **Tự sửa trước** ở ô "Sửa câu của tôi" (bài học phần 5 và `/hom-nay`). AI trả kết quả như cũ nhưng giao diện chưa hiện bản sửa: hiện câu gốc, tô các đoạn `from` tìm thấy trong câu, ghi số chỗ cần sửa và nhóm lỗi. Người dùng sửa ngay trong ô rồi bấm "Kiểm tra". So với `corrected` sau khi bỏ khác biệt chữ hoa thường, khoảng trắng và dấu câu cuối câu. Khớp thì báo "Bạn đã sửa đúng"; chưa khớp thì cho thử thêm một lần, rồi hiện đáp án kèm diff giữa bản của người dùng và bản sửa. Luôn có nút "Xem đáp án". Không gọi AI thêm, không tốn thêm lượt. Câu đã đúng thì hiện kết quả ngay. Phỏng vấn thử giữ cách hiện thẳng kết quả.
+- **Tự sửa trước** ở ô "Sửa câu của tôi" (bài học phần 5 và `/hom-nay`). AI trả kết quả như cũ nhưng giao diện chưa hiện bản sửa: hiện câu gốc, tô các đoạn `from` tìm thấy trong câu, ghi số chỗ cần sửa và nhóm lỗi. Người dùng sửa ngay trong ô rồi bấm "Kiểm tra". Chấm theo từng chỗ trong `changes` (có đoạn `to`, không còn đoạn `from`; bỏ khác biệt chữ hoa thường, khoảng trắng, kiểu dấu nháy), hoặc khớp cả câu `corrected`. Đúng hết thì báo "Bạn đã sửa đúng"; chưa đủ thì báo "đã sửa đúng k trên n chỗ" và cho thử thêm một lần, rồi hiện đáp án kèm diff giữa bản của người dùng và bản sửa. Luôn có nút "Xem đáp án". Không gọi AI thêm, không tốn thêm lượt. Câu đã đúng thì hiện kết quả ngay. Phỏng vấn thử giữ cách hiện thẳng kết quả.
 - **Bot sửa câu** qua Telegram (mục 9). Mọi trang có nút Telegram nổi ở góc phải dưới, trỏ tới `/telegram`: đã đăng nhập mà chưa liên kết thì mở bot kèm mã liên kết, còn lại mở chat với bot. Đây là một link, không phải popup.
 - **Bản đồ lỗi** ở `/so-loi` (mục 5b).
 - **Nội dung đa dạng hơn:** mỗi bài có 5 ví dụ, 3 lỗi hay gặp, 10 câu trắc nghiệm (mục 6). Trình học lấy ngẫu nhiên 3 ví dụ và 5 câu trắc nghiệm mỗi lượt, nên học lại không gặp y hệt lần trước. Điểm bài vẫn tính trên 5. Câu mới soạn ghi vào `docs/CONTENT_REVIEW.md` để chủ dự án duyệt.
@@ -352,7 +354,7 @@ Thêm ngày 06/10/2026 theo quyết định của chủ dự án, sau khi xem b�
 Thêm ngày 06/10/2026 theo yêu cầu của chủ dự án, sau khi đánh giá nội dung (báo cáo ở `docs/research/content-audit.md` và `docs/research/content-needs.md`). Kết luận: tiếng Anh trong bài đúng, nhưng mỗi bài chỉ dạy một khung câu ở mức A2 đến B1, trong khi làm việc với khách nước ngoài cần B1+ đến B2: tin nhiều câu có cấu trúc, lý do, giọng điệu phù hợp, và hiểu tin của người bản ngữ.
 
 - **Tin nhắn hoàn chỉnh (`model`):** mỗi bài có một mẫu đầy đủ như ngoài đời. Ví dụ: cập nhật standup đủ ba phần; mô tả PR có What, Why, How to test; báo bug có Steps, Expected, Actual, Environment; câu trả lời phỏng vấn theo STAR khoảng 80 đến 150 từ.
-- **Bài viết nên có (`checklist_vi`):** 3 đến 5 ý. Phần 5 yêu cầu viết đúng loại tin thật. AI nhận danh sách này cùng câu của người dùng và trả `missing_vi` là những ý còn thiếu; giao diện hiện "Còn thiếu" dưới kết quả. Ý thiếu không vào sổ lỗi.
+- **Bài viết nên có (`checklist_vi`):** 3 đến 5 ý. Phần 5 yêu cầu viết đúng loại tin thật. AI nhận danh sách này cùng câu của người dùng (mọi mode có bài) và trả `missing_vi` là những ý còn thiếu; giao diện hiện "Còn thiếu" dưới kết quả. Ý thiếu không vào sổ lỗi.
 - **Trắc nghiệm đa dạng hơn:** trong 10 câu của mỗi bài có khoảng 4 câu hình thức (ngữ pháp, cách viết), 3 câu chọn cách nói tự nhiên hoặc lịch sự hơn mà cả ba đáp án đều đúng ngữ pháp, 3 câu đọc hiểu ("Đồng nghiệp nhắn ... Ý họ là gì?") thay cho phần nghe chưa có. Một quy tắc ngữ pháp không lặp quá 2 lần trong một bài. Quy ước của team (ví dụ tiêu đề PR dùng động từ nguyên mẫu) được giải thích là quy ước, không gọi là sai ngữ pháp.
 - **7 bài mới, Premium:** Standup 11 đến 13, Viết 11 đến 14 (mục 6).
 - **Sửa nội dung:** các lỗi trong báo cáo audit (câu sai logic, câu hỏi có hai đáp án đúng, giải thích chưa chính xác, dịch "by Friday" thành "muộn nhất thứ Sáu").

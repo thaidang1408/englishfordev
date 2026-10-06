@@ -52,7 +52,7 @@ test('gửi câu thì cho tự sửa trước: tô chỗ sai, nêu số chỗ v�
   await page.getByRole('button', { name: 'Sửa câu của tôi' }).click();
   await expect(section(page)).toContainText('Câu của bạn có 2 chỗ cần sửa');
   await expect(section(page)).toContainText('thì của động từ, mạo từ');
-  await expect(section(page).locator('.own-original mark')).toHaveText(['have fixed', 'bug']);
+  await expect(section(page).locator('.own-original mark')).toHaveText(['Chỗ cần sửa: have fixed', 'Chỗ cần sửa: bug']);
   await expect(section(page).locator('.diff-line.add')).toHaveCount(0);
   await expect(section(page)).not.toContainText('on the login page');
 });
@@ -75,7 +75,7 @@ test('tự sửa chưa khớp hai lần thì hiện bản của bạn so với b
   const fix = page.getByLabel('Thử tự sửa trước khi xem đáp án');
   await fix.fill('Yesterday I fixed bug in login page.');
   await page.getByRole('button', { name: /Kiểm tra/ }).click();
-  await expect(section(page).locator('.note.info')).toContainText('Chưa khớp với bản sửa');
+  await expect(section(page).locator('.note.info')).toContainText('Bạn đã sửa đúng 1 trên 2 chỗ');
   await page.getByRole('button', { name: /Kiểm tra/ }).click();
   await expect(section(page)).toContainText('Bản bạn tự sửa');
   await expect(section(page).locator('.changes li')).toHaveCount(2);

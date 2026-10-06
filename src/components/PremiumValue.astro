@@ -1,0 +1,22 @@
+---
+import Icon from './Icon.astro';
+import { PREMIUM_REASONS } from '../lib/pricing';
+
+/** Ba lý do trả tiền (SPEC mục 2), dùng ở /bang-gia và /nang-cap. */
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+---
+
+<div class:list={['value-grid', { compact }]}>
+  {
+    PREMIUM_REASONS.map((r) => (
+      <div class="card value-card">
+        <span class="tile"><Icon name={r.icon} /></span>
+        <h3>{r.title}</h3>
+        <ul class="ticks">{r.points.map((p) => <li>{p}</li>)}</ul>
+      </div>
+    ))
+  }
+</div>

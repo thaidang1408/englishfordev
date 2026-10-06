@@ -73,7 +73,7 @@
   ],
   "model": {
     "title_vi": "Cập nhật sự cố trên kênh #incidents khi đã biết nguyên nhân",
-    "en": "[Identified] Checkout errors, update at 14:35 ICT\nImpact: Since 14:05, about 12% of checkout requests have been failing with a 500 error. Other pages are working normally.\nCause: The errors started right after the 13:50 deploy.\nAction: We're rolling back that deploy now.\nWorkaround: Customers can retry the payment. Failed payments are not charged.\nNext update by 15:00 ICT, or sooner if anything changes.",
+    "en": "[Identified] Checkout errors, update at 14:35 ICT\nImpact: Since 14:05, about 12% of checkout requests have been failing with a 500 error. Other pages are working normally.\nCause: The errors started right after the 13:50 deploy.\nAction: We're rolling back that deploy now.\nWorkaround: Customers can retry the payment. Customers aren't charged for failed payments.\nNext update by 15:00 ICT, or sooner if anything changes.",
     "vi": "[Identified] Lỗi thanh toán, cập nhật lúc 14:35 giờ Việt Nam\nẢnh hưởng: Từ 14:05, khoảng 12% yêu cầu thanh toán bị lỗi 500. Các trang khác vẫn chạy bình thường.\nNguyên nhân: Lỗi bắt đầu ngay sau bản deploy lúc 13:50.\nĐang làm: Bọn mình đang rollback bản deploy đó.\nCách tạm thời: Khách có thể thanh toán lại. Giao dịch lỗi không bị trừ tiền.\nMuộn nhất 15:00 giờ Việt Nam sẽ có cập nhật tiếp, hoặc sớm hơn nếu có gì thay đổi."
   },
   "checklist_vi": [
@@ -130,7 +130,7 @@
       ],
       "answer": 0,
       "answer_vi": "Sự cố đã được khắc phục.",
-      "why_vi": "Sự cố được người khác xử lý nên dùng has been + V3. was been không có trong tiếng Anh."
+      "why_vi": "Sự cố được xử lý xong và kết quả còn đúng tới giờ nên dùng bị động has been + V3: resolved, không dùng resolve. was been không có trong tiếng Anh."
     },
     {
       "id": "w11q5",
@@ -142,7 +142,7 @@
       ],
       "answer": 0,
       "answer_vi": "Investigating: Một số người dùng không mở được dashboard. Bọn mình đang kiểm tra. Muộn nhất 10:30 giờ Việt Nam sẽ có cập nhật tiếp.",
-      "why_vi": "Câu thứ hai quá cụt, không nói ai bị ảnh hưởng và khi nào có tin tiếp. Câu thứ ba xin lỗi nhiều nhưng không có thông tin cụ thể. Câu đầu có trạng thái, ảnh hưởng, việc đang làm và giờ cập nhật."
+      "why_vi": "\"Dashboard down. Fixing.\" quá cụt, không nói ai bị ảnh hưởng và khi nào có tin tiếp. \"We're so sorry\" xin lỗi nhiều nhưng không có thông tin cụ thể. Câu bắt đầu bằng \"Investigating:\" có trạng thái, ảnh hưởng, việc đang làm và giờ cập nhật."
     },
     {
       "id": "w11q6",
@@ -154,7 +154,7 @@
       ],
       "answer": 0,
       "answer_vi": "Bọn mình đã tìm ra nguyên nhân khiến email bị chậm và đang triển khai bản sửa. Email gửi trong lúc có sự cố sẽ được tự động gửi đi.",
-      "why_vi": "Câu thứ hai đổ lỗi cho một người và nói chuyện nội bộ với khách. Câu thứ ba mơ hồ, không nói đang làm gì. Câu đầu nói rõ tình hình và điều khách quan tâm: email có bị mất không."
+      "why_vi": "\"A developer pushed a bad config\" đổ lỗi cho một người và nói chuyện nội bộ với khách. \"Something went wrong with emails\" mơ hồ, không nói đang làm gì. \"We've identified the cause\" nói rõ tình hình và điều khách quan tâm: email có bị mất không."
     },
     {
       "id": "w11q7",
@@ -166,7 +166,7 @@
       ],
       "answer": 0,
       "answer_vi": "Resolved: Tính năng tìm kiếm đã chạy bình thường từ 16:05. Bọn mình sẽ gửi bản postmortem ngắn muộn nhất thứ Năm.",
-      "why_vi": "Câu thứ hai không nói cái gì đã xong và từ lúc nào. Câu thứ ba rào đón quá nhiều nên người đọc không biết đã xong thật chưa. Câu đầu nói rõ mốc thời gian và bước tiếp theo."
+      "why_vi": "\"Fixed.\" không nói cái gì đã xong và từ lúc nào. \"may possibly have been resolved\" rào đón quá nhiều nên người đọc không biết đã xong thật chưa. \"Search has been working normally since 16:05\" nói rõ mốc thời gian và bước tiếp theo."
     },
     {
       "id": "w11q8",

@@ -139,7 +139,7 @@
       ],
       "answer": 0,
       "answer_vi": "Sửa tổng thuế sai trên hoá đơn có giảm giá.",
-      "why_vi": "Tiêu đề nên ngắn mà cụ thể: sửa gì, ở đâu. Fix bug không cho người review biết gì. Câu thứ ba quá dài, phần giải thích nên để ở mô tả."
+      "why_vi": "Tiêu đề nên ngắn mà cụ thể: sửa gì, ở đâu. Fix bug không cho người review biết gì. \"This PR is a small fix for an issue...\" quá dài, phần giải thích nên để ở mô tả."
     },
     {
       "id": "w01q6",
@@ -151,7 +151,7 @@
       ],
       "answer": 0,
       "answer_vi": "Cần sửa vì chức năng xuất file bị timeout với tài khoản có hơn 10.000 đơn hàng.",
-      "why_vi": "Phần Why cần lý do cụ thể, có con số càng tốt. Needed quá cụt. Câu thứ ba rào đón nhiều mà không nói vấn đề là gì."
+      "why_vi": "Phần Why cần lý do cụ thể, có con số càng tốt. Needed quá cụt. \"I think maybe this change could possibly help\" rào đón nhiều mà không nói vấn đề là gì."
     },
     {
       "id": "w01q7",
@@ -163,7 +163,7 @@
       ],
       "answer": 0,
       "answer_vi": "Thay đổi chính nằm ở OrderService. Phần còn lại chỉ là đổi tên, bạn đọc lướt là được.",
-      "why_vi": "Ghi chú tốt chỉ cho người review chỗ cần xem kỹ. Review this nghe như ra lệnh. Câu thứ ba xin lỗi quá nhiều, please kindly là thừa."
+      "why_vi": "Ghi chú tốt chỉ cho người review chỗ cần xem kỹ. Review this nghe như ra lệnh. \"Sorry to bother you\" xin lỗi quá nhiều, please kindly là thừa."
     },
     {
       "id": "w01q8",

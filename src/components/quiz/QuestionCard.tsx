@@ -1,5 +1,9 @@
 import { useEffect, useRef, type ReactNode, type RefObject } from 'react';
 
+// Đáp án có dấu tiếng Việt thì đọc bằng giọng tiếng Việt (screen reader).
+const VI = /[ăâđêôơưàáảãạèéẻẽẹìíỉĩịòóỏõọùúủũụỳýỷỹỵ]/i;
+const langOf = (s: string) => (VI.test(s) ? 'vi' : 'en');
+
 export type Question = { id: string; prompt_vi: string; options: string[]; answer: number; answer_vi?: string; why_vi: string };
 export type Step = 'ok' | 'no' | 'now' | '';
 
@@ -61,7 +65,7 @@ export default function QuestionCard({ question, order, picked, onChoose, onNext
           return (
             <button key={`${question.id}-${original}`} className={cls} type="button" disabled={picked !== null} onClick={() => onChoose(shown)}>
               <kbd aria-hidden="true">{shown + 1}</kbd>
-              <span lang="en">{question.options[original]}</span>
+              <span lang={langOf(question.options[original])}>{question.options[original]}</span>
               <span className="opt-mark">{mark}</span>
             </button>
           );
@@ -73,7 +77,7 @@ export default function QuestionCard({ question, order, picked, onChoose, onNext
             <b>{isRight ? 'Đúng.' : 'Chưa đúng.'}</b> {question.why_vi}
             {question.answer_vi && (
               <span className="vi-line">
-                <span lang="en">{question.options[question.answer]}</span>: {question.answer_vi}
+                <span lang={langOf(question.options[question.answer])}>{question.options[question.answer]}</span>: {question.answer_vi}
               </span>
             )}
           </p>

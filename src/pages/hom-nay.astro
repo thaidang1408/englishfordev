@@ -215,7 +215,7 @@ const stepsLeft = steps.filter((s) => !s.done).length;
             </div>
           </div>
           <noscript><p class="note warn">Phần sửa câu cần bật JavaScript.</p></noscript>
-          <CorrectBox client:visible next="/hom-nay" />
+          <CorrectBox client:idle next="/hom-nay" />
           {
             hasFullAccess(access) && (
               <p style="margin:var(--s-4) 0 0;font-size:var(--fs-sm)">
@@ -261,6 +261,7 @@ const stepsLeft = steps.filter((s) => !s.done).length;
                 stats={upsell}
                 fallback={access.kind === 'trial' ? `Dùng thử còn ${daysLeft(access.until, now)} ngày` : 'Dùng thử đã hết, dữ liệu của bạn vẫn còn'}
                 primary={false}
+                after={access.kind === 'trial' ? 'Hết dùng thử: còn 3 bài đầu, sửa câu 1 lần mỗi 7 ngày, sổ lỗi chỉ hiện 3 lỗi gần nhất. Dữ liệu vẫn giữ nguyên.' : undefined}
               />
             </section>
           )

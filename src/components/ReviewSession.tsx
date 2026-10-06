@@ -106,6 +106,8 @@ export default function ReviewSession({ items }: Props) {
       setNextBox(null);
       setSaveError(null);
       boxRef.current?.focus({ preventScroll: true });
+      // Câu mới ngắn hơn câu cũ thì trang không tự cuộn lên: kéo đầu câu vào màn hình.
+      if (boxRef.current && boxRef.current.getBoundingClientRect().top < 0) boxRef.current.scrollIntoView({ block: 'start' });
       return;
     }
     setPhase('done');

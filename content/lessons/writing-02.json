@@ -140,7 +140,7 @@
       ],
       "answer": 0,
       "answer_vi": "Sửa lỗi gửi trùng email khi đặt lại mật khẩu.",
-      "why_vi": "Dòng đầu nên ngắn mà nói được sửa gì. Fix bug không giúp ai khi đọc git log. Câu thứ ba quá dài, chi tiết nên để ở phần thân."
+      "why_vi": "Dòng đầu nên ngắn mà nói được sửa gì. Fix bug không giúp ai khi đọc git log. \"Fix a bug that some users reported last week...\" quá dài, chi tiết nên để ở phần thân."
     },
     {
       "id": "w02q6",
@@ -152,7 +152,7 @@
       ],
       "answer": 0,
       "answer_vi": "Query cũ tải hết đơn hàng vào bộ nhớ, nên chức năng xuất file bị timeout với tài khoản lớn.",
-      "why_vi": "Phần thân nói rõ vấn đề cũ và vì sao đổi. Changed some stuff không có thông tin. Câu thứ ba xin lỗi và đoán mò, người đọc vẫn không biết lỗi là gì."
+      "why_vi": "Phần thân nói rõ vấn đề cũ và vì sao đổi. Changed some stuff không có thông tin. \"Sorry, I had to change the query a bit\" xin lỗi và đoán mò, người đọc vẫn không biết lỗi là gì."
     },
     {
       "id": "w02q7",

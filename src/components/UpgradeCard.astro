@@ -12,6 +12,8 @@ interface Props {
   fallback: string;
   points?: string[];
   primary?: boolean;
+  /** Dòng nói rõ hết dùng thử thì tài khoản còn gì (chỉ cho tài khoản đang dùng thử). */
+  after?: string;
 }
 
 const {
@@ -19,12 +21,14 @@ const {
   fallback,
   points = ['Ôn tiếp đúng những lỗi bạn hay mắc', 'Tất cả bài học, luyện phỏng vấn và phỏng vấn thử', 'Sửa câu của bạn 30 lần mỗi ngày'],
   primary = true,
+  after,
 } = Astro.props;
 ---
 
 <div class="paywall">
   <h3>{upsellHeadline(stats, fallback)}</h3>
   <ul>{points.map((p) => <li>{p}</li>)}</ul>
+  {after && <p class="muted" style="font-size:var(--fs-sm)">{after}</p>}
   <a class:list={['btn', primary ? 'btn-primary' : 'btn-quiet']} href="/nang-cap?goi=30d">
     Nâng cấp 30 ngày, {formatVnd(PLANS['30d'].amount)}
   </a>

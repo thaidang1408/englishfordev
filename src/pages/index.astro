@@ -9,7 +9,8 @@ import { lessons } from '../lib/content/lessons';
 import { TRACKS } from '../lib/content/schema';
 import { TRACK_NAMES, TRACK_OUTLINE } from '../lib/content/tracks';
 import { ROLE_HINTS, ROLE_NAMES, ROLE_SHORT, ROLES } from '../lib/content/roles';
-import { PLANS, REFUND_DAYS, TRIAL_DAYS, formatVnd } from '../lib/pricing';
+import { PLANS, REFUND_DAYS, TRIAL_DAYS, formatVnd, perDay } from '../lib/pricing';
+import { LIMITS } from '../lib/correct/quota';
 
 const firstLesson = lessons.find((l) => l.free);
 const firstHref = firstLesson ? `/hoc/${firstLesson.slug}` : '/bang-gia';
@@ -100,7 +101,7 @@ const totalLessons = Object.values(TRACK_OUTLINE).reduce((n, t) => n + t.length,
           <h3>Chưa biết bắt đầu từ track nào?</h3>
           <p class="muted">Làm bài kiểm tra 12 câu, khoảng 5 phút. EPC gợi ý track hợp với điểm yếu của bạn.</p>
         </div>
-        <p class="cta-mid muted">{TRIAL_DAYS} ngày dùng thử đủ quyền Premium. Không cần thẻ.</p>
+        <p class="cta-mid muted">{TRIAL_DAYS} ngày dùng thử mọi bài, sửa câu {LIMITS.trial} lần mỗi ngày. Không cần thẻ.</p>
         <a class="btn btn-quiet" href="/xep-trinh-do">Kiểm tra trình độ<Icon name="arrow" size={18} /></a>
       </div>
     </div>
@@ -164,7 +165,7 @@ const totalLessons = Object.values(TRACK_OUTLINE).reduce((n, t) => n + t.length,
                 <p class="muted">{info.note}</p>
                 <details class="track-list">
                   <summary>
-                    <span>Xem {TRACK_OUTLINE[track].length} bài</span>
+                    <span>Xem danh sách bài</span>
                     <span class="chev" aria-hidden="true"><Icon name="arrow" size={14} /></span>
                   </summary>
                   <ol class="lesson-mini">
@@ -317,7 +318,7 @@ const totalLessons = Object.values(TRACK_OUTLINE).reduce((n, t) => n + t.length,
         <span class="pill"><Icon name="sparkle" size={14} />Giá</span>
         <h2 id="gia">Học thử miễn phí, <span class="hl">trả theo kỳ</span></h2>
         <p class="sec-lede">
-          Đăng ký xong có {TRIAL_DAYS} ngày dùng thử đủ quyền Premium, không cần thẻ. Sau đó vẫn học được 3 bài đầu và được sửa
+          Đăng ký xong có {TRIAL_DAYS} ngày dùng thử mọi bài, sửa câu {LIMITS.trial} lần mỗi ngày, không cần thẻ. Sau đó vẫn học được 3 bài đầu và được sửa
           câu 1 lần mỗi 7 ngày.
         </p>
       </header>
@@ -325,6 +326,7 @@ const totalLessons = Object.values(TRACK_OUTLINE).reduce((n, t) => n + t.length,
         <div class="card plan-card" data-reveal>
           <h3>Premium 30 ngày</h3>
           <p class="price">{formatVnd(PLANS['30d'].amount)}</p>
+          <p class="muted per-day">Khoảng {formatVnd(perDay('30d'))} mỗi ngày</p>
           <p class="muted">Đủ {totalLessons} bài, sửa câu 30 lần mỗi ngày, sổ lỗi đầy đủ, phỏng vấn thử.</p>
           <a class="go" href="/nang-cap?goi=30d">Mua gói 30 ngày <span class="go-dot"><Icon name="arrow" size={16} /></span></a>
         </div>
@@ -332,12 +334,14 @@ const totalLessons = Object.values(TRACK_OUTLINE).reduce((n, t) => n + t.length,
           <span class="pill amber">Rẻ hơn {formatVnd(saving)} so với 3 gói 30 ngày</span>
           <h3>Premium 90 ngày</h3>
           <p class="price">{formatVnd(PLANS['90d'].amount)}</p>
+          <p class="muted per-day">Khoảng {formatVnd(perDay('90d'))} mỗi ngày</p>
           <p class="muted">Như gói 30 ngày, đủ cho một vòng ôn cả ba track.</p>
           <a class="go amber" href="/nang-cap?goi=90d">Mua gói 90 ngày <span class="go-dot"><Icon name="arrow" size={16} /></span></a>
         </div>
       </div>
       <p class="muted center-note">
-        Mua theo kỳ, không tự gia hạn. Hoàn tiền trong {REFUND_DAYS} ngày đầu. <a href="/bang-gia">Xem bảng so sánh đầy đủ</a>
+        Mua theo kỳ, không tự gia hạn. Hoàn tiền trong {REFUND_DAYS} ngày đầu. <a href="/bang-gia">Xem Premium giúp được gì</a>, hoặc
+        <a href={`/hoc/${slugFor('writing', 1)}`}>xem trước một bài Premium</a>.
       </p>
     </div>
   </section>

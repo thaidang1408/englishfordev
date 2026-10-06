@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { markFragments, sameSentence } from '../../src/lib/correct/selfcheck';
+import { fixedCount, markFragments, sameSentence } from '../../src/lib/correct/selfcheck';
 
 describe('tự sửa trước', () => {
   it('coi là khớp khi chỉ khác chữ hoa, khoảng trắng, dấu nháy và dấu câu cuối', () => {
@@ -28,5 +28,21 @@ describe('tự sửa trước', () => {
     expect(markFragments('a bug', ['', 'xyz'])).toEqual([{ text: 'a bug', mark: false }]);
     expect(markFragments('the the end', ['the', 'the']).filter((p) => p.mark)).toHaveLength(2);
     expect(markFragments('fixed bug', ['fixed bug', 'bug']).filter((p) => p.mark).map((p) => p.text)).toEqual(['fixed bug']);
+  });
+});
+
+describe('fixedCount', () => {
+  const changes = [
+    { from: 'He go', to: 'He goes' },
+    { from: 'yesterday meeting', to: "yesterday's meeting" },
+  ];
+  it('đếm từng chỗ đã sửa, bỏ qua chỗ AI đổi thêm', () => {
+    expect(fixedCount("He goes to yesterday's meeting", changes)).toBe(2);
+    expect(fixedCount('He goes to yesterday meeting', changes)).toBe(1);
+    expect(fixedCount('He go to yesterday meeting', changes)).toBe(0);
+  });
+  it('chỗ cần xóa tính đúng khi đoạn sai không còn', () => {
+    expect(fixedCount('Please check it', [{ from: 'again', to: '' }])).toBe(1);
+    expect(fixedCount('Please check it again', [{ from: 'again', to: '' }])).toBe(0);
   });
 });

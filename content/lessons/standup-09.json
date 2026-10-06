@@ -133,7 +133,7 @@
       ],
       "answer": 0,
       "answer_vi": "Mình hiểu ý bạn, nhưng mình nghĩ bỏ hết test thì rủi ro. Ít nhất mình giữ test cho luồng thanh toán được không?",
-      "why_vi": "Câu đầu ghi nhận ý, nói rủi ro và đưa ra cách khác. Câu hai chê thẳng ý của người kia. Câu ba ngập ngừng quá mức, không nói rõ mình lo điều gì."
+      "why_vi": "\"I see your point, but\" ghi nhận ý, nói rủi ro và đưa ra cách khác. \"That's a bad idea.\" chê thẳng ý của người kia. \"Hmm, maybe, I don't know\" ngập ngừng quá mức, không nói rõ mình lo điều gì."
     },
     {
       "id": "s09q6",
@@ -145,7 +145,7 @@
       ],
       "answer": 0,
       "answer_vi": "Mình hiểu vì sao bạn cần tính năng này, nhưng mình nghĩ không thể vừa thêm nó vừa giữ ngày cũ. Bên mình có thể đưa nó vào bản release sau, hoặc lùi ngày một tuần.",
-      "why_vi": "Câu đầu nói thật về rủi ro và đưa ra hai lựa chọn. Câu hai từ chối cụt, không có hướng đi. Câu ba nhận lời cho xong dù biết không kịp, tới lúc trễ mới lộ ra."
+      "why_vi": "\"I understand why you need it\" nói thật về rủi ro và đưa ra hai lựa chọn. \"No, that's impossible.\" từ chối cụt, không có hướng đi. \"Sure, no problem.\" nhận lời cho xong dù biết không kịp, tới lúc trễ mới lộ ra."
     },
     {
       "id": "s09q7",
@@ -157,7 +157,7 @@
       ],
       "answer": 0,
       "answer_vi": "Mình vẫn nhìn vấn đề này hơi khác, nhưng mình sẵn sàng làm theo phương án B.",
-      "why_vi": "Câu đầu nói rõ mình vẫn có ý khác nhưng ủng hộ quyết định chung. Câu hai nghe như đang khó chịu. Câu ba tiếp tục tranh luận sau khi nhóm đã chốt."
+      "why_vi": "\"I still see it a bit differently, but\" nói rõ mình vẫn có ý khác nhưng ủng hộ quyết định chung. \"Fine. Your call.\" nghe như đang khó chịu. \"let me explain again why A is better\" tiếp tục tranh luận sau khi nhóm đã chốt."
     },
     {
       "id": "s09q8",

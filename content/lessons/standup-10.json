@@ -133,7 +133,7 @@
       ],
       "answer": 0,
       "answer_vi": "Trước khi kết thúc, mình tóm tắt nhanh các việc cần làm và người phụ trách nhé.",
-      "why_vi": "Câu đầu rõ ràng, nói luôn sẽ làm gì. Câu hai cụt, bỏ qua bước chốt việc. Câu ba xin phép vòng vo, nghe thiếu tự tin khi đang dẫn họp."
+      "why_vi": "\"let me quickly recap\" rõ ràng, nói luôn sẽ làm gì. \"Meeting over. Bye.\" cụt, bỏ qua bước chốt việc. \"if nobody minds, maybe I could try\" xin phép vòng vo, nghe thiếu tự tin khi đang dẫn họp."
     },
     {
       "id": "s10q6",
@@ -145,7 +145,7 @@
       ],
       "answer": 0,
       "answer_vi": "Minh sẽ gửi đặc tả API cho khách, muộn nhất thứ Tư.",
-      "why_vi": "Câu đầu có người phụ trách, việc cụ thể và hạn chót. Hai câu còn lại đúng ngữ pháp nhưng không nói ai làm và khi nào, nên dễ không ai làm."
+      "why_vi": "\"Minh will send the API spec to the client by Wednesday\" có người phụ trách, việc cụ thể và hạn chót. Hai câu còn lại đúng ngữ pháp nhưng không nói ai làm và khi nào, nên dễ không ai làm."
     },
     {
       "id": "s10q7",
@@ -157,7 +157,7 @@
       ],
       "answer": 0,
       "answer_vi": "Ý hay đấy. Mình ghi lại để bàn sau và quay lại ở cuối buổi nhé.",
-      "why_vi": "Câu đầu ghi nhận ý và hẹn bàn sau. parking lot là danh sách các ý để bàn sau. Câu hai cắt ngang thô. Câu ba vòng vo, mọi người khó biết bạn muốn dừng chủ đề đó."
+      "why_vi": "\"Let's put it in the parking lot\" ghi nhận ý và hẹn bàn sau. parking lot là danh sách các ý để bàn sau. \"Stop. That's off-topic.\" cắt ngang thô. \"I don't want to interrupt\" vòng vo, mọi người khó biết bạn muốn dừng chủ đề đó."
     },
     {
       "id": "s10q8",

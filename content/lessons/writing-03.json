@@ -138,7 +138,7 @@
       ],
       "answer": 0,
       "answer_vi": "Mình thêm test cho trường hợp danh sách rỗng được không? Lỗi lần trước xuất phát từ đó.",
-      "why_vi": "Câu đầu gợi ý cụ thể và có lý do. Add a test nghe như ra lệnh, không nói test gì. Câu thứ ba rào đón quá nhiều, người đọc không biết bạn có thật sự muốn thêm test không."
+      "why_vi": "\"Could we add a test for the empty list case?\" gợi ý cụ thể và có lý do. Add a test nghe như ra lệnh, không nói test gì. \"maybe it might be nice to perhaps add a test\" rào đón quá nhiều, người đọc không biết bạn có thật sự muốn thêm test không."
     },
     {
       "id": "w03q6",
@@ -150,7 +150,7 @@
       ],
       "answer": 0,
       "answer_vi": "Có lý do gì mà ở đây mình không dùng hàm helper xử lý ngày có sẵn không?",
-      "why_vi": "Is there a reason we... hỏi thật lòng và nói về code. Why didn't you... nghe như trách người viết. Câu thứ ba xin lỗi quá nhiều và không nói đang hỏi về chỗ nào."
+      "why_vi": "Is there a reason we... hỏi thật lòng và nói về code. Why didn't you... nghe như trách người viết. \"I'm probably wrong, sorry\" xin lỗi quá nhiều và không nói đang hỏi về chỗ nào."
     },
     {
       "id": "w03q7",
@@ -162,7 +162,7 @@
       ],
       "answer": 0,
       "answer_vi": "Góp ý nhỏ: chỗ này có thể dùng const.",
-      "why_vi": "nit: báo cho người viết biết đây là góp ý nhỏ, sửa hay không cũng được. must biến nó thành bắt buộc. Câu thứ ba làm góp ý nhỏ thành việc lớn, chặn cả việc merge."
+      "why_vi": "nit: báo cho người viết biết đây là góp ý nhỏ, sửa hay không cũng được. must biến nó thành bắt buộc. \"Could we please discuss... before we merge?\" làm góp ý nhỏ thành việc lớn, chặn cả việc merge."
     },
     {
       "id": "w03q8",
@@ -198,7 +198,7 @@
       ],
       "answer": 0,
       "answer_vi": "Họ khen bạn phát hiện race condition, có vài góp ý nhỏ không bắt buộc, CI pass là duyệt.",
-      "why_vi": "Nice catch là khen phát hiện tốt. nothing blocking là không có gì chặn merge. CI is green là CI chạy pass."
+      "why_vi": "Nice catch là khen phát hiện tốt. nits là góp ý nhỏ, nothing blocking là không có gì chặn merge. LGTM (looks good to me) once CI is green là CI chạy pass thì họ duyệt."
     }
   ],
   "write_prompt_vi": "Bạn review PR của Nam: hàm getOrders không xử lý danh sách rỗng, và biến d khó hiểu. Viết 2 comment: một góp ý chính có lý do, một góp ý nhỏ gắn nhãn nit:."

@@ -53,7 +53,8 @@ if (Astro.request.method === 'POST') {
 
 const profile = await getProfile(db, user.id);
 const done = Boolean(profile?.level);
-const correctParam = Number(Astro.url.searchParams.get('dung'));
+// Không có ?dung (vào để đổi track) thì không hiện điểm, Number(null) là 0.
+const correctParam = Astro.url.searchParams.has('dung') ? Number(Astro.url.searchParams.get('dung')) : NaN;
 const correct = Number.isInteger(correctParam) && correctParam >= 0 && correctParam <= 12 ? correctParam : null;
 const tracks = TRACKS.filter((t) => t !== 'interview' || hasFullAccess(access));
 const questions = placement.questions.map((q) => ({ ...q, order: shuffledIndexes(q.options.length) }));
@@ -108,7 +109,7 @@ const questions = placement.questions.map((q) => ({ ...q, order: shuffledIndexes
                     <span>
                       <b>{TRACK_NAMES[t]}</b>
                     </span>
-                    {profile.track === t && <span class="tag free">Gợi ý</span>}
+                    {profile.track === t && <span class="tag free">{correct !== null ? 'Gợi ý' : 'Đang học'}</span>}
                   </label>
                 ))}
               </div>

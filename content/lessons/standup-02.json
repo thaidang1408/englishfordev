@@ -132,7 +132,7 @@
       ],
       "answer": 0,
       "answer_vi": "Đầu tiên mình sửa các test đang lỗi, sau đó nhận ticket tìm kiếm.",
-      "why_vi": "Nêu rõ hai việc và thứ tự ưu tiên. Câu thứ hai quá chung chung, câu thứ ba rào đón nhiều nên team không biết bạn thực sự làm gì."
+      "why_vi": "Nêu rõ hai việc và thứ tự ưu tiên. \"some tests and some other things\" quá chung chung, \"I might try to look at the tests\" rào đón nhiều nên team không biết bạn thực sự làm gì."
     },
     {
       "id": "s02q6",
@@ -144,7 +144,7 @@
       ],
       "answer": 0,
       "answer_vi": "Hôm nay mình làm phần webhook thanh toán. Huy ơi, sau standup mình trao đổi 10 phút được không?",
-      "why_vi": "Hỏi lịch sự, có thời lượng cụ thể. Câu thứ hai nghe như ra lệnh, câu thứ ba quá khiêm tốn và không rõ cần gì, khi nào."
+      "why_vi": "Hỏi lịch sự, có thời lượng cụ thể. \"Huy, you need to help me today\" nghe như ra lệnh, \"if you ever have any free time, maybe we could talk?\" quá khiêm tốn và không rõ cần gì, khi nào."
     },
     {
       "id": "s02q7",
@@ -156,7 +156,7 @@
       ],
       "answer": 0,
       "answer_vi": "Hôm nay mình sẽ làm xong API checkout và mở PR chiều nay.",
-      "why_vi": "Có việc cụ thể và mốc thời gian. Câu thứ hai không nói tiếp việc gì, câu thứ ba chỉ hứa cố gắng, không nói sẽ xong gì."
+      "why_vi": "Có việc cụ thể và mốc thời gian. \"I'm going to continue\" không nói tiếp việc gì, \"do my best to make some progress\" chỉ hứa cố gắng, không nói sẽ xong gì."
     },
     {
       "id": "s02q8",

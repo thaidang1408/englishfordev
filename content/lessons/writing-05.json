@@ -141,7 +141,7 @@
       ],
       "answer": 0,
       "answer_vi": "1. Đăng nhập bằng tài khoản admin. 2. Mở trang Orders. 3. Lọc theo ngày.",
-      "why_vi": "Bước tái hiện nên đánh số, mỗi bước một hành động, viết dạng mệnh lệnh. Câu thứ hai không cho dev biết làm gì. Câu thứ ba dài, mơ hồ, khó làm theo."
+      "why_vi": "Bước tái hiện nên đánh số, mỗi bước một hành động, viết dạng mệnh lệnh. \"Try the orders page, it's broken.\" không cho dev biết làm gì. \"First of all, I think you should probably log in\" dài, mơ hồ, khó làm theo."
     },
     {
       "id": "w05q6",
@@ -153,7 +153,7 @@
       ],
       "answer": 0,
       "answer_vi": "Checkout trả về lỗi 500 khi giỏ hàng có hơn 50 món.",
-      "why_vi": "Tiêu đề tốt nói chỗ nào, lỗi gì, khi nào xảy ra. Checkout is broken quá chung. Câu thứ ba dài mà không nói lỗi là gì."
+      "why_vi": "Tiêu đề tốt nói chỗ nào, lỗi gì, khi nào xảy ra. Checkout is broken quá chung. \"There seems to be a small issue\" dài mà không nói lỗi là gì."
     },
     {
       "id": "w05q7",
@@ -165,7 +165,7 @@
       ],
       "answer": 0,
       "answer_vi": "Chào Nam, mình đã tạo BUG-231: đăng nhập trên Safari 17 bị lỗi khoảng 3 trên 5 lần. Các bước và log có trong ticket.",
-      "why_vi": "Tin đầu có số ticket, lỗi gì, ở đâu, bao lâu bị một lần. Câu thứ hai nghe như trách và ra lệnh. Câu thứ ba quá dè dặt, không có thông tin để dev bắt đầu."
+      "why_vi": "\"I've filed BUG-231\" có số ticket, lỗi gì, ở đâu, bao lâu bị một lần. \"Login is broken again. Fix it.\" nghe như trách và ra lệnh. \"I might be wrong, but maybe login has a small problem\" quá dè dặt, không có thông tin để dev bắt đầu."
     },
     {
       "id": "w05q8",

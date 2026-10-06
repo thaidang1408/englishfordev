@@ -2,11 +2,12 @@
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import Checkout from '../components/pay/Checkout';
+import PremiumValue from '../components/PremiumValue.astro';
 import { accessFrom } from '../lib/auth/access';
 import { getLatestOrder, getOwnOrder } from '../lib/db/orders';
 import { getEntitlement } from '../lib/db/queries';
 import { LINK_TTL_HOURS, planSchema, toView, type OrderView } from '../lib/pay/order';
-import { PLANS, REFUND_DAYS } from '../lib/pricing';
+import { formatVnd, perDay, PLANS, REFUND_DAYS } from '../lib/pricing';
 import { daysLeft, formatVnDate } from '../lib/time';
 import { serverEnv } from '../lib/env-server';
 
@@ -44,6 +45,9 @@ if (row && fresh && (row.status === 'pending' || (row.status === 'paid' && valid
     <div class="panel">
       <Checkout client:load initialPlan={initialPlan} initialOrder={initialOrder} />
     </div>
+    <p class="muted center-note">Gói 30 ngày khoảng {formatVnd(perDay('30d'))} mỗi ngày, gói 90 ngày khoảng {formatVnd(perDay('90d'))} mỗi ngày.</p>
+    <h2 class="value-head">Bạn nhận được</h2>
+    <PremiumValue compact />
     <ul class="ticks muted panel" style="font-size:var(--fs-sm)">
       <li>Mua theo kỳ: {PLANS['30d'].days} hoặc {PLANS['90d'].days} ngày, không tự gia hạn, không lưu thẻ.</li>
       <li>Thanh toán bằng chuyển khoản ngân hàng qua mã VietQR do payOS tạo.</li>

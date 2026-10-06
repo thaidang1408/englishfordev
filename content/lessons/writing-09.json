@@ -134,7 +134,7 @@
       ],
       "answer": 0,
       "answer_vi": "Nếu job chạy đêm bị lỗi, bạn chạy lại từ Jenkins nhé. Thường chạy lần hai là được.",
-      "why_vi": "Câu thứ hai nghe như ra lệnh và gạt người nhận đi. Câu thứ ba rào đón đến mức không rõ đây là việc cần làm. Câu đầu dặn rõ và thêm một mẹo có ích."
+      "why_vi": "\"Don't message me about it\" nghe như ra lệnh và gạt người nhận đi. \"If it's not too much trouble\" rào đón đến mức không rõ đây là việc cần làm. \"please rerun it from Jenkins\" dặn rõ và thêm một mẹo có ích."
     },
     {
       "id": "w09q6",
@@ -146,7 +146,7 @@
       ],
       "answer": 0,
       "answer_vi": "Đừng chạy migration trên prod cho tới khi Tuấn review xong nhé. Nó khoá bảng orders.",
-      "why_vi": "Viết hoa toàn bộ nghe như quát và không nói lý do. Câu thứ ba quá nhẹ nên người đọc tưởng là tuỳ ý. Câu đầu nói rõ điều kiện và lý do."
+      "why_vi": "Viết hoa toàn bộ nghe như quát và không nói lý do. \"It might be better to wait a little\" quá nhẹ nên người đọc tưởng là tuỳ ý. \"until Tuan has reviewed it. It locks the orders table.\" nói rõ điều kiện và lý do."
     },
     {
       "id": "w09q7",
@@ -158,7 +158,7 @@
       ],
       "answer": 0,
       "answer_vi": "Để bạn biết: server staging khởi động lại mỗi đêm lúc 2 giờ sáng, nên quanh giờ đó bạn có thể thấy vài lần health check bị lỗi.",
-      "why_vi": "Câu thứ hai cụt, không nói 2 giờ sáng hay chiều và ảnh hưởng ra sao. Câu thứ ba mơ hồ, nghe như không chắc. Câu đầu nói rõ giờ và hệ quả."
+      "why_vi": "\"Staging restarts at 2.\" cụt, không nói 2 giờ sáng hay chiều và ảnh hưởng ra sao. \"I think the staging server might sometimes restart\" mơ hồ, nghe như không chắc. \"restarts every night at 2 AM\" nói rõ giờ và hệ quả."
     },
     {
       "id": "w09q8",

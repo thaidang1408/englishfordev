@@ -140,7 +140,7 @@
       ],
       "answer": 0,
       "answer_vi": "Mình muốn báo sớm là module báo cáo sẽ trễ khoảng một tuần. Bên mình có thể giao vào thứ Sáu nhưng chưa có xuất PDF, hoặc giao đầy đủ vào thứ Sáu tuần sau.",
-      "why_vi": "Câu thứ hai cụt và không cho khách lựa chọn. Câu thứ ba xin lỗi quá nhiều mà không nói trễ bao lâu. Câu đầu báo sớm, nói rõ mức trễ và đưa hai lựa chọn."
+      "why_vi": "\"Reports module late.\" cụt và không cho khách lựa chọn. \"We're extremely sorry\" xin lỗi quá nhiều mà không nói trễ bao lâu. \"I wanted to let you know early\" báo sớm, nói rõ mức trễ và đưa hai lựa chọn."
     },
     {
       "id": "w12q6",
@@ -152,7 +152,7 @@
       ],
       "answer": 0,
       "answer_vi": "Bên mình chưa nhận được API key nên chưa bắt đầu tích hợp được. Anh hỏi giúp bên nhà cung cấp trong tuần này được không?",
-      "why_vi": "Câu thứ hai đổ lỗi, dễ làm khách khó chịu. Câu thứ ba vòng vo quá, không nói rõ cần gì và khi nào. Câu đầu nói sự thật, ảnh hưởng, và nhờ một việc cụ thể có hạn."
+      "why_vi": "\"Your vendor is too slow\" đổ lỗi, dễ làm khách khó chịu. \"If it's not too much trouble\" vòng vo quá, không nói rõ cần gì và khi nào. \"We haven't received the API keys yet\" nói sự thật, ảnh hưởng, và nhờ một việc cụ thể có hạn."
     },
     {
       "id": "w12q7",
@@ -164,7 +164,7 @@
       ],
       "answer": 0,
       "answer_vi": "Bên mình đề xuất phương án thứ hai, vì như vậy bên mình có thời gian test phần thanh toán cho kỹ.",
-      "why_vi": "Câu thứ hai nghe như coi thường người hỏi. Câu thứ ba né tránh, trong khi khách đang cần ý kiến chuyên môn. Câu đầu đề xuất rõ và có lý do."
+      "why_vi": "\"Option 2, obviously.\" nghe như coi thường người hỏi. \"We're not really sure\" né tránh, trong khi khách đang cần ý kiến chuyên môn. \"We'd recommend the second option\" đề xuất rõ và có lý do."
     },
     {
       "id": "w12q8",

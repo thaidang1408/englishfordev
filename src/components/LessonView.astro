@@ -34,7 +34,7 @@ const num = String(lesson.id).padStart(2, '0');
       <h2 id="luyen-tap">Luyện tập</h2>
       <p class="muted kbd-hint">Phím <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> để chọn, <kbd>Enter</kbd> để sang câu sau.</p>
       <noscript><p class="note warn">Phần trắc nghiệm cần bật JavaScript.</p></noscript>
-      <Quiz client:visible lessonKey={key} pool={lesson.quiz} next={nextLink} />
+      <Quiz client:idle lessonKey={key} pool={lesson.quiz} next={nextLink} />
     </section>
 
     <section class="part" aria-labelledby="cau-cua-ban">
@@ -46,8 +46,8 @@ const num = String(lesson.id).padStart(2, '0');
         <ul>{lesson.checklist_vi.map((c) => <li>{c}</li>)}</ul>
         <p class="muted">AI sửa câu và chỉ ra ý nào còn thiếu.</p>
       </div>
-      <p class="muted" style="font-size:var(--fs-sm)">Phần này cần đăng nhập. AI sửa câu của bạn và giải thích bằng tiếng Việt.</p>
+      {!Astro.locals.user && <p class="muted" style="font-size:var(--fs-sm)">Phần này cần đăng nhập. AI sửa câu của bạn và giải thích bằng tiếng Việt.</p>}
       <noscript><p class="note warn">Phần sửa câu cần bật JavaScript.</p></noscript>
-      <CorrectBox client:visible lessonKey={key} next={`/hoc/${lesson.slug}#cau-cua-ban`} />
+      <CorrectBox client:idle lessonKey={key} question={lesson.question_en} next={`/hoc/${lesson.slug}#cau-cua-ban`} />
     </section>
   </article>

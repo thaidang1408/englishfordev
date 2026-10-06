@@ -133,7 +133,7 @@
       ],
       "answer": 0,
       "answer_vi": "Xin lỗi, mình nghe chưa rõ đoạn cuối. Bạn nói lại được không?",
-      "why_vi": "Câu đầu lịch sự và nói rõ phần nào bị sót. Câu hai cụt, nghe hơi gắt. Câu ba tự hạ mình quá mức và bắt người kia nói lại toàn bộ."
+      "why_vi": "\"I didn't catch the last part\" lịch sự và nói rõ phần nào bị sót. \"What? Say that again.\" cụt, nghe hơi gắt. \"my English is very bad\" tự hạ mình quá mức và bắt người kia nói lại toàn bộ."
     },
     {
       "id": "s06q6",
@@ -145,7 +145,7 @@
       ],
       "answer": 0,
       "answer_vi": "Ý bạn \"tổng quát hơn\" là sao? Nó có cần chạy được cho các loại báo cáo khác nữa không?",
-      "why_vi": "Câu đầu hỏi đúng chỗ chưa rõ và đưa ra cách hiểu để người kia chỉ cần xác nhận. Câu hai không nói chưa hiểu chỗ nào. Câu ba nhận lời khi chưa hiểu, dễ sửa sai hướng."
+      "why_vi": "\"What do you mean by...\" hỏi đúng chỗ chưa rõ và đưa ra cách hiểu để người kia chỉ cần xác nhận. \"I don't understand your comment\" không nói chưa hiểu chỗ nào. \"OK, I'll change it\" nhận lời khi chưa hiểu, dễ sửa sai hướng."
     },
     {
       "id": "s06q7",
@@ -157,7 +157,7 @@
       ],
       "answer": 0,
       "answer_vi": "Bạn gửi số ticket vào khung chat giúp mình được không?",
-      "why_vi": "Câu đầu ngắn, lịch sự và nói rõ muốn người kia làm gì. Câu hai là mệnh lệnh, nghe cộc với khách. Câu ba vòng vo, xin lỗi quá nhiều cho một việc nhỏ."
+      "why_vi": "\"Could you drop the ticket number in the chat?\" ngắn, lịch sự và nói rõ muốn người kia làm gì. \"Spell the ticket number.\" là mệnh lệnh, nghe cộc với khách. \"I'm really sorry to bother you again\" vòng vo, xin lỗi quá nhiều cho một việc nhỏ."
     },
     {
       "id": "s06q8",

@@ -138,7 +138,7 @@
       ],
       "answer": 0,
       "answer_vi": "Bên mình đang đúng tiến độ, sẽ giao module thanh toán muộn nhất thứ Sáu. QA đang test trên staging.",
-      "why_vi": "\"It's fine.\" quá cụt, khách không biết gì thêm. Câu thứ ba rào đón nhiều nên nghe như không chắc. Câu đầu nói rõ mốc và việc đang làm."
+      "why_vi": "\"It's fine.\" quá cụt, khách không biết gì thêm. \"We're doing our very best, and we really hope\" rào đón nhiều nên nghe như không chắc. \"We're on track to deliver the payment module by Friday\" nói rõ mốc và việc đang làm."
     },
     {
       "id": "w07q6",
@@ -150,7 +150,7 @@
       ],
       "answer": 0,
       "answer_vi": "Bên mình đang đúng tiến độ cho đợt phát hành tháng 6, nhưng vẫn cần team bạn gửi API key muộn nhất thứ Tư để giữ đúng lịch.",
-      "why_vi": "Câu thứ hai đổ lỗi cho khách. Câu thứ ba nói \"no worries\" nên khách không thấy rủi ro. Câu đầu nêu rõ cần gì, hạn khi nào, và vì sao."
+      "why_vi": "\"any delay is on your side\" đổ lỗi cho khách. Câu có \"no worries\" làm khách không thấy rủi ro. \"we still need the API keys from your team by Wednesday\" nêu rõ cần gì, hạn khi nào, và vì sao."
     },
     {
       "id": "w07q7",
@@ -162,7 +162,7 @@
       ],
       "answer": 0,
       "answer_vi": "Trang thanh toán mới đã sẵn sàng để bạn dùng thử trên trang test. Bên mình đang đúng tiến độ, sẽ chạy thật muộn nhất ngày 20/5.",
-      "why_vi": "Câu thứ hai đúng nhưng toàn thuật ngữ, khách khó hiểu. Câu thứ ba cụt như ghi chú nội bộ. Câu đầu nói điều khách quan tâm: dùng thử ở đâu và khi nào chạy thật."
+      "why_vi": "\"the CI pipeline is green on staging\" đúng nhưng toàn thuật ngữ, khách khó hiểu. \"Checkout done. Live May 20.\" cụt như ghi chú nội bộ. \"ready for you to try on the test site\" nói điều khách quan tâm: dùng thử ở đâu và khi nào chạy thật."
     },
     {
       "id": "w07q8",

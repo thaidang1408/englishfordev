@@ -4,10 +4,10 @@ import lesson from '../../content/lessons/standup-01.json' with { type: 'json' }
 const URL = `/hoc/${lesson.slug}`;
 const quiz = (page: Page) => page.locator('.quiz');
 
-/** Trắc nghiệm là island client:visible: chỉ chạy khi người học cuộn tới. */
+/** Trắc nghiệm là island client:idle, render lại từ "đang tải" sang câu hỏi: cuộn theo tiêu đề tĩnh rồi đợi đáp án. */
 async function openQuiz(page: Page): Promise<void> {
   await page.goto(URL);
-  await quiz(page).scrollIntoViewIfNeeded();
+  await page.locator('#luyen-tap').scrollIntoViewIfNeeded();
   await expect(quiz(page).locator('.opt')).toHaveCount(3);
 }
 
@@ -15,7 +15,7 @@ const QUIZ_SIZE = 5;
 
 /** Câu đang hiện (nhận ra qua bộ đáp án, vì câu được lấy ngẫu nhiên) và vị trí đang hiển thị của đáp án đúng. */
 async function current(page: Page): Promise<{ id: string; right: number }> {
-  const texts = await quiz(page).locator('.opt span[lang="en"]').allTextContents();
+  const texts = await quiz(page).locator('.opt span[lang]').allTextContents();
   const item = lesson.quiz.find((q) => q.options.every((o) => texts.includes(o)));
   expect(item, 'câu đang hiện phải là một câu của bài').toBeTruthy();
   return { id: item!.id, right: texts.indexOf(item!.options[0]!) };
@@ -44,7 +44,9 @@ test('học hết bài 1 không cần đăng nhập, tiến độ còn sau khi t
   expect(seen.size).toBe(QUIZ_SIZE);
 
   await expect(quiz(page)).toContainText('Bạn đúng 4 trên 5 câu.');
-  await expect(page.getByRole('link', { name: 'Học bài tiếp theo' })).toHaveAttribute('href', '/hoc/hom-nay-lam-gi');
+  // Bước chính sau trắc nghiệm là phần 5 (viết câu); bài sau vẫn có link nhỏ.
+  await expect(page.getByRole('link', { name: 'Sang phần 5: Viết câu của bạn' })).toHaveAttribute('href', '#cau-cua-ban');
+  await expect(quiz(page).getByRole('link', { name: 'Hôm nay làm gì' }).or(quiz(page).locator('a[href="/hoc/hom-nay-lam-gi"]')).first()).toHaveAttribute('href', '/hoc/hom-nay-lam-gi');
 
   await page.reload();
   await quiz(page).scrollIntoViewIfNeeded();

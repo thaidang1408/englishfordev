@@ -133,7 +133,7 @@
       ],
       "answer": 0,
       "answer_vi": "Hôm qua mình sửa bug đăng nhập và review hai PR.",
-      "why_vi": "Standup cần gọn và cụ thể: làm gì, xong chưa. Câu thứ hai quá chung chung, câu thứ ba vòng vo, người nghe khó biết việc gì đã xong."
+      "why_vi": "Standup cần gọn và cụ thể: làm gì, xong chưa. \"I worked on some stuff\" quá chung chung, \"as most of you probably know\" vòng vo, người nghe khó biết việc gì đã xong."
     },
     {
       "id": "s01q6",
@@ -145,7 +145,7 @@
       ],
       "answer": 0,
       "answer_vi": "Hôm qua mình deploy nhầm bản lên staging nên đã rollback. Giờ ổn rồi.",
-      "why_vi": "Nói thẳng chuyện gì xảy ra, bạn đã xử lý ra sao và tình trạng hiện tại. Câu thứ hai giấu thông tin, câu thứ ba xin lỗi quá mức mà không nói gì về sự cố."
+      "why_vi": "Nói thẳng chuyện gì xảy ra, bạn đã xử lý ra sao và tình trạng hiện tại. \"Something went wrong with staging\" giấu thông tin, \"I made a terrible mistake\" xin lỗi quá mức mà không nói gì về sự cố."
     },
     {
       "id": "s01q7",
@@ -157,7 +157,7 @@
       ],
       "answer": 0,
       "answer_vi": "Hôm qua mình làm xong API thanh toán, giờ QA test được rồi.",
-      "why_vi": "Thêm kết quả (ready for QA) để người nghe biết họ làm được gì tiếp. Câu thứ hai đúng nhưng thiếu ý đó, câu thứ ba rào đón quá nhiều nên nghe như chưa xong."
+      "why_vi": "Thêm kết quả (ready for QA) để người nghe biết họ làm được gì tiếp. Câu dừng ở \"I finished the payment API.\" đúng nhưng thiếu ý đó, \"more or less finished\" rào đón quá nhiều nên nghe như chưa xong."
     },
     {
       "id": "s01q8",

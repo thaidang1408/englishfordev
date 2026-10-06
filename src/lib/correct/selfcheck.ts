@@ -18,6 +18,22 @@ export function sameSentence(a: string, b: string): boolean {
   return normalizeSentence(a) === normalizeSentence(b);
 }
 
+function has(text: string, part: string): boolean {
+  const n = normalizeSentence(part);
+  return n === '' || normalizeSentence(text).includes(n);
+}
+
+/**
+ * Chấm theo từng chỗ AI đã sửa, không đòi giống hệt cả câu (AI có thể đổi thêm chỗ không tô).
+ * Một chỗ tính là đúng khi bản tự sửa có đoạn đúng và không còn đoạn sai.
+ */
+export function fixedCount(attempt: string, changes: readonly { from: string; to: string }[]): number {
+  return changes.filter((c) => {
+    const fromInTo = normalizeSentence(c.to).includes(normalizeSentence(c.from));
+    return has(attempt, c.to) && (fromInTo || !c.from.trim() || !has(attempt, c.from));
+  }).length;
+}
+
 export type Piece = { text: string; mark: boolean };
 
 /**

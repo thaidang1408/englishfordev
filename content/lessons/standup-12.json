@@ -137,7 +137,7 @@
       ],
       "answer": 0,
       "answer_vi": "Sáng nay một số khách không thanh toán được trong khoảng 20 phút. Một cấu hình bị thay đổi khi deploy, và bên mình đã sửa xong.",
-      "why_vi": "Câu đầu nói ảnh hưởng trước, nguyên nhân ngắn gọn bằng lời thường. Câu hai toàn thuật ngữ, PM khó hiểu. Câu ba quá chung, không nói ai bị ảnh hưởng và bao lâu."
+      "why_vi": "\"Some customers couldn't pay for about 20 minutes\" nói ảnh hưởng trước, nguyên nhân ngắn gọn bằng lời thường. \"race condition in the idempotency layer\" toàn thuật ngữ, PM khó hiểu. \"It was a technical issue.\" quá chung, không nói ai bị ảnh hưởng và bao lâu."
     },
     {
       "id": "s12q6",
@@ -149,7 +149,7 @@
       ],
       "answer": 0,
       "answer_vi": "Code cũ làm mọi thay đổi đều chậm và dễ lỗi. Dọn dẹp hai ngày bây giờ sẽ giúp các tính năng sau làm nhanh hơn.",
-      "why_vi": "Câu đầu nói lợi ích khách nhận được. Câu hai dùng thuật ngữ khách không hiểu. Câu ba quá rụt rè, còn tự nói là có thể không cần, nên khách khó đồng ý."
+      "why_vi": "\"will make the next features faster to build\" nói lợi ích khách nhận được. \"tech debt and tight coupling\" là thuật ngữ khách không hiểu. \"maybe it's not really needed\" quá rụt rè, tự nói là có thể không cần nên khách khó đồng ý."
     },
     {
       "id": "s12q7",
@@ -161,7 +161,7 @@
       ],
       "answer": 0,
       "answer_vi": "Nếu release chiều thứ Sáu mà có lỗi thì ít người ở lại để sửa. Sáng thứ Hai an toàn hơn.",
-      "why_vi": "Câu đầu nêu rủi ro bằng tình huống ai cũng hình dung được. Câu hai không có lý do, nghe như gạt đi. Câu ba dùng thuật ngữ như MTTR, on-call mà khách không biết."
+      "why_vi": "\"fewer people are around to fix it\" nêu rủi ro bằng tình huống ai cũng hình dung được. \"Everyone knows that.\" không có lý do, nghe như gạt đi. Câu có MTTR, on-call dùng thuật ngữ khách không biết."
     },
     {
       "id": "s12q8",

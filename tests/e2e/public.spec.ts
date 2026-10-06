@@ -101,7 +101,7 @@ test('thanh trên đánh dấu trang đang mở và dẫn tới các trang chín
   await page.goto('/bang-gia');
   const nav = page.getByRole('navigation', { name: 'Điều hướng chính' });
   await expect(nav.getByRole('link', { name: 'Bảng giá' })).toHaveAttribute('aria-current', 'page');
-  await expect(page.getByRole('link', { name: 'Học miễn phí' }).first()).toHaveAttribute('href', '/hom-nay');
+  await expect(page.getByRole('link', { name: 'Học miễn phí' }).first()).toHaveAttribute('href', '/hoc/hom-qua-da-lam-gi');
   const foot = page.getByRole('navigation', { name: 'Tài khoản' });
   for (const name of ['Sổ lỗi', 'Phỏng vấn thử', 'Kiểm tra trình độ', 'Nâng cấp']) {
     await expect(foot.getByRole('link', { name })).toBeVisible();
