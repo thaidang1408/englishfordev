@@ -43,12 +43,25 @@ describe('sự kiện ghi bằng trigger', () => {
     await expect(db.exec(`insert into public.events (name) values ('hacked')`)).rejects.toThrow(/events_name_check/);
   });
 
-  it('khách ghi được sự kiện của mình, không ghi thay người khác, không đọc được', async () => {
-    await as(db, 'anon', null, () => db.exec(`insert into public.events (anon_id, name) values ('k1', 'page_view')`));
+  it('client không ghi thẳng được (chỉ qua /api/events), không đọc được', async () => {
+    await expect(as(db, 'anon', null, () => db.exec(`insert into public.events (anon_id, name) values ('k1', 'page_view')`))).rejects.toThrow(
+      /permission denied/,
+    );
     await expect(
-      as(db, 'authenticated', B, () => db.exec(`insert into public.events (user_id, name) values ('${A}', 'page_view')`)),
-    ).rejects.toThrow();
+      as(db, 'authenticated', A, () => db.exec(`insert into public.events (user_id, name) values ('${A}', 'page_view')`)),
+    ).rejects.toThrow(/row-level security/);
+    await expect(
+      as(db, 'authenticated', B, () => db.exec(`insert into public.events (user_id, name) values ('${A}', 'placement_complete')`)),
+    ).rejects.toThrow(/row-level security/);
+    // Chỗ còn lại: /xep-trinh-do ghi placement_complete của chính mình.
+    await as(db, 'authenticated', A, () => db.exec(`insert into public.events (user_id, name) values ('${A}', 'placement_complete')`));
     await expect(as(db, 'authenticated', A, () => db.query('select * from public.events'))).rejects.toThrow();
+  });
+
+  it('không nhận props quá 1 KB', async () => {
+    await expect(
+      db.query(`insert into public.events (anon_id, name, props) values ('k1', 'page_view', jsonb_build_object('x', repeat('a', 2000)))`),
+    ).rejects.toThrow(/events_props_size/);
   });
 
   it('chỉ service role gọi được admin_funnel', async () => {

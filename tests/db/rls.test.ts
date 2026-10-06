@@ -205,10 +205,10 @@ describe('việc người dùng được tự làm', () => {
     expect(r.rows[0]?.score).toBe(4);
   });
 
-  it('khách chưa đăng nhập ghi được sự kiện không gắn người dùng', async () => {
-    const before = await count('events');
-    await as(db, 'anon', null, () => db.query(`insert into public.events (anon_id, name) values ('k1', 'page_view')`));
-    expect(await count('events')).toBe(before + 1);
+  it('khách chưa đăng nhập không ghi thẳng được sự kiện (chỉ qua /api/events)', async () => {
+    await expect(
+      as(db, 'anon', null, () => db.query(`insert into public.events (anon_id, name) values ('k1', 'page_view')`)),
+    ).rejects.toThrow(/permission denied/);
   });
 });
 

@@ -2,13 +2,14 @@ import type { Access } from '../auth/access';
 import { addDaysTo, vnStartOfDay } from '../time';
 
 /**
- * Hạn mức sửa câu (SPEC mục 2 và 7), đếm từ bảng corrections:
+ * Hạn mức sửa câu (SPEC mục 2 và 7), đếm từ bảng ai_reservations (giữ chỗ trước khi gọi AI):
  * Premium 30 lần hôm nay, dùng thử 10 lần hôm nay, còn lại 1 lần trong 7 ngày gần nhất.
  * "Hôm nay" tính theo giờ Việt Nam.
  */
 export const LIMITS = { premium: 30, trial: 10, free: 1 } as const;
 export const FREE_WINDOW_DAYS = 7;
-export const DEFAULT_DAILY_CAP = 500;
+// Đếm lần gọi AI, mỗi lần sửa tính 2 (correctWith gọi tối đa 2 lần): 1000 ≈ 500 lần sửa, dưới 10.000 neuron miễn phí.
+export const DEFAULT_DAILY_CAP = 1000;
 
 export type Quota = { kind: Access['kind']; limit: number; since: Date };
 

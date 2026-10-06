@@ -16,15 +16,17 @@ function check<T>(label: string, res: { data: T; error: { message: string } | nu
   return res.data;
 }
 
-const saveResultSchema = z.union([
-  z.object({ status: z.literal('ok'), id: z.uuid() }),
+const reserveResultSchema = z.union([
+  z.object({ status: z.literal('ok'), id: z.uuid(), used: z.number().int() }),
+  z.object({ status: z.literal('busy') }),
   z.object({ status: z.literal('quota') }),
   z.object({ status: z.literal('cap') }),
 ]);
+const saveResultSchema = z.object({ status: z.literal('ok'), id: z.uuid() });
 
 /**
  * `db` là client theo session của người dùng (RLS). `service` là client service role,
- * chỉ dùng để đếm tổng lượt toàn hệ thống và gọi hàm ghi save_correction.
+ * chỉ dùng để gọi các hàm reserve_ai_call, release_ai_call, save_correction.
  */
 export function correctRepo(db: Db, service: Db): CorrectRepo {
   return {
@@ -34,28 +36,28 @@ export function correctRepo(db: Db, service: Db): CorrectRepo {
       return rolesSchema.catch([]).parse(row?.roles ?? []);
     },
     getErrorStats: (userId) => getErrorStats(db, userId),
-    async countUserCorrections(userId, since) {
-      const res = await db
-        .from('corrections')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', userId)
-        .gte('created_at', since.toISOString());
-      check('countUserCorrections', res);
-      return res.count ?? 0;
+    async reserve(input) {
+      const data = check(
+        'reserve_ai_call',
+        await service.rpc('reserve_ai_call', {
+          p_user_id: input.user_id,
+          p_limit: input.limit,
+          p_since: input.since,
+          p_daily_cap: input.daily_cap,
+          p_premium: input.premium,
+          p_cap_since: input.cap_since,
+        }),
+      );
+      return reserveResultSchema.parse(data);
     },
-    async countAllCorrections(since) {
-      const res = await service
-        .from('corrections')
-        .select('id', { count: 'exact', head: true })
-        .gte('created_at', since.toISOString());
-      check('countAllCorrections', res);
-      return res.count ?? 0;
+    async release(reservationId) {
+      check('release_ai_call', await service.rpc('release_ai_call', { p_reservation_id: reservationId }));
     },
     async save(input) {
       const data = check(
         'save_correction',
         await service.rpc('save_correction', {
-          p_user_id: input.user_id,
+          p_reservation_id: input.reservation_id,
           p_lesson_key: input.lesson_key,
           p_mode: input.mode,
           p_original: input.original,
@@ -63,10 +65,6 @@ export function correctRepo(db: Db, service: Db): CorrectRepo {
           p_model: input.model,
           p_own_errors: input.own_errors,
           p_due_at: input.due_at,
-          p_limit: input.limit,
-          p_since: input.since,
-          p_daily_cap: input.daily_cap,
-          p_cap_since: input.cap_since,
         }),
       );
       return saveResultSchema.parse(data);

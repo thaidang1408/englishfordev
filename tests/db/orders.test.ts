@@ -31,6 +31,11 @@ const confirm = (id: string, amount: number | null = null) =>
     (await db.query<{ r: { status: string } }>(`select public.confirm_order($1, 'FT123', 'payos', $2) as r`, [id, amount])).rows[0]!.r,
   );
 
+const refund = (code: string) =>
+  as(db, 'service_role', null, async () =>
+    (await db.query<{ r: { status: string } }>(`select public.refund_order(id) as r from public.orders where code = $1`, [code])).rows[0]!.r,
+  );
+
 const premiumDays = async (user: string) =>
   (
     await db.query<{ d: number | null }>(
@@ -78,13 +83,32 @@ describe('đơn hàng', () => {
     expect(row.rows[0]?.status).toBe('pending');
   });
 
-  it('hoàn tiền: đơn thành refunded, Premium về hiện tại, dữ liệu còn nguyên', async () => {
-    const r = await as(db, 'service_role', null, async () =>
-      (await db.query<{ r: { status: string } }>(`select public.refund_order(id) as r from public.orders where code = 'EPCMORE1'`)).rows[0]!.r,
-    );
-    expect(r).toEqual({ status: 'refunded' });
-    expect(await premiumDays(B)).toBe(0);
+  it('hoàn đơn 90 ngày khi đã mua 30 + 90: còn đúng 30 ngày, dữ liệu còn nguyên', async () => {
+    expect(await refund('EPCMORE1')).toEqual({ status: 'refunded' });
+    expect(await premiumDays(B)).toBe(30);
     expect((await db.query('select 1 from public.orders where user_id = $1', [B])).rows.length).toBe(2);
+    expect(await refund('EPCMORE1')).toEqual({ status: 'not_paid' });
+    expect(await premiumDays(B)).toBe(30);
+  });
+
+  it('hoàn đơn duy nhất: Premium về hiện tại, không âm', async () => {
+    expect(await refund('EPCTWICE')).toEqual({ status: 'refunded' });
+    expect(await premiumDays(B)).toBe(0);
+    const r = await db.query<{ ok: boolean }>('select abs(extract(epoch from premium_until - now())) < 60 as ok from public.entitlements where user_id = $1', [B]);
+    expect(r.rows[0]?.ok).toBe(true);
+  });
+
+  it('admin_list_orders: đơn kèm email và tên, chỉ service role gọi được', async () => {
+    const rows = await as(db, 'service_role', null, async () =>
+      (await db.query<{ code: string; email: string; name: string }>('select code, email, name from public.admin_list_orders(2)')).rows,
+    );
+    expect(rows).toHaveLength(2);
+    const all = (await db.query<{ code: string }>('select code from public.orders order by created_at desc limit 2')).rows.map((r) => r.code);
+    expect(rows.map((r) => r.code)).toEqual(all);
+    const b = await db.query<{ email: string; name: string }>('select email, name from public.admin_list_orders(100) where code = $1', ['EPCMORE1']);
+    expect(b.rows[0]).toEqual({ email: `${B.slice(0, 8)}@example.com`, name: 'Bình' });
+    await expect(as(db, 'authenticated', A, () => db.query('select * from public.admin_list_orders(10)'))).rejects.toThrow(/permission denied/);
+    await expect(as(db, 'anon', null, () => db.query('select * from public.admin_list_orders(10)'))).rejects.toThrow(/permission denied/);
   });
 
   it('người dùng không gọi được hàm xác nhận, không tự sửa được đơn hay quyền Premium', async () => {

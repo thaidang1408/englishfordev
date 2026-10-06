@@ -23,7 +23,8 @@ export const correctBodySchema = z.object({
 });
 
 export type SaveCorrection = {
-  user_id: string;
+  /** Chỗ giữ từ reserve; người dùng lấy từ đó. */
+  reservation_id: string;
   lesson_key: string | null;
   mode: Mode;
   original: string;
@@ -32,14 +33,20 @@ export type SaveCorrection = {
   /** Tạo mục ôn own_error cho từng chỗ sửa (Premium và dùng thử). */
   own_errors: boolean;
   due_at: string;
-  /** Kiểm lại hạn mức trong cùng giao dịch ghi, để hai request song song không vượt mức. */
+};
+
+export type ReserveInput = {
+  user_id: string;
   limit: number;
   since: string;
   daily_cap: number;
+  /** Không Premium dừng ở 80% daily_cap, phần còn lại dành cho người trả tiền. */
+  premium: boolean;
   cap_since: string;
 };
 
-export type SaveResult = { status: 'ok'; id: string } | { status: 'quota' } | { status: 'cap' };
+/** used: số lượt đã dùng trong kỳ, tính cả lần này. */
+export type ReserveResult = { status: 'ok'; id: string; used: number } | { status: 'busy' } | { status: 'quota' } | { status: 'cap' };
 
 export type CorrectRepo = {
   getEntitlement(userId: string): Promise<EntitlementRow | null>;
@@ -47,10 +54,11 @@ export type CorrectRepo = {
   getRoles(userId: string): Promise<readonly Role[]>;
   /** Số liệu thật cho lời mời nâng cấp khi tài khoản miễn phí hết lượt (SPEC mục 2). */
   getErrorStats(userId: string): Promise<ErrorStats>;
-  countUserCorrections(userId: string, since: Date): Promise<number>;
-  /** Tổng số lần sửa toàn hệ thống (AI_DAILY_CALL_CAP). */
-  countAllCorrections(since: Date): Promise<number>;
-  save(input: SaveCorrection): Promise<SaveResult>;
+  /** Giữ chỗ trước khi gọi AI, trong một giao dịch: một request mỗi người, hạn mức, AI_DAILY_CALL_CAP. */
+  reserve(input: ReserveInput): Promise<ReserveResult>;
+  /** AI lỗi: trả lại lượt cho người dùng, giữ số lần gọi AI. */
+  release(reservationId: string): Promise<void>;
+  save(input: SaveCorrection): Promise<{ id: string }>;
 };
 
 type Input = {
@@ -65,6 +73,7 @@ type Input = {
   now: Date;
   dailyCap: number;
   siteUrl?: string;
+  onCapHit?: () => void;
 };
 
 export type CorrectData = {
@@ -95,6 +104,7 @@ async function quotaExceeded(kind: Quota['kind'], repo: CorrectRepo, userId: str
 
 const UNAVAILABLE = 'Tính năng sửa câu đang tạm tắt. Lượt sửa của bạn chưa bị trừ.';
 const AI_FAILED = 'Chưa sửa được câu này. Lượt sửa của bạn chưa bị trừ, bạn thử lại sau ít phút.';
+const BUSY = 'Câu trước của bạn đang được sửa. Đợi vài giây rồi gửi lại.';
 
 export type RunInput = {
   userId: string;
@@ -108,6 +118,8 @@ export type RunInput = {
   model: string;
   now: Date;
   dailyCap: number;
+  /** Gọi khi AI_DAILY_CALL_CAP chặn request, để báo cho chủ dự án. */
+  onCapHit?: () => void;
 };
 
 /** Phần chung sau khi đã biết người dùng và câu hợp lệ: quyền, hạn mức, gọi AI, lưu. */
@@ -122,13 +134,25 @@ export async function runCorrection(input: RunInput): Promise<CorrectOutcome> {
     return failed(403, 'premium_required', 'Bài này cần Premium. Nâng cấp để học tiếp.');
   }
   const quota = quotaFor(access, now);
-  const used = await repo.countUserCorrections(userId, quota.since);
-  if (used >= quota.limit) return quotaExceeded(quota.kind, repo, userId);
-  const capSince = vnStartOfDay(now);
-  if ((await repo.countAllCorrections(capSince)) >= dailyCap) return failed(429, 'system_cap', SYSTEM_CAP_MESSAGE);
-
-  // Việc chính. Lượt chỉ bị trừ khi đã lưu được kết quả hợp lệ.
   const roles = await repo.getRoles(userId);
+
+  // Giữ chỗ trước khi gọi AI: lượt bị trừ ở đây, AI lỗi hoặc lưu lỗi thì trả lại.
+  const reserved = await repo.reserve({
+    user_id: userId,
+    limit: quota.limit,
+    since: quota.since.toISOString(),
+    daily_cap: dailyCap,
+    premium: access.kind === 'premium',
+    cap_since: vnStartOfDay(now).toISOString(),
+  });
+  if (reserved.status === 'busy') return failed(429, 'busy', BUSY);
+  if (reserved.status === 'quota') return quotaExceeded(quota.kind, repo, userId);
+  if (reserved.status === 'cap') {
+    input.onCapHit?.();
+    return failed(429, 'system_cap', SYSTEM_CAP_MESSAGE);
+  }
+  const release = () => repo.release(reserved.id).catch(() => undefined);
+
   const context: CorrectContext = {
     mode,
     question,
@@ -140,25 +164,26 @@ export async function runCorrection(input: RunInput): Promise<CorrectOutcome> {
     result = await correct(sentence, context);
   } catch (e) {
     console.error('[correct] AI lỗi:', e instanceof AiError ? e.reason : 'không rõ');
+    await release();
     return failed(502, 'ai_failed', AI_FAILED);
   }
 
-  const saved = await repo.save({
-    user_id: userId,
-    lesson_key: lesson ? lessonKey(lesson) : null,
-    mode,
-    original: sentence,
-    result,
-    model,
-    own_errors: keepsOwnErrors(access),
-    due_at: firstDue(now).toISOString(),
-    limit: quota.limit,
-    since: quota.since.toISOString(),
-    daily_cap: dailyCap,
-    cap_since: capSince.toISOString(),
-  });
-  if (saved.status === 'quota') return quotaExceeded(quota.kind, repo, userId);
-  if (saved.status === 'cap') return failed(429, 'system_cap', SYSTEM_CAP_MESSAGE);
+  let saved: { id: string };
+  try {
+    saved = await repo.save({
+      reservation_id: reserved.id,
+      lesson_key: lesson ? lessonKey(lesson) : null,
+      mode,
+      original: sentence,
+      result,
+      model,
+      own_errors: keepsOwnErrors(access),
+      due_at: firstDue(now).toISOString(),
+    });
+  } catch (e) {
+    await release();
+    throw e;
+  }
 
   return {
     ok: true,
@@ -166,7 +191,7 @@ export async function runCorrection(input: RunInput): Promise<CorrectOutcome> {
       id: saved.id,
       original: sentence,
       result,
-      remaining: Math.max(0, quota.limit - used - 1),
+      remaining: Math.max(0, quota.limit - reserved.used),
       period: quota.kind === 'free' ? 'week' : 'day',
       review_items: keepsOwnErrors(access) ? result.changes.length : 0,
     },
@@ -175,7 +200,7 @@ export async function runCorrection(input: RunInput): Promise<CorrectOutcome> {
 
 /** POST /api/correct (SPEC mục 7). */
 export async function handleCorrect(input: Input): Promise<Response> {
-  const { request, user, repo, correct, model, lessons, now, dailyCap, siteUrl } = input;
+  const { request, user, repo, correct, model, lessons, now, dailyCap, siteUrl, onCapHit } = input;
   // 1. Phương thức
   if (request.method !== 'POST') return errors.method();
   // 2. Nguồn gốc
@@ -216,7 +241,7 @@ export async function handleCorrect(input: Input): Promise<Response> {
   }
 
   // 5 và 6. Quyền, hạn mức, việc chính
-  const out = await runCorrection({ userId: user.id, sentence, mode, lesson, question, repo, correct, model, now, dailyCap });
+  const out = await runCorrection({ userId: user.id, sentence, mode, lesson, question, repo, correct, model, now, dailyCap, onCapHit });
   // 7. Phản hồi
   return out.ok ? ok(out.data) : fail(out.status, out.code, out.message);
 }

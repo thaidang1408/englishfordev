@@ -8,6 +8,7 @@ import { createServiceDb } from '../../lib/db/service';
 import { publicEnv } from '../../lib/env';
 import { serverEnv } from '../../lib/env-server';
 import { errors } from '../../lib/http/response';
+import { alertCapHit } from '../../lib/notify/alert';
 
 export const prerender = false;
 
@@ -24,6 +25,7 @@ export const ALL: APIRoute = async ({ request, locals }) => {
       lessons,
       now: new Date(),
       dailyCap: env.AI_DAILY_CALL_CAP,
+      onCapHit: () => locals.cfContext.waitUntil(alertCapHit()),
       siteUrl: publicEnv().PUBLIC_SITE_URL,
     });
   } catch (e) {

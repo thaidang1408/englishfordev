@@ -126,8 +126,14 @@ const paidDataSchema = z.object({
 });
 
 /** POST /api/payos/webhook: payOS báo có giao dịch vào tài khoản. */
-export async function handlePayosWebhook(input: { request: Request; repo: OrderRepo; checksumKey: string | null }): Promise<Response> {
-  const { request, repo, checksumKey } = input;
+export async function handlePayosWebhook(input: {
+  request: Request;
+  repo: OrderRepo;
+  checksumKey: string | null;
+  /** Báo admin (Telegram). Không bao giờ ném lỗi. */
+  alert?: (text: string) => Promise<void>;
+}): Promise<Response> {
+  const { request, repo, checksumKey, alert } = input;
   // 1. Phương thức
   if (request.method !== 'POST') return errors.method();
   if (!checksumKey) {
@@ -159,7 +165,10 @@ export async function handlePayosWebhook(input: { request: Request; repo: OrderR
 
   // 5 và 6. Khớp số tiền rồi xác nhận. Gửi lại nhiều lần cũng chỉ cộng ngày một lần.
   const result = await repo.confirm(order.id, data.data.reference ?? null, 'payos', data.data.amount);
-  if (result.status === 'amount_mismatch') console.error('[payos/webhook] chuyển thiếu tiền, đơn', order.code);
+  if (result.status === 'amount_mismatch') {
+    console.error('[payos/webhook] chuyển thiếu tiền, đơn', order.code);
+    await alert?.(`Chuyển thiếu tiền: đơn ${order.code}, cần ${order.amount}đ, nhận ${data.data.amount}đ. Kiểm tra và xử lý tay ở /admin.`);
+  }
   // 7. Phản hồi
   return ok({ handled: result.status === 'paid' || result.status === 'already_paid' });
 }

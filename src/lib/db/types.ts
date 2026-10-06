@@ -114,7 +114,7 @@ export type Database = {
     Functions: {
       save_correction: {
         Args: {
-          p_user_id: string;
+          p_reservation_id: string;
           p_lesson_key: string | null;
           p_mode: 'work' | 'interview';
           p_original: string;
@@ -122,19 +122,21 @@ export type Database = {
           p_model: string;
           p_own_errors: boolean;
           p_due_at: string;
-          p_limit: number;
-          p_since: string;
-          p_daily_cap: number;
-          p_cap_since: string;
         };
         Returns: Json;
       };
+      reserve_ai_call: {
+        Args: { p_user_id: string; p_limit: number; p_since: string; p_daily_cap: number; p_premium: boolean; p_cap_since: string };
+        Returns: Json;
+      };
+      release_ai_call: { Args: { p_reservation_id: string }; Returns: undefined };
       confirm_order: {
         Args: { p_order_id: string; p_bank_ref: string | null; p_paid_by: string; p_paid_amount: number | null };
         Returns: Json;
       };
       refund_order: { Args: { p_order_id: string }; Returns: Json };
       admin_funnel: { Args: { p_days: number }; Returns: Json };
+      admin_list_orders: { Args: { p_limit: number }; Returns: (OrderRow & { email: string | null; name: string | null })[] };
     };
     Enums: Record<string, never>;
     CompositeTypes: Record<string, never>;

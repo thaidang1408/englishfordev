@@ -63,3 +63,22 @@ describe('POST /api/events', () => {
     expect(rows).toHaveLength(0);
   });
 });
+
+describe('giới hạn theo IP', () => {
+  it('vượt giới hạn thì 429 và không ghi, khóa là IP', async () => {
+    const { rows, repo } = fakeRepo();
+    const keys: string[] = [];
+    const req = () => {
+      const r = post({ name: 'page_view', anon_id: ANON });
+      r.headers.set('CF-Connecting-IP', '1.2.3.4');
+      return r;
+    };
+    let allow = true;
+    const limit = async (k: string) => (keys.push(k), allow);
+    expect((await handleEvent({ request: req(), user: null, repo, siteUrl: SITE, limit })).status).toBe(204);
+    allow = false;
+    expect((await handleEvent({ request: req(), user: null, repo, siteUrl: SITE, limit })).status).toBe(429);
+    expect(keys).toEqual(['1.2.3.4', '1.2.3.4']);
+    expect(rows).toHaveLength(1);
+  });
+});

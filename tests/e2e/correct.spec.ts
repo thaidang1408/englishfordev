@@ -115,7 +115,7 @@ test('chưa đăng nhập thì mời đăng nhập và quay lại đúng bài', 
   const { box } = await openBox(page, json(401, { ok: false, error: { code: 'unauthenticated', message: 'x' } }));
   await box.fill(SENTENCE);
   await page.getByRole('button', { name: 'Sửa câu của tôi' }).click();
-  const link = page.getByRole('link', { name: 'Đăng nhập', exact: true });
+  const link = page.locator('#noi-dung').getByRole('link', { name: 'Đăng nhập', exact: true });
   await expect(link).toHaveAttribute('href', `/dang-nhap?next=${encodeURIComponent(`${URL}#cau-cua-ban`)}`);
 });
 

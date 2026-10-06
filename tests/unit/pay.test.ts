@@ -270,14 +270,17 @@ describe('GET /api/orders/:id', () => {
 });
 
 describe('POST /api/payos/webhook', () => {
-  const hook = async (data: Record<string, unknown>, opts: { signature?: string; code?: string; repo?: OrderRepo; key?: string | null } = {}) => {
+  const hook = async (
+    data: Record<string, unknown>,
+    opts: { signature?: string; code?: string; repo?: OrderRepo; key?: string | null; alert?: (t: string) => Promise<void> } = {},
+  ) => {
     const signature = opts.signature ?? (await sign(data, KEY));
     const request = new Request(`${SITE}/api/payos/webhook`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ code: opts.code ?? '00', desc: 'success', success: true, data, signature }),
     });
-    return handlePayosWebhook({ request, repo: opts.repo ?? fakeRepo().repo, checksumKey: opts.key === undefined ? KEY : opts.key });
+    return handlePayosWebhook({ request, repo: opts.repo ?? fakeRepo().repo, checksumKey: opts.key === undefined ? KEY : opts.key, alert: opts.alert });
   };
 
   it('đúng chữ ký, đúng số tiền: xác nhận đơn kèm mã giao dịch ngân hàng', async () => {
@@ -302,11 +305,14 @@ describe('POST /api/payos/webhook', () => {
     expect(calls.confirm).toHaveLength(0);
   });
 
-  it('chuyển thiếu tiền: không mở Premium, đơn vẫn chờ', async () => {
+  it('chuyển thiếu tiền: không mở Premium, đơn vẫn chờ, báo admin', async () => {
     const { repo, orders } = fakeRepo([order()]);
-    const res = await hook({ ...WEBHOOK_DATA, amount: 50000 }, { repo });
+    const alerts: string[] = [];
+    const res = await hook({ ...WEBHOOK_DATA, amount: 50000 }, { repo, alert: async (t) => void alerts.push(t) });
     expect(res.status).toBe(200);
     expect(orders[0]?.status).toBe('pending');
+    expect(alerts).toHaveLength(1);
+    expect(alerts[0]).toContain('50000');
   });
 
   it('payOS gửi lại cùng giao dịch: chỉ xác nhận một lần', async () => {

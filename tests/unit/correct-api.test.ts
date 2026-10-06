@@ -3,7 +3,7 @@ import { AiError, type CorrectSentence } from '../../src/lib/ai/correct';
 import type { Correction } from '../../src/lib/ai/schema';
 import { lessons } from '../../src/lib/content/lessons';
 import type { Lesson } from '../../src/lib/content/schema';
-import { handleCorrect, type CorrectRepo, type SaveCorrection } from '../../src/lib/correct/handler';
+import { handleCorrect, runCorrection, type CorrectRepo, type SaveCorrection } from '../../src/lib/correct/handler';
 import type { EntitlementRow } from '../../src/lib/db/types';
 
 const NOW = new Date('2026-10-05T03:00:00Z'); // 10:00 giờ Việt Nam
@@ -33,24 +33,43 @@ const RESULT: Correction = {
   tip_vi: '',
 };
 
-/** Repo giả: `rows` là thời điểm các lần sửa đã có của người dùng; `others` là lượt của người khác hôm nay. */
+/**
+ * Repo giả, làm như reserve_ai_call: `rows` là thời điểm các lượt đã dùng của người dùng;
+ * `others` là số lần gọi AI của người khác hôm nay. Mỗi lần giữ chỗ tính 2 lần gọi AI.
+ */
 function fakeRepo(ent: EntitlementRow | null, rows: Date[] = [], others = 0) {
   const saved: SaveCorrection[] = [];
+  const released: string[] = [];
   const mine = [...rows];
+  const pending = new Set<string>();
+  let calls = others;
+  let n = 0;
   const repo: CorrectRepo = {
     getEntitlement: async () => ent,
     getRoles: async () => ['ba'],
     getErrorStats: async () => ({ corrections: 4, errors: 6, repeating: 2 }),
-    countUserCorrections: async (_u, since) => mine.filter((d) => d >= since).length,
-    countAllCorrections: async (since) => others + mine.filter((d) => d >= since).length,
-    save: async (input) => {
-      if (mine.filter((d) => d >= new Date(input.since)).length >= input.limit) return { status: 'quota' };
-      saved.push(input);
+    reserve: async (i) => {
+      if (pending.size) return { status: 'busy' };
+      const used = mine.filter((d) => d >= new Date(i.since)).length;
+      if (used >= i.limit) return { status: 'quota' };
+      if (calls >= (i.premium ? i.daily_cap : Math.floor(i.daily_cap * 0.8))) return { status: 'cap' };
+      calls += 2;
+      const id = `r${++n}`;
+      pending.add(id);
       mine.push(NOW);
-      return { status: 'ok', id: `c${saved.length}` };
+      return { status: 'ok', id, used: used + 1 };
+    },
+    release: async (id) => {
+      if (pending.delete(id)) mine.splice(mine.lastIndexOf(NOW), 1);
+      released.push(id);
+    },
+    save: async (input) => {
+      pending.delete(input.reservation_id);
+      saved.push(input);
+      return { id: `c${saved.length}` };
     },
   };
-  return { repo, saved };
+  return { repo, saved, released };
 }
 
 function post(body: unknown, init: { origin?: string | null; method?: string } = {}) {
@@ -142,7 +161,7 @@ describe('POST /api/correct: khuôn endpoint', () => {
     const standup01 = lessons.find((l) => l.slug === 'hom-qua-da-lam-gi')!;
     expect(calls).toEqual([{ sentence, mode: 'work', roles: 'BA', checklist: standup01.checklist_vi }]);
     expect(saved[0]).toMatchObject({
-      user_id: USER.id,
+      reservation_id: 'r1',
       lesson_key: 'standup-01',
       mode: 'work',
       original: sentence,
@@ -220,14 +239,17 @@ describe('mức chặn 1: hạn mức theo tài khoản', () => {
     expect(calls).toHaveLength(0);
   });
 
-  it('hai request song song: lần ghi thứ hai bị chặn ở bước lưu', async () => {
-    const { repo, saved } = fakeRepo(expired);
+  it('hai request song song: request thứ hai trả busy và không gọi AI', async () => {
+    const { repo, saved } = fakeRepo(premium);
     const ai = fakeAi();
     const call = () =>
       handleCorrect({ request: post({ sentence }), user: USER, repo, correct: ai.correct, model: 'm', lessons: ALL, now: NOW, dailyCap: 500, siteUrl: SITE });
     const [a, b] = await Promise.all([call(), call()]);
     expect([a.status, b.status].sort()).toEqual([200, 429]);
+    const busy = (await (a.status === 429 ? a : b).json()) as { error: { code: string; message: string } };
+    expect(busy.error).toEqual({ code: 'busy', message: 'Câu trước của bạn đang được sửa. Đợi vài giây rồi gửi lại.' });
     expect(saved).toHaveLength(1);
+    expect(ai.calls).toHaveLength(1);
   });
 });
 
@@ -239,9 +261,28 @@ describe('mức chặn 2: tổng lượt toàn hệ thống trong ngày', () => 
     expect(calls).toHaveLength(0);
   });
 
-  it('dưới mức thì vẫn sửa được', async () => {
-    const { res } = await run(post({ sentence }), { others: 499, cap: 500 });
-    expect(res.status).toBe(200);
+  it('20% cuối dành cho Premium: dùng thử dừng ở 80%, Premium vẫn sửa được', async () => {
+    expect((await run(post({ sentence }), { others: 400, cap: 500 })).res.status).toBe(429);
+    expect((await run(post({ sentence }), { others: 399, cap: 500 })).res.status).toBe(200);
+    expect((await run(post({ sentence }), { ent: premium, others: 499, cap: 500 })).res.status).toBe(200);
+  });
+
+  it('bị chặn vì hết lượt hệ thống thì gọi onCapHit', async () => {
+    const { repo } = fakeRepo(trial, [], 500);
+    let hits = 0;
+    const out = await runCorrection({
+      userId: USER.id,
+      sentence,
+      mode: 'work',
+      repo,
+      correct: fakeAi().correct,
+      model: 'm',
+      now: NOW,
+      dailyCap: 500,
+      onCapHit: () => hits++,
+    });
+    expect(out).toMatchObject({ ok: false, code: 'system_cap' });
+    expect(hits).toBe(1);
   });
 });
 
@@ -255,6 +296,33 @@ describe('mức chặn 3: AI lỗi không trừ lượt', () => {
     expect(json.error?.code).toBe('ai_failed');
     expect(json.error?.message).toContain('chưa bị trừ');
     expect(saved).toHaveLength(0);
+  });
+
+  it('AI lỗi: trả lại lượt, lần sau sửa được ngay', async () => {
+    const { repo, saved, released } = fakeRepo(expired);
+    let fail = true;
+    const ai: CorrectSentence = async () => {
+      if (fail) throw new AiError('api');
+      return RESULT;
+    };
+    const call = () =>
+      handleCorrect({ request: post({ sentence }), user: USER, repo, correct: ai, model: 'm', lessons: ALL, now: NOW, dailyCap: 500, siteUrl: SITE });
+    expect((await call()).status).toBe(502);
+    expect(released).toEqual(['r1']);
+    fail = false;
+    expect((await call()).status).toBe(200);
+    expect(saved).toHaveLength(1);
+  });
+
+  it('lưu lỗi: trả lại lượt rồi mới ném lỗi', async () => {
+    const { repo, released } = fakeRepo(expired);
+    repo.save = async () => {
+      throw new Error('db');
+    };
+    await expect(
+      handleCorrect({ request: post({ sentence }), user: USER, repo, correct: fakeAi().correct, model: 'm', lessons: ALL, now: NOW, dailyCap: 500, siteUrl: SITE }),
+    ).rejects.toThrow('db');
+    expect(released).toEqual(['r1']);
   });
 
   it('AI lỗi mạng: trả 502 và không lưu gì', async () => {

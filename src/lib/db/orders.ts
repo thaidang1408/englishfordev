@@ -81,21 +81,7 @@ export async function getLatestOrder(db: Db, userId: string): Promise<OrderRow |
 
 export type AdminOrder = OrderRow & { email: string | null; name: string | null };
 
-/** Danh sách đơn cho /admin, kèm email người mua. Chỉ gọi sau khi đã kiểm ADMIN_EMAILS. */
+/** Danh sách đơn cho /admin, kèm email và tên người mua, một lần gọi. Chỉ gọi sau khi đã kiểm ADMIN_EMAILS. */
 export async function listOrdersForAdmin(service: Db, limit = 100): Promise<AdminOrder[]> {
-  const rows = check('listOrders', await service.from('orders').select(COLUMNS).order('created_at', { ascending: false }).limit(limit)) ?? [];
-  const ids = [...new Set(rows.map((r) => r.user_id))];
-  const names = new Map<string, string | null>();
-  if (ids.length > 0) {
-    const profiles = check('listOrders.profiles', await service.from('profiles').select('id, display_name').in('id', ids)) ?? [];
-    for (const p of profiles) names.set(p.id, p.display_name);
-  }
-  const emails = new Map<string, string | null>();
-  await Promise.all(
-    ids.map(async (id) => {
-      const { data } = await service.auth.admin.getUserById(id);
-      emails.set(id, data.user?.email ?? null);
-    }),
-  );
-  return rows.map((r) => ({ ...r, email: emails.get(r.user_id) ?? null, name: names.get(r.user_id) ?? null }));
+  return check('admin_list_orders', await service.rpc('admin_list_orders', { p_limit: limit })) ?? [];
 }

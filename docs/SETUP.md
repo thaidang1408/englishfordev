@@ -90,7 +90,7 @@ Thiếu secret key Supabase thì ô sửa câu báo "Tính năng sửa câu đan
 
 Khi chạy `npm run dev`, Workers AI vẫn gọi lên Cloudflare thật và tính vào hạn mức miễn phí của ngày.
 
-**Gói Cloudflare:** với gói Workers Free, vượt 10.000 neuron trong ngày thì lời gọi bị từ chối, không mất tiền; người dùng thấy "Chưa sửa được câu này", lượt không bị trừ. Nếu sau này nâng lên gói Workers Paid, phần vượt bị tính 0,011 USD cho 1.000 neuron. `AI_DAILY_CALL_CAP` mặc định 500 lần, nằm dưới hạn mức miễn phí.
+**Gói Cloudflare:** với gói Workers Free, vượt 10.000 neuron trong ngày thì lời gọi bị từ chối, không mất tiền; người dùng thấy "Chưa sửa được câu này", lượt không bị trừ. Nếu sau này nâng lên gói Workers Paid, phần vượt bị tính 0,011 USD cho 1.000 neuron. `AI_DAILY_CALL_CAP` mặc định 1000 lần gọi AI (mỗi lần sửa tính 2, khoảng 500 lần sửa), nằm dưới hạn mức miễn phí.
 
 **Muốn dùng Claude thay cho Workers AI** (trả phí theo lượt, khoảng 60 đồng một lần sửa): chạy lại `npm run setup:ai` và dán key Anthropic.
 
@@ -103,7 +103,7 @@ Có key Anthropic thì máy chủ dùng Claude. Muốn quay về Workers AI thì
 Biến tùy chọn, không đặt thì dùng mặc định:
 
 - `AI_MODEL`: model của nhà cung cấp đang dùng. Mặc định `@cf/google/gemma-4-26b-a4b-it` (Workers AI) hoặc `claude-haiku-4-5-20251001` (Anthropic).
-- `AI_DAILY_CALL_CAP`: tổng lượt sửa toàn hệ thống mỗi ngày, mặc định 500. Đổi bằng `npx wrangler secret put AI_DAILY_CALL_CAP`.
+- `AI_DAILY_CALL_CAP`: tổng lần gọi AI toàn hệ thống mỗi ngày, mỗi lần sửa tính 2, mặc định 1000 (khoảng 500 lần sửa). Người dùng thử và miễn phí dừng ở 80%. Đổi bằng `npx wrangler secret put AI_DAILY_CALL_CAP`.
 
 Hạn mức mỗi tài khoản (SPEC mục 7): Premium 30 lần mỗi ngày, dùng thử 10 lần mỗi ngày, miễn phí 1 lần mỗi 7 ngày. "Ngày" tính theo giờ Việt Nam.
 
@@ -247,3 +247,66 @@ select props->>'src' as src, count(distinct anon_id) as nguoi
 from public.events where name = 'page_view' and created_at > now() - interval '30 days'
 group by 1 order by 2 desc;
 ```
+
+## Sao lưu và khôi phục
+
+Gói Supabase miễn phí không có bản sao lưu tải về được. Repo có workflow `.github/workflows/db-backup.yml` chạy mỗi ngày lúc 02:00 giờ Việt Nam: dump schema và dữ liệu (không gồm roles), nén, mã hóa, giữ 30 ngày trong mục Actions của GitHub. Không tốn tiền.
+
+Repo đang công khai, nên ai có tài khoản GitHub cũng tải được artifact. Vì vậy file luôn được mã hóa, và workflow không in dữ liệu ra log.
+
+### Đặt hai secret (làm một lần)
+
+1. Lấy chuỗi kết nối: Supabase dashboard → project → nút **Connect** ở đầu trang → mục **Session pooler** → chép chuỗi dạng `postgresql://postgres.<ref>:[YOUR-PASSWORD]@aws-....pooler.supabase.com:5432/postgres`. Thay `[YOUR-PASSWORD]` bằng mật khẩu database. Quên mật khẩu thì vào **Project Settings → Database → Reset database password** (app không dùng mật khẩu này; chỉ `npx supabase db push` trong `npm run release` sẽ hỏi lại mật khẩu mới, và nhớ cập nhật secret `SUPABASE_DB_URL`).
+2. Tạo mật khẩu mã hóa:
+
+   ```bash
+   node -e "console.log(require('crypto').randomBytes(24).toString('base64url'))"
+   ```
+
+   Lưu nó vào trình quản lý mật khẩu. Mất mật khẩu này thì mọi bản sao lưu thành vô dụng.
+3. GitHub → repo `englishfordev` → **Settings → Secrets and variables → Actions → New repository secret**. Tạo `SUPABASE_DB_URL` (chuỗi ở bước 1) và `BACKUP_PASSPHRASE` (chuỗi ở bước 2).
+4. Tab **Actions → Sao lưu database → Run workflow**. Chạy xong (dấu tích xanh) thì mở lần chạy đó, cuối trang có file `epc-db-<ngày>`. Thiếu secret thì workflow báo lỗi đỏ ngay bước đầu.
+
+### Sao lưu tay trước mỗi lần `npm run release`
+
+Vào **Actions → Sao lưu database → Run workflow**, đợi dấu tích xanh rồi mới chạy `npm run release`.
+
+### Thử khôi phục (nên làm mỗi tháng một lần)
+
+Đừng thử trên project thật. Tạo một project Supabase thứ hai (gói miễn phí cho 2 project), lấy chuỗi Session pooler của nó như trên.
+
+1. Tải artifact ở trang lần chạy, giải nén file zip, được file `epc-db-<ngày>.tar.gz.enc`.
+2. Giải mã (Git Bash trên Windows có sẵn `openssl` và `tar`; lệnh sẽ hỏi mật khẩu mã hóa):
+
+   ```bash
+   mkdir restore
+   openssl enc -d -aes-256-cbc -pbkdf2 -in epc-db-<ngày>.tar.gz.enc | tar -xzf - -C restore
+   ```
+
+   Được `restore/schema.sql` và `restore/data.sql`. Hai file này chứa dữ liệu người dùng: không gửi đi đâu, xóa sau khi thử xong.
+3. Nạp vào project thứ hai. Cần `psql` (cài "Command Line Tools" từ bộ cài PostgreSQL):
+
+   ```bash
+   psql --single-transaction --variable ON_ERROR_STOP=1 \
+     --file restore/schema.sql \
+     --command 'SET session_replication_role = replica' \
+     --file restore/data.sql \
+     --dbname "<chuỗi Session pooler của project thứ hai>"
+   ```
+
+4. Mở Table Editor của project thứ hai, đếm thử vài bảng (`profiles`, `orders`) xem có khớp project thật không.
+
+Khi cần khôi phục thật, làm như trên với project mới, rồi trỏ app sang project đó: chạy lại `npm run setup` (URL, key công khai, đăng nhập) và `npm run setup:ai` (key service role), sau đó `npm run deploy`.
+
+### Quay lại bản deploy trước
+
+Bản mới lỗi thì quay app về bản cũ, không cần build lại:
+
+```bash
+npx wrangler deployments list
+npx wrangler rollback
+```
+
+`rollback` không kèm mã thì về bản ngay trước; muốn bản cụ thể thì thêm mã version lấy từ `deployments list`. Worker cron làm tương tự với `--config cron/wrangler.jsonc`.
+
+Database thì không quay lại. Phần lớn migration chỉ thêm (bảng, cột, hàm mới), nên bản app cũ vẫn chạy được trên database mới. Ngoại lệ: migration đổi chữ ký hàm, ví dụ `20261007100000_ai_reservations.sql` xóa `save_correction` bản cũ. Quay app về bản trước migration đó thì phần sửa câu sẽ lỗi. Trước khi rollback, xem các migration đã áp từ bản đích (`supabase/migrations`); nếu có `drop` thì sửa tới (fix rồi deploy lại) thay vì rollback. Chỉ khi dữ liệu bị hỏng mới khôi phục từ bản sao lưu như mục trên.

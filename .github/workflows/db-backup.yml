@@ -1,0 +1,61 @@
+# Sao lưu database production mỗi ngày, mã hóa rồi giữ 30 ngày dưới dạng artifact.
+# Repo công khai: ai có tài khoản GitHub cũng tải được artifact và đọc được log,
+# nên file luôn được mã hóa và không bước nào in dữ liệu hay secret ra log.
+name: Sao lưu database
+
+on:
+  schedule:
+    - cron: '0 19 * * *' # 02:00 giờ Việt Nam
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: db-backup
+  cancel-in-progress: false
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+      BACKUP_PASSPHRASE: ${{ secrets.BACKUP_PASSPHRASE }}
+    steps:
+      - name: Kiểm tra secret
+        run: |
+          missing=0
+          [ -n "$SUPABASE_DB_URL" ] || { echo "::error::Thiếu secret SUPABASE_DB_URL"; missing=1; }
+          [ -n "$BACKUP_PASSPHRASE" ] || { echo "::error::Thiếu secret BACKUP_PASSPHRASE"; missing=1; }
+          exit $missing
+
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      # supabase db dump chạy pg_dump đúng phiên bản server, mặc định bỏ qua roles
+      - name: Dump schema và dữ liệu
+        run: |
+          set -euo pipefail
+          mkdir -p dump
+          supabase db dump --db-url "$SUPABASE_DB_URL" -f dump/schema.sql
+          supabase db dump --db-url "$SUPABASE_DB_URL" -f dump/data.sql --data-only --use-copy
+          test -s dump/schema.sql
+          test -s dump/data.sql
+
+      - name: Nén và mã hóa
+        run: |
+          set -euo pipefail
+          name="epc-db-$(date -u +%Y-%m-%d)"
+          echo "BACKUP_NAME=$name" >> "$GITHUB_ENV"
+          tar -czf - -C dump . | openssl enc -aes-256-cbc -pbkdf2 -salt -pass env:BACKUP_PASSPHRASE -out "$name.tar.gz.enc"
+          rm -rf dump
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.BACKUP_NAME }}
+          path: ${{ env.BACKUP_NAME }}.tar.gz.enc
+          retention-days: 30
+          if-no-files-found: error
+          compression-level: 0

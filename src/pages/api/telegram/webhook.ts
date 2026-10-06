@@ -7,6 +7,7 @@ import { telegramRepo } from '../../../lib/db/notify';
 import { createServiceDb } from '../../../lib/db/service';
 import { serverEnv } from '../../../lib/env-server';
 import { errors } from '../../../lib/http/response';
+import { alertAdmins, alertCapHit } from '../../../lib/notify/alert';
 import { telegramBot } from '../../../lib/telegram/bot';
 import { handleTelegramWebhook } from '../../../lib/telegram/webhook';
 
@@ -31,6 +32,7 @@ export const ALL: APIRoute = async ({ request, locals }) => {
               model: ai.model,
               now: new Date(),
               dailyCap: env.AI_DAILY_CALL_CAP,
+              onCapHit: () => locals.cfContext.waitUntil(alertCapHit()),
             })
         : null;
     return await handleTelegramWebhook({
@@ -43,6 +45,7 @@ export const ALL: APIRoute = async ({ request, locals }) => {
     });
   } catch (e) {
     console.error('[api/telegram/webhook]', e instanceof Error ? e.message : 'lỗi không rõ');
+    await alertAdmins('Lỗi 500 ở /api/telegram/webhook. Xem log Cloudflare.');
     return errors.internal();
   }
 };

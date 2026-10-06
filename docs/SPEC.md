@@ -204,7 +204,8 @@ Kiểm theo thứ tự, sai thì trả lỗi tương ứng:
 
 1. `sentence` từ 3 đến 700 ký tự sau khi trim (`interview`: tới 1200; phần 5 của bài track Phỏng vấn gửi ở mode `interview` với `question_en` của bài, nên có thêm "Một cách trả lời tốt hơn"). Nâng ngày 06/10/2026 để viết được tin hoàn chỉnh (mục 15).
 2. Hạn mức, đếm từ bảng `corrections`: Premium dưới 30 lần hôm nay; đang dùng thử dưới 10 lần hôm nay; còn lại dưới 1 lần trong 7 ngày gần nhất. `mode: "interview"` chỉ cho Premium và dùng thử.
-3. Tổng số lần gọi toàn hệ thống hôm nay dưới `AI_DAILY_CALL_CAP` (mặc định 500). Vượt thì trả "Hôm nay hệ thống đã hết lượt, thử lại ngày mai".
+3. Tổng số lần gọi AI toàn hệ thống hôm nay dưới `AI_DAILY_CALL_CAP` (mặc định 1000, mỗi lần sửa tính 2 kể cả khi AI lỗi). Dùng thử và miễn phí dừng ở 80% mức này, 20% còn lại dành cho Premium. Vượt thì trả "Hôm nay hệ thống đã hết lượt, thử lại ngày mai" và báo admin (mục 17).
+   Các bước 1 đến 3 chạy trong một giao dịch giữ chỗ (`reserve_ai_call`) trước khi gọi AI: mỗi người chỉ một request đang chạy (request thứ hai nhận 429 `busy`), lượt bị trừ lúc giữ chỗ và được trả lại khi AI hoặc bước lưu lỗi.
 
 Gọi AI qua `src/lib/ai/correct.ts`:
 
@@ -369,3 +370,10 @@ Thêm ngày 06/10/2026 theo quyết định của chủ dự án. Không tách t
 - **Hiển thị:** `/hom-nay` ghi nhãn ngành cạnh bài chuyên ngành. Trang chủ có nút lọc Tất cả, Dev, QA, BA, PM, chạy bằng CSS nên vẫn dùng được khi tắt JavaScript.
 - **AI sửa câu** nhận ngành của người viết để giải thích đúng ngữ cảnh (ví dụ BA viết user story).
 
+## 17. Vận hành an toàn trước khi bán (07/10/2026)
+
+- **Cảnh báo:** app gửi tin văn bản thường qua bot Telegram tới chat của các admin (ADMIN_EMAILS) đã liên kết khi: webhook payOS hoặc Telegram lỗi 500; khách chuyển thiếu tiền (chỉ mã đơn và số tiền); chạm `AI_DAILY_CALL_CAP` (tối đa một tin mỗi ngày giờ Việt Nam cho mỗi isolate). Worker cron báo thẳng qua Bot API khi tick lỗi hoặc không gọi được app, dùng secret `TELEGRAM_BOT_TOKEN` và `ADMIN_CHAT_IDS` của worker cron. Tin cảnh báo không chứa email, câu của người dùng hay token.
+- **Sao lưu:** GitHub Actions (`db-backup.yml`) dump schema và dữ liệu mỗi ngày, mã hóa AES-256 (pbkdf2) bằng `BACKUP_PASSPHRASE`, giữ 30 ngày dưới dạng artifact. Chạy tay trước mỗi lần release. Bản mới lỗi thì `wrangler rollback`, không quay lại DB; nếu các migration từ bản đích có `drop` thì sửa và deploy lại thay vì rollback (xem SETUP.md).
+- **Bảng events:** client không ghi trực tiếp (anon không có INSERT). Sự kiện trình duyệt chỉ qua `POST /api/events`: zod, body tối đa 1 KB, 60 lần mỗi phút theo IP (binding `EVENTS_LIMIT`), ghi bằng service role. DB giới hạn `props` 1 KB và `anon_id` 64 ký tự. Riêng `placement_complete` còn được ghi bằng session của chính người dùng.
+- **Hoàn tiền:** chỉ trừ đúng số ngày của gói trong đơn bị hoàn (30 hoặc 90), không sớm hơn thời điểm hiện tại; ngày từ các đơn khác giữ nguyên.
+- **/admin:** lấy đơn kèm email và tên người mua bằng một lần gọi `admin_list_orders` (chỉ service role).
