@@ -123,7 +123,19 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
           {links.map((l) => <a href={l.href} aria-current={isCurrent(l) ? 'page' : undefined}>{l.label}</a>)}
         </nav>
         <div class="bar-end">
-          <button class="theme" id="theme-toggle" type="button" hidden><span class="theme-prefix">Giao diện </span><span class="theme-word">tối</span></button>
+          <button class="theme" id="theme-toggle" type="button" aria-label="Giao diện tối" title="Giao diện tối" hidden>
+            <Icon name="moon" size={18} class="i-moon" />
+            <Icon name="sun" size={18} class="i-sun" />
+          </button>
+          {
+            /* Khách vào thẳng tiến độ học: đã đăng nhập thì /dang-nhap tự chuyển sang /hom-nay. */
+            !app && !signedIn && (
+              <a class="btn btn-quiet btn-sm bar-login" href="/dang-nhap?next=/hom-nay" aria-label="Đăng nhập">
+                <Icon name="user" size={16} />
+                <span class="bar-login-text">Đăng nhập</span>
+              </a>
+            )
+          }
           {
             cta && (
               <a class="btn btn-quiet btn-sm bar-cta" href={cta.href} aria-current={path === cta.href ? 'page' : undefined}>
@@ -137,6 +149,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
             <nav class="menu-panel" aria-label="Menu">
               {links.map((l) => <a href={l.href} aria-current={isCurrent(l) ? 'page' : undefined}>{l.label}</a>)}
               {cta && <a href={cta.href} aria-current={path === cta.href ? 'page' : undefined}>{cta.label}</a>}
+              {!app && !signedIn && <a href="/dang-nhap?next=/hom-nay">Đăng nhập</a>}
             </nav>
           </details>
         </div>
@@ -217,11 +230,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         if (!btn) return;
         const isDark = () =>
           root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
-        const word = btn.querySelector('.theme-word');
+        // Đang tối thì hiện mặt trời (bấm để sang sáng), đang sáng thì hiện mặt trăng.
         const label = () => {
           const next = isDark() ? 'sáng' : 'tối';
-          if (word) word.textContent = next;
+          btn.dataset.next = isDark() ? 'light' : 'dark';
           btn.setAttribute('aria-label', `Giao diện ${next}`);
+          btn.title = `Giao diện ${next}`;
         };
         btn.hidden = false;
         label();

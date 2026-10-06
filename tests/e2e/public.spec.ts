@@ -34,6 +34,11 @@ test('trang chủ có nút học thử dẫn tới bài 1', async ({ page }) => 
   await expect(page.getByRole('link', { name: 'Học thử miễn phí' })).toHaveAttribute('href', `/hoc/${lesson.slug}`);
 });
 
+test('trang chủ có nút đăng nhập dẫn vào trang Hôm nay', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.getByRole('link', { name: 'Đăng nhập' }).first()).toHaveAttribute('href', '/dang-nhap?next=/hom-nay');
+});
+
 test('giao diện đã chọn được áp dụng trước khi vẽ trang', async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('epc:theme', 'dark'));
   await page.goto('/');
