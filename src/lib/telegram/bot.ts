@@ -7,6 +7,8 @@ import { z } from 'zod';
 export type Bot = {
   sendMessage(chatId: number, text: string): Promise<boolean>;
   forwardMessage(chatId: number, fromChatId: number, messageId: number): Promise<boolean>;
+  /** Hiện "đang soạn tin" trong chat khoảng 5 giây, hoặc tới khi bot gửi tin. */
+  sendTyping(chatId: number): Promise<boolean>;
 };
 
 const resultSchema = z.object({ ok: z.boolean(), description: z.string().optional() });
@@ -37,6 +39,7 @@ export function telegramBot(token: string, fetcher: typeof fetch = fetch): Bot {
     sendMessage: (chatId, text) =>
       call('sendMessage', { chat_id: chatId, text: text.slice(0, MAX_TEXT), link_preview_options: { is_disabled: true } }),
     forwardMessage: (chatId, fromChatId, messageId) => call('forwardMessage', { chat_id: chatId, from_chat_id: fromChatId, message_id: messageId }),
+    sendTyping: (chatId) => call('sendChatAction', { chat_id: chatId, action: 'typing' }),
   };
 }
 

@@ -90,11 +90,13 @@ describe('nội dung tin', () => {
 function fakeBot() {
   const sent: { chat: number; text: string }[] = [];
   const forwarded: { chat: number; from: number; id: number }[] = [];
+  const typing: number[] = [];
   const bot: Bot = {
+    sendTyping: async (chat) => (typing.push(chat), true),
     sendMessage: async (chat, text) => (sent.push({ chat, text }), true),
     forwardMessage: async (chat, from, id) => (forwarded.push({ chat, from, id }), true),
   };
-  return { bot, sent, forwarded };
+  return { bot, sent, forwarded, typing };
 }
 
 const SECRET = 'cron-secret-for-tests-0123';
@@ -331,12 +333,14 @@ describe('POST /api/telegram/webhook', () => {
 
   it('chat đã liên kết gửi câu tiếng Anh: bot sửa cho đúng tài khoản và trả bản sửa có nghĩa tiếng Việt', async () => {
     const { repo } = fakeTelegramRepo();
-    const { bot, sent, forwarded } = fakeBot();
+    const { bot, sent, forwarded, typing } = fakeBot();
     const calls: [string, string][] = [];
     const correctFor = async (u: string, t: string): Promise<CorrectOutcome> => (calls.push([u, t]), { ok: true, data: CORRECTED });
     await hook(update('/start tok_ok'), { repo, bot });
     await hook(update('  I have fixed bug yesterday.  '), { repo, bot, correctFor });
     expect(calls).toEqual([['user-a', 'I have fixed bug yesterday.']]);
+    // Hiện "đang soạn tin" trước khi gọi AI.
+    expect(typing).toEqual([55]);
     expect(forwarded).toHaveLength(0);
     const reply = sent.at(-1)!;
     expect(reply.chat).toBe(55);
@@ -345,6 +349,33 @@ describe('POST /api/telegram/webhook', () => {
     expect(reply.text).toContain('Nghĩa: Hôm qua mình đã sửa bug.');
     expect(reply.text).toContain('have fixed → fixed (thì của động từ)');
     expect(reply.text).toContain('Hôm nay bạn còn 9 lượt sửa.');
+  });
+
+  it('có waitUntil: trả 200 ngay, sửa câu và gửi trả lời ở nền', async () => {
+    const { repo } = fakeTelegramRepo();
+    const { bot, sent } = fakeBot();
+    let release!: () => void;
+    const gate = new Promise<void>((r) => (release = r));
+    const correctFor = async (): Promise<CorrectOutcome> => (await gate, { ok: true, data: CORRECTED });
+    const deferred: Promise<unknown>[] = [];
+    await hook(update('/start tok_ok'), { repo, bot });
+    const res = await handleTelegramWebhook({
+      request: new Request(`${SITE}/api/telegram/webhook`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Telegram-Bot-Api-Secret-Token': WEBHOOK_SECRET },
+        body: JSON.stringify(update('I have fixed bug yesterday.')),
+      }),
+      secret: WEBHOOK_SECRET,
+      bot,
+      repo,
+      correctFor,
+      defer: (w) => deferred.push(w),
+    });
+    expect(res.status).toBe(200);
+    expect(sent.at(-1)?.text).toBe(TEXT.linked);
+    release();
+    await Promise.all(deferred);
+    expect(sent.at(-1)?.text).toBe(formatCorrection(CORRECTED));
   });
 
   it('đoạn quá ngắn hoặc quá dài: không gọi AI', async () => {

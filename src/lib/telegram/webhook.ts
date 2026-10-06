@@ -45,6 +45,8 @@ export const TEXT = {
     'Chat này là chat admin: tin liên hệ của người dùng được chuyển về đây. Muốn thử /hotro, hãy nhắn từ một tài khoản Telegram khác.',
 };
 
+const TYPING_EVERY_MS = 4000;
+
 /** Tin trả lời sau khi sửa: văn bản thường, không parse_mode, nên câu của người dùng không thành định dạng. */
 export function formatCorrection(data: CorrectData): string {
   const { result } = data;
@@ -80,8 +82,13 @@ export async function handleTelegramWebhook(input: {
   repo: TelegramRepo | null;
   /** Sửa một đoạn cho tài khoản này (cùng hạn mức với /api/correct). null khi máy chủ chưa có AI. */
   correctFor: ((userId: string, sentence: string) => Promise<CorrectOutcome>) | null;
+  /**
+   * Chạy tiếp việc sau khi đã trả 200 (waitUntil của Cloudflare). Sửa câu có thể lâu hơn thời gian Telegram chờ;
+   * trả lời chậm thì Telegram gửi lại update và người dùng bị trừ hai lượt.
+   */
+  defer?: (work: Promise<unknown>) => void;
 }): Promise<Response> {
-  const { request, secret, bot, repo, correctFor } = input;
+  const { request, secret, bot, repo, correctFor, defer } = input;
   // 1. Phương thức
   if (request.method !== 'POST') return errors.method();
   // 2. Nguồn gốc: secret token Telegram gửi trong header, so sánh thời gian hằng. Sai thì 401, không làm gì.
@@ -129,13 +136,29 @@ export async function handleTelegramWebhook(input: {
       await bot.sendMessage(chatId, TEXT.unavailable);
       return ok({ handled: false });
     }
-    const out = await correctFor(userId, text);
-    const reply = out.ok
-      ? formatCorrection(out.data)
-      : out.code === 'free_quota_exceeded'
-        ? `${out.message} Xem gói ở trang Nâng cấp trên EPC.`
-        : out.message;
-    await bot.sendMessage(chatId, reply);
+    const work = (async () => {
+      // AI có thể mất cả chục giây: giữ trạng thái "đang soạn tin" bằng cách gửi lại mỗi 4 giây.
+      await bot.sendTyping(chatId);
+      const typing = setInterval(() => void bot.sendTyping(chatId), TYPING_EVERY_MS);
+      let out: CorrectOutcome;
+      try {
+        out = await correctFor(userId, text);
+      } catch (e) {
+        // Không ghi nội dung tin nhắn vào log.
+        console.error('[telegram] sửa câu lỗi:', e instanceof Error ? e.message : 'không rõ');
+        out = { ok: false, status: 500, code: 'internal', message: 'Chưa sửa được câu này. Lượt sửa của bạn chưa bị trừ, bạn thử lại sau ít phút.' };
+      } finally {
+        clearInterval(typing);
+      }
+      const reply = out.ok
+        ? formatCorrection(out.data)
+        : out.code === 'free_quota_exceeded'
+          ? `${out.message} Xem gói ở trang Nâng cấp trên EPC.`
+          : out.message;
+      await bot.sendMessage(chatId, reply);
+    })();
+    if (defer) defer(work);
+    else await work;
     return ok({ handled: true });
   }
 

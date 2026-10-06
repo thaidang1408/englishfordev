@@ -13,7 +13,7 @@ import { handleTelegramWebhook } from '../../../lib/telegram/webhook';
 export const prerender = false;
 
 // Gọi từ máy chủ Telegram, xác thực bằng header X-Telegram-Bot-Api-Secret-Token.
-export const ALL: APIRoute = async ({ request }) => {
+export const ALL: APIRoute = async ({ request, locals }) => {
   try {
     const env = serverEnv();
     const service = env.SUPABASE_SERVICE_ROLE_KEY ? createServiceDb(env.SUPABASE_SERVICE_ROLE_KEY) : null;
@@ -39,6 +39,7 @@ export const ALL: APIRoute = async ({ request }) => {
       bot: env.TELEGRAM_BOT_TOKEN ? telegramBot(env.TELEGRAM_BOT_TOKEN) : null,
       repo: service ? telegramRepo(service, env.ADMIN_EMAILS) : null,
       correctFor,
+      defer: (work) => locals.cfContext.waitUntil(work),
     });
   } catch (e) {
     console.error('[api/telegram/webhook]', e instanceof Error ? e.message : 'lỗi không rõ');
