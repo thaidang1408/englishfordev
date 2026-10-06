@@ -21,22 +21,33 @@
     {
       "en": "When I open the order page on iOS, the app crashes.",
       "vi": "Khi mình mở trang đơn hàng trên iOS, app bị crash."
+    },
+    {
+      "en": "When I filter orders by date, the total doesn't update.",
+      "vi": "Khi mình lọc đơn hàng theo ngày, tổng tiền không cập nhật."
+    },
+    {
+      "en": "When I log in with an expired token, the app shows a blank screen.",
+      "vi": "Khi mình đăng nhập bằng token hết hạn, app hiện màn hình trắng."
     }
   ],
   "mistakes": [
     {
       "wrong": "When I click Save, the app is crash.",
       "right": "When I click Save, the app crashes.",
+      "right_vi": "Khi mình bấm Save, app bị crash.",
       "why_vi": "crash đã là động từ, không thêm is phía trước."
     },
     {
       "wrong": "When I click Save, the page reload.",
       "right": "When I click Save, the page reloads.",
+      "right_vi": "Khi mình bấm Save, trang tải lại.",
       "why_vi": "Chủ ngữ số ít (the page) thì động từ thêm s."
     },
     {
       "wrong": "The button Save doesn't work.",
       "right": "The Save button doesn't work.",
+      "right_vi": "Nút Save không hoạt động.",
       "why_vi": "Tên nút đứng trước danh từ button."
     }
   ],
@@ -61,6 +72,7 @@
         "When I click Submit, the app crash."
       ],
       "answer": 0,
+      "answer_vi": "Khi mình bấm Submit, app bị crash.",
       "why_vi": "crash là động từ, không cần is. Chủ ngữ số ít nên crashes."
     },
     {
@@ -72,6 +84,7 @@
         "When I change the language, the page is go blank."
       ],
       "answer": 0,
+      "answer_vi": "Khi mình đổi ngôn ngữ, trang bị trắng.",
       "why_vi": "go blank = bị trắng trang. Chủ ngữ số ít nên goes, không thêm is."
     },
     {
@@ -83,6 +96,7 @@
         "The Save button not work on Firefox."
       ],
       "answer": 0,
+      "answer_vi": "Nút Save không hoạt động trên Firefox.",
       "why_vi": "Tên nút đứng trước button. Phủ định hiện tại đơn cần doesn't."
     },
     {
@@ -94,6 +108,7 @@
         "When I upload a large file, the API return a timeout error."
       ],
       "answer": 0,
+      "answer_vi": "Khi mình upload file lớn, API trả về lỗi timeout.",
       "why_vi": "Tính từ large đứng trước file. the API số ít nên returns."
     },
     {
@@ -105,7 +120,68 @@
         "When I log out, the cart is not clear."
       ],
       "answer": 0,
+      "answer_vi": "Khi mình đăng xuất, giỏ hàng không bị xoá.",
       "why_vi": "Động từ viết tách: log out. Bị xoá là bị động: isn't cleared."
+    },
+    {
+      "id": "w05q6",
+      "prompt_vi": "Khi mình chạy migration, bảng users bị khoá.",
+      "options": [
+        "When I run the migration, the users table gets locked.",
+        "When I run the migration, the users table is lock.",
+        "When I will run the migration, the users table gets locked."
+      ],
+      "answer": 0,
+      "answer_vi": "Khi mình chạy migration, bảng users bị khoá.",
+      "why_vi": "Bị khoá là gets locked, có ed. Vế when dùng hiện tại, không dùng will."
+    },
+    {
+      "id": "w05q7",
+      "prompt_vi": "Khi mình đổi mật khẩu, mình không nhận được email xác nhận.",
+      "options": [
+        "When I change my password, I don't receive a confirmation email.",
+        "When I change my password, I don't receive a confirm email.",
+        "When I change my password, I doesn't receive a confirmation email."
+      ],
+      "answer": 0,
+      "answer_vi": "Khi mình đổi mật khẩu, mình không nhận được email xác nhận.",
+      "why_vi": "Đứng trước email cần danh từ confirmation, không phải động từ confirm. I đi với don't."
+    },
+    {
+      "id": "w05q8",
+      "prompt_vi": "Khi mình push lên nhánh develop, CI chạy test hai lần.",
+      "options": [
+        "When I push to the develop branch, CI runs the tests twice.",
+        "When I push on the develop branch, CI runs the tests twice.",
+        "When I pushed to the develop branch, CI runs the tests twice."
+      ],
+      "answer": 0,
+      "answer_vi": "Khi mình push lên nhánh develop, CI chạy test hai lần.",
+      "why_vi": "Push lên nhánh nào dùng to. Bug lặp lại được thì cả hai vế dùng hiện tại."
+    },
+    {
+      "id": "w05q9",
+      "prompt_vi": "Khi mình xoay màn hình, video dừng phát.",
+      "options": [
+        "When I rotate the screen, the video stops playing.",
+        "When I rotate the screen, the video stops to play.",
+        "When I rotate the screen, the video stop playing."
+      ],
+      "answer": 0,
+      "answer_vi": "Khi mình xoay màn hình, video dừng phát.",
+      "why_vi": "Ngừng làm gì dùng stop + V-ing. the video số ít nên stops."
+    },
+    {
+      "id": "w05q10",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "When I send an empty request body, the API returns 200 instead of 400.",
+        "When I send an empty request body, the API returns 200 instead 400.",
+        "When I send a request body empty, the API returns 200 instead of 400."
+      ],
+      "answer": 0,
+      "answer_vi": "Khi mình gửi request body rỗng, API trả về 200 thay vì 400.",
+      "why_vi": "Thay vì là instead of, không bỏ of. Tính từ empty đứng trước danh từ."
     }
   ],
   "write_prompt_vi": "Viết 1 câu mô tả một bug bạn từng gặp: làm gì thì xảy ra chuyện gì."

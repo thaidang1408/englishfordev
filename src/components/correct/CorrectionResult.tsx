@@ -9,6 +9,7 @@ export default function CorrectionResult({ original, result, headLeft = 'Câu c�
     return (
       <div className="answer-in">
         <p className="note ok">Câu này đã đúng, không cần sửa.</p>
+        {result.corrected_vi && <p className="vi-line">Nghĩa: {result.corrected_vi}</p>}
         {result.tip_vi && <p className="why">{result.tip_vi}</p>}
       </div>
     );
@@ -16,6 +17,7 @@ export default function CorrectionResult({ original, result, headLeft = 'Câu c�
   return (
     <div className="answer-in">
       <ReviewDiffView before={original} after={result.corrected} headLeft={headLeft} headRight={`${result.changes.length} chỗ sửa`}>
+        {result.corrected_vi && <p className="vi-line">Nghĩa: {result.corrected_vi}</p>}
         <ul className="changes">
           {result.changes.map((c, i) => (
             <li key={i}>

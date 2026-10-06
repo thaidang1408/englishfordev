@@ -21,18 +21,34 @@
     {
       "en": "Today I'll continue with the API integration.",
       "vi": "Hôm nay mình làm tiếp phần tích hợp API."
+    },
+    {
+      "en": "Today I'm going to look into the crash on the settings page.",
+      "vi": "Hôm nay mình sẽ tìm hiểu lỗi crash ở trang cài đặt."
+    },
+    {
+      "en": "Today I'll prepare the release notes for tomorrow's deploy.",
+      "vi": "Hôm nay mình sẽ chuẩn bị release note cho đợt deploy ngày mai."
     }
   ],
   "mistakes": [
     {
       "wrong": "Today I will working on the report.",
       "right": "Today I'll work on the report.",
+      "right_vi": "Hôm nay mình sẽ làm báo cáo.",
       "why_vi": "Sau will là động từ nguyên mẫu. Hoặc dùng I'm working on."
     },
     {
       "wrong": "Today I continue do the API.",
       "right": "Today I'll continue with the API.",
+      "right_vi": "Hôm nay mình làm tiếp phần API.",
       "why_vi": "continue with + danh từ, hoặc continue + V-ing."
+    },
+    {
+      "wrong": "Today I going to fix the timeout bug.",
+      "right": "Today I'm going to fix the timeout bug.",
+      "right_vi": "Hôm nay mình sẽ sửa bug timeout.",
+      "why_vi": "going to luôn cần am đứng trước: I'm going to."
     }
   ],
   "word_bank": [
@@ -55,6 +71,7 @@
         "Today I'm work on the search feature."
       ],
       "answer": 0,
+      "answer_vi": "Hôm nay mình làm tính năng tìm kiếm.",
       "why_vi": "Hiện tại tiếp diễn: am + V-ing."
     },
     {
@@ -66,6 +83,7 @@
         "Today I going write tests for checkout flow."
       ],
       "answer": 0,
+      "answer_vi": "Hôm nay mình sẽ viết test cho luồng checkout.",
       "why_vi": "be going to + động từ nguyên mẫu."
     },
     {
@@ -77,6 +95,7 @@
         "Today I continue to the API integration."
       ],
       "answer": 0,
+      "answer_vi": "Hôm nay mình làm tiếp phần tích hợp API.",
       "why_vi": "continue with + danh từ."
     },
     {
@@ -88,6 +107,7 @@
         "Today I'm start the Google login ticket."
       ],
       "answer": 0,
+      "answer_vi": "Hôm nay mình bắt đầu ticket đăng nhập bằng Google.",
       "why_vi": "am + V-ing. the Google login ticket: từ bổ nghĩa đứng trước."
     },
     {
@@ -99,7 +119,68 @@
         "After that, I look into the bug what QA reported."
       ],
       "answer": 0,
+      "answer_vi": "Sau đó mình sẽ xem bug mà QA báo.",
       "why_vi": "look into = tìm hiểu nguyên nhân. Mệnh đề quan hệ dùng that, và reported ở quá khứ."
+    },
+    {
+      "id": "s02q6",
+      "prompt_vi": "Hôm nay mình sẽ sửa pipeline CI đang lỗi.",
+      "options": [
+        "Today I'll fix the failing CI pipeline.",
+        "Today I'll fixing the failing CI pipeline.",
+        "Today I'll fix the CI pipeline failing."
+      ],
+      "answer": 0,
+      "answer_vi": "Hôm nay mình sẽ sửa pipeline CI đang lỗi.",
+      "why_vi": "Sau will là động từ nguyên mẫu. failing đứng trước danh từ."
+    },
+    {
+      "id": "s02q7",
+      "prompt_vi": "Hôm nay mình đang làm phần migration database.",
+      "options": [
+        "Today I'm working on the database migration.",
+        "Today I'm working the database migration.",
+        "Today I working on the database migration."
+      ],
+      "answer": 0,
+      "answer_vi": "Hôm nay mình đang làm phần migration database.",
+      "why_vi": "Làm một việc là work on. Câu cần I'm trước working."
+    },
+    {
+      "id": "s02q8",
+      "prompt_vi": "Hôm nay mình sẽ chuẩn bị bản demo cho khách.",
+      "options": [
+        "Today I'm going to prepare the demo for the client.",
+        "Today I'm going prepare the demo for the client.",
+        "Today I'm going to prepare the demo to the client."
+      ],
+      "answer": 0,
+      "answer_vi": "Hôm nay mình sẽ chuẩn bị bản demo cho khách.",
+      "why_vi": "going to luôn có to. Chuẩn bị cho ai dùng for."
+    },
+    {
+      "id": "s02q9",
+      "prompt_vi": "Hôm nay mình sẽ review PR của Huy trước.",
+      "options": [
+        "Today I'll review Huy's PR first.",
+        "Today I'll review PR of Huy first.",
+        "Today I'll to review Huy's PR first."
+      ],
+      "answer": 0,
+      "answer_vi": "Hôm nay mình sẽ review PR của Huy trước.",
+      "why_vi": "Sở hữu của người dùng 's: Huy's PR. Sau will không có to."
+    },
+    {
+      "id": "s02q10",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "Today I'm going to test the mobile app on iOS.",
+        "Today I'm going to test the mobile app in iOS.",
+        "Today I'm going to test mobile app on iOS."
+      ],
+      "answer": 0,
+      "answer_vi": "Hôm nay mình sẽ test app mobile trên iOS.",
+      "why_vi": "Nền tảng đi với on: on iOS. app đếm được nên cần the."
     }
   ],
   "write_prompt_vi": "Viết 1 đến 2 câu về việc bạn sẽ làm hôm nay."

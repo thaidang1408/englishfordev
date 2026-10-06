@@ -5,6 +5,7 @@ import { changeSchema } from '../ai/schema';
 export const ownErrorPayloadSchema = changeSchema.extend({
   original: z.string().max(700),
   corrected: z.string().max(1500),
+  corrected_vi: z.string().max(1500).optional(),
 });
 export type OwnErrorPayload = z.infer<typeof ownErrorPayloadSchema>;
 

@@ -21,22 +21,33 @@
     {
       "en": "What do you mean by \"make it more flexible\"?",
       "vi": "Ý bạn \"làm cho linh hoạt hơn\" là sao?"
+    },
+    {
+      "en": "Just to confirm, you mean we should roll back the deploy?",
+      "vi": "Mình hỏi lại cho chắc, ý bạn là mình nên rollback bản deploy?"
+    },
+    {
+      "en": "Just to confirm, you mean the client wants the export feature by next Friday?",
+      "vi": "Mình hỏi lại cho chắc, ý bạn là khách muốn có tính năng xuất file trước thứ Sáu tuần sau?"
     }
   ],
   "mistakes": [
     {
       "wrong": "Can you repeat again?",
       "right": "Could you repeat that?",
+      "right_vi": "Bạn nhắc lại được không?",
       "why_vi": "repeat đã có nghĩa là nói lại, không thêm again. Cần có that."
     },
     {
       "wrong": "What is your mean?",
       "right": "What do you mean?",
+      "right_vi": "Ý bạn là gì?",
       "why_vi": "mean là động từ, không phải danh từ."
     },
     {
       "wrong": "Sorry, I don't understand what you say.",
       "right": "Sorry, I didn't catch what you said.",
+      "right_vi": "Xin lỗi, mình nghe không kịp bạn vừa nói gì.",
       "why_vi": "Người kia nói xong rồi nên dùng quá khứ. didn't catch là nghe không kịp."
     }
   ],
@@ -60,6 +71,7 @@
         "Could you to repeat that?"
       ],
       "answer": 0,
+      "answer_vi": "Bạn nhắc lại được không?",
       "why_vi": "repeat không cần again. Sau could là động từ nguyên mẫu không to."
     },
     {
@@ -71,6 +83,7 @@
         "What do you meaning?"
       ],
       "answer": 0,
+      "answer_vi": "Ý bạn là gì?",
       "why_vi": "mean là động từ: do you mean."
     },
     {
@@ -82,6 +95,7 @@
         "Just to confirm, your mean is the bug only happens in iOS?"
       ],
       "answer": 0,
+      "answer_vi": "Mình hỏi lại cho chắc, ý bạn là bug chỉ có trên iOS?",
       "why_vi": "the bug là số ít nên happens. Nền tảng dùng on iOS."
     },
     {
@@ -93,6 +107,7 @@
         "Sorry, I not catch that."
       ],
       "answer": 0,
+      "answer_vi": "Xin lỗi, mình nghe không kịp.",
       "why_vi": "Người kia đã nói xong nên dùng quá khứ: didn't catch. Phủ định cần trợ động từ did."
     },
     {
@@ -104,7 +119,68 @@
         "Could you speak more slow a bit?"
       ],
       "answer": 0,
+      "answer_vi": "Bạn nói chậm lại một chút được không?",
       "why_vi": "Sau could là động từ nguyên mẫu. a bit đứng trước more slowly."
+    },
+    {
+      "id": "s06q6",
+      "prompt_vi": "Mình hỏi lại cho chắc, ý bạn là nên tách ticket này?",
+      "options": [
+        "Just to confirm, you mean we should split this ticket?",
+        "Just to confirm, you mean we should splitting this ticket?",
+        "Just for confirm, you mean we should split this ticket?"
+      ],
+      "answer": 0,
+      "answer_vi": "Mình hỏi lại cho chắc, ý bạn là nên tách ticket này?",
+      "why_vi": "Sau should là động từ nguyên mẫu. Cụm cố định: just to confirm."
+    },
+    {
+      "id": "s06q7",
+      "prompt_vi": "Ý bạn \"endpoint cũ\" là cái nào?",
+      "options": [
+        "What do you mean by \"the old endpoint\"?",
+        "What do you mean about \"the old endpoint\"?",
+        "What you mean by \"the old endpoint\"?"
+      ],
+      "answer": 0,
+      "answer_vi": "Ý bạn \"endpoint cũ\" là cái nào?",
+      "why_vi": "Hỏi nghĩa một cụm từ dùng mean by. Câu hỏi cần do."
+    },
+    {
+      "id": "s06q8",
+      "prompt_vi": "Xin lỗi, bạn nhắc lại phần cuối được không?",
+      "options": [
+        "Sorry, could you repeat the last part?",
+        "Sorry, could you repeat last part?",
+        "Sorry, could you repeat the part last?"
+      ],
+      "answer": 0,
+      "answer_vi": "Xin lỗi, bạn nhắc lại phần cuối được không?",
+      "why_vi": "Cần the trước last part. last đứng trước part."
+    },
+    {
+      "id": "s06q9",
+      "prompt_vi": "Bạn làm rõ giúp mình yêu cầu này được không?",
+      "options": [
+        "Could you clarify this requirement?",
+        "Could you clarify about this requirement?",
+        "Could you make clear this requirement?"
+      ],
+      "answer": 0,
+      "answer_vi": "Bạn làm rõ giúp mình yêu cầu này được không?",
+      "why_vi": "clarify + thứ cần làm rõ, không thêm about. Dùng make clear thì nói make this requirement clear."
+    },
+    {
+      "id": "s06q10",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "Sorry, I didn't understand your comment on line 42.",
+        "Sorry, I don't understood your comment on line 42.",
+        "Sorry, I didn't understand comment of you on line 42."
+      ],
+      "answer": 0,
+      "answer_vi": "Xin lỗi, mình chưa hiểu comment của bạn ở dòng 42.",
+      "why_vi": "Sau didn't là động từ nguyên mẫu. Của bạn là your comment."
     }
   ],
   "write_prompt_vi": "Viết 1 câu hỏi lại để xác nhận một yêu cầu bạn chưa chắc."

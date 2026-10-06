@@ -22,18 +22,34 @@
     {
       "en": "What would you expect from me in the first three months?",
       "vi": "Trong ba tháng đầu, anh chị mong mình làm được gì?"
+    },
+    {
+      "en": "How does the QA team work with developers here?",
+      "vi": "Ở đây team QA làm việc với dev như thế nào?"
+    },
+    {
+      "en": "What do you think is the biggest challenge for this team right now?",
+      "vi": "Anh chị nghĩ thử thách lớn nhất của team hiện giờ là gì?"
     }
   ],
   "mistakes": [
     {
       "wrong": "How the team handles code reviews?",
       "right": "How does the team handle code reviews?",
+      "right_vi": "Team ở đây review code như thế nào?",
       "why_vi": "Câu hỏi cần does trước chủ ngữ, và động từ về nguyên mẫu."
     },
     {
       "wrong": "What does a typical day looks like?",
       "right": "What does a typical day look like?",
+      "right_vi": "Một ngày làm việc bình thường diễn ra thế nào?",
       "why_vi": "Đã có does thì động từ không thêm s."
+    },
+    {
+      "wrong": "Can you tell me what is the tech stack?",
+      "right": "Can you tell me what the tech stack is?",
+      "right_vi": "Anh chị cho mình biết tech stack là gì được không?",
+      "why_vi": "Câu hỏi nằm trong câu khác thì giữ thứ tự bình thường: the tech stack is."
     }
   ],
   "word_bank": [
@@ -55,6 +71,7 @@
         "How does the team deploys to production?"
       ],
       "answer": 0,
+      "answer_vi": "Team deploy lên production như thế nào?",
       "why_vi": "Câu hỏi cần does trước chủ ngữ, và động từ sau đó không thêm s."
     },
     {
@@ -66,6 +83,7 @@
         "What a typical day looks like here?"
       ],
       "answer": 0,
+      "answer_vi": "Một ngày làm việc bình thường ở đây thế nào?",
       "why_vi": "look like đi với what, không đi với how. Câu hỏi cần does."
     },
     {
@@ -77,6 +95,7 @@
         "How much people are on the team right now?"
       ],
       "answer": 0,
+      "answer_vi": "Team hiện có bao nhiêu người?",
       "why_vi": "people đếm được nên dùng how many. Câu hỏi phải đảo động từ lên trước chủ ngữ."
     },
     {
@@ -88,6 +107,7 @@
         "Do you offer any support for learn English?"
       ],
       "answer": 0,
+      "answer_vi": "Công ty có hỗ trợ học tiếng Anh không?",
       "why_vi": "you đi với do, không đi với does. Sau for dùng V-ing."
     },
     {
@@ -99,7 +119,68 @@
         "What the next steps are in the process?"
       ],
       "answer": 0,
+      "answer_vi": "Các bước tiếp theo trong quy trình là gì?",
       "why_vi": "Cần the trước next steps. Câu hỏi đưa are lên trước chủ ngữ."
+    },
+    {
+      "id": "i09q6",
+      "prompt_vi": "Chọn câu trả lời phù hợp hơn.",
+      "options": [
+        "Yes, thanks. How does the team decide what goes into each sprint?",
+        "No.",
+        "What does your company do?"
+      ],
+      "answer": 0,
+      "answer_vi": "Có, cảm ơn anh chị. Team quyết định việc nào đưa vào mỗi sprint như thế nào?",
+      "why_vi": "Nên hỏi một câu về cách team làm việc. Trả lời cụt hoặc hỏi công ty làm gì cho thấy bạn chưa tìm hiểu."
+    },
+    {
+      "id": "i09q7",
+      "prompt_vi": "Team dùng công cụ gì để quản lý task?",
+      "options": [
+        "What tools does the team use to manage tasks?",
+        "What tools does the team uses to manage tasks?",
+        "What tools does the team use for manage tasks?"
+      ],
+      "answer": 0,
+      "answer_vi": "Team dùng công cụ gì để quản lý task?",
+      "why_vi": "Đã có does thì động từ không thêm s. Để làm gì dùng to V."
+    },
+    {
+      "id": "i09q8",
+      "prompt_vi": "Anh chị làm ở công ty bao lâu rồi?",
+      "options": [
+        "How long have you worked here?",
+        "How long do you work here?",
+        "How long you have worked here?"
+      ],
+      "answer": 0,
+      "answer_vi": "Anh chị làm ở đây bao lâu rồi?",
+      "why_vi": "Kéo dài tới giờ dùng have + V3. Câu hỏi đưa have lên trước you."
+    },
+    {
+      "id": "i09q9",
+      "prompt_vi": "Người mới thường mất bao lâu để quen việc?",
+      "options": [
+        "How long does it usually take new people to get up to speed?",
+        "How long does it usually take new people for getting up to speed?",
+        "How long it usually takes new people to get up to speed?"
+      ],
+      "answer": 0,
+      "answer_vi": "Người mới thường mất bao lâu để quen việc?",
+      "why_vi": "take + người + to V. Câu hỏi cần does trước it."
+    },
+    {
+      "id": "i09q10",
+      "prompt_vi": "Dev ở đây có làm việc trực tiếp với khách hàng không?",
+      "options": [
+        "Do developers here work directly with clients?",
+        "Does developers here work directly with clients?",
+        "Do developers here work directly to clients?"
+      ],
+      "answer": 0,
+      "answer_vi": "Dev ở đây có làm việc trực tiếp với khách hàng không?",
+      "why_vi": "developers là số nhiều nên dùng do. Làm việc với ai là work with."
     }
   ],
   "write_prompt_vi": "Viết 2 câu hỏi bạn muốn hỏi nhà tuyển dụng ở cuối buổi phỏng vấn."

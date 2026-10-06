@@ -22,22 +22,33 @@
     {
       "en": "I'm a QA engineer with one year of experience. I started with manual testing, and now I write automated tests with Playwright.",
       "vi": "Mình là QA engineer, có một năm kinh nghiệm. Mình bắt đầu bằng test thủ công, giờ mình viết test tự động bằng Playwright."
+    },
+    {
+      "en": "I'm a mobile developer with three years of experience in Flutter. Right now I build the customer app for a food delivery startup.",
+      "vi": "Mình là mobile developer, có ba năm kinh nghiệm với Flutter. Hiện mình làm app cho khách hàng của một startup giao đồ ăn."
+    },
+    {
+      "en": "I'm a business analyst with five years of experience in banking projects. Right now I write requirements for a mobile banking app and work closely with the dev team.",
+      "vi": "Mình là business analyst, có năm năm kinh nghiệm trong các dự án ngân hàng. Hiện mình viết requirement cho một app ngân hàng di động và làm việc sát với team dev."
     }
   ],
   "mistakes": [
     {
       "wrong": "I am Java developer.",
       "right": "I'm a Java developer.",
+      "right_vi": "Mình là Java developer.",
       "why_vi": "Nói nghề nghiệp thì cần a hoặc an trước tên nghề."
     },
     {
       "wrong": "I have three years experience in Java.",
       "right": "I have three years of experience in Java.",
+      "right_vi": "Mình có ba năm kinh nghiệm với Java.",
       "why_vi": "Số năm kinh nghiệm luôn có of: years of experience."
     },
     {
       "wrong": "I'm working at a bank since 2021.",
       "right": "I've been working at a bank since 2021.",
+      "right_vi": "Mình làm ở một ngân hàng từ năm 2021 đến giờ.",
       "why_vi": "Có since thì dùng have been + V-ing hoặc have + V3."
     }
   ],
@@ -60,6 +71,7 @@
         "I'm a mobile developer with three years of experiences."
       ],
       "answer": 0,
+      "answer_vi": "Mình là mobile developer, có ba năm kinh nghiệm.",
       "why_vi": "Cần a trước nghề và of sau years. experience ở đây không thêm s."
     },
     {
@@ -71,6 +83,7 @@
         "I've worked at my current company since two years."
       ],
       "answer": 0,
+      "answer_vi": "Mình làm ở công ty hiện tại được hai năm rồi.",
       "why_vi": "Việc kéo dài tới giờ dùng have + V3. Một khoảng thời gian dùng for, một mốc mới dùng since."
     },
     {
@@ -82,6 +95,7 @@
         "Right now I mostly doing backend work with Node.js."
       ],
       "answer": 0,
+      "answer_vi": "Hiện mình chủ yếu làm backend với Node.js.",
       "why_vi": "Dùng công nghệ gì thì dùng with. Không có am thì không dùng V-ing."
     },
     {
@@ -93,6 +107,7 @@
         "I'm an engineer QA."
       ],
       "answer": 0,
+      "answer_vi": "Mình là kỹ sư QA.",
       "why_vi": "Cần a trước nghề, và QA đứng trước engineer."
     },
     {
@@ -104,7 +119,68 @@
         "Before that, I worked at an outsourcing company in two years."
       ],
       "answer": 0,
+      "answer_vi": "Trước đó mình làm hai năm ở một công ty outsource.",
       "why_vi": "Việc đã xong trong quá khứ dùng quá khứ đơn. Kéo dài bao lâu thì dùng for."
+    },
+    {
+      "id": "i01q6",
+      "prompt_vi": "Chọn câu trả lời phù hợp hơn.",
+      "options": [
+        "I'm a frontend developer with three years of experience. Right now I mostly build dashboards with Vue and TypeScript.",
+        "I'm an expert frontend developer, and I can build any kind of web app.",
+        "Well, I'm just a frontend guy, I do some Vue stuff."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình là frontend developer, có ba năm kinh nghiệm. Hiện mình chủ yếu làm dashboard bằng Vue và TypeScript.",
+      "why_vi": "Nói vai trò, số năm và việc cụ thể. Không tự nhận là chuyên gia, cũng không nói quá suồng sã."
+    },
+    {
+      "id": "i01q7",
+      "prompt_vi": "Mình phụ trách service gửi thông báo trong app.",
+      "options": [
+        "I'm responsible for the notification service in our app.",
+        "I'm responsible of the notification service in our app.",
+        "I responsible for the notification service in our app."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình phụ trách service gửi thông báo trong app của bọn mình.",
+      "why_vi": "Cụm đúng là be responsible for. responsible không phải động từ nên cần am."
+    },
+    {
+      "id": "i01q8",
+      "prompt_vi": "Mình làm PM từ năm 2020.",
+      "options": [
+        "I've been a project manager since 2020.",
+        "I'm a project manager since 2020.",
+        "I've been a project manager from 2020."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình làm project manager từ năm 2020 đến giờ.",
+      "why_vi": "Kéo dài từ một mốc tới giờ dùng have been. Mốc bắt đầu đi với since, không dùng from."
+    },
+    {
+      "id": "i01q9",
+      "prompt_vi": "Mình có kinh nghiệm làm việc với khách hàng Nhật.",
+      "options": [
+        "I have experience working with Japanese clients.",
+        "I have experience to work with Japanese clients.",
+        "I have experience working with clients Japanese."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình có kinh nghiệm làm việc với khách hàng Nhật.",
+      "why_vi": "experience + V-ing, không dùng to V. Từ chỉ quốc tịch đứng trước danh từ: Japanese clients."
+    },
+    {
+      "id": "i01q10",
+      "prompt_vi": "Mình bắt đầu là tester, sau đó chuyển sang làm dev.",
+      "options": [
+        "I started as a tester and then moved into development.",
+        "I started like a tester and then moved into development.",
+        "I start as a tester and then moved into development."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình bắt đầu là tester, sau đó chuyển sang làm dev.",
+      "why_vi": "Nói vai trò dùng as, không dùng like. Chuyện đã qua dùng quá khứ: started."
     }
   ],
   "write_prompt_vi": "Viết 2 đến 3 câu giới thiệu bạn: vai trò, số năm kinh nghiệm, việc đang làm."

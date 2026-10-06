@@ -21,22 +21,33 @@
     {
       "en": "We're on track to release version 2.0 by the end of this month.",
       "vi": "Bên mình đang đúng tiến độ để phát hành bản 2.0 trước cuối tháng này."
+    },
+    {
+      "en": "We're on track to deploy the fix for the login issue by Wednesday.",
+      "vi": "Bên mình đang đúng tiến độ để deploy bản sửa lỗi đăng nhập trước thứ Tư."
+    },
+    {
+      "en": "QA is testing the mobile app now, and we're on track to submit it to the App Store by next Monday.",
+      "vi": "QA đang test app mobile, và bên mình đang đúng tiến độ để gửi app lên App Store trước thứ Hai tuần sau."
     }
   ],
   "mistakes": [
     {
       "wrong": "We will finish it until Friday.",
       "right": "We'll finish it by Friday.",
+      "right_vi": "Bên mình sẽ làm xong trước thứ Sáu.",
       "why_vi": "Hạn chót dùng by. until nghĩa là kéo dài cho đến lúc đó."
     },
     {
       "wrong": "We're on track to finishing the API.",
       "right": "We're on track to finish the API.",
+      "right_vi": "Bên mình đang đúng tiến độ để làm xong API.",
       "why_vi": "on track to + động từ nguyên mẫu."
     },
     {
       "wrong": "We're in track for the release.",
       "right": "We're on track for the release.",
+      "right_vi": "Bên mình đang đúng tiến độ cho đợt phát hành.",
       "why_vi": "Cụm cố định là on track, không dùng in."
     }
   ],
@@ -60,6 +71,7 @@
         "We're on track to finishing the API by Friday."
       ],
       "answer": 0,
+      "answer_vi": "Bên mình đang đúng tiến độ để làm xong API trước thứ Sáu.",
       "why_vi": "Hạn chót dùng by. on track to + động từ nguyên mẫu."
     },
     {
@@ -71,6 +83,7 @@
         "We'll send you demo by Wednesday."
       ],
       "answer": 0,
+      "answer_vi": "Bên mình sẽ gửi bản demo trước thứ Tư.",
       "why_vi": "Hạn chót dùng by. Cần the trước demo."
     },
     {
@@ -82,6 +95,7 @@
         "The feature search is 70% done."
       ],
       "answer": 0,
+      "answer_vi": "Tính năng tìm kiếm đã xong 70%.",
       "why_vi": "Nói mức hoàn thành: is + % + done. Từ bổ nghĩa đứng trước: search feature."
     },
     {
@@ -93,6 +107,7 @@
         "We're on track for the release June."
       ],
       "answer": 0,
+      "answer_vi": "Bên mình đang đúng tiến độ cho đợt phát hành tháng 6.",
       "why_vi": "on track for + danh từ. Tháng đứng trước: the June release."
     },
     {
@@ -104,7 +119,68 @@
         "We've finish the login flow and are now working on the payment flow."
       ],
       "answer": 0,
+      "answer_vi": "Bên mình đã xong phần đăng nhập và đang làm phần thanh toán.",
       "why_vi": "Đang làm cần are + V-ing. Sau have là V3: finished."
+    },
+    {
+      "id": "w07q6",
+      "prompt_vi": "Bên mình đang đúng tiến độ để chuyển dữ liệu sang database mới trước ngày 20.",
+      "options": [
+        "We're on track to migrate the data to the new database by the 20th.",
+        "We're on track to migrate the data to the new database by 20th.",
+        "We're on track to migrate the data to the database new by the 20th."
+      ],
+      "answer": 0,
+      "answer_vi": "Bên mình đang đúng tiến độ để chuyển dữ liệu sang database mới trước ngày 20.",
+      "why_vi": "Ngày trong tháng viết the 20th. Tính từ new đứng trước danh từ."
+    },
+    {
+      "id": "w07q7",
+      "prompt_vi": "Sprint này bên mình đã sửa xong 12 bug.",
+      "options": [
+        "We've fixed 12 bugs this sprint.",
+        "We've fixed 12 bug this sprint.",
+        "We've fix 12 bugs this sprint."
+      ],
+      "answer": 0,
+      "answer_vi": "Sprint này bên mình đã sửa xong 12 bug.",
+      "why_vi": "Từ hai trở lên thì danh từ thêm s: bugs. Sau have là V3: fixed."
+    },
+    {
+      "id": "w07q8",
+      "prompt_vi": "Bản build iOS đang chờ App Store duyệt.",
+      "options": [
+        "The iOS build is waiting for App Store review.",
+        "The iOS build is waiting App Store review.",
+        "The iOS build is wait for App Store review."
+      ],
+      "answer": 0,
+      "answer_vi": "Bản build iOS đang chờ App Store duyệt.",
+      "why_vi": "Chờ cái gì là wait for. Đang làm dùng is + V-ing: is waiting."
+    },
+    {
+      "id": "w07q9",
+      "prompt_vi": "Bên mình sẽ gửi báo cáo kết quả test trước cuối tuần này.",
+      "options": [
+        "We'll send you the test report by the end of this week.",
+        "We'll send to you the test report by the end of this week.",
+        "We'll send you the test report in the end of this week."
+      ],
+      "answer": 0,
+      "answer_vi": "Bên mình sẽ gửi báo cáo kết quả test trước cuối tuần này.",
+      "why_vi": "Gửi cho ai thì viết send you + thứ được gửi, không có to. Hạn chót dùng by the end of."
+    },
+    {
+      "id": "w07q10",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "We're on track to close all the tickets in this sprint by Thursday.",
+        "We're on the track to close all the tickets in this sprint by Thursday.",
+        "We're on track to closed all the tickets in this sprint by Thursday."
+      ],
+      "answer": 0,
+      "answer_vi": "Bên mình đang đúng tiến độ để đóng hết ticket của sprint này trước thứ Năm.",
+      "why_vi": "Cụm cố định là on track, không có the. Sau to là động từ nguyên mẫu: close."
     }
   ],
   "write_prompt_vi": "Viết 1 đến 2 câu báo tiến độ dự án của bạn cho khách."

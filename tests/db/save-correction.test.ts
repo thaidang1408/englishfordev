@@ -8,6 +8,7 @@ const B = '00000000-0000-4000-8000-0000000000b1';
 const RESULT = {
   is_already_correct: false,
   corrected: 'Yesterday I fixed the bug.',
+  corrected_vi: 'Hôm qua mình đã sửa bug.',
   changes: [
     { from: 'have fixed', to: 'fixed', why_vi: 'Quá khứ đơn.', category: 'tense' },
     { from: 'bug', to: 'the bug', why_vi: 'Cần mạo từ.', category: 'article' },
@@ -51,12 +52,12 @@ describe('save_correction', () => {
     const r = await as(db, 'service_role', null, () => save());
     expect(r?.status).toBe('ok');
     expect(await scalar('select count(*)::int as n from public.corrections where user_id = $1', [A])).toBe(1);
-    const items = await db.query<{ ref: string; box: number; payload: { from: string; to: string; original: string } }>(
+    const items = await db.query<{ ref: string; box: number; payload: { from: string; to: string; original: string; corrected_vi: string } }>(
       `select ref, box, payload from public.review_items where user_id = $1 and kind = 'own_error' order by ref`,
       [A],
     );
     expect(items.rows.map((i) => i.ref)).toEqual([`${r?.id}:0`, `${r?.id}:1`]);
-    expect(items.rows[0]).toMatchObject({ box: 1, payload: { from: 'have fixed', to: 'fixed', original: 'Yesterday I have fixed bug.' } });
+    expect(items.rows[0]).toMatchObject({ box: 1, payload: { from: 'have fixed', to: 'fixed', original: 'Yesterday I have fixed bug.', corrected_vi: 'Hôm qua mình đã sửa bug.' } });
   });
 
   it('tài khoản miễn phí: lưu lần sửa nhưng không tạo mục ôn', async () => {

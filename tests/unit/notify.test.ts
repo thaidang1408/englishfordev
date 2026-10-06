@@ -6,7 +6,8 @@ import { daysUntil, isReminderDay, isReportTime, reminderRanges, standupDay } fr
 import { handleTick, type ReminderCandidate, type ReportCandidate, type TickRepo } from '../../src/lib/notify/tick';
 import type { ErrorEntry } from '../../src/lib/stats/errors';
 import type { Bot } from '../../src/lib/telegram/bot';
-import { handleTelegramWebhook, TEXT, type TelegramRepo } from '../../src/lib/telegram/webhook';
+import { formatCorrection, handleTelegramWebhook, TEXT, type TelegramRepo } from '../../src/lib/telegram/webhook';
+import type { CorrectData, CorrectOutcome } from '../../src/lib/correct/handler';
 
 /** Giờ Việt Nam → UTC. */
 const vn = (iso: string) => new Date(`${iso}+07:00`);
@@ -238,7 +239,7 @@ function fakeTelegramRepo(admins: number[] = [900]) {
   const repo: TelegramRepo = {
     linkChat: async (token, chat) => (token === 'tok_ok' ? (links.set(chat, 'user-a'), true) : false),
     unlinkChat: async (chat) => links.delete(chat),
-    isLinked: async (chat) => links.has(chat),
+    userForChat: async (chat) => links.get(chat) ?? null,
     adminChatIds: async () => admins,
   };
   return { repo, links };
@@ -249,7 +250,24 @@ const update = (text: string, chat: { id: number; type: string } = { id: 55, typ
   message: { message_id: 7, chat, from: { id: chat.id, first_name: 'An', username: 'an_dev' }, text },
 });
 
-const hook = (body: unknown, opts: { repo: TelegramRepo; bot: Bot; header?: string | null }) =>
+const CORRECTED: CorrectData = {
+  id: 'c1',
+  original: 'I have fixed bug yesterday.',
+  result: {
+    is_already_correct: false,
+    corrected: 'I fixed the bug yesterday.',
+    corrected_vi: 'Hôm qua mình đã sửa bug.',
+    changes: [{ from: 'have fixed', to: 'fixed', why_vi: 'Có yesterday thì dùng quá khứ đơn.', category: 'tense' }],
+    tip_vi: '',
+  },
+  remaining: 9,
+  period: 'day',
+  review_items: 1,
+};
+
+type Hook = { repo: TelegramRepo; bot: Bot; header?: string | null; correctFor?: (u: string, t: string) => Promise<CorrectOutcome> };
+
+const hook = (body: unknown, opts: Hook) =>
   handleTelegramWebhook({
     request: new Request(`${SITE}/api/telegram/webhook`, {
       method: 'POST',
@@ -262,6 +280,7 @@ const hook = (body: unknown, opts: { repo: TelegramRepo; bot: Bot; header?: stri
     secret: WEBHOOK_SECRET,
     bot: opts.bot,
     repo: opts.repo,
+    correctFor: opts.correctFor ?? null,
   });
 
 describe('POST /api/telegram/webhook', () => {
@@ -307,6 +326,60 @@ describe('POST /api/telegram/webhook', () => {
     expect(forwarded).toEqual([{ chat: 900, from: 55, id: 7 }]);
     expect(sent[0]?.chat).toBe(900);
     expect(sent[0]?.text).toContain('An @an_dev');
+    expect(sent.at(-1)).toEqual({ chat: 55, text: TEXT.forwarded });
+  });
+
+  it('chat đã liên kết gửi câu tiếng Anh: bot sửa cho đúng tài khoản và trả bản sửa có nghĩa tiếng Việt', async () => {
+    const { repo } = fakeTelegramRepo();
+    const { bot, sent, forwarded } = fakeBot();
+    const calls: [string, string][] = [];
+    const correctFor = async (u: string, t: string): Promise<CorrectOutcome> => (calls.push([u, t]), { ok: true, data: CORRECTED });
+    await hook(update('/start tok_ok'), { repo, bot });
+    await hook(update('  I have fixed bug yesterday.  '), { repo, bot, correctFor });
+    expect(calls).toEqual([['user-a', 'I have fixed bug yesterday.']]);
+    expect(forwarded).toHaveLength(0);
+    const reply = sent.at(-1)!;
+    expect(reply.chat).toBe(55);
+    expect(reply.text).toBe(formatCorrection(CORRECTED));
+    expect(reply.text).toContain('I fixed the bug yesterday.');
+    expect(reply.text).toContain('Nghĩa: Hôm qua mình đã sửa bug.');
+    expect(reply.text).toContain('have fixed → fixed (thì của động từ)');
+    expect(reply.text).toContain('Hôm nay bạn còn 9 lượt sửa.');
+  });
+
+  it('đoạn quá ngắn hoặc quá dài: không gọi AI', async () => {
+    const { repo } = fakeTelegramRepo();
+    const { bot, sent } = fakeBot();
+    let calls = 0;
+    const correctFor = async (): Promise<CorrectOutcome> => (calls++, { ok: true, data: CORRECTED });
+    await hook(update('/start tok_ok'), { repo, bot });
+    await hook(update('ok'), { repo, bot, correctFor });
+    await hook(update('a'.repeat(301)), { repo, bot, correctFor });
+    expect(calls).toBe(0);
+    expect(sent.slice(-2).map((m) => m.text)).toEqual([TEXT.length, TEXT.length]);
+  });
+
+  it('hết lượt: trả đúng thông báo hạn mức', async () => {
+    const { repo } = fakeTelegramRepo();
+    const { bot, sent } = fakeBot();
+    const correctFor = async (): Promise<CorrectOutcome> => ({ ok: false, status: 429, code: 'quota_exceeded', message: 'Hết lượt hôm nay.' });
+    await hook(update('/start tok_ok'), { repo, bot });
+    await hook(update('I fixed the bug.'), { repo, bot, correctFor });
+    expect(sent.at(-1)?.text).toBe('Hết lượt hôm nay.');
+  });
+
+  it('chat đã liên kết dùng /hotro để liên hệ admin; /hotro trống thì được hướng dẫn', async () => {
+    const { repo } = fakeTelegramRepo([900]);
+    const { bot, sent, forwarded } = fakeBot();
+    let calls = 0;
+    const correctFor = async (): Promise<CorrectOutcome> => (calls++, { ok: true, data: CORRECTED });
+    await hook(update('/start tok_ok'), { repo, bot });
+    await hook(update('/hotro'), { repo, bot, correctFor });
+    expect(sent.at(-1)?.text).toBe(TEXT.hotroEmpty);
+    await hook(update('/hotro mình chuyển sai nội dung'), { repo, bot, correctFor });
+    expect(calls).toBe(0);
+    expect(forwarded).toEqual([{ chat: 900, from: 55, id: 7 }]);
+    expect(sent.find((m) => m.chat === 900)?.text).toContain('đã liên kết tài khoản');
     expect(sent.at(-1)).toEqual({ chat: 55, text: TEXT.forwarded });
   });
 

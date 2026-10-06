@@ -21,22 +21,33 @@
     {
       "en": "Done. I've moved the validation into a separate function.",
       "vi": "Xong rồi. Mình đã tách phần validate ra một hàm riêng."
+    },
+    {
+      "en": "Thanks, I've rebased onto main and resolved the conflicts.",
+      "vi": "Cảm ơn, mình đã rebase lên main và xử lý xong conflict."
+    },
+    {
+      "en": "Good catch, I've wrapped the migration in a transaction.",
+      "vi": "Bắt lỗi chuẩn đấy, mình đã bọc migration trong một transaction."
     }
   ],
   "mistakes": [
     {
       "wrong": "I have fix it.",
       "right": "I've fixed it.",
+      "right_vi": "Mình sửa rồi.",
       "why_vi": "Sau have là V3: fixed."
     },
     {
       "wrong": "I've updated follow your comment.",
       "right": "I've updated it based on your comment.",
+      "right_vi": "Mình đã cập nhật theo góp ý của bạn.",
       "why_vi": "Theo góp ý của ai thì dùng based on, không dịch theo thành follow."
     },
     {
       "wrong": "Thanks, I will fix.",
       "right": "Thanks, I'll fix it.",
+      "right_vi": "Cảm ơn, mình sẽ sửa.",
       "why_vi": "fix cần tân ngữ đi sau: fix it."
     }
   ],
@@ -60,6 +71,7 @@
         "Good catch, I fixed."
       ],
       "answer": 0,
+      "answer_vi": "Bắt lỗi chuẩn đấy, mình sửa rồi.",
       "why_vi": "have + V3: I've fixed. fix cần tân ngữ it."
     },
     {
@@ -71,6 +83,7 @@
         "Thanks, I've added test for this case."
       ],
       "answer": 0,
+      "answer_vi": "Cảm ơn, mình đã thêm test cho trường hợp này.",
       "why_vi": "have + V3: added. test đếm được nên cần a."
     },
     {
@@ -82,6 +95,7 @@
         "I've updated it based on your feedbacks."
       ],
       "answer": 0,
+      "answer_vi": "Mình đã sửa theo góp ý của bạn.",
       "why_vi": "Theo góp ý dùng based on. feedback không đếm được nên không thêm s."
     },
     {
@@ -93,6 +107,7 @@
         "I'll fix this in separate PR."
       ],
       "answer": 0,
+      "answer_vi": "Mình sẽ sửa phần này trong một PR khác.",
       "why_vi": "fix cần tân ngữ this. PR đếm được nên cần a."
     },
     {
@@ -104,7 +119,68 @@
         "Done, I've renamed variable."
       ],
       "answer": 0,
+      "answer_vi": "Xong rồi, mình đã đổi tên biến.",
       "why_vi": "Đổi tên là rename. Cần the trước variable."
+    },
+    {
+      "id": "w04q6",
+      "prompt_vi": "Cảm ơn, mình đã xoá đoạn code không dùng.",
+      "options": [
+        "Thanks, I've removed the unused code.",
+        "Thanks, I've removed the code unused.",
+        "Thanks, I've removed the unused codes."
+      ],
+      "answer": 0,
+      "answer_vi": "Cảm ơn, mình đã xoá đoạn code không dùng.",
+      "why_vi": "Tính từ unused đứng trước danh từ. code không đếm được nên không thêm s."
+    },
+    {
+      "id": "w04q7",
+      "prompt_vi": "Xong rồi, mình đã cập nhật tài liệu API.",
+      "options": [
+        "Done, I've updated the API docs.",
+        "Done, I've updated the API docs yesterday.",
+        "Done, I've been updated the API docs."
+      ],
+      "answer": 0,
+      "answer_vi": "Xong rồi, mình đã cập nhật tài liệu API.",
+      "why_vi": "I've + V3 không đi với mốc thời gian như yesterday. Không thêm been."
+    },
+    {
+      "id": "w04q8",
+      "prompt_vi": "Cảm ơn, mình đã chuyển hằng số này vào file config.",
+      "options": [
+        "Thanks, I've moved this constant to the config file.",
+        "Thanks, I've moved this constant in the config file.",
+        "Thanks, I've moving this constant to the config file."
+      ],
+      "answer": 0,
+      "answer_vi": "Cảm ơn, mình đã chuyển hằng số này vào file config.",
+      "why_vi": "Chuyển vào đâu dùng to. Sau have là V3: moved."
+    },
+    {
+      "id": "w04q9",
+      "prompt_vi": "Mình chưa sửa phần này, mình sẽ làm trong PR sau.",
+      "options": [
+        "I haven't fixed this yet. I'll handle it in a follow-up PR.",
+        "I haven't fix this yet. I'll handle it in a follow-up PR.",
+        "I haven't fixed this already. I'll handle it in a follow-up PR."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình chưa sửa phần này, mình sẽ xử lý trong một PR sau.",
+      "why_vi": "Sau have là V3: fixed. Câu phủ định dùng yet, không dùng already."
+    },
+    {
+      "id": "w04q10",
+      "prompt_vi": "Cảm ơn, mình đã test lại trên Android và iOS.",
+      "options": [
+        "Thanks, I've retested it on Android and iOS.",
+        "Thanks, I've retested it in Android and iOS.",
+        "Thanks, I've retested it on the Android and the iOS."
+      ],
+      "answer": 0,
+      "answer_vi": "Cảm ơn, mình đã test lại trên Android và iOS.",
+      "why_vi": "Trên hệ điều hành nào dùng on. Tên riêng như Android, iOS không có the."
     }
   ],
   "write_prompt_vi": "Viết 1 câu trả lời một comment review, nói bạn đã sửa gì."

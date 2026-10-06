@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { QuizItem } from '../lib/content/schema';
 import { track } from '../lib/events/client';
-import { shuffledIndexes } from '../lib/lesson/shuffle';
+import { pickQuestions, QUIZ_SIZE, shuffledIndexes } from '../lib/lesson/shuffle';
 import { fetchAccountResult, saveAccountResult } from '../lib/progress/client-sync';
 import { completeLesson, loadProgress, recordAnswer, resetLesson, saveProgress } from '../lib/lesson/progress';
 import QuestionCard, { type Step } from './quiz/QuestionCard';
@@ -9,7 +9,8 @@ import { useQuizKeys } from './quiz/useQuizKeys';
 
 type Props = {
   lessonKey: string;
-  items: QuizItem[];
+  /** Toàn bộ câu của bài; mỗi lượt lấy QUIZ_SIZE câu. */
+  pool: QuizItem[];
   next?: { href: string; title: string };
 };
 
@@ -21,8 +22,9 @@ type Mode = 'guest' | 'account';
 type Phase = 'loading' | 'question' | 'done';
 type Save = 'idle' | 'saving' | 'saved' | 'error';
 
-/** Phần 4 của bài học: 5 câu trắc nghiệm, mỗi lần một câu. */
-export default function Quiz({ lessonKey, items, next }: Props) {
+/** Phần 4 của bài học: 5 câu trắc nghiệm lấy ngẫu nhiên từ các câu của bài, mỗi lần một câu. */
+export default function Quiz({ lessonKey, pool, next }: Props) {
+  const [items, setItems] = useState<QuizItem[]>([]);
   const [mode, setMode] = useState<Mode>('guest');
   const [phase, setPhase] = useState<Phase>('loading');
   const [orders, setOrders] = useState<number[][]>([]);
@@ -39,14 +41,17 @@ export default function Quiz({ lessonKey, items, next }: Props) {
 
   const startFrom = useCallback(
     (done: Record<string, boolean>) => {
-      setOrders(items.map((q) => shuffledIndexes(q.options.length)));
+      // Lượt đang dở thì giữ các câu đã trả lời; lượt mới thì lấy ngẫu nhiên, nên học lại gặp câu khác.
+      const picked = pickQuestions(pool, Object.keys(done));
+      setItems(picked);
+      setOrders(picked.map((q) => shuffledIndexes(q.options.length)));
       setAnswers(done);
-      const firstOpen = items.findIndex((q) => !(q.id in done));
-      setIndex(firstOpen === -1 ? items.length - 1 : firstOpen);
+      const firstOpen = picked.findIndex((q) => !(q.id in done));
+      setIndex(firstOpen === -1 ? picked.length - 1 : firstOpen);
       setPicked(null);
       setPhase('question');
     },
-    [items],
+    [pool],
   );
 
   useEffect(() => {
@@ -55,7 +60,6 @@ export default function Quiz({ lessonKey, items, next }: Props) {
       if (cancelled) return;
       if (result.kind === 'account') {
         setMode('account');
-        setOrders(items.map((q) => shuffledIndexes(q.options.length)));
         if (result.completed) {
           setSavedScore(result.completed.score);
           setPhase('done');
@@ -69,7 +73,6 @@ export default function Quiz({ lessonKey, items, next }: Props) {
       const mine = loadProgress()[lessonKey];
       if (mine?.completed_at) {
         setAnswers(mine.answers);
-        setOrders(items.map((q) => shuffledIndexes(q.options.length)));
         setPhase('done');
       } else {
         startFrom(mine?.answers ?? {});
@@ -78,7 +81,7 @@ export default function Quiz({ lessonKey, items, next }: Props) {
     return () => {
       cancelled = true;
     };
-  }, [items, lessonKey, startFrom]);
+  }, [lessonKey, startFrom]);
 
   const choose = useCallback(
     (shown: number) => {
@@ -131,14 +134,15 @@ export default function Quiz({ lessonKey, items, next }: Props) {
   if (phase === 'loading') {
     return (
       <div className="quiz" style={{ minHeight: '22rem' }} aria-busy="true">
-        <p className="muted">Đang tải {items.length} câu trắc nghiệm.</p>
+        <p className="muted">Đang tải {QUIZ_SIZE} câu trắc nghiệm.</p>
       </div>
     );
   }
 
   if (phase === 'done') {
     const correct = savedScore ?? Object.values(answers).filter(Boolean).length;
-    const wrong = items.length - correct;
+    const total = savedScore !== null ? QUIZ_SIZE : Object.keys(answers).length || QUIZ_SIZE;
+    const wrong = total - correct;
     let note: string;
     if (mode === 'guest') {
       note =
@@ -157,7 +161,7 @@ export default function Quiz({ lessonKey, items, next }: Props) {
     return (
       <div className="quiz answer-in" ref={boxRef} tabIndex={-1}>
         <h3>
-          Bạn đúng {correct} trên {items.length} câu.
+          Bạn đúng {correct} trên {total} câu.
         </h3>
         <div aria-live="polite">
           {note && <p className="muted">{note}</p>}
@@ -177,7 +181,7 @@ export default function Quiz({ lessonKey, items, next }: Props) {
             </a>
           )}
           <button className="btn btn-quiet" type="button" onClick={restart}>
-            Làm lại trắc nghiệm
+            Làm lượt mới, câu khác
           </button>
         </div>
         {next && (

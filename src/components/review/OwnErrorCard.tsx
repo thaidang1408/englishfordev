@@ -71,6 +71,7 @@ export default function OwnErrorCard(props: Props) {
         {revealed && (
           <div className="answer-in" style={{ marginTop: 'var(--s-4)' }}>
             <ReviewDiffView before={item.original} after={item.corrected} headLeft="Đáp án">
+              {item.corrected_vi && <p className="vi-line">Nghĩa: {item.corrected_vi}</p>}
               <p>
                 <span lang="en">
                   {item.from || '(thiếu)'} → {item.to || '(bỏ)'}

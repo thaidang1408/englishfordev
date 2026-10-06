@@ -2,6 +2,8 @@ import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
 import { SENTENCE_MAX, SENTENCE_MIN } from '../../lib/ai/schema';
 import { track } from '../../lib/events/client';
 import CorrectionResult from './CorrectionResult';
+import ReviewDiffView from '../ReviewDiffView';
+import SelfFix, { type SelfFixOutcome } from './SelfFix';
 import { isSubmitKey, requestCorrection, type CorrectData } from './api';
 
 type Props = {
@@ -16,7 +18,9 @@ type Props = {
 type State =
   | { kind: 'idle' }
   | { kind: 'busy' }
-  | { kind: 'done'; data: CorrectData }
+  // fix: đang tự sửa trước (SPEC mục 14); done: đã hiện đáp án, kèm kết quả tự sửa nếu có.
+  | { kind: 'fix'; data: CorrectData }
+  | { kind: 'done'; data: CorrectData; self?: SelfFixOutcome }
   | { kind: 'login' }
   | { kind: 'error'; message: string; upgrade?: boolean };
 
@@ -46,7 +50,9 @@ export default function CorrectBox({ lessonKey, next, primary = false, label = '
     if (out.kind === 'error' && out.code === 'free_quota_exceeded') track('paywall_view', lessonKey ? { lesson_key: lessonKey } : {});
     setState(
       out.kind === 'ok'
-        ? { kind: 'done', data: out.data }
+        ? out.data.result.is_already_correct || out.data.result.changes.length === 0
+          ? { kind: 'done', data: out.data }
+          : { kind: 'fix', data: out.data }
         : out.kind === 'login'
           ? { kind: 'login' }
           : // Hết lượt của tài khoản miễn phí: một trong bốn chỗ được mời nâng cấp (SPEC mục 2).
@@ -67,10 +73,25 @@ export default function CorrectBox({ lessonKey, next, primary = false, label = '
     areaRef.current?.focus();
   }
 
-  if (state.kind === 'done') {
+  if (state.kind === 'fix') {
     const { data } = state;
     return (
+      <div className="correct-box">
+        <SelfFix original={data.original} result={data.result} primary={primary} onDone={(self) => setState({ kind: 'done', data, self })} />
+      </div>
+    );
+  }
+
+  if (state.kind === 'done') {
+    const { data, self } = state;
+    return (
       <div className="correct-box" aria-live="polite">
+        {self?.kind === 'right' && <p className="note ok">Bạn đã sửa đúng. Đây là bản sửa và lý do từng chỗ.</p>}
+        {self?.kind === 'miss' && (
+          <div className="answer-in" style={{ marginBottom: 'var(--s-4)' }}>
+            <ReviewDiffView before={self.attempt} after={data.result.corrected} headLeft="Bản bạn tự sửa" headRight="So với bản sửa" />
+          </div>
+        )}
         <CorrectionResult original={data.original} result={data.result} />
         <p className="muted" style={{ fontSize: 'var(--fs-sm)', margin: 'var(--s-3) 0 0' }}>
           {data.review_items > 0 && `${data.review_items} chỗ sửa đã vào sổ lỗi và sẽ quay lại trong phần ôn. `}

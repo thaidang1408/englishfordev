@@ -22,18 +22,34 @@
     {
       "en": "A weakness of mine is estimating. I used to underestimate tasks, so now I break them into smaller pieces before I give a number.",
       "vi": "Một điểm yếu của mình là ước lượng. Trước đây mình hay ước lượng thiếu, nên giờ mình chia task nhỏ ra trước khi đưa con số."
+    },
+    {
+      "en": "One of my strengths is attention to detail. I usually catch edge cases early in testing.",
+      "vi": "Một điểm mạnh của mình là cẩn thận với chi tiết. Mình thường phát hiện các trường hợp biên từ sớm khi test."
+    },
+    {
+      "en": "Something I'm working on is asking for help earlier. I used to spend a whole day stuck on one problem, so now I ask after an hour or two.",
+      "vi": "Điều mình đang cải thiện là hỏi giúp đỡ sớm hơn. Trước đây có khi mình kẹt cả ngày với một vấn đề, nên giờ kẹt một hai tiếng là mình hỏi."
     }
   ],
   "mistakes": [
     {
       "wrong": "One of my strength is teamwork.",
       "right": "One of my strengths is teamwork.",
+      "right_vi": "Một điểm mạnh của mình là làm việc nhóm.",
       "why_vi": "One of my + danh từ số nhiều: strengths."
     },
     {
       "wrong": "I'm good at communicate with the team.",
       "right": "I'm good at communicating with the team.",
+      "right_vi": "Mình giỏi giao tiếp với team.",
       "why_vi": "Sau at, động từ phải ở dạng V-ing."
+    },
+    {
+      "wrong": "I don't good at presenting.",
+      "right": "I'm not good at presenting.",
+      "right_vi": "Mình chưa giỏi thuyết trình.",
+      "why_vi": "good không phải động từ, nên phủ định bằng am not, không dùng don't."
     }
   ],
   "word_bank": [
@@ -55,6 +71,7 @@
         "One of my strengths are writing clean code."
       ],
       "answer": 0,
+      "answer_vi": "Một điểm mạnh của mình là viết code sạch.",
       "why_vi": "Sau one of my là số nhiều: strengths. Chủ ngữ chính là one nên động từ là is."
     },
     {
@@ -66,6 +83,7 @@
         "I'm good in finding the root cause of bugs."
       ],
       "answer": 0,
+      "answer_vi": "Mình giỏi tìm nguyên nhân gốc của bug.",
       "why_vi": "good at + V-ing. Không dùng good in cho kỹ năng."
     },
     {
@@ -77,6 +95,7 @@
         "Something I need to improve is speaking English on meetings."
       ],
       "answer": 0,
+      "answer_vi": "Điều mình cần cải thiện là nói tiếng Anh trong họp.",
       "why_vi": "Sau is dùng V-ing để làm danh từ. Trong buổi họp là in meetings."
     },
     {
@@ -88,6 +107,7 @@
         "I was used to underestimate how long tasks take."
       ],
       "answer": 0,
+      "answer_vi": "Trước đây mình hay ước lượng thiếu thời gian.",
       "why_vi": "Thói quen cũ: used to + động từ nguyên mẫu, không có was."
     },
     {
@@ -99,7 +119,68 @@
         "Now I break tasks into smaller pieces before I will estimate."
       ],
       "answer": 0,
+      "answer_vi": "Giờ mình chia task nhỏ ra trước khi ước lượng.",
       "why_vi": "break something into: chia thành. Sau before không dùng will."
+    },
+    {
+      "id": "i05q6",
+      "prompt_vi": "Chọn câu trả lời phù hợp hơn.",
+      "options": [
+        "Something I'm working on is writing documentation. I tend to skip it, so now I write the README before I close a task.",
+        "I don't really have any weaknesses.",
+        "I'm lazy, and I hate writing documents."
+      ],
+      "answer": 0,
+      "answer_vi": "Điều mình đang cải thiện là viết tài liệu. Mình hay bỏ qua việc này, nên giờ mình viết README trước khi đóng task.",
+      "why_vi": "Nói một điểm yếu thật kèm việc đang làm để cải thiện. Không nói mình không có điểm yếu, cũng không tự chê quá thẳng."
+    },
+    {
+      "id": "i05q7",
+      "prompt_vi": "Mình làm việc tốt dưới áp lực.",
+      "options": [
+        "I work well under pressure.",
+        "I work good under pressure.",
+        "I work well in pressure."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình làm việc tốt dưới áp lực.",
+      "why_vi": "Bổ nghĩa cho động từ work thì dùng well, không dùng good. Dưới áp lực là under pressure."
+    },
+    {
+      "id": "i05q8",
+      "prompt_vi": "Mình đang học cách góp ý rõ ràng hơn khi review code.",
+      "options": [
+        "I'm learning to give clearer feedback in code reviews.",
+        "I'm learning to give more clear feedback in code reviews.",
+        "I'm learning to give clearer feedbacks in code reviews."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình đang học cách góp ý rõ ràng hơn khi review code.",
+      "why_vi": "Tính từ ngắn như clear thì thêm er: clearer. feedback không đếm được nên không thêm s."
+    },
+    {
+      "id": "i05q9",
+      "prompt_vi": "Một điểm yếu của mình là đôi khi mình nhận quá nhiều việc.",
+      "options": [
+        "A weakness of mine is that I sometimes take on too much work.",
+        "A weakness of mine is that I sometimes take on too many works.",
+        "A weakness of me is that I sometimes take on too much work."
+      ],
+      "answer": 0,
+      "answer_vi": "Một điểm yếu của mình là đôi khi mình nhận quá nhiều việc.",
+      "why_vi": "work là việc nói chung, không đếm được: too much work. Cụm đúng là a weakness of mine."
+    },
+    {
+      "id": "i05q10",
+      "prompt_vi": "Mình giỏi biến yêu cầu của khách hàng thành user story rõ ràng.",
+      "options": [
+        "I'm good at turning client requests into clear user stories.",
+        "I'm good at turning client requests to clear user stories.",
+        "I'm good at turning client requests into user stories clear."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình giỏi biến yêu cầu của khách hàng thành user story rõ ràng.",
+      "why_vi": "Biến cái này thành cái kia là turn into. Tính từ đứng trước danh từ: clear user stories."
     }
   ],
   "write_prompt_vi": "Viết 2 câu: một điểm mạnh của bạn, và một điểm bạn đang cải thiện kèm cách bạn làm."

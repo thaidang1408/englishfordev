@@ -2,7 +2,7 @@
 import ReviewDiff from './ReviewDiff.astro';
 import { CATEGORY_NAMES } from '../lib/ai/schema';
 import type { CorrectionEntry } from '../lib/db/corrections';
-import { flattenErrors, topCategories, totalErrors, weeklyTrend } from '../lib/stats/errors';
+import { errorMap, flattenErrors, MAP_WEEKS, topCategories, totalErrors, weeklyTrend } from '../lib/stats/errors';
 import { formatVnDate } from '../lib/time';
 import { PLANS, formatVnd } from '../lib/pricing';
 
@@ -24,6 +24,10 @@ const { entries, repeating, full, now } = Astro.props;
 const total = totalErrors(entries);
 const top = full ? topCategories(entries, now) : [];
 const weekly = full ? weeklyTrend(entries, now) : [];
+const map = full ? errorMap(entries, now) : null;
+// Mức màu 1 đến 4 theo số lỗi so với ô nhiều nhất; 0 lỗi là mức 0.
+const level = (n: number) => (n === 0 || !map?.max ? 0 : Math.ceil((n / map.max) * 4));
+const ddmm = (d: Date) => formatVnDate(d).slice(0, 5);
 const latest = full ? [] : flattenErrors(entries).slice(0, FREE_VISIBLE);
 const list = full ? entries.slice(0, LIST_SIZE) : [];
 const TREND = { up: 'tăng', down: 'giảm', same: 'giữ nguyên' } as const;
@@ -80,6 +84,42 @@ const TREND = { up: 'tăng', down: 'giảm', same: 'giữ nguyên' } as const;
             )}
           </section>
 
+          {map && map.rows.length > 0 && (
+            <section class="part" aria-labelledby="ban-do-loi">
+              <h2 id="ban-do-loi">Bản đồ lỗi {MAP_WEEKS} tuần</h2>
+              <p class="muted">Mỗi ô là số lỗi của một nhóm trong một tuần. Ô càng nhạt dần về bên phải là lỗi đang giảm. Ô trống: tuần đó bạn chưa gửi câu nào.</p>
+              <div class="err-map-scroll">
+                <table class="err-map">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nhóm lỗi</th>
+                      {map.weeks.map((w, i) => (
+                        <th scope="col">
+                          <span class="sr-only-label">Tuần từ </span>
+                          {i === map.weeks.length - 1 ? 'Tuần này' : ddmm(w)}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {map.rows.map((r) => (
+                      <tr>
+                        <th scope="row">{CATEGORY_NAMES[r.category]}</th>
+                        {r.counts.map((n) =>
+                          n === null ? (
+                            <td class="empty"><span class="sr-only-label">Không gửi câu nào</span></td>
+                          ) : (
+                            <td class={`lv${level(n)}`}>{n}</td>
+                          ),
+                        )}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          )}
+
           {weekly.length > 0 && (
             <section class="part" aria-labelledby="xu-huong">
               <h2 id="xu-huong">7 ngày qua so với 7 ngày trước</h2>
@@ -129,6 +169,7 @@ const TREND = { up: 'tăng', down: 'giảm', same: 'giữ nguyên' } as const;
                     headLeft={formatVnDate(new Date(c.created_at))}
                     headRight={c.mode === 'interview' ? 'Phỏng vấn thử' : `${c.result.changes.length} chỗ sửa`}
                   >
+                    {c.result.corrected_vi && <p class="vi-line">Nghĩa: {c.result.corrected_vi}</p>}
                     <ul class="changes">
                       {c.result.changes.map((ch) => (
                         <li>
@@ -183,3 +224,14 @@ const TREND = { up: 'tăng', down: 'giảm', same: 'giữ nguyên' } as const;
     </>
   )
 }
+
+<script>
+  // Màn hẹp: bảng cuộn ngang, mở sẵn ở tuần gần nhất.
+  const toLatest = () => {
+    for (const el of document.querySelectorAll<HTMLElement>('.err-map-scroll')) el.scrollLeft = el.scrollWidth;
+  };
+  toLatest();
+  // Font tải xong làm bảng rộng thêm: cuộn lại một lần nữa.
+  addEventListener('load', toLatest);
+  document.fonts?.ready.then(toLatest);
+</script>

@@ -21,22 +21,33 @@
     {
       "en": "If the client asks about the deadline, please check with Lan first.",
       "vi": "Nếu khách hỏi về deadline, bạn hỏi lại Lan trước nhé."
+    },
+    {
+      "en": "If the disk usage alert fires again, please clear the old logs on the server.",
+      "vi": "Nếu cảnh báo dung lượng ổ đĩa lại bật lên, bạn xoá log cũ trên server nhé."
+    },
+    {
+      "en": "If the migration takes longer than 10 minutes, please stop it and let me know.",
+      "vi": "Nếu migration chạy quá 10 phút, bạn dừng nó lại và báo mình nhé."
     }
   ],
   "mistakes": [
     {
       "wrong": "If the job will fail, please restart it.",
       "right": "If the job fails, please restart it.",
+      "right_vi": "Nếu job bị lỗi, bạn khởi động lại nó nhé.",
       "why_vi": "Vế if dùng hiện tại đơn, không dùng will."
     },
     {
       "wrong": "If the build fail, please ping me.",
       "right": "If the build fails, please ping me.",
+      "right_vi": "Nếu build bị lỗi, bạn nhắn mình nhé.",
       "why_vi": "Chủ ngữ số ít (the build) thì động từ thêm s."
     },
     {
       "wrong": "If anything breaks, please contact to Nam.",
       "right": "If anything breaks, please contact Nam.",
+      "right_vi": "Nếu có gì hỏng, bạn liên hệ Nam nhé.",
       "why_vi": "contact đi thẳng với người, không có to."
     }
   ],
@@ -60,6 +71,7 @@
         "If the deploy fails, please rollback to the previous version."
       ],
       "answer": 0,
+      "answer_vi": "Nếu deploy bị lỗi, bạn rollback về bản trước nhé.",
       "why_vi": "Vế if không dùng will. Động từ viết tách: roll back, rollback là danh từ."
     },
     {
@@ -71,6 +83,7 @@
         "If the client asks about the invoice, please forward to Ha."
       ],
       "answer": 0,
+      "answer_vi": "Nếu khách hỏi về hoá đơn, bạn chuyển cho chị Hà nhé.",
       "why_vi": "the client số ít nên asks. forward cần tân ngữ it."
     },
     {
@@ -82,6 +95,7 @@
         "If anything will break, please contact Nam."
       ],
       "answer": 0,
+      "answer_vi": "Nếu có gì hỏng, bạn liên hệ Nam nhé.",
       "why_vi": "contact không đi với to. Vế if không dùng will."
     },
     {
@@ -93,6 +107,7 @@
         "If the tests are slow, please clear the cache and run again them."
       ],
       "answer": 0,
+      "answer_vi": "Nếu test chạy chậm, bạn xoá cache rồi chạy lại nhé.",
       "why_vi": "the tests số nhiều đi với are. Tân ngữ them đứng ngay sau run."
     },
     {
@@ -104,7 +119,68 @@
         "If you need admin access, please ask to Tuan."
       ],
       "answer": 0,
+      "answer_vi": "Nếu bạn cần quyền admin, hãy hỏi anh Tuấn.",
       "why_vi": "Từ bổ nghĩa đứng trước: admin access. ask đi thẳng với người, không có to."
+    },
+    {
+      "id": "w09q6",
+      "prompt_vi": "Nếu ticket bị mở lại, bạn cập nhật trạng thái trên Jira nhé.",
+      "options": [
+        "If the ticket is reopened, please update its status in Jira.",
+        "If the ticket is reopen, please update its status in Jira.",
+        "If the ticket is reopened, please update its status at Jira."
+      ],
+      "answer": 0,
+      "answer_vi": "Nếu ticket bị mở lại, bạn cập nhật trạng thái trên Jira nhé.",
+      "why_vi": "Bị mở lại là is reopened, có ed. Trong một công cụ như Jira dùng in."
+    },
+    {
+      "id": "w09q7",
+      "prompt_vi": "Nếu app iOS bị crash khi mở, bạn xem log trên Firebase nhé.",
+      "options": [
+        "If the iOS app crashes on launch, please check the logs in Firebase.",
+        "If the iOS app is crash on launch, please check the logs in Firebase.",
+        "If the app iOS crashes on launch, please check the logs in Firebase."
+      ],
+      "answer": 0,
+      "answer_vi": "Nếu app iOS bị crash khi mở, bạn xem log trên Firebase nhé.",
+      "why_vi": "crash đã là động từ, không thêm is. Từ bổ nghĩa đứng trước: iOS app."
+    },
+    {
+      "id": "w09q8",
+      "prompt_vi": "Nếu khách gửi email về hợp đồng, bạn trả lời giúp mình nhé.",
+      "options": [
+        "If the client emails about the contract, please reply on my behalf.",
+        "If the client emails about the contract, please reply help me.",
+        "If the client email about the contract, please reply on my behalf."
+      ],
+      "answer": 0,
+      "answer_vi": "Nếu khách gửi email về hợp đồng, bạn trả lời giúp mình nhé.",
+      "why_vi": "Làm thay mình là on my behalf, không dịch giúp mình thành help me. the client số ít nên emails."
+    },
+    {
+      "id": "w09q9",
+      "prompt_vi": "Nếu pipeline vẫn fail sau khi chạy lại, bạn đừng merge PR nhé.",
+      "options": [
+        "If the pipeline still fails after a rerun, please don't merge the PR.",
+        "If the pipeline still fails after a rerun, please not merge the PR.",
+        "If the pipeline still fails after rerun it, please don't merge the PR."
+      ],
+      "answer": 0,
+      "answer_vi": "Nếu pipeline vẫn fail sau khi chạy lại, bạn đừng merge PR nhé.",
+      "why_vi": "Dặn đừng làm gì dùng please don't + V. Sau after cần danh từ hoặc V-ing."
+    },
+    {
+      "id": "w09q10",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "If Linh asks about the API changes, please send her the Swagger link.",
+        "If Linh asks about the API changes, please send to her the Swagger link.",
+        "If Linh asks about the API changes, please sends her the Swagger link."
+      ],
+      "answer": 0,
+      "answer_vi": "Nếu Linh hỏi về các thay đổi của API, bạn gửi Linh link Swagger nhé.",
+      "why_vi": "Gửi cho ai viết send her + thứ được gửi. Sau please là động từ nguyên mẫu."
     }
   ],
   "write_prompt_vi": "Viết 1 đến 2 câu dặn người nhận bàn giao phải làm gì nếu có sự cố."

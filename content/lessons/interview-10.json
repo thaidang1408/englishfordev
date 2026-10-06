@@ -22,22 +22,33 @@
     {
       "en": "I need to give 30 days' notice, so the earliest I can start is March 1st.",
       "vi": "Mình cần báo trước 30 ngày, nên sớm nhất mình có thể bắt đầu vào ngày 1 tháng 3."
+    },
+    {
+      "en": "I'm looking for around 15 to 18 million VND net per month, and I can start right away.",
+      "vi": "Mình mong khoảng 15 đến 18 triệu net mỗi tháng, và mình có thể bắt đầu ngay."
+    },
+    {
+      "en": "I'm looking for around 60 million VND gross per month, but I'm flexible depending on the bonus and benefits. I can start on June 3rd.",
+      "vi": "Mình mong khoảng 60 triệu gross mỗi tháng, nhưng có thể linh hoạt tùy vào thưởng và phúc lợi. Mình có thể bắt đầu vào ngày 3 tháng 6."
     }
   ],
   "mistakes": [
     {
       "wrong": "My expected salary is 30 millions.",
       "right": "My expected salary is 30 million.",
+      "right_vi": "Mức lương mình mong muốn là 30 triệu.",
       "why_vi": "million đứng sau một con số thì không thêm s."
     },
     {
       "wrong": "I can start after 2 weeks.",
       "right": "I can start in two weeks.",
+      "right_vi": "Mình có thể bắt đầu sau hai tuần nữa.",
       "why_vi": "Tính từ bây giờ trở đi thì dùng in, không dùng after."
     },
     {
       "wrong": "I can start at next Monday.",
       "right": "I can start next Monday.",
+      "right_vi": "Mình có thể bắt đầu từ thứ Hai tuần sau.",
       "why_vi": "Trước next không dùng giới từ."
     }
   ],
@@ -60,6 +71,7 @@
         "I'm looking for around 30 million VND for month."
       ],
       "answer": 0,
+      "answer_vi": "Mình mong khoảng 30 triệu mỗi tháng.",
       "why_vi": "million sau số không thêm s. Mỗi tháng là per month."
     },
     {
@@ -71,6 +83,7 @@
         "I can start in two week."
       ],
       "answer": 0,
+      "answer_vi": "Mình có thể bắt đầu sau hai tuần nữa.",
       "why_vi": "Tính từ bây giờ dùng in. two đi với danh từ số nhiều: weeks."
     },
     {
@@ -82,6 +95,7 @@
         "I need giving 30 days' notice at my current company."
       ],
       "answer": 0,
+      "answer_vi": "Mình cần báo trước 30 ngày ở công ty hiện tại.",
       "why_vi": "Báo nghỉ trước là give notice. need + to V."
     },
     {
@@ -93,6 +107,7 @@
         "Earliest I can start is March 1st."
       ],
       "answer": 0,
+      "answer_vi": "Sớm nhất mình có thể bắt đầu vào ngày 1 tháng 3.",
       "why_vi": "Ngày cụ thể không dùng in. Cần the trước earliest."
     },
     {
@@ -104,7 +119,68 @@
         "That's the gross amount, and I'm open for discussing it."
       ],
       "answer": 0,
+      "answer_vi": "Đó là mức gross, và mình sẵn sàng trao đổi thêm.",
       "why_vi": "open to + V-ing: to ở đây là giới từ nên động từ thêm ing."
+    },
+    {
+      "id": "i10q6",
+      "prompt_vi": "Chọn câu trả lời phù hợp hơn.",
+      "options": [
+        "I'm looking for around 25 to 28 million VND gross per month, and I can start in three weeks.",
+        "Just pay me as much as you can.",
+        "Anything is fine. I'll take whatever you offer."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình mong khoảng 25 đến 28 triệu gross mỗi tháng, và mình có thể bắt đầu sau ba tuần nữa.",
+      "why_vi": "Đưa một khoảng cụ thể, rõ gross hay net. Không nói trống không, cũng không tự hạ giá mình."
+    },
+    {
+      "id": "i10q7",
+      "prompt_vi": "Hiện mình nhận 20 triệu net mỗi tháng.",
+      "options": [
+        "I currently earn 20 million VND net per month.",
+        "I'm currently earn 20 million VND net per month.",
+        "I currently earn net 20 million VND per month."
+      ],
+      "answer": 0,
+      "answer_vi": "Hiện mình nhận 20 triệu net mỗi tháng.",
+      "why_vi": "earn là động từ nên không thêm am. net đứng sau số tiền."
+    },
+    {
+      "id": "i10q8",
+      "prompt_vi": "Mình có thể bắt đầu từ đầu tháng sau.",
+      "options": [
+        "I can start at the beginning of next month.",
+        "I can start from beginning of next month.",
+        "I could started at the beginning of next month."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình có thể bắt đầu từ đầu tháng sau.",
+      "why_vi": "Đầu tháng là at the beginning of, cần the. Sau can hoặc could là động từ nguyên mẫu."
+    },
+    {
+      "id": "i10q9",
+      "prompt_vi": "Mình có thể bắt đầu sớm hơn nếu cần.",
+      "options": [
+        "I can start earlier if needed.",
+        "I can start more early if needed.",
+        "I can start earlier if need."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình có thể bắt đầu sớm hơn nếu cần.",
+      "why_vi": "Sớm hơn là earlier, không dùng more early. Nếu cần nói gọn là if needed."
+    },
+    {
+      "id": "i10q10",
+      "prompt_vi": "Mức đó đã bao gồm thưởng chưa?",
+      "options": [
+        "Does that include the bonus?",
+        "Is that include the bonus?",
+        "Does that includes the bonus?"
+      ],
+      "answer": 0,
+      "answer_vi": "Mức đó đã bao gồm thưởng chưa?",
+      "why_vi": "include là động từ nên câu hỏi dùng does, không dùng is. Có does thì động từ không thêm s."
     }
   ],
   "write_prompt_vi": "Viết 2 câu: mức lương bạn mong muốn và ngày sớm nhất bạn có thể bắt đầu."

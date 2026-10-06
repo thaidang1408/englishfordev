@@ -16,6 +16,7 @@ import { correctionSchema } from '../../src/lib/ai/schema';
 const GOOD = {
   is_already_correct: false,
   corrected: 'I fixed the bug.',
+  corrected_vi: 'Mình đã sửa bug.',
   changes: [{ from: 'have fixed', to: 'fixed', why_vi: 'Quá khứ đơn.', category: 'tense' }],
   tip_vi: '',
 };
@@ -52,6 +53,20 @@ describe('correctWith: kiểm kết quả AI', () => {
   it('sai schema cả hai lần: ném AiError schema, không gọi lần thứ ba', async () => {
     const s = scripted({ nope: true }, { changes: 'x' }, GOOD);
     await expect(correctWith(s.ask)('I have fixed the bug.')).rejects.toEqual(new AiError('schema'));
+    expect(s.calls()).toBe(2);
+  });
+
+  it('thiếu nghĩa tiếng Việt lần đầu thì gọi lại một lần', async () => {
+    const { corrected_vi: _vi, ...noVi } = GOOD;
+    const s = scripted(noVi, GOOD);
+    await expect(correctWith(s.ask)('I have fixed the bug.')).resolves.toEqual(GOOD);
+    expect(s.calls()).toBe(2);
+  });
+
+  it('thiếu nghĩa tiếng Việt cả hai lần: vẫn trả kết quả, không báo lỗi', async () => {
+    const { corrected_vi: _vi, ...noVi } = GOOD;
+    const s = scripted(noVi, noVi, GOOD);
+    await expect(correctWith(s.ask)('I have fixed the bug.')).resolves.toEqual(noVi);
     expect(s.calls()).toBe(2);
   });
 

@@ -58,6 +58,7 @@ const lessonHref = bug ? (bug.lesson.free ? `/hoc/${bug.lesson.slug}` : `/mau-ca
             <summary>Xem đáp án</summary>
             <div style="margin-top:var(--s-3)">
               <ReviewDiff before={bug.wrong} after={bug.right} headLeft="Đáp án">
+                <p class="vi-line">Nghĩa: {bug.right_vi}</p>
                 <p>{bug.why_vi}</p>
               </ReviewDiff>
             </div>

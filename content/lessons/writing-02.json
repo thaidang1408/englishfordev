@@ -21,22 +21,33 @@
     {
       "en": "Upgrade axios to 1.7.2",
       "vi": "Nâng axios lên bản 1.7.2."
+    },
+    {
+      "en": "Revert the caching change in the checkout flow",
+      "vi": "Hoàn tác thay đổi về cache trong luồng checkout."
+    },
+    {
+      "en": "Handle empty responses in the mobile sync service",
+      "vi": "Xử lý response rỗng trong service đồng bộ của app mobile."
     }
   ],
   "mistakes": [
     {
       "wrong": "Fixed login bug",
       "right": "Fix login bug",
+      "right_vi": "Sửa lỗi đăng nhập",
       "why_vi": "Dòng đầu commit dùng động từ nguyên mẫu, như đang ra lệnh cho code."
     },
     {
       "wrong": "Update the parser for fix the date bug",
       "right": "Update the parser to fix the date bug",
+      "right_vi": "Cập nhật parser để sửa lỗi ngày tháng",
       "why_vi": "Chỉ mục đích dùng to + V, không dùng for + V."
     },
     {
       "wrong": "Remove unuse imports",
       "right": "Remove unused imports",
+      "right_vi": "Xoá các import không dùng",
       "why_vi": "Không còn dùng là unused, có ed ở cuối."
     }
   ],
@@ -61,6 +72,7 @@
         "Add pagination to the list user"
       ],
       "answer": 0,
+      "answer_vi": "Thêm phân trang cho danh sách user.",
       "why_vi": "Commit dùng động từ nguyên mẫu: Add. Từ bổ nghĩa đứng trước: user list."
     },
     {
@@ -72,6 +84,7 @@
         "Fix timezone bug at reports"
       ],
       "answer": 0,
+      "answer_vi": "Sửa lỗi múi giờ trong báo cáo.",
       "why_vi": "timezone bug: từ bổ nghĩa đứng trước. Nằm trong thứ gì thì dùng in."
     },
     {
@@ -83,6 +96,7 @@
         "Remove unuse environment variables"
       ],
       "answer": 0,
+      "answer_vi": "Xoá các biến môi trường không dùng nữa.",
       "why_vi": "Tính từ unused đứng trước danh từ và có ed."
     },
     {
@@ -94,6 +108,7 @@
         "Rename the function to making it clearer"
       ],
       "answer": 0,
+      "answer_vi": "Đổi tên hàm cho dễ hiểu hơn.",
       "why_vi": "Chỉ mục đích dùng to + động từ nguyên mẫu."
     },
     {
@@ -105,7 +120,68 @@
         "Upgrade React to the version 18"
       ],
       "answer": 0,
+      "answer_vi": "Nâng React lên bản 18.",
       "why_vi": "Nâng lên bản nào dùng to. up to nghĩa là tối đa đến. Không dùng the trước version + số."
+    },
+    {
+      "id": "w02q6",
+      "prompt_vi": "Commit: Thêm log cho job gửi email.",
+      "options": [
+        "Add logging to the email job",
+        "Adding logging to the email job",
+        "Add logging to the job send email"
+      ],
+      "answer": 0,
+      "answer_vi": "Thêm log cho job gửi email.",
+      "why_vi": "Commit bắt đầu bằng động từ nguyên mẫu, không dùng V-ing. Không dịch từng chữ: email job."
+    },
+    {
+      "id": "w02q7",
+      "prompt_vi": "Commit: Hoàn tác thay đổi cấu hình CI.",
+      "options": [
+        "Revert the CI config change",
+        "Reverted the CI config change",
+        "Revert the change config CI"
+      ],
+      "answer": 0,
+      "answer_vi": "Hoàn tác thay đổi cấu hình CI.",
+      "why_vi": "Commit dùng động từ nguyên mẫu: Revert. Từ bổ nghĩa đứng trước: CI config change."
+    },
+    {
+      "id": "w02q8",
+      "prompt_vi": "Commit: Sửa lỗi layout trên màn hình nhỏ.",
+      "options": [
+        "Fix layout bug on small screens",
+        "Fix layout bug at small screens",
+        "Fix bug of layout on small screens"
+      ],
+      "answer": 0,
+      "answer_vi": "Sửa lỗi layout trên màn hình nhỏ.",
+      "why_vi": "Trên màn hình dùng on. Không dịch lỗi của layout thành bug of layout, viết layout bug."
+    },
+    {
+      "id": "w02q9",
+      "prompt_vi": "Commit: Thêm migration cho bảng payments.",
+      "options": [
+        "Add migration for the payments table",
+        "Add migrate for the payments table",
+        "Add migration at the payments table"
+      ],
+      "answer": 0,
+      "answer_vi": "Thêm migration cho bảng payments.",
+      "why_vi": "Sau add cần danh từ migration, không phải động từ migrate. Cho cái gì dùng for."
+    },
+    {
+      "id": "w02q10",
+      "prompt_vi": "Commit: Xoá code debug khỏi trang thanh toán.",
+      "options": [
+        "Remove debug code from the checkout page",
+        "Remove debug codes from the checkout page",
+        "Remove code debug from the checkout page"
+      ],
+      "answer": 0,
+      "answer_vi": "Xoá code debug khỏi trang thanh toán.",
+      "why_vi": "code không đếm được nên không thêm s. Từ bổ nghĩa đứng trước: debug code."
     }
   ],
   "write_prompt_vi": "Viết dòng đầu commit cho thay đổi gần nhất bạn làm."

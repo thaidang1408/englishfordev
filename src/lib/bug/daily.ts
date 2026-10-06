@@ -9,6 +9,7 @@ export type DailyBug = {
   lesson: Pick<Lesson, 'slug' | 'title' | 'free'> & { key: string };
   wrong: string;
   right: string;
+  right_vi: string;
   why_vi: string;
   /** Các từ của câu sai, tách theo khoảng trắng. */
   words: string[];
@@ -64,6 +65,7 @@ export function bugForDate(lessons: readonly Lesson[], date: string): DailyBug |
     lesson: { key: lessonKey(lesson), slug: lesson.slug, title: lesson.title, free: lesson.free },
     wrong: mistake.wrong,
     right: mistake.right,
+    right_vi: mistake.right_vi,
     why_vi: mistake.why_vi,
     words: mistake.wrong.split(/\s+/).filter(Boolean),
     targets: bugTargets(mistake.wrong, mistake.right),

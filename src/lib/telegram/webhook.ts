@@ -1,4 +1,6 @@
 import { z } from 'zod';
+import { CATEGORY_NAMES, SENTENCE_MAX, SENTENCE_MIN } from '../ai/schema';
+import type { CorrectData, CorrectOutcome } from '../correct/handler';
 import { errors, ok } from '../http/response';
 import { safeEqual } from '../pay/payos';
 import type { Bot } from './bot';
@@ -8,7 +10,8 @@ export type TelegramRepo = {
   linkChat(token: string, chatId: number): Promise<boolean>;
   /** Gỡ chat khỏi mọi tài khoản. Trả về true khi có tài khoản được gỡ. */
   unlinkChat(chatId: number): Promise<boolean>;
-  isLinked(chatId: number): Promise<boolean>;
+  /** Tài khoản EPC đang gắn với chat này, hoặc null. */
+  userForChat(chatId: number): Promise<string | null>;
   /** Chat Telegram của các admin (ADMIN_EMAILS) đã liên kết, để chuyển tin nhắn liên hệ. */
   adminChatIds(): Promise<number[]>;
 };
@@ -27,15 +30,44 @@ const updateSchema = z.object({
 
 export const TEXT = {
   linked:
-    'Đã liên kết Telegram với tài khoản EPC. Từ thứ Hai đến thứ Sáu, bot nhắc bạn trước giờ standup 30 đến 45 phút. Gõ /stop để tắt.',
+    'Đã liên kết Telegram với tài khoản EPC. Từ thứ Hai đến thứ Sáu, bot nhắc bạn trước giờ standup 30 đến 45 phút.\n\nGửi cho bot một câu tiếng Anh bạn sắp viết trên Slack, Jira hay email, bot sửa và giải thích bằng tiếng Việt, lỗi vào sổ lỗi của bạn. Cần hỗ trợ thì gõ /hotro kèm nội dung. Gõ /stop để tắt.',
   badToken: 'Link liên kết đã cũ hoặc không đúng. Mở lại nút "Liên kết Telegram" ở trang Tài khoản trên EPC.',
   welcome:
-    'Đây là bot của English Personal Coach. Để nhận nhắc học, mở trang Tài khoản trên EPC và bấm "Liên kết Telegram". Cần hỗ trợ (thanh toán, hoàn tiền), cứ nhắn vào đây.',
+    'Đây là bot của English Personal Coach. Để nhận nhắc học và gửi câu tiếng Anh cho bot sửa, mở trang Tài khoản trên EPC và bấm "Liên kết Telegram". Cần hỗ trợ (thanh toán, hoàn tiền): chưa liên kết thì cứ nhắn vào đây, đã liên kết thì gõ /hotro kèm nội dung.',
   stopped: 'Đã tắt nhắc học và gỡ liên kết. Muốn bật lại, bấm "Liên kết Telegram" ở trang Tài khoản trên EPC.',
   notLinked: 'Chat này chưa liên kết với tài khoản EPC nào.',
   forwarded: 'Đã chuyển tin nhắn của bạn tới EPC. Bạn sẽ được trả lời qua Telegram.',
+  hotroEmpty: 'Gõ /hotro kèm nội dung cần hỗ trợ, ví dụ: /hotro mình chuyển khoản sai nội dung.',
+  length: `Bot sửa đoạn từ ${SENTENCE_MIN} đến ${SENTENCE_MAX.work} ký tự. Đoạn dài thì bạn gửi từng phần.`,
+  unavailable: 'Tính năng sửa câu đang tạm tắt. Lượt sửa của bạn chưa bị trừ.',
   noAdmin: 'Lúc này chưa chuyển được tin nhắn. Bạn thử lại sau.',
 };
+
+/** Tin trả lời sau khi sửa: văn bản thường, không parse_mode, nên câu của người dùng không thành định dạng. */
+export function formatCorrection(data: CorrectData): string {
+  const { result } = data;
+  const lines: string[] = [];
+  if (result.is_already_correct) lines.push('Câu này đã đúng, không cần sửa.', '', result.corrected);
+  else lines.push('Bản sửa:', result.corrected);
+  if (result.corrected_vi) lines.push('', `Nghĩa: ${result.corrected_vi}`);
+  if (result.changes.length > 0) {
+    lines.push('', 'Chỗ sửa:');
+    result.changes.forEach((c, i) => {
+      lines.push(`${i + 1}. ${c.from || '(thiếu)'} → ${c.to || '(bỏ)'} (${CATEGORY_NAMES[c.category]}). ${c.why_vi}`);
+    });
+  }
+  if (result.tip_vi) lines.push('', `Mẹo: ${result.tip_vi}`);
+  lines.push('');
+  if (data.review_items > 0) lines.push(`${data.review_items} chỗ sửa đã vào sổ lỗi, sẽ quay lại trong phần ôn.`);
+  lines.push(
+    data.period === 'day'
+      ? `Hôm nay bạn còn ${data.remaining} lượt sửa.`
+      : data.remaining > 0
+        ? `Bạn còn ${data.remaining} lượt sửa trong 7 ngày này.`
+        : 'Bạn đã dùng lượt sửa của 7 ngày này.',
+  );
+  return lines.join('\n');
+}
 
 /** POST /api/telegram/webhook (SPEC mục 9). */
 export async function handleTelegramWebhook(input: {
@@ -44,8 +76,10 @@ export async function handleTelegramWebhook(input: {
   bot: Bot | null;
   /** null khi máy chủ chưa có service role key. */
   repo: TelegramRepo | null;
+  /** Sửa một đoạn cho tài khoản này (cùng hạn mức với /api/correct). null khi máy chủ chưa có AI. */
+  correctFor: ((userId: string, sentence: string) => Promise<CorrectOutcome>) | null;
 }): Promise<Response> {
-  const { request, secret, bot, repo } = input;
+  const { request, secret, bot, repo, correctFor } = input;
   // 1. Phương thức
   if (request.method !== 'POST') return errors.method();
   // 2. Nguồn gốc: secret token Telegram gửi trong header, so sánh thời gian hằng. Sai thì 401, không làm gì.
@@ -72,18 +106,44 @@ export async function handleTelegramWebhook(input: {
     await bot.sendMessage(chatId, (await repo.unlinkChat(chatId)) ? TEXT.stopped : TEXT.notLinked);
     return ok({ handled: true });
   }
-  if (text.startsWith('/')) {
+  const hotro = /^\/hotro(?:@\w+)?(?:\s+([\s\S]*))?$/.exec(text);
+  if (text.startsWith('/') && !hotro) {
     await bot.sendMessage(chatId, TEXT.welcome);
     return ok({ handled: true });
   }
+  if (hotro && !hotro[1]?.trim()) {
+    await bot.sendMessage(chatId, TEXT.hotroEmpty);
+    return ok({ handled: true });
+  }
 
-  // Tin nhắn thường: kênh liên hệ (thanh toán, hoàn tiền). Chuyển nguyên tin tới chat của admin.
+  const userId = await repo.userForChat(chatId);
+  // Chat đã liên kết gửi tin thường: sửa câu (SPEC mục 9 và 14). Không ghi nội dung vào log.
+  if (userId && !hotro) {
+    if (text.length < SENTENCE_MIN || text.length > SENTENCE_MAX.work) {
+      await bot.sendMessage(chatId, TEXT.length);
+      return ok({ handled: true });
+    }
+    if (!correctFor) {
+      await bot.sendMessage(chatId, TEXT.unavailable);
+      return ok({ handled: false });
+    }
+    const out = await correctFor(userId, text);
+    const reply = out.ok
+      ? formatCorrection(out.data)
+      : out.code === 'free_quota_exceeded'
+        ? `${out.message} Xem gói ở trang Nâng cấp trên EPC.`
+        : out.message;
+    await bot.sendMessage(chatId, reply);
+    return ok({ handled: true });
+  }
+
+  // Chat chưa liên kết, hoặc /hotro: kênh liên hệ (thanh toán, hoàn tiền). Chuyển nguyên tin tới chat của admin.
   const admins = (await repo.adminChatIds()).filter((id) => id !== chatId);
   if (admins.length === 0) {
     await bot.sendMessage(chatId, TEXT.noAdmin);
     return ok({ handled: false });
   }
-  const linked = await repo.isLinked(chatId);
+  const linked = userId !== null;
   const who = [msg.from?.first_name, msg.from?.username ? `@${msg.from.username}` : undefined].filter(Boolean).join(' ');
   for (const admin of admins) {
     await bot.sendMessage(admin, `Tin nhắn liên hệ từ ${who || 'người dùng'} (chat ${chatId}, ${linked ? 'đã liên kết tài khoản' : 'chưa liên kết tài khoản'}):`);

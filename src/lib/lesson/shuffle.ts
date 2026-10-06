@@ -11,3 +11,23 @@ export function shuffledIndexes(n: number, random: () => number = Math.random): 
   }
   return order;
 }
+
+/** Số câu trắc nghiệm mỗi lượt học (SPEC mục 4 và 14). */
+export const QUIZ_SIZE = 5;
+
+/**
+ * Chọn câu cho một lượt: giữ các câu đã trả lời trong lượt đang dở (theo thứ tự trong bài),
+ * rồi lấy ngẫu nhiên từ các câu còn lại cho đủ `size`.
+ */
+export function pickQuestions<T extends { id: string }>(
+  pool: readonly T[],
+  answered: readonly string[] = [],
+  size = QUIZ_SIZE,
+  random: () => number = Math.random,
+): T[] {
+  const keep = pool.filter((q) => answered.includes(q.id)).slice(0, size);
+  const rest = pool.filter((q) => !answered.includes(q.id));
+  const order = shuffledIndexes(rest.length, random);
+  const picked = [...keep, ...order.slice(0, size - keep.length).flatMap((i) => (rest[i] ? [rest[i]] : []))];
+  return picked;
+}

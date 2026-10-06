@@ -888,6 +888,25 @@
   .start-steps li.done .step-no { background: var(--add-bg); color: var(--add-text); }
 }
 
+/* M8: nghĩa tiếng Việt, tự sửa trước, bản đồ lỗi */
+@layer components {
+  .vi-line { display: block; margin: 6px 0 0; color: var(--muted); font-size: var(--fs-sm); }
+  .self-fix-head { margin: 0 0 var(--s-3); }
+  .self-fix-head b { color: var(--text); }
+  .err-map-scroll { overflow-x: auto; margin-top: var(--s-3); }
+  .err-map { border-collapse: separate; border-spacing: 4px; font-size: var(--fs-xs); min-width: 100%; }
+  .err-map th { font-weight: 600; color: var(--muted); white-space: nowrap; text-align: center; padding: 2px 4px; }
+  .err-map th[scope="row"] { text-align: left; color: var(--text); padding-right: var(--s-3); position: sticky; left: 0; background: var(--panel); z-index: 1; }
+  .err-map thead th:first-child { position: sticky; left: 0; background: var(--panel); z-index: 1; }
+  .err-map td { width: 40px; height: 32px; text-align: center; border-radius: 8px; font: 600 var(--fs-xs)/1 var(--font-mono); background: var(--panel-2); color: var(--muted); }
+  .err-map td.empty { background: transparent; border: 1px dashed var(--line); }
+  @media (max-width: 480px) { .err-map td { width: 30px; } }
+  .err-map td.lv1 { background: color-mix(in srgb, var(--accent) 18%, var(--panel)); color: var(--accent-text); }
+  .err-map td.lv2 { background: color-mix(in srgb, var(--accent) 38%, var(--panel)); color: var(--accent-text); }
+  .err-map td.lv3 { background: color-mix(in srgb, var(--accent) 62%, var(--panel)); color: #fff; }
+  .err-map td.lv4 { background: var(--accent); color: #fff; }
+}
+
 /* chuyển động: một khoảnh khắc ở trang chủ, dòng xanh và comment hiện sau dòng đỏ */
 @media (prefers-reduced-motion: no-preference) {
   .land .add, .land .comment { opacity: 0; transform: translateY(6px); animation: land .28s ease-out forwards; }

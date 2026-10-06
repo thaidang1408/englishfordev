@@ -21,22 +21,33 @@
     {
       "en": "Reviewing this PR should take about an hour.",
       "vi": "Review PR này chắc mất khoảng một tiếng."
+    },
+    {
+      "en": "The production deploy should take about 20 minutes.",
+      "vi": "Đợt deploy lên production chắc mất khoảng 20 phút."
+    },
+    {
+      "en": "I should be done with the client report by end of day.",
+      "vi": "Chắc cuối ngày mình làm xong báo cáo cho khách."
     }
   ],
   "mistakes": [
     {
       "wrong": "I will finish until Friday.",
       "right": "I'll finish by Friday.",
+      "right_vi": "Muộn nhất thứ Sáu mình sẽ xong.",
       "why_vi": "Hạn chót dùng by. until là kéo dài liên tục đến lúc đó."
     },
     {
       "wrong": "It will take about two days for finish.",
       "right": "It'll take about two days to finish.",
+      "right_vi": "Chắc mất khoảng hai ngày để làm xong.",
       "why_vi": "Nói để làm gì thì dùng to + động từ nguyên mẫu."
     },
     {
       "wrong": "I need more two days.",
       "right": "I need two more days.",
+      "right_vi": "Mình cần thêm hai ngày nữa.",
       "why_vi": "Con số đứng trước more: two more days."
     }
   ],
@@ -60,6 +71,7 @@
         "It should be take about two days."
       ],
       "answer": 0,
+      "answer_vi": "Chắc mất khoảng hai ngày.",
       "why_vi": "Sau should là động từ nguyên mẫu: take."
     },
     {
@@ -71,6 +83,7 @@
         "I should be done in Friday."
       ],
       "answer": 0,
+      "answer_vi": "Muộn nhất thứ Sáu là mình xong.",
       "why_vi": "Hạn chót dùng by. until là kéo dài đến lúc đó, in không đi với thứ trong tuần."
     },
     {
@@ -82,6 +95,7 @@
         "I need two days again."
       ],
       "answer": 0,
+      "answer_vi": "Mình cần thêm hai ngày nữa.",
       "why_vi": "two more days: con số đứng trước more. again là lặp lại, không phải thêm."
     },
     {
@@ -93,6 +107,7 @@
         "Reviewing this PR should spend about an hour."
       ],
       "answer": 0,
+      "answer_vi": "Review PR này chắc mất khoảng một tiếng.",
       "why_vi": "Động từ làm chủ ngữ thì thêm -ing. Việc mất bao lâu dùng take, người bỏ ra thời gian mới dùng spend."
     },
     {
@@ -104,7 +119,68 @@
         "I'm not sure yet. Let me to check the code and get back to you."
       ],
       "answer": 0,
+      "answer_vi": "Mình chưa chắc, để mình xem code rồi báo lại.",
       "why_vi": "Báo lại sau là get back to you. Sau let me là động từ nguyên mẫu không to."
+    },
+    {
+      "id": "s05q6",
+      "prompt_vi": "Migration này chắc mất khoảng 30 phút.",
+      "options": [
+        "This migration should take about 30 minutes.",
+        "This migration should take about 30 minute.",
+        "This migration should take for about 30 minutes."
+      ],
+      "answer": 0,
+      "answer_vi": "Migration này chắc mất khoảng 30 phút.",
+      "why_vi": "Nhiều phút thì dùng minutes. take + thời gian, không thêm for."
+    },
+    {
+      "id": "s05q7",
+      "prompt_vi": "Chắc trưa nay mình xong hotfix.",
+      "options": [
+        "I should be done with the hotfix by noon.",
+        "I should done with the hotfix by noon.",
+        "I should be done with hotfix by noon."
+      ],
+      "answer": 0,
+      "answer_vi": "Chắc muộn nhất trưa nay mình xong hotfix.",
+      "why_vi": "Mẫu cố định: should be done with. hotfix đếm được nên cần the."
+    },
+    {
+      "id": "s05q8",
+      "prompt_vi": "Mình ước lượng sơ bộ là khoảng một tuần.",
+      "options": [
+        "My rough estimate is about a week.",
+        "My estimate rough is about a week.",
+        "My rough estimate about a week."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình ước lượng sơ bộ là khoảng một tuần.",
+      "why_vi": "rough đứng trước estimate. Câu cần động từ is."
+    },
+    {
+      "id": "s05q9",
+      "prompt_vi": "Mình cần khoảng 15 phút để chạy hết test trên CI.",
+      "options": [
+        "I need about 15 minutes to run all the tests on CI.",
+        "I need about 15 minutes to running all the tests on CI.",
+        "I need 15 minutes about to run all the tests on CI."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình cần khoảng 15 phút để chạy hết test trên CI.",
+      "why_vi": "Sau to là động từ nguyên mẫu. about đứng ngay trước con số."
+    },
+    {
+      "id": "s05q10",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "The demo for the client should be ready by Thursday.",
+        "The demo for the client should is ready by Thursday.",
+        "The demo for the client should be ready by the Thursday."
+      ],
+      "answer": 0,
+      "answer_vi": "Muộn nhất thứ Năm là bản demo cho khách sẽ xong.",
+      "why_vi": "Sau should là động từ nguyên mẫu: be. Thứ trong tuần không cần the."
     }
   ],
   "write_prompt_vi": "Viết 1 câu ước lượng bao lâu thì bạn xong việc đang làm."

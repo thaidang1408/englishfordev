@@ -32,7 +32,8 @@ const label = (n: number) => (numbered ? `Phần ${n} trên 5` : undefined);
 <section class="part" aria-labelledby="vi-du">
   {label(2) && <span class="part-label">{label(2)}</span>}
   <h2 id="vi-du">Ví dụ</h2>
-  <ul class="examples">
+  <!-- Trong trình học: hiện 3 câu ngẫu nhiên (SPEC mục 4). Tắt JavaScript hoặc ở trang mẫu câu thì hiện đủ. -->
+  <ul class="examples" data-pick={numbered ? 3 : undefined}>
     {
       lesson.examples.map((ex) => (
         <li>
@@ -51,9 +52,18 @@ const label = (n: number) => (numbered ? `Phần ${n} trên 5` : undefined);
     {
       lesson.mistakes.map((m) => (
         <ReviewDiff before={m.wrong} after={m.right}>
+          <p class="vi-line">Nghĩa: {m.right_vi}</p>
           <p>{m.why_vi}</p>
         </ReviewDiff>
       ))
     }
   </div>
 </section>
+
+<script>
+  for (const list of document.querySelectorAll<HTMLElement>('ul[data-pick]')) {
+    const items = [...list.children] as HTMLElement[];
+    const keep = new Set(items.map((_, i) => i).sort(() => Math.random() - 0.5).slice(0, Number(list.dataset.pick)));
+    items.forEach((li, i) => (li.hidden = !keep.has(i)));
+  }
+</script>

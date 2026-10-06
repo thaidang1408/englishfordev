@@ -1,6 +1,6 @@
 # EPC — Đặc tả bản 1
 
-Cập nhật: 05/10/2026. Người quyết định: chủ dự án. Mọi con số dưới đây là quyết định đã chốt cho bản 1.
+Cập nhật: 06/10/2026 (thêm M8, mục 14). Người quyết định: chủ dự án. Mọi con số dưới đây là quyết định đã chốt cho bản 1.
 
 ## 1. Sản phẩm
 
@@ -95,10 +95,10 @@ API (server):
 Một bài khoảng 10 phút, năm phần theo thứ tự:
 
 1. **Mẫu câu:** công thức và ghi chú một dòng.
-2. **Ví dụ:** ba câu, có nghĩa tiếng Việt.
-3. **Lỗi hay gặp:** hiển thị dạng diff, dòng sai màu đỏ, dòng đúng màu xanh, lý do bên dưới.
-4. **Luyện tập:** 5 câu trắc nghiệm, mỗi lần một câu. Đảo thứ tự đáp án khi hiển thị. Chọn xong hiện đúng/sai và `why_vi`. Câu sai tạo mục ôn.
-5. **Câu của bạn:** ô nhập theo `write_prompt_vi` → `POST /api/correct` → kết quả dạng diff và ghi chú.
+2. **Ví dụ:** ba câu lấy ngẫu nhiên từ năm câu của bài, có nghĩa tiếng Việt. Tắt JavaScript thì hiện đủ năm câu.
+3. **Lỗi hay gặp:** hiển thị dạng diff, dòng sai màu đỏ, dòng đúng màu xanh, nghĩa tiếng Việt của câu đúng và lý do bên dưới.
+4. **Luyện tập:** 5 câu trắc nghiệm lấy ngẫu nhiên từ 10 câu của bài, mỗi lần một câu. Đảo thứ tự đáp án khi hiển thị. Chọn xong hiện đúng/sai, nghĩa tiếng Việt của câu đúng (`answer_vi`) và `why_vi`. Câu sai tạo mục ôn.
+5. **Câu của bạn:** ô nhập theo `write_prompt_vi` → `POST /api/correct` → tự sửa trước (mục 14) → kết quả dạng diff, nghĩa tiếng Việt của câu đã sửa và ghi chú.
 
 Khách chưa đăng nhập học được phần 1 đến 4 của bài miễn phí, tiến độ lưu `localStorage`. Phần 5 yêu cầu đăng nhập; sau khi đăng nhập thì chuyển tiến độ từ `localStorage` lên tài khoản.
 
@@ -117,7 +117,7 @@ Theo skill `design-system` và `reference/styleguide.html`. Ba thứ thuộc ph�
 Thêm ngày 05/10/2026 theo quyết định của chủ dự án, làm trong M3 (không chờ điều kiện bên dưới).
 
 - Trang công khai `/bug-hom-nay`, mỗi ngày một câu có lỗi, lấy từ `mistakes[]` của các bài.
-- Bấm vào chỗ sai, tối đa 3 lần thử, rồi hiện khung diff và `why_vi`.
+- Bấm vào chỗ sai, tối đa 3 lần thử, rồi hiện khung diff, nghĩa tiếng Việt của câu đúng và `why_vi`.
 - Nút chép kết quả dạng văn bản để chia sẻ. Không cần đăng nhập.
 - Cuối trang: nút sang bài học của mẫu câu đó.
 - Chỉ làm khi: thiếu người mới, hoặc tỷ lệ quay lại ngày 7 dưới 15%.
@@ -142,6 +142,8 @@ Mỗi chỗ sửa do AI trả về có một `category` (mục 7). Từ bảng `
 - So tuần này với tuần trước cho từng nhóm: tăng, giảm, giữ nguyên.
 - Số lỗi "đang lặp lại": mục ôn `own_error` chưa qua mức 7 ngày.
 
+**Bản đồ lỗi (Premium và dùng thử, thêm 06/10/2026):** ở `/so-loi`, bảng 8 tuần gần nhất theo từng nhóm lỗi. Mỗi ô là số lỗi của nhóm đó trong tuần, màu đậm nhạt theo số. Chỉ dùng dữ liệu thật trong `corrections`; tuần không có câu nào thì ô để trống, không nội suy.
+
 Tên nhóm hiển thị bằng tiếng Việt: mạo từ, thì của động từ, giới từ, trật tự từ, chọn từ, dạng động từ, số ít số nhiều, khác.
 
 **Báo cáo tuần (Premium):** Chủ nhật 20:00 giờ Việt Nam, gửi qua Telegram một tin: số câu đã sửa trong tuần, nhóm lỗi hay mắc nhất kèm một ví dụ, nhóm lỗi đã giảm, và link ôn. Tuần không có câu nào thì không gửi.
@@ -161,10 +163,10 @@ type Lesson = {
   free: boolean;              // chỉ standup 1 đến 3 là true
   goal_vi: string;
   pattern: { formula: string; note_vi: string };
-  examples: { en: string; vi: string }[];          // đúng 3
-  mistakes: { wrong: string; right: string; why_vi: string }[];  // 2 hoặc 3
+  examples: { en: string; vi: string }[];          // đúng 5, trình học hiện 3 câu ngẫu nhiên
+  mistakes: { wrong: string; right: string; right_vi: string; why_vi: string }[];  // đúng 3
   word_bank: string[];
-  quiz: { id: string; prompt_vi: string; options: string[]; answer: number; why_vi: string }[]; // đúng 5, 3 đáp án
+  quiz: { id: string; prompt_vi: string; options: string[]; answer: number; answer_vi: string; why_vi: string }[]; // đúng 10, 3 đáp án; mỗi lượt học lấy 5
   write_prompt_vi: string;
   question_en?: string;        // chỉ track interview: câu hỏi nhà tuyển dụng sẽ hỏi
 };
@@ -205,6 +207,7 @@ Gọi AI qua `src/lib/ai/correct.ts`:
 type Correction = {
   is_already_correct: boolean;
   corrected: string;
+  corrected_vi: string;  // nghĩa tiếng Việt của câu đã sửa (thêm 06/10/2026)
   changes: { from: string; to: string; why_vi: string; category: ErrorCategory }[];  // tối đa 4
   tip_vi: string;   // một câu, có thể rỗng
   stronger?: string; // chỉ mode interview: một phiên bản trả lời tốt hơn, cùng ý, tối đa 3 câu
@@ -268,6 +271,7 @@ Premium khi `premium_until > now()`. Dùng thử khi không Premium và `trial_u
 - Worker cron riêng trong `cron/` chạy mỗi 15 phút, gọi `POST /api/cron/tick` kèm `CRON_SECRET`.
 - Mỗi lần tick, từ thứ Hai đến thứ Sáu theo giờ `Asia/Ho_Chi_Minh`: tìm người dùng có `standup_time` nằm trong 30 đến 45 phút tới, chưa học bài hôm nay, chưa được nhắc hôm nay. Gửi một tin: tên bài và link `/hom-nay`.
 - Mỗi người tối đa một tin nhắc mỗi ngày. Lệnh `/stop` hủy liên kết.
+- **Sửa câu qua bot (thêm 06/10/2026):** chat đã liên kết gửi một đoạn tiếng Anh thì bot sửa như `POST /api/correct` với `mode: "work"`: cùng giới hạn độ dài, cùng hạn mức, cùng mức chặn toàn hệ thống, lưu `corrections` và mục ôn `own_error`. Bot trả lời bằng văn bản thường: câu đã sửa, nghĩa tiếng Việt, từng chỗ sửa kèm lý do, số lượt còn lại. Chat chưa liên kết gửi tin thường thì vẫn chuyển tới admin như trước; chat đã liên kết muốn liên hệ thì dùng `/hotro <nội dung>`.
 - Chủ nhật 20:00: gửi báo cáo tuần cho người dùng Premium theo mục 5b.
 - Mỗi tick chạy một truy vấn nhẹ vào Supabase, đủ để project không bị tạm dừng vì 7 ngày không hoạt động.
 
@@ -307,6 +311,7 @@ Mỗi milestone kết thúc bằng: check, test, build đều qua; mô tả các
 | M4 | `/api/correct` với hai mode, giao diện diff kết quả, các mức chặn, mục ôn `own_error`, trang `/so-loi` có phân tích lỗi, trang `/phong-van-thu` | Tài khoản hết dùng thử bị chặn ở lần sửa thứ 2 trong 7 ngày. Tài khoản dùng thử bị chặn ở lần thứ 11 trong ngày. Kết quả sai schema không làm hỏng trang và không trừ lượt. Có test cho từng mức chặn với AI giả lập |
 | M5 | Khóa bài và tính năng Premium ở server. Bốn điểm mời nâng cấp dùng số liệu thật của người dùng. `/nang-cap`, tạo đơn, mã VietQR qua payOS, tự mở Premium khi nhận đúng tiền. `/admin` xác nhận và hoàn tiền | Đặt `trial_until` về quá khứ thì tài khoản mất quyền Premium ngay nhưng dữ liệu còn nguyên. Gọi thẳng API bài bị khóa trả 403. Xác nhận đơn xong tài khoản mở khóa ngay |
 | M6 | Bot Telegram, liên kết, worker cron, tin nhắc, báo cáo tuần, đếm ngược phỏng vấn | Đặt giờ standup sau hiện tại 40 phút thì nhận đúng một tin. Gọi tay hàm báo cáo tuần thì tài khoản Premium có câu đã sửa nhận đúng một tin. `/stop` hoạt động |
+| M8 | Mục 14: nghĩa tiếng Việt, tự sửa trước, bot sửa câu, bản đồ lỗi, mở rộng nội dung 30 bài | Sửa một câu sai thì thấy chỗ tô và nhóm lỗi trước, sửa khớp thì được báo đúng, rồi thấy diff và nghĩa tiếng Việt. Nhắn một câu cho bot đã liên kết thì nhận bản sửa và lỗi vào sổ lỗi. `/so-loi` có bản đồ 8 tuần. Học lại một bài thấy câu trắc nghiệm khác |
 | M7 | Sự kiện phễu và bảng trong `/admin`. Trang điều khoản, bảo mật. Sitemap, thẻ OG, favicon. Soạn 27 bài còn lại và `placement.json`. Chạy `docs/LAUNCH_CHECKLIST.md` | Mọi mục trong checklist ra mắt được đánh dấu, gồm cả việc chủ dự án đã duyệt nội dung |
 
 ## 13. Sau khi ra mắt
@@ -324,3 +329,13 @@ Mỗi milestone kết thúc bằng: check, test, build đều qua; mô tả các
 Chạm ngưỡng dừng ở dòng cuối thì ngừng thêm tính năng và xem lại lời chào, giá, đối tượng.
 
 Dòng "5 câu được sửa trong 7 ngày" là dòng quan trọng nhất: người chưa tích lũy được sổ lỗi thì không có lý do gì để trả tiền.
+
+## 14. Bản 1.1: học sâu hơn trong ngành phần mềm
+
+Thêm ngày 06/10/2026 theo quyết định của chủ dự án, sau khi xem báo cáo mở rộng sang ngành khác. EPC chỉ phục vụ người làm phần mềm (dev, QA, BA, PM), không mở sang ngành khác.
+
+- **Nghĩa tiếng Việt của câu đúng** ở mọi chỗ hiện đáp án: kết quả sửa câu (`corrected_vi`), lỗi hay gặp (`right_vi`), trắc nghiệm (`answer_vi`), Bug của ngày, phần ôn.
+- **Tự sửa trước** ở ô "Sửa câu của tôi" (bài học phần 5 và `/hom-nay`). AI trả kết quả như cũ nhưng giao diện chưa hiện bản sửa: hiện câu gốc, tô các đoạn `from` tìm thấy trong câu, ghi số chỗ cần sửa và nhóm lỗi. Người dùng sửa ngay trong ô rồi bấm "Kiểm tra". So với `corrected` sau khi bỏ khác biệt chữ hoa thường, khoảng trắng và dấu câu cuối câu. Khớp thì báo "Bạn đã sửa đúng"; chưa khớp thì cho thử thêm một lần, rồi hiện đáp án kèm diff giữa bản của người dùng và bản sửa. Luôn có nút "Xem đáp án". Không gọi AI thêm, không tốn thêm lượt. Câu đã đúng thì hiện kết quả ngay. Phỏng vấn thử giữ cách hiện thẳng kết quả.
+- **Bot sửa câu** qua Telegram (mục 9).
+- **Bản đồ lỗi** ở `/so-loi` (mục 5b).
+- **Nội dung đa dạng hơn:** mỗi bài có 5 ví dụ, 3 lỗi hay gặp, 10 câu trắc nghiệm (mục 6). Trình học lấy ngẫu nhiên 3 ví dụ và 5 câu trắc nghiệm mỗi lượt, nên học lại không gặp y hệt lần trước. Điểm bài vẫn tính trên 5. Câu mới soạn ghi vào `docs/CONTENT_REVIEW.md` để chủ dự án duyệt.

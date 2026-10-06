@@ -21,22 +21,33 @@
     {
       "en": "Staging is down, so I suggest moving the release to Monday.",
       "vi": "Staging đang sập, nên mình đề xuất lùi release sang thứ Hai."
+    },
+    {
+      "en": "The data migration is taking longer than expected. I can have it ready by tomorrow morning.",
+      "vi": "Migration dữ liệu mất nhiều thời gian hơn dự kiến. Sáng mai mình mới xong được."
+    },
+    {
+      "en": "The client changed the requirements, so I can have the export feature ready by next Tuesday.",
+      "vi": "Khách đổi yêu cầu, nên thứ Ba tuần sau mình mới xong tính năng xuất file được."
     }
   ],
   "mistakes": [
     {
       "wrong": "It takes longer than I think.",
       "right": "It's taking longer than I thought.",
+      "right_vi": "Việc này mất nhiều thời gian hơn mình nghĩ.",
       "why_vi": "Việc đang diễn ra dùng is + V-ing. Mình đã nghĩ từ trước nên dùng thought."
     },
     {
       "wrong": "Sorry for late.",
       "right": "Sorry for the delay.",
+      "right_vi": "Xin lỗi vì bị trễ.",
       "why_vi": "Sau for cần danh từ. late là tính từ, delay là danh từ."
     },
     {
       "wrong": "I suggest to move the release to Monday.",
       "right": "I suggest moving the release to Monday.",
+      "right_vi": "Mình đề xuất lùi release sang thứ Hai.",
       "why_vi": "suggest + V-ing, không dùng to."
     }
   ],
@@ -60,6 +71,7 @@
         "This is take longer than expected."
       ],
       "answer": 0,
+      "answer_vi": "Việc này mất nhiều thời gian hơn dự kiến.",
       "why_vi": "Cụm cố định: than expected. Đang diễn ra: is taking."
     },
     {
@@ -71,6 +83,7 @@
         "Sorry for the late."
       ],
       "answer": 0,
+      "answer_vi": "Xin lỗi vì bị trễ.",
       "why_vi": "Sau for cần danh từ: the delay. late là tính từ."
     },
     {
@@ -82,6 +95,7 @@
         "I can have it ready in Thursday."
       ],
       "answer": 0,
+      "answer_vi": "Muộn nhất thứ Năm mình sẽ xong.",
       "why_vi": "Hạn chót dùng by. Thứ trong tuần không đi với in."
     },
     {
@@ -93,6 +107,7 @@
         "This bug harder than I thought."
       ],
       "answer": 0,
+      "answer_vi": "Bug này khó hơn mình nghĩ.",
       "why_vi": "harder đã là so sánh hơn, không thêm more. Câu cần is."
     },
     {
@@ -104,7 +119,68 @@
         "I suggest move the release on Monday."
       ],
       "answer": 0,
+      "answer_vi": "Mình đề xuất lùi release sang thứ Hai.",
       "why_vi": "suggest + V-ing. Dời sang ngày nào dùng move to."
+    },
+    {
+      "id": "s08q6",
+      "prompt_vi": "Sửa mấy test chập chờn mất nhiều thời gian hơn dự kiến.",
+      "options": [
+        "Fixing the flaky tests is taking longer than expected.",
+        "Fix the flaky tests is taking longer than expected.",
+        "Fixing the flaky tests is taking more long than expected."
+      ],
+      "answer": 0,
+      "answer_vi": "Sửa mấy test chập chờn mất nhiều thời gian hơn dự kiến.",
+      "why_vi": "Động từ làm chủ ngữ thì thêm -ing. So sánh hơn của long là longer."
+    },
+    {
+      "id": "s08q7",
+      "prompt_vi": "Mình cần lùi ticket này sang tuần sau.",
+      "options": [
+        "I need to push this ticket back to next week.",
+        "I need push this ticket back to next week.",
+        "I need to push this ticket back on next week."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình cần lùi ticket này sang tuần sau.",
+      "why_vi": "need + to V. Lùi sang lúc nào dùng push back to."
+    },
+    {
+      "id": "s08q8",
+      "prompt_vi": "Mốc mới cho bản demo là thứ Tư.",
+      "options": [
+        "The new ETA for the demo is Wednesday.",
+        "The ETA new for the demo is Wednesday.",
+        "The new ETA for the demo are Wednesday."
+      ],
+      "answer": 0,
+      "answer_vi": "Mốc mới cho bản demo là thứ Tư.",
+      "why_vi": "new đứng trước ETA. ETA là số ít nên dùng is."
+    },
+    {
+      "id": "s08q9",
+      "prompt_vi": "API bên thứ ba bị chậm nên mình cần thêm một ngày.",
+      "options": [
+        "The third-party API is slow, so I need one more day.",
+        "The third-party API is slow, so I need more one day.",
+        "The third-party API slow, so I need one more day."
+      ],
+      "answer": 0,
+      "answer_vi": "API bên thứ ba bị chậm nên mình cần thêm một ngày.",
+      "why_vi": "Con số đứng trước more: one more day. Câu cần is."
+    },
+    {
+      "id": "s08q10",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "QA found a few more bugs, so the release will be delayed until Monday.",
+        "QA found a few more bugs, so the release will delay until Monday.",
+        "QA found a few more bug, so the release will be delayed until Monday."
+      ],
+      "answer": 0,
+      "answer_vi": "QA tìm ra thêm vài bug, nên release sẽ lùi đến thứ Hai.",
+      "why_vi": "Release bị lùi nên dùng be delayed. a few đi với danh từ số nhiều: bugs."
     }
   ],
   "write_prompt_vi": "Viết 1 đến 2 câu báo một việc bị trễ và đưa ra mốc mới."

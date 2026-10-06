@@ -39,9 +39,9 @@ export function telegramRepo(service: Db, adminEmails: readonly string[]): Teleg
       );
       return (rows?.length ?? 0) > 0;
     },
-    async isLinked(chatId) {
-      const row = check('isLinked', await service.from('profiles').select('id').eq('telegram_chat_id', chatId).maybeSingle());
-      return row !== null;
+    async userForChat(chatId) {
+      const row = check('userForChat', await service.from('profiles').select('id').eq('telegram_chat_id', chatId).maybeSingle());
+      return row?.id ?? null;
     },
     async adminChatIds() {
       if (adminEmails.length === 0) return [];

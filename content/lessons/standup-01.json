@@ -21,18 +21,34 @@
     {
       "en": "Yesterday I reviewed two pull requests.",
       "vi": "Hôm qua mình review hai pull request."
+    },
+    {
+      "en": "Yesterday I deployed the hotfix to production.",
+      "vi": "Hôm qua mình đã deploy bản hotfix lên production."
+    },
+    {
+      "en": "Yesterday I talked to the client about the new requirements.",
+      "vi": "Hôm qua mình đã trao đổi với khách về yêu cầu mới."
     }
   ],
   "mistakes": [
     {
       "wrong": "Yesterday I have fixed the bug.",
       "right": "Yesterday I fixed the bug.",
+      "right_vi": "Hôm qua mình đã sửa bug đó.",
       "why_vi": "Có yesterday thì không dùng have + V3."
     },
     {
       "wrong": "I fixed bug login.",
       "right": "I fixed the login bug.",
+      "right_vi": "Mình đã sửa bug đăng nhập.",
       "why_vi": "Từ bổ nghĩa đứng trước danh từ chính, và cần the."
+    },
+    {
+      "wrong": "Yesterday I writed the unit tests.",
+      "right": "Yesterday I wrote the unit tests.",
+      "right_vi": "Hôm qua mình đã viết unit test.",
+      "why_vi": "write là động từ bất quy tắc, quá khứ là wrote chứ không thêm -ed."
     }
   ],
   "word_bank": [
@@ -56,6 +72,7 @@
         "Yesterday I finish the login page."
       ],
       "answer": 0,
+      "answer_vi": "Hôm qua mình đã làm xong trang đăng nhập.",
       "why_vi": "Mốc yesterday đi với quá khứ đơn: finished."
     },
     {
@@ -67,6 +84,7 @@
         "I was fix the payment bug yesterday."
       ],
       "answer": 0,
+      "answer_vi": "Hôm qua mình đã sửa bug thanh toán.",
       "why_vi": "the payment bug: từ bổ nghĩa đứng trước. Không dùng was + động từ nguyên mẫu."
     },
     {
@@ -78,6 +96,7 @@
         "Yesterday I had review Nam PR."
       ],
       "answer": 0,
+      "answer_vi": "Hôm qua mình đã review PR của Nam.",
       "why_vi": "Sở hữu của người dùng 's: Nam's PR. Động từ chia quá khứ: reviewed."
     },
     {
@@ -89,6 +108,7 @@
         "Yesterday I did deploy new version in staging."
       ],
       "answer": 0,
+      "answer_vi": "Hôm qua mình đã deploy bản mới lên staging.",
       "why_vi": "deploy something to staging. Cần the trước new version."
     },
     {
@@ -100,7 +120,68 @@
         "Yesterday I have wrote unit tests for the user module."
       ],
       "answer": 0,
+      "answer_vi": "Hôm qua mình đã viết xong unit test cho module user.",
       "why_vi": "finish + V-ing: finished writing. the user module: từ bổ nghĩa đứng trước."
+    },
+    {
+      "id": "s01q6",
+      "prompt_vi": "Hôm qua mình đã chạy migration cho database.",
+      "options": [
+        "Yesterday I ran the database migration.",
+        "Yesterday I runned the database migration.",
+        "Yesterday I ran migration database."
+      ],
+      "answer": 0,
+      "answer_vi": "Hôm qua mình đã chạy migration cho database.",
+      "why_vi": "run là động từ bất quy tắc: ran. the database migration: từ bổ nghĩa đứng trước."
+    },
+    {
+      "id": "s01q7",
+      "prompt_vi": "Hôm qua mình đã sửa build CI bị hỏng.",
+      "options": [
+        "Yesterday I fixed the broken CI build.",
+        "Yesterday I did fixed the broken CI build.",
+        "Yesterday I fixed the CI build broken."
+      ],
+      "answer": 0,
+      "answer_vi": "Hôm qua mình đã sửa build CI bị hỏng.",
+      "why_vi": "Câu khẳng định chỉ cần fixed, không thêm did. broken đứng trước danh từ."
+    },
+    {
+      "id": "s01q8",
+      "prompt_vi": "Hôm qua mình đã test app mobile trên Android.",
+      "options": [
+        "Yesterday I tested the mobile app on Android.",
+        "Yesterday I tested the mobile app in Android.",
+        "Yesterday I tested mobile app on Android."
+      ],
+      "answer": 0,
+      "answer_vi": "Hôm qua mình đã test app mobile trên Android.",
+      "why_vi": "Nền tảng đi với on: on Android. app đếm được nên cần the."
+    },
+    {
+      "id": "s01q9",
+      "prompt_vi": "Hôm qua mình đã cho khách xem tính năng mới.",
+      "options": [
+        "Yesterday I showed the new feature to the client.",
+        "Yesterday I show the new feature to the client.",
+        "Yesterday I showed to the client the new feature."
+      ],
+      "answer": 0,
+      "answer_vi": "Hôm qua mình đã cho khách xem tính năng mới.",
+      "why_vi": "Việc đã xong hôm qua dùng showed. show + thứ gì + to + ai."
+    },
+    {
+      "id": "s01q10",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "Yesterday I spent the whole afternoon on sprint planning.",
+        "Yesterday I spended the whole afternoon on sprint planning.",
+        "Yesterday I spent the whole afternoon for sprint planning."
+      ],
+      "answer": 0,
+      "answer_vi": "Hôm qua mình dành cả buổi chiều cho sprint planning.",
+      "why_vi": "Quá khứ của spend là spent. Dành thời gian cho việc gì dùng spend time on."
     }
   ],
   "write_prompt_vi": "Viết 1 đến 2 câu về việc bạn đã làm hôm qua."

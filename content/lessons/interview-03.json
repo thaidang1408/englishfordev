@@ -22,18 +22,34 @@
     {
       "en": "We moved our services to Kubernetes. I was responsible for migrating two of the five services and writing the runbook.",
       "vi": "Bọn mình chuyển các service lên Kubernetes. Mình phụ trách chuyển hai trong năm service và viết runbook."
+    },
+    {
+      "en": "Our team built a sales dashboard for the directors. My part was cleaning the data and writing the SQL queries behind the charts.",
+      "vi": "Team mình làm một dashboard doanh số cho ban giám đốc. Phần của mình là làm sạch dữ liệu và viết các câu SQL đằng sau biểu đồ."
+    },
+    {
+      "en": "The team launched a new loan application flow. As the BA, I was responsible for gathering requirements from the bank and writing the user stories.",
+      "vi": "Team ra mắt một luồng đăng ký vay mới. Là BA, mình phụ trách lấy requirement từ phía ngân hàng và viết user story."
     }
   ],
   "mistakes": [
     {
       "wrong": "I responsible for the backend.",
       "right": "I was responsible for the backend.",
+      "right_vi": "Mình phụ trách phần backend.",
       "why_vi": "responsible không phải động từ, cần was hoặc am đi trước."
     },
     {
       "wrong": "I was responsible for develop the API.",
       "right": "I was responsible for developing the API.",
+      "right_vi": "Mình phụ trách phát triển API.",
       "why_vi": "Sau for, động từ phải ở dạng V-ing."
+    },
+    {
+      "wrong": "I worked with QA team to fix the bugs.",
+      "right": "I worked with the QA team to fix the bugs.",
+      "right_vi": "Mình làm cùng team QA để sửa các bug.",
+      "why_vi": "Nói một team cụ thể thì cần the."
     }
   ],
   "word_bank": [
@@ -55,6 +71,7 @@
         "I was responsible of the reporting module."
       ],
       "answer": 0,
+      "answer_vi": "Mình phụ trách module báo cáo.",
       "why_vi": "be responsible for: cần was, và giới từ là for."
     },
     {
@@ -66,6 +83,7 @@
         "I was in charge for writing the APIs for the mobile app."
       ],
       "answer": 0,
+      "answer_vi": "Mình phụ trách viết API cho app mobile.",
       "why_vi": "Sau for dùng V-ing. in charge đi với of, không đi với for."
     },
     {
@@ -77,6 +95,7 @@
         "The team rebuild the whole system, and my part was the search module."
       ],
       "answer": 0,
+      "answer_vi": "Team làm lại cả hệ thống, và phần của mình là module tìm kiếm.",
       "why_vi": "the search module: từ bổ nghĩa đứng trước. Việc đã xong dùng quá khứ: rebuilt."
     },
     {
@@ -88,6 +107,7 @@
         "I wrote tests and reviewed code for all team."
       ],
       "answer": 0,
+      "answer_vi": "Mình viết test và review code cho cả team.",
       "why_vi": "Hai động từ nối bằng and cùng ở quá khứ. Cả team là the whole team."
     },
     {
@@ -99,7 +119,68 @@
         "As a result, the build time go down from 20 to 8 minutes."
       ],
       "answer": 0,
+      "answer_vi": "Nhờ vậy, thời gian build giảm từ 20 xuống 8 phút.",
       "why_vi": "Cụm cố định là as a result. Việc đã xảy ra dùng quá khứ: went down."
+    },
+    {
+      "id": "i03q6",
+      "prompt_vi": "Chọn câu trả lời phù hợp hơn.",
+      "options": [
+        "The team built a new HR app. My part was the leave request feature and its tests.",
+        "I basically built the whole HR app by myself.",
+        "I just did some small stuff, nothing important."
+      ],
+      "answer": 0,
+      "answer_vi": "Team làm một app HR mới. Phần của mình là tính năng xin nghỉ phép và test cho nó.",
+      "why_vi": "Nói team làm gì rồi nói rõ phần của mình. Không nhận hết công, cũng không tự hạ thấp."
+    },
+    {
+      "id": "i03q7",
+      "prompt_vi": "Mình phụ trách thiết kế database.",
+      "options": [
+        "I was in charge of the database design.",
+        "I was in charge the database design.",
+        "I was responsible to design the database."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình phụ trách thiết kế database.",
+      "why_vi": "in charge luôn đi với of. responsible đi với for, không đi với to V."
+    },
+    {
+      "id": "i03q8",
+      "prompt_vi": "Mình làm việc với khách hàng để chốt phạm vi dự án.",
+      "options": [
+        "I worked with the client to finalize the scope.",
+        "I worked with the client for finalizing the scope.",
+        "I work with the client to finalize the scope."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình làm việc với khách hàng để chốt phạm vi dự án.",
+      "why_vi": "Làm gì để đạt mục đích thì dùng to V. Chuyện đã qua dùng quá khứ: worked."
+    },
+    {
+      "id": "i03q9",
+      "prompt_vi": "Mình giúp hai bạn junior làm quen với codebase.",
+      "options": [
+        "I helped two junior developers get familiar with the codebase.",
+        "I helped two junior developers getting familiar with the codebase.",
+        "I helped two developers junior get familiar with the codebase."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình giúp hai bạn junior làm quen với codebase.",
+      "why_vi": "helped + người + động từ nguyên mẫu. Từ bổ nghĩa đứng trước danh từ: junior developers."
+    },
+    {
+      "id": "i03q10",
+      "prompt_vi": "Mình cũng viết tài liệu cho phần đó.",
+      "options": [
+        "I also wrote the documentation for that part.",
+        "I also wrote the documentations for that part.",
+        "I wrote also the documentation for that part."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình cũng viết tài liệu cho phần đó.",
+      "why_vi": "documentation không đếm được nên không thêm s. also đứng trước động từ chính."
     }
   ],
   "write_prompt_vi": "Viết 2 câu: team của bạn làm gì, và phần việc của riêng bạn là gì."

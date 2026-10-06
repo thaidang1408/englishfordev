@@ -21,18 +21,34 @@
     {
       "en": "That makes sense, but could we try a simpler approach first?",
       "vi": "Hợp lý, nhưng mình thử cách đơn giản hơn trước được không?"
+    },
+    {
+      "en": "I see your point, but I think the client needs the export feature more than dark mode.",
+      "vi": "Mình hiểu ý bạn, nhưng mình nghĩ khách cần tính năng xuất file hơn là dark mode."
+    },
+    {
+      "en": "I see your point, but I think we should roll back first and debug later.",
+      "vi": "Mình hiểu ý bạn, nhưng mình nghĩ nên rollback trước rồi debug sau."
     }
   ],
   "mistakes": [
     {
       "wrong": "I'm not agree.",
       "right": "I don't agree.",
+      "right_vi": "Mình không đồng ý.",
       "why_vi": "agree là động từ, phủ định dùng don't, không dùng am not."
     },
     {
       "wrong": "You are wrong.",
       "right": "I see it a bit differently.",
+      "right_vi": "Mình nhìn vấn đề này hơi khác.",
       "why_vi": "Nói thẳng người khác sai nghe gay gắt. Nói về cách nhìn của mình thì nhẹ hơn."
+    },
+    {
+      "wrong": "I agree you, but I think we need more tests.",
+      "right": "I agree with you, but I think we need more tests.",
+      "right_vi": "Mình đồng ý với bạn, nhưng mình nghĩ cần thêm test.",
+      "why_vi": "Đồng ý với ai thì dùng agree with."
     }
   ],
   "word_bank": [
@@ -55,6 +71,7 @@
         "I don't agree this approach."
       ],
       "answer": 0,
+      "answer_vi": "Mình không đồng ý với cách làm này.",
       "why_vi": "Phủ định của agree là don't agree. agree with + ý kiến."
     },
     {
@@ -66,6 +83,7 @@
         "I see your mean, but I think we should keep this function."
       ],
       "answer": 0,
+      "answer_vi": "Mình hiểu ý bạn, nhưng mình nghĩ nên giữ hàm này.",
       "why_vi": "Sau should là động từ nguyên mẫu không to. Hiểu ý bạn là see your point."
     },
     {
@@ -77,6 +95,7 @@
         "I don't sure we should deploy on Friday."
       ],
       "answer": 0,
+      "answer_vi": "Mình không chắc là nên deploy vào thứ Sáu.",
       "why_vi": "sure là tính từ nên dùng I'm not sure. Thứ trong tuần đi với on."
     },
     {
@@ -88,6 +107,7 @@
         "Your idea is not good."
       ],
       "answer": 0,
+      "answer_vi": "Mình nhìn vấn đề này hơi khác.",
       "why_vi": "Nói về cách nhìn của mình, không phán xét người hay ý của người kia."
     },
     {
@@ -99,7 +119,68 @@
         "Could we trying a simpler approach first?"
       ],
       "answer": 0,
+      "answer_vi": "Mình thử cách đơn giản hơn trước được không?",
       "why_vi": "approach đếm được nên cần a. Sau could là động từ nguyên mẫu."
+    },
+    {
+      "id": "s09q6",
+      "prompt_vi": "Mình hiểu ý bạn, nhưng mình nghĩ nên thêm index trước.",
+      "options": [
+        "I see your point, but I think we should add an index first.",
+        "I see your point, but I think we should add index first.",
+        "I see your point, but I'm think we should add an index first."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình hiểu ý bạn, nhưng mình nghĩ nên thêm index trước.",
+      "why_vi": "index đếm được nên cần an. think là động từ thường, không dùng I'm think."
+    },
+    {
+      "id": "s09q7",
+      "prompt_vi": "Mình nghĩ ticket này quá lớn cho một sprint.",
+      "options": [
+        "I think this ticket is too big for one sprint.",
+        "I think this ticket too big for one sprint.",
+        "I think this ticket is so big for one sprint."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình nghĩ ticket này quá lớn cho một sprint.",
+      "why_vi": "Câu cần is. Quá mức cho một việc thì dùng too, không dùng so."
+    },
+    {
+      "id": "s09q8",
+      "prompt_vi": "Lỡ test bị lỗi trên CI thì sao?",
+      "options": [
+        "What if the tests fail on CI?",
+        "What if the tests will fail on CI?",
+        "How if the tests fail on CI?"
+      ],
+      "answer": 0,
+      "answer_vi": "Lỡ test bị lỗi trên CI thì sao?",
+      "why_vi": "Lỡ ... thì sao là what if. Sau if dùng hiện tại, không dùng will."
+    },
+    {
+      "id": "s09q9",
+      "prompt_vi": "Một cách khác là cache response của API.",
+      "options": [
+        "Another option is to cache the API response.",
+        "Another option is cache the API response.",
+        "Other option is to cache the API response."
+      ],
+      "answer": 0,
+      "answer_vi": "Một cách khác là cache response của API.",
+      "why_vi": "is + to V. Một cách khác là another option."
+    },
+    {
+      "id": "s09q10",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "That makes sense, but I'm worried about performance on older phones.",
+        "That's make sense, but I'm worried about performance on older phones.",
+        "That makes sense, but I'm worried for performance on older phones."
+      ],
+      "answer": 0,
+      "answer_vi": "Hợp lý, nhưng mình lo về hiệu năng trên điện thoại đời cũ.",
+      "why_vi": "Cụm cố định: that makes sense. Lo về điều gì là worried about."
     }
   ],
   "write_prompt_vi": "Viết 1 câu không đồng ý với một đề xuất trong review hoặc trong họp, giữ giọng lịch sự."

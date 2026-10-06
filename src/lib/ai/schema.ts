@@ -42,6 +42,8 @@ export type Change = z.infer<typeof changeSchema>;
 export const correctionSchema = z.object({
   is_already_correct: z.boolean(),
   corrected: z.string().max(1500),
+  /** Nghĩa tiếng Việt của câu đã sửa (SPEC mục 14). Dòng cũ trong database không có trường này. */
+  corrected_vi: z.string().max(1500).optional(),
   changes: z.array(changeSchema).max(MAX_CHANGES),
   tip_vi: z.string().max(300),
   stronger: z.string().max(1500).optional(),

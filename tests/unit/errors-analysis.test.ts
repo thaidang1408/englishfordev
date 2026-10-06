@@ -103,3 +103,36 @@ describe('phỏng vấn thử', () => {
     ]);
   });
 });
+
+describe('bản đồ lỗi 8 tuần', () => {
+  const NOW = new Date('2026-10-06T03:00:00Z');
+  const at = (daysAgo: number) => new Date(NOW.getTime() - daysAgo * 86_400_000).toISOString();
+  const entry = (daysAgo: number, cats: string[]) => ({
+    created_at: at(daysAgo),
+    original: 'x',
+    result: {
+      is_already_correct: cats.length === 0,
+      corrected: 'x',
+      changes: cats.map((category) => ({ from: 'a', to: 'b', why_vi: 'v', category })),
+      tip_vi: '',
+    },
+  });
+
+  it('đếm lỗi theo nhóm và tuần; tuần không gửi câu nào để trống, tuần có câu mà không lỗi là 0', async () => {
+    const { errorMap } = await import('../../src/lib/stats/errors');
+    const map = errorMap(
+      [entry(1, ['article', 'article', 'tense']), entry(9, ['article']), entry(20, []), entry(60, ['tense'])] as never,
+      NOW,
+    );
+    expect(map.weeks).toHaveLength(8);
+    expect(map.rows.map((r) => r.category)).toEqual(['article', 'tense']);
+    const article = map.rows[0]!.counts;
+    expect(article[7]).toBe(2);
+    expect(article[6]).toBe(1);
+    expect(article[5]).toBe(0);
+    expect(article[4]).toBeNull();
+    expect(map.max).toBe(2);
+    // Câu 60 ngày trước nằm ngoài 8 tuần: chỉ tense của tuần này còn lại.
+    expect(map.rows[1]!.counts.filter((n) => n)).toEqual([1]);
+  });
+});

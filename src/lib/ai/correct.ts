@@ -53,9 +53,10 @@ Rules:
 - changes: at most ${MAX_CHANGES} items, most important first. "from" is the exact wrong fragment from the original text, "to" is its replacement (empty string when the fragment should be removed; for a missing word, use the neighbouring word in "from" and include the missing word in "to").
 - why_vi: one short sentence in Vietnamese explaining the rule, addressing the reader as "bạn". No praise, no exclamation marks, no emoji.
 - category: one of ${categories}.
+- corrected_vi: a natural Vietnamese translation of the whole corrected text, the way a Vietnamese developer would say it. Keep technical terms such as API, bug, deploy, pull request, staging in English. Always fill it, also when the text is already correct.
 - tip_vi: one short Vietnamese sentence with a practical tip for next time, or an empty string if there is nothing useful to add.
 - Output only one JSON object, no markdown, no text before or after it, with exactly this shape:
-{"is_already_correct": boolean, "corrected": string, "changes": [{"from": string, "to": string, "why_vi": string, "category": string}], "tip_vi": string, "stronger": string (interview only)}`;
+{"is_already_correct": boolean, "corrected": string, "corrected_vi": string, "changes": [{"from": string, "to": string, "why_vi": string, "category": string}], "tip_vi": string, "stronger": string (interview only)}`;
 
 const INTERVIEW_RULE = `This text is an answer to a job interview question, given in the field "question".
 Also fill "stronger": a better answer with the same meaning, natural spoken English, at most 3 sentences.
@@ -93,6 +94,8 @@ function normalize(result: Correction, sentence: string, mode: Mode): Correction
 export function correctWith(ask: Ask): CorrectSentence {
   return async (sentence, context = { mode: 'work' }) => {
     const prompt = buildUserPrompt(sentence, context);
+    // Kết quả đúng schema nhưng thiếu nghĩa tiếng Việt: gọi lại một lần, lần sau vẫn thiếu thì dùng kết quả này.
+    let withoutVi: Correction | undefined;
     for (let attempt = 0; attempt < 2; attempt++) {
       let raw: unknown;
       try {
@@ -104,8 +107,11 @@ export function correctWith(ask: Ask): CorrectSentence {
       const parsed = correctionSchema.safeParse(raw);
       if (!parsed.success) continue;
       if (context.mode === 'interview' && !parsed.data.stronger?.trim()) continue;
-      return normalize(parsed.data, sentence, context.mode);
+      const result = normalize(parsed.data, sentence, context.mode);
+      if (result.corrected_vi?.trim()) return result;
+      withoutVi = result;
     }
+    if (withoutVi) return withoutVi;
     throw new AiError('schema');
   };
 }

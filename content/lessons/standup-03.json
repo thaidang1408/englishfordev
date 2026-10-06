@@ -21,22 +21,33 @@
     {
       "en": "No blockers on my side.",
       "vi": "Bên mình không vướng gì."
+    },
+    {
+      "en": "I'm blocked by a failing migration on the staging database.",
+      "vi": "Mình đang kẹt vì một migration bị lỗi trên database staging."
+    },
+    {
+      "en": "I'm waiting for the client to confirm the requirements.",
+      "vi": "Mình đang chờ khách xác nhận yêu cầu."
     }
   ],
   "mistakes": [
     {
       "wrong": "I'm blocking by the server issue.",
       "right": "I'm blocked by the server issue.",
+      "right_vi": "Mình đang kẹt vì lỗi server.",
       "why_vi": "Mình bị chặn nên dùng bị động: blocked."
     },
     {
       "wrong": "I'm waiting the review.",
       "right": "I'm waiting for the review.",
+      "right_vi": "Mình đang chờ review.",
       "why_vi": "wait luôn đi với for trước thứ mình chờ."
     },
     {
       "wrong": "I have no any blocker.",
       "right": "I don't have any blockers.",
+      "right_vi": "Mình không vướng gì cả.",
       "why_vi": "no và any không đi cùng nhau. Nói gọn: No blockers."
     }
   ],
@@ -58,6 +69,7 @@
         "I blocked by staging server issue."
       ],
       "answer": 0,
+      "answer_vi": "Mình đang kẹt vì lỗi server staging.",
       "why_vi": "Bị động: am blocked by."
     },
     {
@@ -69,6 +81,7 @@
         "I'm waiting for the backend team finish the API."
       ],
       "answer": 0,
+      "answer_vi": "Mình đang chờ team backend làm xong API.",
       "why_vi": "wait for + someone + to V."
     },
     {
@@ -80,6 +93,7 @@
         "I don't have blocker nothing."
       ],
       "answer": 0,
+      "answer_vi": "Bên mình không vướng gì.",
       "why_vi": "Câu chuẩn trong standup. Không dùng hai phủ định cùng lúc."
     },
     {
@@ -91,6 +105,7 @@
         "I need access production database."
       ],
       "answer": 0,
+      "answer_vi": "Mình cần quyền truy cập database production.",
       "why_vi": "Danh từ access đi với to. Động từ access thì không có to: I need to access the database."
     },
     {
@@ -102,7 +117,68 @@
         "Could someone reviewing my PR today?"
       ],
       "answer": 0,
+      "answer_vi": "Ai review giúp mình PR này hôm nay được không?",
       "why_vi": "Sau could là động từ nguyên mẫu không to."
+    },
+    {
+      "id": "s03q6",
+      "prompt_vi": "Mình đang kẹt vì pipeline CI bị hỏng.",
+      "options": [
+        "I'm blocked by the broken CI pipeline.",
+        "I'm blocked from the broken CI pipeline.",
+        "I'm blocked by the CI pipeline broken."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình đang kẹt vì pipeline CI bị hỏng.",
+      "why_vi": "Bị chặn bởi cái gì thì dùng blocked by. broken đứng trước danh từ."
+    },
+    {
+      "id": "s03q7",
+      "prompt_vi": "Mình đang chờ QA test lại bản fix.",
+      "options": [
+        "I'm waiting for QA to retest the fix.",
+        "I'm waiting for QA to retesting the fix.",
+        "I waiting for QA to retest the fix."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình đang chờ QA test lại bản fix.",
+      "why_vi": "Sau to là động từ nguyên mẫu. Câu cần I'm trước waiting."
+    },
+    {
+      "id": "s03q8",
+      "prompt_vi": "Mình đang kẹt ở ticket Jira này.",
+      "options": [
+        "I'm stuck on this Jira ticket.",
+        "I stuck on this Jira ticket.",
+        "I'm sticking on this Jira ticket."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình đang kẹt ở ticket Jira này.",
+      "why_vi": "Đang kẹt là I'm stuck on. Không dùng sticking."
+    },
+    {
+      "id": "s03q9",
+      "prompt_vi": "Mình đang chờ ai đó approve hotfix.",
+      "options": [
+        "I'm waiting for someone to approve my hotfix.",
+        "I'm waiting someone to approve my hotfix.",
+        "I'm waiting for someone approves my hotfix."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình đang chờ ai đó approve hotfix của mình.",
+      "why_vi": "wait for + người + to V."
+    },
+    {
+      "id": "s03q10",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "This task depends on the payment API.",
+        "This task depend on the payment API.",
+        "This task depends in the payment API."
+      ],
+      "answer": 0,
+      "answer_vi": "Task này phụ thuộc vào API thanh toán.",
+      "why_vi": "Chủ ngữ số ít nên depends. Phụ thuộc vào là depend on."
     }
   ],
   "write_prompt_vi": "Viết 1 câu về thứ đang chặn bạn, hoặc nói rằng bạn không vướng gì."

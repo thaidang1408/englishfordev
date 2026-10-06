@@ -22,18 +22,34 @@
     {
       "en": "I haven't worked with GraphQL before, but I've built REST APIs for three years, and I'm happy to learn it.",
       "vi": "Mình chưa làm với GraphQL, nhưng mình đã làm REST API ba năm, và mình sẵn sàng học thêm."
+    },
+    {
+      "en": "I haven't used k6 for load testing, but I've done some performance testing with JMeter.",
+      "vi": "Mình chưa dùng k6 để test tải, nhưng mình đã làm một ít performance test với JMeter."
+    },
+    {
+      "en": "I haven't managed a team that big before, but I've led a team of six on a fixed-price project.",
+      "vi": "Mình chưa quản lý team lớn như vậy, nhưng mình đã dẫn một team sáu người trong một dự án giá cố định."
     }
   ],
   "mistakes": [
     {
       "wrong": "I have never use Kubernetes.",
       "right": "I have never used Kubernetes.",
+      "right_vi": "Mình chưa bao giờ dùng Kubernetes.",
       "why_vi": "Sau have dùng V3: used."
     },
     {
       "wrong": "I think it relate to caching.",
       "right": "I think it's related to caching.",
+      "right_vi": "Mình nghĩ nó liên quan đến cache.",
       "why_vi": "Liên quan đến là be related to, cần is."
+    },
+    {
+      "wrong": "I don't have experience about Docker.",
+      "right": "I don't have experience with Docker.",
+      "right_vi": "Mình chưa có kinh nghiệm với Docker.",
+      "why_vi": "Có kinh nghiệm với công cụ nào thì dùng with, không dùng about."
     }
   ],
   "word_bank": [
@@ -55,6 +71,7 @@
         "I haven't work with Kafka before."
       ],
       "answer": 0,
+      "answer_vi": "Mình chưa làm với Kafka bao giờ.",
       "why_vi": "ago phải đi sau một khoảng thời gian, như two years ago. Sau have dùng V3."
     },
     {
@@ -66,6 +83,7 @@
         "I haven't use it in production, but I've used it in side projects."
       ],
       "answer": 0,
+      "answer_vi": "Mình chưa dùng nó trên production, nhưng đã dùng trong dự án cá nhân.",
       "why_vi": "project đếm được nên cần số nhiều hoặc a. Sau have dùng V3."
     },
     {
@@ -77,6 +95,7 @@
         "I'm not sure, but I think it's related with caching."
       ],
       "answer": 0,
+      "answer_vi": "Mình không chắc, nhưng mình nghĩ nó liên quan đến cache.",
       "why_vi": "be related to: cần is, và giới từ là to."
     },
     {
@@ -88,6 +107,7 @@
         "I'd need to check the docs to sure."
       ],
       "answer": 0,
+      "answer_vi": "Mình cần đọc tài liệu mới chắc được.",
       "why_vi": "need + to V. sure là tính từ nên cần be: to be sure."
     },
     {
@@ -99,7 +119,68 @@
         "Could you explaining the question a bit more?"
       ],
       "answer": 0,
+      "answer_vi": "Bạn giải thích thêm câu hỏi một chút được không?",
       "why_vi": "more đứng sau tân ngữ. Sau could là động từ nguyên mẫu."
+    },
+    {
+      "id": "i08q6",
+      "prompt_vi": "Chọn câu trả lời phù hợp hơn.",
+      "options": [
+        "Not in production, but I've built a small demo with it, so I know the basics.",
+        "Yes, I'm an expert in it.",
+        "No. Next question, please."
+      ],
+      "answer": 0,
+      "answer_vi": "Chưa dùng trên production, nhưng mình đã làm một demo nhỏ với nó, nên mình nắm những điều cơ bản.",
+      "why_vi": "Nói thật rồi nói phần gần nhất mình đã làm. Không nhận bừa là chuyên gia, cũng không trả lời cụt lủn."
+    },
+    {
+      "id": "i08q7",
+      "prompt_vi": "Mình chưa có dịp dùng Terraform.",
+      "options": [
+        "I haven't had a chance to use Terraform yet.",
+        "I haven't had a chance to use Terraform already.",
+        "I haven't have a chance to use Terraform yet."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình chưa có dịp dùng Terraform.",
+      "why_vi": "Câu phủ định dùng yet, không dùng already. Sau have dùng V3: had."
+    },
+    {
+      "id": "i08q8",
+      "prompt_vi": "Câu hỏi hay, cho mình nghĩ một chút.",
+      "options": [
+        "That's a good question. Let me think for a second.",
+        "That's a good question. Let me to think for a second.",
+        "That's good question. Let me think for a second."
+      ],
+      "answer": 0,
+      "answer_vi": "Câu hỏi hay, cho mình nghĩ một chút.",
+      "why_vi": "let me + động từ nguyên mẫu, không có to. question đếm được nên cần a."
+    },
+    {
+      "id": "i08q9",
+      "prompt_vi": "Mình từng đọc về nó nhưng chưa dùng trong dự án thật.",
+      "options": [
+        "I've read about it, but I haven't used it in a real project.",
+        "I've read about it, but I haven't used it in real project.",
+        "I read about it, but I don't use it in a real project."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình từng đọc về nó nhưng chưa dùng trong dự án thật.",
+      "why_vi": "project đếm được nên cần a. Kinh nghiệm tính tới giờ dùng have + V3."
+    },
+    {
+      "id": "i08q10",
+      "prompt_vi": "Mình chưa làm với khách hàng trong ngành bảo hiểm.",
+      "options": [
+        "I haven't worked with clients in the insurance industry.",
+        "I haven't work with clients in the insurance industry.",
+        "I haven't worked with clients on the insurance industry."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình chưa làm với khách hàng trong ngành bảo hiểm.",
+      "why_vi": "Sau have dùng V3: worked. Trong một ngành là in the industry."
     }
   ],
   "write_prompt_vi": "Viết 2 câu trả lời một câu hỏi bạn chưa chắc: nói thật, rồi nói phần bạn biết."

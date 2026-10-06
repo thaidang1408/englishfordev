@@ -84,11 +84,18 @@ const telegramHref = bot && profile?.telegram_link_token ? startLink(bot, profil
               Đã liên kết. Từ thứ Hai đến thứ Sáu, bot nhắc bạn trước {standup} từ 30 đến 45 phút, nếu hôm đó bạn chưa học bài.
               {access.kind !== 'free' && ' Tối Chủ nhật 20:00 bạn nhận báo cáo tuần.'}
             </p>
-            <p class="muted" style="font-size:var(--fs-sm)">Muốn tắt, gõ /stop trong chat với bot.</p>
+            <p style="font-size:var(--fs-sm)">
+              Gửi cho bot một câu tiếng Anh bạn sắp viết trên Slack, Jira hay email, bot sửa và giải thích bằng tiếng Việt. Mỗi lần
+              tính một lượt sửa, lỗi vào sổ lỗi như khi sửa trên web.
+            </p>
+            <p class="muted" style="font-size:var(--fs-sm)">Cần hỗ trợ, gõ /hotro kèm nội dung. Muốn tắt, gõ /stop.</p>
           </>
         ) : telegramHref ? (
           <>
-            <p>Bot nhắc bạn học trước giờ standup, mỗi ngày tối đa một tin. Premium có thêm báo cáo tuần.</p>
+            <p>
+              Bot nhắc bạn học trước giờ standup, mỗi ngày tối đa một tin. Bạn cũng gửi câu tiếng Anh cho bot để sửa ngay trong
+              Telegram. Premium có thêm báo cáo tuần.
+            </p>
             <a class="btn btn-quiet" href={telegramHref} rel="noopener">
               Liên kết Telegram
             </a>

@@ -34,7 +34,7 @@ const num = String(lesson.id).padStart(2, '0');
       <h2 id="luyen-tap">Luyện tập</h2>
       <p class="muted kbd-hint">Phím <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> để chọn, <kbd>Enter</kbd> để sang câu sau.</p>
       <noscript><p class="note warn">Phần trắc nghiệm cần bật JavaScript.</p></noscript>
-      <Quiz client:visible lessonKey={key} items={lesson.quiz} next={nextLink} />
+      <Quiz client:visible lessonKey={key} pool={lesson.quiz} next={nextLink} />
     </section>
 
     <section class="part" aria-labelledby="cau-cua-ban">

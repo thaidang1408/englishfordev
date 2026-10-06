@@ -165,6 +165,8 @@ Mọi trang ngoài trang chủ dùng chung một khung, để sau khi đăng nh�
 | `/hoc/[slug]`, `/mau-cau/[slug]` | Đầu trang có số bài làm chữ nền và ba nhãn (10 phút, 5 phần, 5 câu trắc nghiệm); mỗi phần của bài là một thẻ có nhãn "Phần N trên 5" |
 | `/bang-gia`, `/bug-hom-nay`, `/dieu-khoan`, `/bao-mat`, 404, `/admin` | Cùng đầu trang; nội dung trong thẻ |
 
+Bản 1.1 (M8): ô sửa câu có bước "tự sửa trước" (câu gốc tô các đoạn sai bằng `mark`, số chỗ và nhóm lỗi, ô sửa, nút "Kiểm tra" và "Xem đáp án"); mọi đáp án có dòng `.vi-line` "Nghĩa: ..." màu muted dưới diff; `/so-loi` có bảng "Bản đồ lỗi 8 tuần" (`.err-map`, ô bo góc, 4 mức tím theo số lỗi, ô viền đứt là tuần không gửi câu).
+
 Design review các trang cần đăng nhập: `node .design-shots/mock-supabase.mjs` (Supabase giả có dữ liệu mẫu), build với `PUBLIC_SUPABASE_URL=http://localhost:54399`, rồi `node .design-shots/app-shots.mjs <url> <các trang>`. Chỉ dùng trên máy.
 
 ## 9. Chuyển động

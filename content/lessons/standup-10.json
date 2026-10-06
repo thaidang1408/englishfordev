@@ -21,22 +21,33 @@
     {
       "en": "We'll deploy to production on Friday if QA signs off.",
       "vi": "Nếu QA duyệt thì thứ Sáu mình deploy lên production."
+    },
+    {
+      "en": "To recap, we agreed to demo the new dashboard to the client next week.",
+      "vi": "Tóm lại, mình thống nhất tuần sau demo dashboard mới cho khách."
+    },
+    {
+      "en": "Hoa will write up the incident report by end of day.",
+      "vi": "Hoa sẽ viết xong báo cáo sự cố trong hôm nay."
     }
   ],
   "mistakes": [
     {
       "wrong": "We agreed ship the feature first.",
       "right": "We agreed to ship the feature first.",
+      "right_vi": "Mình thống nhất ra tính năng này trước.",
       "why_vi": "agree to + động từ nguyên mẫu."
     },
     {
       "wrong": "Minh will looks into the bug.",
       "right": "Minh will look into the bug.",
+      "right_vi": "Minh sẽ tìm hiểu bug này.",
       "why_vi": "Sau will là động từ nguyên mẫu, không thêm s."
     },
     {
       "wrong": "If QA will approve, we deploy Friday.",
       "right": "If QA approves, we'll deploy on Friday.",
+      "right_vi": "Nếu QA duyệt thì thứ Sáu mình deploy.",
       "why_vi": "Sau if dùng hiện tại, will để ở vế còn lại."
     }
   ],
@@ -60,6 +71,7 @@
         "To recap, we were agreed to ship the feature first."
       ],
       "answer": 0,
+      "answer_vi": "Tóm lại, mình thống nhất ra tính năng này trước.",
       "why_vi": "agree to + V. agree là động từ thường, không dùng were agreed."
     },
     {
@@ -71,6 +83,7 @@
         "Lan will update the docs API by Thursday."
       ],
       "answer": 0,
+      "answer_vi": "Lan sẽ cập nhật tài liệu API trước thứ Năm.",
       "why_vi": "Sau will là động từ nguyên mẫu. the API docs: từ bổ nghĩa đứng trước."
     },
     {
@@ -82,6 +95,7 @@
         "If QA approves it, we'll deploy in Friday."
       ],
       "answer": 0,
+      "answer_vi": "Nếu QA duyệt thì thứ Sáu mình deploy.",
       "why_vi": "Sau if dùng hiện tại: approves. Thứ trong tuần đi với on."
     },
     {
@@ -93,6 +107,7 @@
         "I'll post note of meeting in Slack."
       ],
       "answer": 0,
+      "answer_vi": "Mình sẽ gửi ghi chú buổi họp lên Slack.",
       "why_vi": "meeting notes: từ bổ nghĩa đứng trước, notes ở số nhiều, cần the."
     },
     {
@@ -104,7 +119,68 @@
         "Have anyone any other questions?"
       ],
       "answer": 0,
+      "answer_vi": "Còn ai có câu hỏi gì nữa không?",
       "why_vi": "Câu hỏi dùng does, sau does là have nguyên mẫu."
+    },
+    {
+      "id": "s10q6",
+      "prompt_vi": "Tóm lại, mình thống nhất bỏ tính năng chat khỏi sprint này.",
+      "options": [
+        "To recap, we agreed to drop the chat feature from this sprint.",
+        "To recap, we agreed dropping the chat feature from this sprint.",
+        "To recap, we agreed to drop the feature chat from this sprint."
+      ],
+      "answer": 0,
+      "answer_vi": "Tóm lại, mình thống nhất bỏ tính năng chat khỏi sprint này.",
+      "why_vi": "agree to + V. chat đứng trước feature."
+    },
+    {
+      "id": "s10q7",
+      "prompt_vi": "Huy sẽ tạo ticket Jira cho bug này.",
+      "options": [
+        "Huy will create a Jira ticket for this bug.",
+        "Huy will create Jira ticket for this bug.",
+        "Huy is will create a Jira ticket for this bug."
+      ],
+      "answer": 0,
+      "answer_vi": "Huy sẽ tạo ticket Jira cho bug này.",
+      "why_vi": "ticket đếm được nên cần a. will đứng một mình, không thêm is."
+    },
+    {
+      "id": "s10q8",
+      "prompt_vi": "Mình sẽ deploy hotfix trước 5 giờ chiều nay.",
+      "options": [
+        "I'll deploy the hotfix by 5 this afternoon.",
+        "I'll deploy the hotfix until 5 this afternoon.",
+        "I'll deploy the hotfix by 5 in this afternoon."
+      ],
+      "answer": 0,
+      "answer_vi": "Muộn nhất 5 giờ chiều nay mình sẽ deploy hotfix.",
+      "why_vi": "Hạn chót dùng by. Trước this afternoon không cần in."
+    },
+    {
+      "id": "s10q9",
+      "prompt_vi": "Bước tiếp theo là test lại app mobile.",
+      "options": [
+        "The next step is to retest the mobile app.",
+        "The next step is retest the mobile app.",
+        "The next steps is to retest the mobile app."
+      ],
+      "answer": 0,
+      "answer_vi": "Bước tiếp theo là test lại app mobile.",
+      "why_vi": "is + to V. Một bước là số ít: the next step is."
+    },
+    {
+      "id": "s10q10",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "Tuan will follow up with the DBA about the migration.",
+        "Tuan will follow up the DBA about the migration.",
+        "Tuan will following up with the DBA about the migration."
+      ],
+      "answer": 0,
+      "answer_vi": "Tuấn sẽ trao đổi tiếp với DBA về migration.",
+      "why_vi": "Trao đổi tiếp với ai là follow up with. Sau will là động từ nguyên mẫu."
     }
   ],
   "write_prompt_vi": "Viết 1 đến 2 câu tóm tắt buổi họp gần nhất: đã thống nhất gì và ai làm gì."

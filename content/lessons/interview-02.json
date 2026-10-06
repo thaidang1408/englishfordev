@@ -22,22 +22,33 @@
     {
       "en": "My most recent project was a data pipeline that collects logs from about 200 servers. We used Kafka and Spark.",
       "vi": "Dự án gần nhất của mình là một data pipeline thu thập log từ khoảng 200 server. Bọn mình dùng Kafka và Spark."
+    },
+    {
+      "en": "My most recent project was a banking app that lets users pay with QR codes. The team built it with Flutter, and I tested it with Appium.",
+      "vi": "Dự án gần nhất của mình là một app ngân hàng cho người dùng thanh toán bằng mã QR. Team làm bằng Flutter, còn mình test bằng Appium."
+    },
+    {
+      "en": "My most recent project was a learning platform that helps teachers create online quizzes. We built it with Next.js and PostgreSQL.",
+      "vi": "Dự án gần nhất của mình là một nền tảng học tập giúp giáo viên tạo bài kiểm tra online. Bọn mình làm bằng Next.js và PostgreSQL."
     }
   ],
   "mistakes": [
     {
       "wrong": "It is an app help users book tickets.",
       "right": "It's an app that helps users book tickets.",
+      "right_vi": "Đó là một app giúp người dùng đặt vé.",
       "why_vi": "Cần that trước phần mô tả, và động từ chia theo app: helps."
     },
     {
       "wrong": "The app lets users to pay online.",
       "right": "The app lets users pay online.",
+      "right_vi": "App cho phép người dùng thanh toán online.",
       "why_vi": "lets + người + động từ nguyên mẫu, không có to."
     },
     {
       "wrong": "We built it by React.",
       "right": "We built it with React.",
+      "right_vi": "Bọn mình làm nó bằng React.",
       "why_vi": "Nói làm bằng công nghệ gì thì dùng with, không dùng by."
     }
   ],
@@ -60,6 +71,7 @@
         "The app makes drivers can see their earnings."
       ],
       "answer": 0,
+      "answer_vi": "App cho tài xế xem thu nhập của họ.",
       "why_vi": "lets + người + động từ nguyên mẫu. Không ghép make với can."
     },
     {
@@ -71,6 +83,7 @@
         "My most recent project was a e-commerce website."
       ],
       "answer": 0,
+      "answer_vi": "Dự án gần nhất của mình là một trang thương mại điện tử.",
       "why_vi": "Gần nhất về thời gian là most recent, nearest là gần về khoảng cách. Trước âm e dùng an."
     },
     {
@@ -82,6 +95,7 @@
         "We were built it with Vue and Go."
       ],
       "answer": 0,
+      "answer_vi": "Bọn mình làm nó bằng Vue và Go.",
       "why_vi": "built it with + công nghệ. Không thêm were trước động từ quá khứ."
     },
     {
@@ -93,6 +107,7 @@
         "It's a tool internal that helps the HR team manage leave requests."
       ],
       "answer": 0,
+      "answer_vi": "Đó là một tool nội bộ giúp team HR quản lý đơn nghỉ phép.",
       "why_vi": "Cần that helps để nối phần mô tả. Từ bổ nghĩa đứng trước danh từ: internal tool."
     },
     {
@@ -104,7 +119,68 @@
         "The app is about 5,000 users per day."
       ],
       "answer": 0,
+      "answer_vi": "App có khoảng 5.000 người dùng mỗi ngày.",
       "why_vi": "every đi với danh từ số ít, gọn hơn là daily users. Có người dùng thì dùng has, không dùng is."
+    },
+    {
+      "id": "i02q6",
+      "prompt_vi": "Chọn câu trả lời phù hợp hơn.",
+      "options": [
+        "My most recent project was a CRM for a logistics company. We built it with .NET and Angular.",
+        "My most recent project was a huge system that changed the whole company.",
+        "My last project? It was just some CRM thing, nothing special."
+      ],
+      "answer": 0,
+      "answer_vi": "Dự án gần nhất của mình là một hệ thống CRM cho một công ty logistics. Bọn mình làm bằng .NET và Angular.",
+      "why_vi": "Nói rõ sản phẩm cho ai và dùng công nghệ gì. Không nói quá, cũng không nói qua loa."
+    },
+    {
+      "id": "i02q7",
+      "prompt_vi": "Nó giúp nhân viên kho kiểm hàng nhanh hơn.",
+      "options": [
+        "It helps warehouse staff check inventory faster.",
+        "It helps warehouse staff checking inventory faster.",
+        "It help warehouse staff check inventory faster."
+      ],
+      "answer": 0,
+      "answer_vi": "Nó giúp nhân viên kho kiểm hàng nhanh hơn.",
+      "why_vi": "helps + người + động từ nguyên mẫu. Chủ ngữ là it nên dùng helps."
+    },
+    {
+      "id": "i02q8",
+      "prompt_vi": "Dự án kéo dài khoảng tám tháng.",
+      "options": [
+        "The project lasted about eight months.",
+        "The project was lasted about eight months.",
+        "The project lasted in about eight months."
+      ],
+      "answer": 0,
+      "answer_vi": "Dự án kéo dài khoảng tám tháng.",
+      "why_vi": "last không dùng bị động nên không có was. Sau lasted nói thời gian luôn, không thêm in."
+    },
+    {
+      "id": "i02q9",
+      "prompt_vi": "Team dự án có năm dev và một QA.",
+      "options": [
+        "Our team had five developers and one QA engineer.",
+        "In our team had five developers and one QA engineer.",
+        "Our team had five developer and one QA engineer."
+      ],
+      "answer": 0,
+      "answer_vi": "Team dự án của mình có năm dev và một QA.",
+      "why_vi": "Không dịch chữ \"trong\" thành in đứng đầu câu, team là chủ ngữ. Năm người thì dùng số nhiều: developers."
+    },
+    {
+      "id": "i02q10",
+      "prompt_vi": "Phần lớn người dùng của bọn mình là chủ cửa hàng nhỏ.",
+      "options": [
+        "Most of our users are small shop owners.",
+        "Most of our user are small shop owners.",
+        "Most of our users are small shops owners."
+      ],
+      "answer": 0,
+      "answer_vi": "Phần lớn người dùng của bọn mình là chủ cửa hàng nhỏ.",
+      "why_vi": "Most of our + danh từ số nhiều. Danh từ đứng trước để bổ nghĩa thì không thêm s: shop owners."
     }
   ],
   "write_prompt_vi": "Viết 2 đến 3 câu về dự án gần nhất của bạn: sản phẩm làm gì, dùng công nghệ gì."

@@ -21,22 +21,33 @@
     {
       "en": "I'm not feeling well, so I'd like to work from home tomorrow.",
       "vi": "Mình không khoẻ nên mai mình muốn làm ở nhà."
+    },
+    {
+      "en": "I'd like to push the client call back by an hour, if that works for you.",
+      "vi": "Mình muốn lùi cuộc gọi với khách một tiếng, nếu bạn thấy tiện."
+    },
+    {
+      "en": "I'd like to take three days off next week for my sister's wedding.",
+      "vi": "Mình muốn xin nghỉ ba ngày tuần sau để đi đám cưới chị gái."
     }
   ],
   "mistakes": [
     {
       "wrong": "I'd like to off on Friday.",
       "right": "I'd like to take Friday off.",
+      "right_vi": "Mình muốn xin nghỉ thứ Sáu.",
       "why_vi": "off không phải động từ. Xin nghỉ một ngày dùng take + ngày + off."
     },
     {
       "wrong": "I'd like to taking Monday off.",
       "right": "I'd like to take Monday off.",
+      "right_vi": "Mình muốn xin nghỉ thứ Hai.",
       "why_vi": "Sau I'd like to là động từ nguyên mẫu."
     },
     {
       "wrong": "I'd like to move the meeting on Thursday.",
       "right": "I'd like to move the meeting to Thursday.",
+      "right_vi": "Mình muốn dời buổi họp sang thứ Năm.",
       "why_vi": "Dời sang ngày nào thì dùng to."
     }
   ],
@@ -60,6 +71,7 @@
         "I'd like to taking Monday off."
       ],
       "answer": 0,
+      "answer_vi": "Mình muốn xin nghỉ thứ Hai.",
       "why_vi": "take + ngày + off. Sau I'd like to là động từ nguyên mẫu."
     },
     {
@@ -71,6 +83,7 @@
         "I'd like move the meeting to 3 PM."
       ],
       "answer": 0,
+      "answer_vi": "Mình muốn dời buổi họp sang 3 giờ chiều.",
       "why_vi": "Dời sang giờ nào dùng to. I'd like phải có to trước động từ."
     },
     {
@@ -82,6 +95,7 @@
         "I'd like take time off from June 10 to June 12."
       ],
       "answer": 0,
+      "answer_vi": "Mình muốn xin nghỉ từ ngày 10 đến ngày 12 tháng 6.",
       "why_vi": "Từ ngày này đến ngày kia dùng from ... to. since chỉ dùng cho mốc đã qua đến giờ."
     },
     {
@@ -93,6 +107,7 @@
         "I'm not feeling well, so I'd like to work in home today."
       ],
       "answer": 0,
+      "answer_vi": "Mình không khoẻ nên hôm nay muốn làm ở nhà.",
       "why_vi": "am + V-ing: not feeling well. Làm ở nhà là work from home."
     },
     {
@@ -104,7 +119,68 @@
         "I'd like to move the demo to next week, if that's work for you."
       ],
       "answer": 0,
+      "answer_vi": "Mình muốn dời buổi demo sang tuần sau, nếu bạn thấy ổn.",
       "why_vi": "next week không có the. works là động từ, không thêm is."
+    },
+    {
+      "id": "w08q6",
+      "prompt_vi": "Mình muốn nghỉ chiều nay để đi khám bệnh.",
+      "options": [
+        "I'd like to take this afternoon off to see a doctor.",
+        "I'd like to take this afternoon off to see doctor.",
+        "I'd like to take off in this afternoon to see a doctor."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình muốn nghỉ chiều nay để đi khám bệnh.",
+      "why_vi": "Đi khám là see a doctor, cần a. Trước this afternoon không dùng in."
+    },
+    {
+      "id": "w08q7",
+      "prompt_vi": "Mình muốn dời buổi sprint planning sang sáng thứ Ba.",
+      "options": [
+        "I'd like to move sprint planning to Tuesday morning.",
+        "I'd like to move sprint planning to morning Tuesday.",
+        "I'd like to move sprint planning to the Tuesday morning."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình muốn dời buổi sprint planning sang sáng thứ Ba.",
+      "why_vi": "Thứ đứng trước buổi: Tuesday morning. Không thêm the trước thứ trong tuần."
+    },
+    {
+      "id": "w08q8",
+      "prompt_vi": "Mình muốn gia hạn deadline của ticket này đến thứ Năm.",
+      "options": [
+        "I'd like to extend the deadline for this ticket to Thursday.",
+        "I'd like to extend the deadline for this ticket in Thursday.",
+        "I'd like to longer the deadline for this ticket to Thursday."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình muốn gia hạn deadline của ticket này đến thứ Năm.",
+      "why_vi": "Gia hạn là extend, longer không phải động từ. Dời đến ngày nào dùng to."
+    },
+    {
+      "id": "w08q9",
+      "prompt_vi": "Mình muốn đổi ca trực on-call với Nam tuần này.",
+      "options": [
+        "I'd like to swap my on-call shift with Nam this week.",
+        "I'd like to change shift on-call with Nam this week.",
+        "I'd like to swap my on-call shift with Nam in this week."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình muốn đổi ca trực on-call với Nam tuần này.",
+      "why_vi": "Từ bổ nghĩa đứng trước: on-call shift. Trước this week không dùng in."
+    },
+    {
+      "id": "w08q10",
+      "prompt_vi": "Mình muốn bỏ buổi standup hôm nay vì có cuộc gọi với khách.",
+      "options": [
+        "I'd like to skip today's standup because I have a client call.",
+        "I'd like to skip the standup of today because I have a client call.",
+        "I'd like to skip today's standup because of I have a client call."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình muốn bỏ buổi standup hôm nay vì có cuộc gọi với khách.",
+      "why_vi": "Của hôm nay viết today's. Trước một câu có chủ ngữ dùng because, không dùng because of."
     }
   ],
   "write_prompt_vi": "Viết 1 đến 2 câu email xin nghỉ một ngày hoặc xin dời một buổi họp."

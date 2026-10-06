@@ -21,22 +21,33 @@
     {
       "en": "nit: Could we rename this to userId?",
       "vi": "Góp ý nhỏ: mình đổi tên chỗ này thành userId được không?"
+    },
+    {
+      "en": "Could we add an index on user_id? This query runs on every page load.",
+      "vi": "Mình thêm index cho user_id được không? Query này chạy mỗi lần tải trang."
+    },
+    {
+      "en": "Maybe we should log the error here instead of ignoring it.",
+      "vi": "Có lẽ mình nên log lỗi ở đây thay vì bỏ qua nó."
     }
   ],
   "mistakes": [
     {
       "wrong": "You must change this.",
       "right": "Could we change this?",
+      "right_vi": "Mình đổi chỗ này được không?",
       "why_vi": "must nghe như ra lệnh. Could we nghe như cùng bàn với nhau."
     },
     {
       "wrong": "Could we to move this to a helper?",
       "right": "Could we move this to a helper?",
+      "right_vi": "Mình chuyển phần này sang một hàm helper được không?",
       "why_vi": "Sau could là động từ nguyên mẫu, không có to."
     },
     {
       "wrong": "Why you don't use a map here?",
       "right": "Why don't we use a map here?",
+      "right_vi": "Sao mình không dùng map ở đây?",
       "why_vi": "Câu hỏi với why cần don't đứng trước chủ ngữ."
     }
   ],
@@ -61,6 +72,7 @@
         "Could we add null check at here?"
       ],
       "answer": 0,
+      "answer_vi": "Mình thêm kiểm tra null ở đây được không?",
       "why_vi": "Sau could là động từ nguyên mẫu. Cần a trước null check, và here không đi với at."
     },
     {
@@ -72,6 +84,7 @@
         "Could we split this function to make it easier for read?"
       ],
       "answer": 0,
+      "answer_vi": "Mình tách hàm này ra cho dễ đọc được không?",
       "why_vi": "Chỉ mục đích dùng to + V: to make it easier to read."
     },
     {
@@ -83,6 +96,7 @@
         "Why don't we use constant at here?"
       ],
       "answer": 0,
+      "answer_vi": "Sao mình không dùng hằng số ở đây?",
       "why_vi": "Câu hỏi why đặt don't trước we. Cần a trước constant."
     },
     {
@@ -94,6 +108,7 @@
         "nit: It has missing semicolon here."
       ],
       "answer": 0,
+      "answer_vi": "Góp ý nhỏ: chỗ này thiếu dấu chấm phẩy.",
       "why_vi": "Nói có hoặc thiếu thứ gì ở đâu thì dùng There's + danh từ + here."
     },
     {
@@ -105,7 +120,68 @@
         "Maybe we should add test for this case."
       ],
       "answer": 0,
+      "answer_vi": "Có lẽ mình nên thêm test cho trường hợp này.",
       "why_vi": "Sau should là động từ nguyên mẫu. test đếm được nên cần a."
+    },
+    {
+      "id": "w03q6",
+      "prompt_vi": "Mình chuyển giá trị timeout này vào file config được không?",
+      "options": [
+        "Could we move this timeout value to the config file?",
+        "Could we move this timeout value to the file config?",
+        "Could we move this timeout value in the config file?"
+      ],
+      "answer": 0,
+      "answer_vi": "Mình chuyển giá trị timeout này vào file config được không?",
+      "why_vi": "Từ bổ nghĩa đứng trước: config file. Chuyển vào đâu dùng to, không dùng in."
+    },
+    {
+      "id": "w03q7",
+      "prompt_vi": "Có lẽ mình nên tách PR này thành hai PR nhỏ hơn.",
+      "options": [
+        "Maybe we should split this PR into two smaller PRs.",
+        "Maybe we should split this PR to two smaller PRs.",
+        "Maybe we should split this PR into two more small PRs."
+      ],
+      "answer": 0,
+      "answer_vi": "Có lẽ mình nên tách PR này thành hai PR nhỏ hơn.",
+      "why_vi": "Tách thành dùng split into. Tính từ ngắn so sánh hơn thêm er: smaller."
+    },
+    {
+      "id": "w03q8",
+      "prompt_vi": "Mình dùng biến môi trường thay vì hardcode URL được không?",
+      "options": [
+        "Could we use an environment variable instead of hardcoding the URL?",
+        "Could we use an environment variable instead of hardcode the URL?",
+        "Could we use environment variable instead of hardcoding the URL?"
+      ],
+      "answer": 0,
+      "answer_vi": "Mình dùng biến môi trường thay vì hardcode URL được không?",
+      "why_vi": "Sau instead of dùng V-ing. variable đếm được nên cần an."
+    },
+    {
+      "id": "w03q9",
+      "prompt_vi": "Có lẽ mình nên bắt lỗi khi gọi API thanh toán.",
+      "options": [
+        "Maybe we should catch errors from the payment API.",
+        "Maybe we should catches errors from the payment API.",
+        "Maybe we should catch errors of the payment API."
+      ],
+      "answer": 0,
+      "answer_vi": "Có lẽ mình nên bắt lỗi từ API thanh toán.",
+      "why_vi": "Sau should là động từ nguyên mẫu. Lỗi trả về từ API thì dùng from."
+    },
+    {
+      "id": "w03q10",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "Could we disable the button while the request is pending?",
+        "Could we disable the button while the request pending?",
+        "Could we disabled the button while the request is pending?"
+      ],
+      "answer": 0,
+      "answer_vi": "Mình khoá nút này trong lúc request đang chờ được không?",
+      "why_vi": "Vế sau while cần động từ: is pending. Sau could là động từ nguyên mẫu."
     }
   ],
   "write_prompt_vi": "Viết 1 comment góp ý cho một đoạn code bạn từng review."

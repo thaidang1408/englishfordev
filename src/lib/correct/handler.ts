@@ -64,21 +64,109 @@ type Input = {
   siteUrl?: string;
 };
 
+export type CorrectData = {
+  id: string;
+  original: string;
+  result: Correction;
+  remaining: number;
+  period: 'day' | 'week';
+  /** Số mục ôn own_error vừa tạo, để giao diện nói rõ lỗi đã vào phần ôn hay chưa. */
+  review_items: number;
+};
+
+/** Kết quả của một lần sửa, dùng chung cho /api/correct và bot Telegram. */
+export type CorrectOutcome = { ok: true; data: CorrectData } | { ok: false; status: number; code: string; message: string };
+
+const failed = (status: number, code: string, message: string): CorrectOutcome => ({ ok: false, status, code, message });
+
 /**
  * Hết lượt. Tài khoản miễn phí nhận mã riêng để giao diện hiện link nâng cấp; câu mời dùng số liệu
  * của chính người đó, không có lỗi nào được ghi thì không nêu số.
  */
-async function quotaExceeded(kind: Quota['kind'], repo: CorrectRepo, userId: string): Promise<Response> {
-  if (kind !== 'free') return fail(429, 'quota_exceeded', quotaMessage(kind));
+async function quotaExceeded(kind: Quota['kind'], repo: CorrectRepo, userId: string): Promise<CorrectOutcome> {
+  if (kind !== 'free') return failed(429, 'quota_exceeded', quotaMessage(kind));
   const stats = await repo.getErrorStats(userId);
   const book = stats.errors > 0 ? ` Sổ lỗi của bạn có ${stats.errors} lỗi, ${stats.repeating} lỗi đang lặp lại.` : '';
-  return fail(429, 'free_quota_exceeded', `${quotaMessage(kind)}${book} Nâng cấp để sửa câu mỗi ngày.`);
+  return failed(429, 'free_quota_exceeded', `${quotaMessage(kind)}${book} Nâng cấp để sửa câu mỗi ngày.`);
 }
 
-const unavailable = () => fail(503, 'ai_unavailable', 'Tính năng sửa câu đang tạm tắt. Lượt sửa của bạn chưa bị trừ.');
+const UNAVAILABLE = 'Tính năng sửa câu đang tạm tắt. Lượt sửa của bạn chưa bị trừ.';
+const AI_FAILED = 'Chưa sửa được câu này. Lượt sửa của bạn chưa bị trừ, bạn thử lại sau ít phút.';
 
-const aiFailed = () =>
-  fail(502, 'ai_failed', 'Chưa sửa được câu này. Lượt sửa của bạn chưa bị trừ, bạn thử lại sau ít phút.');
+export type RunInput = {
+  userId: string;
+  /** Đã trim và đã kiểm độ dài. */
+  sentence: string;
+  mode: Mode;
+  lesson?: Lesson;
+  question?: string;
+  repo: CorrectRepo;
+  correct: CorrectSentence;
+  model: string;
+  now: Date;
+  dailyCap: number;
+};
+
+/** Phần chung sau khi đã biết người dùng và câu hợp lệ: quyền, hạn mức, gọi AI, lưu. */
+export async function runCorrection(input: RunInput): Promise<CorrectOutcome> {
+  const { userId, sentence, mode, lesson, question, repo, correct, model, now, dailyCap } = input;
+  // Quyền và hạn mức, đọc từ database ngay lúc này
+  const access = accessFrom(await repo.getEntitlement(userId), now);
+  if (mode === 'interview' && !canInterview(access)) {
+    return failed(403, 'premium_required', 'Phỏng vấn thử chỉ có ở Premium và trong 7 ngày dùng thử.');
+  }
+  if (lesson && !lesson.free && !hasFullAccess(access)) {
+    return failed(403, 'premium_required', 'Bài này cần Premium. Nâng cấp để học tiếp.');
+  }
+  const quota = quotaFor(access, now);
+  const used = await repo.countUserCorrections(userId, quota.since);
+  if (used >= quota.limit) return quotaExceeded(quota.kind, repo, userId);
+  const capSince = vnStartOfDay(now);
+  if ((await repo.countAllCorrections(capSince)) >= dailyCap) return failed(429, 'system_cap', SYSTEM_CAP_MESSAGE);
+
+  // Việc chính. Lượt chỉ bị trừ khi đã lưu được kết quả hợp lệ.
+  const context: CorrectContext = {
+    mode,
+    question,
+    lesson: lesson ? { title: lesson.title, formula: lesson.pattern.formula } : undefined,
+  };
+  let result: Correction;
+  try {
+    result = await correct(sentence, context);
+  } catch (e) {
+    console.error('[correct] AI lỗi:', e instanceof AiError ? e.reason : 'không rõ');
+    return failed(502, 'ai_failed', AI_FAILED);
+  }
+
+  const saved = await repo.save({
+    user_id: userId,
+    lesson_key: lesson ? lessonKey(lesson) : null,
+    mode,
+    original: sentence,
+    result,
+    model,
+    own_errors: keepsOwnErrors(access),
+    due_at: firstDue(now).toISOString(),
+    limit: quota.limit,
+    since: quota.since.toISOString(),
+    daily_cap: dailyCap,
+    cap_since: capSince.toISOString(),
+  });
+  if (saved.status === 'quota') return quotaExceeded(quota.kind, repo, userId);
+  if (saved.status === 'cap') return failed(429, 'system_cap', SYSTEM_CAP_MESSAGE);
+
+  return {
+    ok: true,
+    data: {
+      id: saved.id,
+      original: sentence,
+      result,
+      remaining: Math.max(0, quota.limit - used - 1),
+      period: quota.kind === 'free' ? 'week' : 'day',
+      review_items: keepsOwnErrors(access) ? result.changes.length : 0,
+    },
+  };
+}
 
 /** POST /api/correct (SPEC mục 7). */
 export async function handleCorrect(input: Input): Promise<Response> {
@@ -119,62 +207,11 @@ export async function handleCorrect(input: Input): Promise<Response> {
 
   if (!repo || !correct) {
     console.error('[api/correct] thiếu', !repo ? 'SUPABASE_SERVICE_ROLE_KEY' : 'ANTHROPIC_API_KEY');
-    return unavailable();
+    return fail(503, 'ai_unavailable', UNAVAILABLE);
   }
 
-  // 5. Quyền và hạn mức, đọc từ database ngay lúc này
-  const access = accessFrom(await repo.getEntitlement(user.id), now);
-  if (mode === 'interview' && !canInterview(access)) {
-    return fail(403, 'premium_required', 'Phỏng vấn thử chỉ có ở Premium và trong 7 ngày dùng thử.');
-  }
-  if (lesson && !lesson.free && !hasFullAccess(access)) {
-    return fail(403, 'premium_required', 'Bài này cần Premium. Nâng cấp để học tiếp.');
-  }
-  const quota = quotaFor(access, now);
-  const used = await repo.countUserCorrections(user.id, quota.since);
-  if (used >= quota.limit) return quotaExceeded(quota.kind, repo, user.id);
-  const capSince = vnStartOfDay(now);
-  if ((await repo.countAllCorrections(capSince)) >= dailyCap) return fail(429, 'system_cap', SYSTEM_CAP_MESSAGE);
-
-  // 6. Việc chính. Lượt chỉ bị trừ khi đã lưu được kết quả hợp lệ.
-  const context: CorrectContext = {
-    mode,
-    question,
-    lesson: lesson ? { title: lesson.title, formula: lesson.pattern.formula } : undefined,
-  };
-  let result: Correction;
-  try {
-    result = await correct(sentence, context);
-  } catch (e) {
-    console.error('[api/correct] AI lỗi:', e instanceof AiError ? e.reason : 'không rõ');
-    return aiFailed();
-  }
-
-  const saved = await repo.save({
-    user_id: user.id,
-    lesson_key: lesson ? lessonKey(lesson) : null,
-    mode,
-    original: sentence,
-    result,
-    model,
-    own_errors: keepsOwnErrors(access),
-    due_at: firstDue(now).toISOString(),
-    limit: quota.limit,
-    since: quota.since.toISOString(),
-    daily_cap: dailyCap,
-    cap_since: capSince.toISOString(),
-  });
-  if (saved.status === 'quota') return quotaExceeded(quota.kind, repo, user.id);
-  if (saved.status === 'cap') return fail(429, 'system_cap', SYSTEM_CAP_MESSAGE);
-
+  // 5 và 6. Quyền, hạn mức, việc chính
+  const out = await runCorrection({ userId: user.id, sentence, mode, lesson, question, repo, correct, model, now, dailyCap });
   // 7. Phản hồi
-  return ok({
-    id: saved.id,
-    original: sentence,
-    result,
-    remaining: Math.max(0, quota.limit - used - 1),
-    period: quota.kind === 'free' ? 'week' : 'day',
-    // Số mục ôn own_error vừa tạo, để giao diện nói rõ lỗi đã vào phần ôn hay chưa.
-    review_items: keepsOwnErrors(access) ? result.changes.length : 0,
-  });
+  return out.ok ? ok(out.data) : fail(out.status, out.code, out.message);
 }

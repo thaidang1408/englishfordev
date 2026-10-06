@@ -52,3 +52,11 @@ Bài 1 đến 3 là bài mẫu chủ dự án đưa vào từ đầu.
 
 - [ ] `/dieu-khoan` — Cần xem: cam kết "báo trước 30 ngày và hoàn tiền phần chưa dùng nếu EPC ngừng hoạt động", và việc khóa tài khoản vi phạm (làm tay trong Supabase).
 - [ ] `/bao-mat` — Cần xem: cam kết xóa dữ liệu "trong vòng 7 ngày", và danh sách bên xử lý dữ liệu.
+
+## Mở rộng nội dung M8 (06/10/2026)
+
+Cả 30 bài được thêm: 2 ví dụ (đủ 5), lỗi thứ 3 cho bài còn thiếu, 5 câu trắc nghiệm mới (q6 đến q10), nghĩa tiếng Việt `right_vi` cho mọi lỗi hay gặp và `answer_vi` cho mọi câu trắc nghiệm. Không sửa câu cũ.
+
+- [ ] Track Standup: 20 ví dụ mới, 50 câu trắc nghiệm mới. Cần xem: s06q9 (lỗi trật tự từ "make clear this requirement"), s09q7 ("so big" và "too big"), s08q10 (đáp án dạng bị động "will be delayed").
+- [ ] Track Viết: 20 ví dụ mới, 50 câu trắc nghiệm mới, thêm lỗi thứ 3 cho writing-06. Cần xem: w03q6 (giới từ sau "move"), ví dụ 4 của w08 ("push the client call back by an hour" hơi khó), `right_vi` của w01 và w02 không có dấu chấm vì câu gốc là tiêu đề và commit.
+- [ ] Track Phỏng vấn: 20 ví dụ mới, 50 câu trắc nghiệm mới, q6 mỗi bài là câu chọn giọng điệu ("Chọn câu trả lời phù hợp hơn."). Cần xem: i09q6 (đáp án sai vì thiếu tìm hiểu, không vì ngữ pháp), i10q7 (chỉ sai trật tự từ), i02q9.

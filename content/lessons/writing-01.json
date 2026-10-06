@@ -21,22 +21,33 @@
     {
       "en": "This PR updates the user API to return the avatar URL.",
       "vi": "PR này cập nhật API user để trả về URL avatar."
+    },
+    {
+      "en": "Update the deploy script to run migrations first",
+      "vi": "Cập nhật script deploy để chạy migration trước."
+    },
+    {
+      "en": "This PR fixes the flaky login test reported by QA.",
+      "vi": "PR này sửa test đăng nhập lúc pass lúc fail mà QA đã báo."
     }
   ],
   "mistakes": [
     {
       "wrong": "Fix bug login",
       "right": "Fix login bug",
+      "right_vi": "Sửa lỗi đăng nhập",
       "why_vi": "Từ bổ nghĩa đứng trước danh từ chính: login bug."
     },
     {
       "wrong": "This PR add a date filter.",
       "right": "This PR adds a date filter.",
+      "right_vi": "PR này thêm bộ lọc theo ngày.",
       "why_vi": "This PR là số ít nên động từ thêm s."
     },
     {
       "wrong": "Add validate for the email field",
       "right": "Add validation for the email field",
+      "right_vi": "Thêm kiểm tra cho trường email",
       "why_vi": "Sau add cần danh từ: validation, không phải động từ validate."
     }
   ],
@@ -61,6 +72,7 @@
         "Fix crash when the cart are empty"
       ],
       "answer": 0,
+      "answer_vi": "Sửa lỗi crash khi giỏ hàng trống.",
       "why_vi": "Vế sau when cần động từ: the cart is empty. Chủ ngữ số ít đi với is."
     },
     {
@@ -72,6 +84,7 @@
         "This PR adds a filter date to the list order."
       ],
       "answer": 0,
+      "answer_vi": "PR này thêm bộ lọc theo ngày cho danh sách đơn hàng.",
       "why_vi": "This PR số ít nên adds. Từ bổ nghĩa đứng trước: date filter, order list."
     },
     {
@@ -83,6 +96,7 @@
         "Fix timeout when uploading images large"
       ],
       "answer": 0,
+      "answer_vi": "Sửa lỗi timeout khi upload ảnh lớn.",
       "why_vi": "Sau when không có chủ ngữ thì dùng V-ing. Tính từ large đứng trước danh từ."
     },
     {
@@ -94,6 +108,7 @@
         "This PR renames the variables to make the code more easy to read."
       ],
       "answer": 0,
+      "answer_vi": "PR này đổi tên biến để code dễ đọc hơn.",
       "why_vi": "Chỉ mục đích dùng to + V. Tính từ ngắn so sánh hơn thêm er: easier."
     },
     {
@@ -105,7 +120,68 @@
         "Add validation for the field email"
       ],
       "answer": 0,
+      "answer_vi": "Thêm kiểm tra cho trường email.",
       "why_vi": "Sau add là danh từ validation. Từ bổ nghĩa đứng trước: email field."
+    },
+    {
+      "id": "w01q6",
+      "prompt_vi": "Tiêu đề PR: Xoá các feature flag cũ.",
+      "options": [
+        "Remove old feature flags",
+        "Removed old feature flags",
+        "Remove feature flags old"
+      ],
+      "answer": 0,
+      "answer_vi": "Xoá các feature flag cũ.",
+      "why_vi": "Tiêu đề dùng động từ nguyên mẫu: Remove. Tính từ old đứng trước danh từ."
+    },
+    {
+      "id": "w01q7",
+      "prompt_vi": "PR này nâng Node lên bản 20 trong CI pipeline.",
+      "options": [
+        "This PR upgrades Node to version 20 in the CI pipeline.",
+        "This PR upgrades Node to the version 20 in the CI pipeline.",
+        "This PR is upgrade Node to version 20 in the CI pipeline."
+      ],
+      "answer": 0,
+      "answer_vi": "PR này nâng Node lên bản 20 trong CI pipeline.",
+      "why_vi": "Không dùng the trước version + số. upgrade đã là động từ, không thêm is."
+    },
+    {
+      "id": "w01q8",
+      "prompt_vi": "Tiêu đề PR: Thêm unit test cho service thanh toán.",
+      "options": [
+        "Add unit tests for the payment service",
+        "Adding unit tests for the payment service",
+        "Add unit tests for the service payment"
+      ],
+      "answer": 0,
+      "answer_vi": "Thêm unit test cho service thanh toán.",
+      "why_vi": "Tiêu đề bắt đầu bằng động từ nguyên mẫu, không dùng V-ing. Từ bổ nghĩa đứng trước: payment service."
+    },
+    {
+      "id": "w01q9",
+      "prompt_vi": "PR này sửa cách tính thuế sai trên hoá đơn.",
+      "options": [
+        "This PR fixes the incorrect tax calculation on invoices.",
+        "This PR fixs the incorrect tax calculation on invoices.",
+        "This PR fixes the tax calculation incorrect on invoices."
+      ],
+      "answer": 0,
+      "answer_vi": "PR này sửa cách tính thuế sai trên hoá đơn.",
+      "why_vi": "Động từ tận cùng bằng x thì thêm es: fixes. Tính từ incorrect đứng trước danh từ."
+    },
+    {
+      "id": "w01q10",
+      "prompt_vi": "Tiêu đề PR: Đổi tên cột created thành created_at.",
+      "options": [
+        "Rename the created column to created_at",
+        "Rename the created column into created_at",
+        "Change name the created column to created_at"
+      ],
+      "answer": 0,
+      "answer_vi": "Đổi tên cột created thành created_at.",
+      "why_vi": "Đổi tên là rename, đổi thành tên gì dùng to."
     }
   ],
   "write_prompt_vi": "Viết tiêu đề và một câu mô tả cho pull request gần nhất của bạn."

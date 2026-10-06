@@ -21,22 +21,33 @@
     {
       "en": "I've addressed most of the review comments, but two are still open.",
       "vi": "Mình đã sửa theo phần lớn comment review, còn hai cái chưa xong."
+    },
+    {
+      "en": "I've finished the database migration, but the data cleanup is still in progress.",
+      "vi": "Mình làm xong migration database rồi, nhưng phần dọn dữ liệu vẫn đang làm."
+    },
+    {
+      "en": "I've prepared the client demo, but the release notes are still in progress.",
+      "vi": "Mình chuẩn bị xong bản demo cho khách rồi, nhưng release note vẫn đang viết."
     }
   ],
   "mistakes": [
     {
       "wrong": "I have finish the API.",
       "right": "I've finished the API.",
+      "right_vi": "Mình làm xong API rồi.",
       "why_vi": "Sau have là động từ dạng V3: finished."
     },
     {
       "wrong": "The UI still doing.",
       "right": "The UI is still in progress.",
+      "right_vi": "Phần UI vẫn đang làm.",
       "why_vi": "Câu cần động từ is. Việc đang làm dở thì nói in progress."
     },
     {
       "wrong": "It's done 80 percent.",
       "right": "It's about 80 percent done.",
+      "right_vi": "Phần này xong khoảng 80% rồi.",
       "why_vi": "Phần trăm đứng trước done: 80 percent done."
     }
   ],
@@ -60,6 +71,7 @@
         "I finished already the login API."
       ],
       "answer": 0,
+      "answer_vi": "Mình làm xong API đăng nhập rồi.",
       "why_vi": "have + V3: I've finished. already không đứng giữa động từ và tân ngữ."
     },
     {
@@ -71,6 +83,7 @@
         "The UI is still doing."
       ],
       "answer": 0,
+      "answer_vi": "Phần UI vẫn đang làm dở.",
       "why_vi": "Câu cần is. UI không tự làm được nên không nói is doing."
     },
     {
@@ -82,6 +95,7 @@
         "I've finished the API, but I still not write the tests."
       ],
       "answer": 0,
+      "answer_vi": "Mình làm xong API rồi, nhưng chưa viết test.",
       "why_vi": "haven't + V3: written. Phủ định cần trợ động từ, không đặt not trơn trước động từ."
     },
     {
@@ -93,6 +107,7 @@
         "It's done about 80 percent."
       ],
       "answer": 0,
+      "answer_vi": "Phần này xong khoảng 80% rồi.",
       "why_vi": "Mẫu gọn: it's + about + phần trăm + done. Phần trăm đứng trước done."
     },
     {
@@ -104,7 +119,68 @@
         "That bug fixed and is waiting for review."
       ],
       "answer": 0,
+      "answer_vi": "Bug đó sửa xong rồi, đang chờ review.",
       "why_vi": "Bug được sửa nên dùng is fixed. wait luôn đi với for."
+    },
+    {
+      "id": "s04q6",
+      "prompt_vi": "Mình sửa xong pipeline CI rồi, nhưng bước deploy vẫn đang làm.",
+      "options": [
+        "I've fixed the CI pipeline, but the deploy step is still in progress.",
+        "I've fixed the CI pipeline, but the deploy step is still on progress.",
+        "I've fixed CI pipeline, but the deploy step is still in progress."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình sửa xong pipeline CI rồi, nhưng bước deploy vẫn đang làm.",
+      "why_vi": "Cụm cố định: in progress. pipeline đếm được nên cần the."
+    },
+    {
+      "id": "s04q7",
+      "prompt_vi": "Mình vừa làm xong hotfix.",
+      "options": [
+        "I've just finished the hotfix.",
+        "I just have finished the hotfix.",
+        "I've just finishing the hotfix."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình vừa làm xong hotfix.",
+      "why_vi": "just đứng giữa I've và động từ. Sau have là V3: finished."
+    },
+    {
+      "id": "s04q8",
+      "prompt_vi": "QA test xong màn hình đăng ký rồi, màn hình thanh toán thì chưa.",
+      "options": [
+        "QA has finished testing the sign-up screen, but not the payment screen yet.",
+        "QA has finished to test the sign-up screen, but not the payment screen yet.",
+        "QA has finished testing the sign-up screen, but the payment screen not yet."
+      ],
+      "answer": 0,
+      "answer_vi": "QA test xong màn hình đăng ký rồi, màn hình thanh toán thì chưa.",
+      "why_vi": "finish + V-ing: finished testing. Nói phần chưa xong gọn là but not ... yet."
+    },
+    {
+      "id": "s04q9",
+      "prompt_vi": "Còn hai endpoint API chưa làm.",
+      "options": [
+        "There are still two API endpoints left.",
+        "There are still two endpoints API left.",
+        "There is still two API endpoints left."
+      ],
+      "answer": 0,
+      "answer_vi": "Còn hai endpoint API chưa làm.",
+      "why_vi": "API đứng trước endpoints. Hai endpoint là số nhiều nên dùng there are."
+    },
+    {
+      "id": "s04q10",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "I haven't tested the mobile app on Android yet.",
+        "I haven't tested yet the mobile app on Android.",
+        "I not tested the mobile app on Android yet."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình chưa test app mobile trên Android.",
+      "why_vi": "yet đứng cuối câu. Phủ định cần trợ động từ: haven't."
     }
   ],
   "write_prompt_vi": "Viết 1 đến 2 câu về một việc bạn đã xong và một việc còn dở."

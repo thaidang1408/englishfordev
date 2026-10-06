@@ -1,6 +1,6 @@
 import { useEffect, useRef, type ReactNode, type RefObject } from 'react';
 
-export type Question = { id: string; prompt_vi: string; options: string[]; answer: number; why_vi: string };
+export type Question = { id: string; prompt_vi: string; options: string[]; answer: number; answer_vi?: string; why_vi: string };
 export type Step = 'ok' | 'no' | 'now' | '';
 
 type Props = {
@@ -71,6 +71,11 @@ export default function QuestionCard({ question, order, picked, onChoose, onNext
         {picked !== null && (
           <p className="why answer-in">
             <b>{isRight ? 'Đúng.' : 'Chưa đúng.'}</b> {question.why_vi}
+            {question.answer_vi && (
+              <span className="vi-line">
+                <span lang="en">{question.options[question.answer]}</span>: {question.answer_vi}
+              </span>
+            )}
           </p>
         )}
         {after}

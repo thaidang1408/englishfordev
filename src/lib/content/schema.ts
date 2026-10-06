@@ -7,11 +7,13 @@ export type Track = z.infer<typeof trackSchema>;
 const text = z.string().trim().min(1);
 
 const quizItemSchema = z.strictObject({
-  id: z.string().regex(/^[swi]\d{2}q[1-5]$/),
+  id: z.string().regex(/^[swi]\d{2}q([1-9]|10)$/),
   prompt_vi: text,
   options: z.array(text).length(3),
   // Trong file, đáp án đúng luôn ở vị trí 0. Giao diện tự đảo.
   answer: z.literal(0),
+  /** Nghĩa tiếng Việt của đáp án đúng, hiện cùng lời giải thích. */
+  answer_vi: text,
   why_vi: text,
 });
 
@@ -24,10 +26,11 @@ export const lessonSchema = z
     free: z.boolean(),
     goal_vi: text,
     pattern: z.strictObject({ formula: text, note_vi: text }),
-    examples: z.array(z.strictObject({ en: text, vi: text })).length(3),
-    mistakes: z.array(z.strictObject({ wrong: text, right: text, why_vi: text })).min(2).max(3),
+    // Trình học hiện 3 ví dụ và 5 câu trắc nghiệm lấy ngẫu nhiên (SPEC mục 14).
+    examples: z.array(z.strictObject({ en: text, vi: text })).length(5),
+    mistakes: z.array(z.strictObject({ wrong: text, right: text, right_vi: text, why_vi: text })).length(3),
     word_bank: z.array(text),
-    quiz: z.array(quizItemSchema).length(5),
+    quiz: z.array(quizItemSchema).length(10),
     write_prompt_vi: text,
     question_en: text.optional(),
   })

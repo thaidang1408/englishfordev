@@ -21,22 +21,33 @@
     {
       "en": "Could you help me check the deploy logs?",
       "vi": "Bạn kiểm tra log deploy giúp mình được không?"
+    },
+    {
+      "en": "Could you help me reproduce this crash on Android?",
+      "vi": "Bạn giúp mình tái hiện lỗi crash này trên Android được không?"
+    },
+    {
+      "en": "Do you have a few minutes to go over the client's feedback with me?",
+      "vi": "Bạn có vài phút xem cùng mình phản hồi của khách không?"
     }
   ],
   "mistakes": [
     {
       "wrong": "Could you help me checking the logs?",
       "right": "Could you help me check the logs?",
+      "right_vi": "Bạn kiểm tra log giúp mình được không?",
       "why_vi": "help + người + động từ nguyên mẫu."
     },
     {
       "wrong": "Could you review PR for me?",
       "right": "Could you review my PR?",
+      "right_vi": "Bạn review PR của mình được không?",
       "why_vi": "PR đếm được nên cần my hoặc the đứng trước."
     },
     {
       "wrong": "Do you have free time help me?",
       "right": "Do you have a few minutes to help me?",
+      "right_vi": "Bạn có vài phút giúp mình không?",
       "why_vi": "Nối hai ý bằng to + động từ. Hỏi vài phút nghe nhẹ nhàng hơn free time."
     }
   ],
@@ -60,6 +71,7 @@
         "Could you take look at my PR?"
       ],
       "answer": 0,
+      "answer_vi": "Bạn xem giúp mình PR được không?",
       "why_vi": "Cụm cố định: take a look at + thứ cần xem."
     },
     {
@@ -71,6 +83,7 @@
         "Could you help check me the logs?"
       ],
       "answer": 0,
+      "answer_vi": "Bạn kiểm tra log giúp mình được không?",
       "why_vi": "help + người + động từ nguyên mẫu: help me check."
     },
     {
@@ -82,6 +95,7 @@
         "Are you have a few minutes to help me debug this test?"
       ],
       "answer": 0,
+      "answer_vi": "Bạn có vài phút giúp mình debug test này không?",
       "why_vi": "a few minutes là vài phút. Câu hỏi với have dùng do, không dùng are."
     },
     {
@@ -93,6 +107,7 @@
         "No rush, whenever you are free time."
       ],
       "answer": 0,
+      "answer_vi": "Không gấp đâu, khi nào bạn rảnh thì xem.",
       "why_vi": "Không gấp là no rush. Rảnh là have time hoặc are free, không ghép are với free time."
     },
     {
@@ -104,7 +119,68 @@
         "Thank you for helped me."
       ],
       "answer": 0,
+      "answer_vi": "Cảm ơn bạn đã giúp.",
       "why_vi": "Sau for là danh từ hoặc V-ing: for your help, for helping me."
+    },
+    {
+      "id": "s07q6",
+      "prompt_vi": "Bạn giúp mình chạy migration trên staging được không?",
+      "options": [
+        "Could you help me run the migration on staging?",
+        "Could you helping me run the migration on staging?",
+        "Could you help me run migration on staging?"
+      ],
+      "answer": 0,
+      "answer_vi": "Bạn giúp mình chạy migration trên staging được không?",
+      "why_vi": "Sau could là động từ nguyên mẫu. migration ở đây là cái cụ thể nên cần the."
+    },
+    {
+      "id": "s07q7",
+      "prompt_vi": "Bạn chạy lại pipeline CI giúp mình được không?",
+      "options": [
+        "Could you rerun the CI pipeline for me?",
+        "Could you rerun for me the CI pipeline?",
+        "Could you rerun the pipeline CI for me?"
+      ],
+      "answer": 0,
+      "answer_vi": "Bạn chạy lại pipeline CI giúp mình được không?",
+      "why_vi": "Thứ cần làm đứng ngay sau động từ, for me để cuối. CI đứng trước pipeline."
+    },
+    {
+      "id": "s07q8",
+      "prompt_vi": "Bạn có vài phút giải thích API này cho mình không?",
+      "options": [
+        "Do you have a few minutes to explain this API to me?",
+        "Do you have a few minutes to explain me this API?",
+        "Do you have a few minutes for explain this API to me?"
+      ],
+      "answer": 0,
+      "answer_vi": "Bạn có vài phút giải thích API này cho mình không?",
+      "why_vi": "explain + thứ gì + to me. Nối hai ý bằng to + động từ."
+    },
+    {
+      "id": "s07q9",
+      "prompt_vi": "Bạn test bản fix trên iPhone của bạn giúp mình được không?",
+      "options": [
+        "Could you test the fix on your iPhone?",
+        "Could you test the fix in your iPhone?",
+        "Could you tested the fix on your iPhone?"
+      ],
+      "answer": 0,
+      "answer_vi": "Bạn test bản fix trên iPhone của bạn giúp mình được không?",
+      "why_vi": "Thiết bị đi với on: on your iPhone. Sau could là động từ nguyên mẫu."
+    },
+    {
+      "id": "s07q10",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "Could you pair with me on this bug this afternoon?",
+        "Could you pair to me on this bug this afternoon?",
+        "Could you pair with me on this bug in this afternoon?"
+      ],
+      "answer": 0,
+      "answer_vi": "Chiều nay bạn ngồi cùng mình xử lý bug này được không?",
+      "why_vi": "Làm cùng ai là pair with. Trước this afternoon không cần in."
     }
   ],
   "write_prompt_vi": "Viết 1 câu nhờ một đồng nghiệp giúp bạn một việc cụ thể."

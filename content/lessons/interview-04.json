@@ -22,22 +22,33 @@
     {
       "en": "A monthly report showed the wrong totals. The cause was a time zone mismatch between the server and the database. We fixed it by storing all dates in UTC.",
       "vi": "Một báo cáo hàng tháng ra tổng sai. Nguyên nhân là server và database lệch múi giờ. Bọn mình sửa bằng cách lưu mọi ngày giờ theo UTC."
+    },
+    {
+      "en": "We had a bug where the search page sometimes showed old results. It turned out two requests were coming back in the wrong order. I fixed it by canceling the older request.",
+      "vi": "Bọn mình gặp một bug là trang tìm kiếm đôi khi hiện kết quả cũ. Hóa ra hai request trả về sai thứ tự. Mình sửa bằng cách hủy request cũ hơn."
+    },
+    {
+      "en": "We had a bug where users got logged out every few minutes. It turned out the token refresh used the wrong expiry time. My part as the QA engineer was finding the exact steps to reproduce it.",
+      "vi": "Bọn mình gặp một bug là người dùng bị đăng xuất sau vài phút. Hóa ra phần làm mới token dùng sai thời gian hết hạn. Phần của mình, với vai trò QA, là tìm ra đúng các bước để tái hiện lỗi."
     }
   ],
   "mistakes": [
     {
       "wrong": "I fixed it by add a cache.",
       "right": "I fixed it by adding a cache.",
+      "right_vi": "Mình sửa bằng cách thêm cache.",
       "why_vi": "Sau by, động từ phải ở dạng V-ing."
     },
     {
       "wrong": "The bug was happened in production.",
       "right": "The bug happened in production.",
+      "right_vi": "Bug xảy ra trên production.",
       "why_vi": "happen không dùng ở bị động, nên không có was."
     },
     {
       "wrong": "I found the reason of the bug.",
       "right": "I found the cause of the bug.",
+      "right_vi": "Mình tìm ra nguyên nhân của bug.",
       "why_vi": "Nguyên nhân của bug là the cause of. reason đi với for."
     }
   ],
@@ -61,6 +72,7 @@
         "I fixed it with adding a retry limit."
       ],
       "answer": 0,
+      "answer_vi": "Mình sửa bằng cách thêm giới hạn số lần thử lại.",
       "why_vi": "Nói cách sửa dùng by + V-ing."
     },
     {
@@ -72,6 +84,7 @@
         "The bug only happen in production."
       ],
       "answer": 0,
+      "answer_vi": "Bug này chỉ xảy ra trên production.",
       "why_vi": "happen không dùng bị động. Kể chuyện đã qua thì chia quá khứ: happened."
     },
     {
@@ -83,6 +96,7 @@
         "It turned out the cause was race condition."
       ],
       "answer": 0,
+      "answer_vi": "Hóa ra nguyên nhân là một race condition.",
       "why_vi": "it turned out không có was. race condition đếm được nên cần a."
     },
     {
@@ -94,6 +108,7 @@
         "I fixed it by to add an index on the orders table."
       ],
       "answer": 0,
+      "answer_vi": "Mình sửa bằng cách thêm index cho bảng orders.",
       "why_vi": "the orders table: tên bảng đứng trước table. Sau by dùng V-ing."
     },
     {
@@ -105,7 +120,68 @@
         "It spent me two days to find the cause."
       ],
       "answer": 0,
+      "answer_vi": "Mình mất hai ngày mới tìm ra nguyên nhân.",
       "why_vi": "It took me + thời gian + to V. spend chỉ dùng với người làm chủ ngữ: I spent two days."
+    },
+    {
+      "id": "i04q6",
+      "prompt_vi": "Chọn câu trả lời phù hợp hơn.",
+      "options": [
+        "We had a bug where some emails were sent twice. It turned out two workers picked up the same job, so I added a lock.",
+        "I've never had a difficult bug. I can fix anything quickly.",
+        "Some emails were sent twice, but it was the other team's fault, not mine."
+      ],
+      "answer": 0,
+      "answer_vi": "Bọn mình gặp một bug là một số email bị gửi hai lần. Hóa ra hai worker cùng lấy một job, nên mình thêm lock.",
+      "why_vi": "Kể lỗi, nguyên nhân và cách sửa. Không nói mình chưa từng gặp bug khó, không đổ lỗi cho người khác."
+    },
+    {
+      "id": "i04q7",
+      "prompt_vi": "Mình không tái hiện được bug trên máy mình.",
+      "options": [
+        "I couldn't reproduce the bug on my machine.",
+        "I couldn't reproduce the bug in my machine.",
+        "I can't reproduced the bug on my machine."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình không tái hiện được bug trên máy mình.",
+      "why_vi": "Trên máy tính dùng on my machine. Sau can hoặc could là động từ nguyên mẫu."
+    },
+    {
+      "id": "i04q8",
+      "prompt_vi": "Lỗi chỉ xảy ra khi có nhiều người dùng cùng lúc.",
+      "options": [
+        "It only happened when a lot of users were online at the same time.",
+        "It only happened when have a lot of users online at the same time.",
+        "It only happened when a lot of users were online in the same time."
+      ],
+      "answer": 0,
+      "answer_vi": "Lỗi chỉ xảy ra khi có nhiều người dùng online cùng lúc.",
+      "why_vi": "Sau when cần chủ ngữ, không dịch \"có\" thành have. Cùng lúc là at the same time."
+    },
+    {
+      "id": "i04q9",
+      "prompt_vi": "Mình thêm log để tìm ra chỗ bị chậm.",
+      "options": [
+        "I added logging to find the slow part.",
+        "I added logging for find the slow part.",
+        "I added logging to find the part slow."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình thêm log để tìm ra chỗ bị chậm.",
+      "why_vi": "Làm gì để đạt mục đích dùng to V. Từ bổ nghĩa đứng trước danh từ: the slow part."
+    },
+    {
+      "id": "i04q10",
+      "prompt_vi": "Sau khi sửa, app không còn crash nữa.",
+      "options": [
+        "After the fix, the app stopped crashing.",
+        "After the fix, the app stopped to crash.",
+        "After fix, the app stopped crashing."
+      ],
+      "answer": 0,
+      "answer_vi": "Sau khi sửa, app không còn crash nữa.",
+      "why_vi": "Thôi không còn làm gì là stop + V-ing. fix ở đây là danh từ nên cần the."
     }
   ],
   "write_prompt_vi": "Viết 2 đến 3 câu về một bug khó: lỗi gì, vì sao xảy ra, bạn sửa thế nào."

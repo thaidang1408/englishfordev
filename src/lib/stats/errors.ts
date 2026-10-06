@@ -63,3 +63,37 @@ export function weeklyTrend(entries: readonly ErrorEntry[], now: Date): WeeklySt
 export function totalErrors(entries: readonly ErrorEntry[]): number {
   return entries.reduce((n, e) => n + e.result.changes.length, 0);
 }
+
+export const MAP_WEEKS = 8;
+
+export type ErrorMap = {
+  /** Ngày bắt đầu của từng tuần, cũ nhất trước. Tuần là 7 ngày liền, tuần cuối kết thúc ở `now`. */
+  weeks: Date[];
+  /** Mỗi nhóm có lỗi trong 8 tuần một dòng, nhiều lỗi nhất trước. null: tuần đó không gửi câu nào. */
+  rows: { category: ErrorCategory; counts: (number | null)[] }[];
+  max: number;
+};
+
+/** Bản đồ lỗi (SPEC mục 5b): số lỗi mỗi nhóm theo từng tuần, chỉ từ dữ liệu thật. */
+export function errorMap(entries: readonly ErrorEntry[], now: Date, weeks = MAP_WEEKS): ErrorMap {
+  const end = now.getTime();
+  const starts = Array.from({ length: weeks }, (_, i) => addDaysTo(now, -7 * (weeks - i)));
+  const weekOf = (t: number) => (t > end ? -1 : weeks - 1 - Math.floor((end - t) / (7 * 86_400_000)));
+  const active = new Array<boolean>(weeks).fill(false);
+  const counts = new Map<ErrorCategory, number[]>();
+  for (const e of entries) {
+    const w = weekOf(Date.parse(e.created_at));
+    if (w < 0) continue;
+    active[w] = true;
+    for (const c of e.result.changes) {
+      const row = counts.get(c.category) ?? new Array<number>(weeks).fill(0);
+      row[w] = (row[w] ?? 0) + 1;
+      counts.set(c.category, row);
+    }
+  }
+  const sum = (r: number[]) => r.reduce((a, b) => a + b, 0);
+  const rows = [...counts]
+    .sort((a, b) => sum(b[1]) - sum(a[1]))
+    .map(([category, r]) => ({ category, counts: r.map((n, i) => (active[i] ? n : null)) }));
+  return { weeks: starts, rows, max: Math.max(0, ...[...counts.values()].flat()) };
+}
