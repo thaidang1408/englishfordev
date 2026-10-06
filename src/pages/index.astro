@@ -414,10 +414,11 @@ const totalLessons = Object.values(TRACK_OUTLINE).reduce((n, t) => n + t.length,
   </section>
   <script>
     // Hiệu ứng trang chủ: khối hiện dần khi cuộn tới, chữ nền trôi theo cuộn, vệt sáng theo con trỏ trên thẻ.
-    // Không có JS hoặc giảm chuyển động: mọi thứ hiện sẵn, đứng yên.
+    // Không có JS: mọi thứ hiện sẵn. Giảm chuyển động (Windows tắt "Animation effects"): chỉ mờ dần và vệt sáng,
+    // không trượt, không trôi, không bồng bềnh.
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!reduced) {
-      document.documentElement.classList.add('motion');
+    document.documentElement.classList.add(reduced ? 'calm' : 'motion');
+    {
       const io = new IntersectionObserver(
         (entries) => {
           for (const e of entries) {
@@ -432,7 +433,8 @@ const totalLessons = Object.values(TRACK_OUTLINE).reduce((n, t) => n + t.length,
         (el as HTMLElement).style.setProperty('--stagger', `${(i % 3) * 90}ms`);
         io.observe(el);
       });
-
+    }
+    if (!reduced) {
       const echoes = [...document.querySelectorAll<HTMLElement>('.echo')];
       let ticking = false;
       const drift = () => {
@@ -446,16 +448,15 @@ const totalLessons = Object.values(TRACK_OUTLINE).reduce((n, t) => n + t.length,
       };
       addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(drift); } }, { passive: true });
       drift();
-
-      if (matchMedia('(hover: hover)').matches) {
-        document.addEventListener('pointermove', (ev) => {
-          const card = (ev.target as Element).closest?.<HTMLElement>('.card, .float, .demo .review');
-          if (!card) return;
-          const r = card.getBoundingClientRect();
-          card.style.setProperty('--mx', `${ev.clientX - r.left}px`);
-          card.style.setProperty('--my', `${ev.clientY - r.top}px`);
-        });
-      }
+    }
+    if (matchMedia('(hover: hover)').matches) {
+      document.addEventListener('pointermove', (ev) => {
+        const card = (ev.target as Element).closest?.<HTMLElement>('.card, .float, .demo .review');
+        if (!card) return;
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', `${ev.clientX - r.left}px`);
+        card.style.setProperty('--my', `${ev.clientY - r.top}px`);
+      });
     }
   </script>
 </Base>

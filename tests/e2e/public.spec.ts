@@ -39,6 +39,17 @@ test('trang chủ có nút đăng nhập dẫn vào trang Hôm nay', async ({ pa
   await expect(page.getByRole('link', { name: 'Đăng nhập' }).first()).toHaveAttribute('href', '/dang-nhap?next=/hom-nay');
 });
 
+test('giảm chuyển động: khối vẫn mờ dần hiện ra khi cuộn tới, không trượt', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  await expect(page.locator('html')).toHaveClass(/calm/);
+  const block = page.locator('[data-reveal]').last();
+  await block.scrollIntoViewIfNeeded();
+  await expect(block).toHaveClass(/(^|\s)in(\s|$)/);
+  await expect(block).toHaveCSS('opacity', '1');
+  await expect(block).toHaveCSS('transform', 'none');
+});
+
 test('giao diện đã chọn được áp dụng trước khi vẽ trang', async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('epc:theme', 'dark'));
   await page.goto('/');
