@@ -124,6 +124,25 @@ describe('buildUserPrompt', () => {
   });
 });
 
+describe('danh sách "Bài viết nên có"', () => {
+  it('chỉ gửi checklist khi bài có, và missing_vi đi qua schema', async () => {
+    const lesson = { title: 'Báo một bug', formula: 'When I...', checklist: ['Có Steps to reproduce', 'Có Expected và Actual'] };
+    const withList = buildUserPrompt('When I click Save, the app crashes.', { mode: 'work', lesson });
+    expect(withList).toContain('"checklist":["Có Steps to reproduce","Có Expected và Actual"]');
+    expect(buildUserPrompt('x', { mode: 'work', lesson: { title: 't', formula: 'f' } })).not.toContain('checklist');
+    const s = scripted({ ...GOOD, missing_vi: ['Có Steps to reproduce'] });
+    await expect(correctWith(s.ask)('When I click Save, the app crashes.', { mode: 'work', lesson })).resolves.toMatchObject({ missing_vi: ['Có Steps to reproduce'] });
+  });
+});
+
+describe('missing_vi chỉ có khi bài gửi checklist', () => {
+  it('null từ model không làm hỏng kết quả; không có checklist thì bỏ danh sách model tự thêm', async () => {
+    await expect(correctWith(scripted({ ...GOOD, missing_vi: null }).ask)('I fixed the bug.')).resolves.toEqual(GOOD);
+    const out = await correctWith(scripted({ ...GOOD, missing_vi: ['Có Steps'] }).ask)('I fixed the bug.');
+    expect(out).not.toHaveProperty('missing_vi');
+  });
+});
+
 describe('Workers AI', () => {
   it('đọc được JSON từ các dạng phản hồi khác nhau, kể cả bọc trong khối markdown', () => {
     expect(extractWorkersAiJson({ response: GOOD })).toEqual(GOOD);

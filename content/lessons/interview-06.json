@@ -4,11 +4,10 @@
   "slug": "vi-sao-muon-doi-viec",
   "title": "Vì sao muốn đổi việc",
   "free": false,
-  "question_en": "Why are you looking for a new job?",
-  "goal_vi": "Nói điều bạn muốn có ở việc mới, không nói xấu công ty cũ.",
+  "goal_vi": "Nói điều bạn muốn có ở việc mới, nối nó với vị trí đang ứng tuyển, và không nói xấu công ty cũ.",
   "pattern": {
     "formula": "I've learned a lot at + my current company, but I'm looking for + a chance to V / a role where + S + can V.",
-    "note_vi": "Ghi nhận chỗ cũ trước, rồi nói điều bạn tìm. looking for luôn có for."
+    "note_vi": "Ghi nhận chỗ cũ trước, rồi nói điều bạn tìm, cuối cùng nói vì sao vị trí này hợp. looking for luôn có for."
   },
   "examples": [
     {
@@ -20,16 +19,16 @@
       "vi": "Dự án hiện tại của mình giờ chỉ còn bảo trì, và mình đang tìm một vị trí được làm tính năng mới."
     },
     {
-      "en": "I'm looking for a team that uses English every day. I'd like to work more closely with people from other countries.",
-      "vi": "Mình đang tìm một team dùng tiếng Anh hằng ngày. Mình muốn làm việc gần hơn với đồng nghiệp ở nước khác."
+      "en": "I'm looking for a team that uses English every day, and I saw that your team works directly with clients in Australia.",
+      "vi": "Mình đang tìm một team dùng tiếng Anh hằng ngày, và mình thấy team bên bạn làm việc trực tiếp với khách hàng ở Úc."
     },
     {
       "en": "I've learned a lot at my current company, but I'm looking for a chance to focus more on test automation.",
       "vi": "Mình đã học được nhiều ở công ty hiện tại, nhưng mình đang tìm cơ hội tập trung nhiều hơn vào test tự động."
     },
     {
-      "en": "I've worked on the same mobile app for five years, and I'm looking for a role where I can mentor junior developers and take on more responsibility.",
-      "vi": "Mình đã làm cùng một app mobile năm năm, và mình đang tìm một vị trí được kèm các bạn junior và nhận nhiều trách nhiệm hơn."
+      "en": "I was only at my last company for eight months because the project was cancelled. Now I'm looking for a role where I can stay and grow for the long term.",
+      "vi": "Mình chỉ làm ở công ty trước tám tháng vì dự án bị hủy. Giờ mình đang tìm một vị trí có thể gắn bó và phát triển lâu dài."
     }
   ],
   "mistakes": [
@@ -43,7 +42,7 @@
       "wrong": "I want to find new challenge.",
       "right": "I want to find a new challenge.",
       "right_vi": "Mình muốn tìm một thử thách mới.",
-      "why_vi": "challenge đếm được: dùng a new challenge hoặc new challenges."
+      "why_vi": "challenge là danh từ đếm được số ít nên cần a; hoặc dùng số nhiều new challenges."
     },
     {
       "wrong": "I have learned many things in current company.",
@@ -58,8 +57,23 @@
     "a role where",
     "I've learned a lot",
     "for the long term",
-    "grow",
-    "new challenges"
+    "a good fit",
+    "take on more responsibility",
+    "grow into",
+    "the project was cancelled",
+    "move on"
+  ],
+  "model": {
+    "title_vi": "Câu trả lời đầy đủ cho 'Why are you looking for a new job?'",
+    "en": "I've been at my current company for three years, mostly on a banking app for a client in Japan.\nI've learned a lot there, especially about testing and working with a client team.\nBut the project is in maintenance mode now, and most of my work is small bug fixes.\nI'm looking for a role where I can build new features and own a product for the long term.\nI also want to use English every day, because I'd like to work more closely with people from other countries.\nWhen I read your job post, I saw that your team builds its own product and works with colleagues in Singapore, so this role looks like a good fit for what I want next.",
+    "vi": "Mình đã làm ở công ty hiện tại ba năm, chủ yếu làm một app ngân hàng cho khách hàng ở Nhật.\nMình học được nhiều ở đó, nhất là về test và cách làm việc với team của khách.\nNhưng giờ dự án chỉ còn bảo trì, và phần lớn việc của mình là sửa bug nhỏ.\nMình đang tìm một vị trí được làm tính năng mới và gắn bó lâu dài với một sản phẩm.\nMình cũng muốn dùng tiếng Anh hằng ngày, vì mình muốn làm việc gần hơn với đồng nghiệp ở nước khác.\nKhi đọc mô tả công việc, mình thấy team bên bạn tự làm sản phẩm và làm cùng đồng nghiệp ở Singapore, nên vị trí này hợp với điều mình muốn làm tiếp theo."
+  },
+  "checklist_vi": [
+    "Có ghi nhận điều bạn đã học được ở công ty hiện tại.",
+    "Nói rõ điều bạn đang tìm, ví dụ dùng I'm looking for.",
+    "Có lý do cụ thể: dự án, vai trò hoặc kỹ năng bạn muốn phát triển.",
+    "Có một câu nối điều bạn tìm với công ty hoặc vị trí đang ứng tuyển.",
+    "Không chê công ty cũ, sếp cũ hay đồng nghiệp cũ."
   ],
   "quiz": [
     {
@@ -72,7 +86,7 @@
       ],
       "answer": 0,
       "answer_vi": "Mình đang tìm một vị trí được làm tính năng mới.",
-      "why_vi": "Nói nơi chốn, hoàn cảnh dùng where. Đang tìm là looking for, không dùng finding."
+      "why_vi": "Nói nơi chốn, hoàn cảnh mà mình làm việc gì đó thì dùng where. Đang tìm là looking for, không dùng finding."
     },
     {
       "id": "i06q2",
@@ -84,70 +98,34 @@
       ],
       "answer": 0,
       "answer_vi": "Mình đã học được nhiều ở công ty hiện tại.",
-      "why_vi": "at my current company: cần my. Nhiều thứ nói gọn là a lot."
+      "why_vi": "Cần my trước current company, và làm ở công ty thì dùng at. Nhiều thứ nói gọn là a lot, không dùng many đứng một mình."
     },
     {
       "id": "i06q3",
-      "prompt_vi": "Mình muốn làm một sản phẩm lâu dài.",
+      "prompt_vi": "Bị cắt giảm, được hỏi vì sao nghỉ. Chọn cách nói phù hợp hơn.",
       "options": [
-        "I'd like to work on one product for the long term.",
-        "I'd like to work on one product in long term.",
-        "I'd like working on one product for the long term."
+        "The company laid off a third of the engineering team in March, and I was one of them. I'm proud of what I built there, and I'm ready for the next step.",
+        "I was laid off. That's all.",
+        "I'm so sorry, it was a really hard time, and I'm still not sure what I did wrong. I hope it won't affect your decision."
       ],
       "answer": 0,
-      "answer_vi": "Mình muốn làm một sản phẩm lâu dài.",
-      "why_vi": "Cụm cố định là for the long term. I'd like + to V."
+      "answer_vi": "Công ty cắt giảm một phần ba team kỹ thuật hồi tháng Ba, và mình nằm trong số đó. Mình tự hào về những gì đã làm ở đó, và mình sẵn sàng cho bước tiếp theo.",
+      "why_vi": "Bị cắt giảm là chuyện bình thường, nói thẳng một câu rồi chuyển sang điều tích cực. Trả lời cụt nghe như đang giấu, còn xin lỗi nhiều làm bạn có vẻ có lỗi."
     },
     {
       "id": "i06q4",
-      "prompt_vi": "Dự án hiện tại của mình đang ở giai đoạn bảo trì.",
+      "prompt_vi": "Recruiter nhắn: 'The hiring manager would like to hear more about why you're moving on from your current role. Could you touch on that in Thursday's call?' Ý họ là gì?",
       "options": [
-        "My current project is in maintenance mode.",
-        "My project current is in maintenance mode.",
-        "My current project is maintenance mode."
+        "Trong buổi gọi thứ Năm, họ muốn bạn nói thêm vì sao bạn rời công ty hiện tại.",
+        "Họ muốn bạn nghỉ việc ở công ty hiện tại muộn nhất là thứ Năm.",
+        "Họ muốn bạn gửi email trước thứ Năm để giải thích vì sao bạn ứng tuyển."
       ],
       "answer": 0,
-      "answer_vi": "Dự án hiện tại của mình đang ở giai đoạn bảo trì.",
-      "why_vi": "current đứng trước project. Ở trong một trạng thái thì cần in."
+      "answer_vi": "Trong buổi gọi thứ Năm, họ muốn bạn nói thêm vì sao bạn rời công ty hiện tại.",
+      "why_vi": "move on from = rời một chỗ để sang việc khác. touch on = nhắc tới, nói qua về một chuyện. Họ hỏi trong buổi gọi, không yêu cầu bạn nghỉ việc hay gửi email."
     },
     {
       "id": "i06q5",
-      "prompt_vi": "Mình muốn dùng tiếng Anh nhiều hơn trong công việc.",
-      "options": [
-        "I want to use English more at work.",
-        "I want to use English more in the work.",
-        "I want using English more at work."
-      ],
-      "answer": 0,
-      "answer_vi": "Mình muốn dùng tiếng Anh nhiều hơn trong công việc.",
-      "why_vi": "Trong công việc là at work, không có the. want + to V."
-    },
-    {
-      "id": "i06q6",
-      "prompt_vi": "Chọn câu trả lời phù hợp hơn.",
-      "options": [
-        "I've learned a lot at my current company, but I'm looking for a role where I can work more closely with the product team.",
-        "My manager is terrible, and the company doesn't care about developers.",
-        "Honestly, I just want more money."
-      ],
-      "answer": 0,
-      "answer_vi": "Mình đã học được nhiều ở công ty hiện tại, nhưng mình đang tìm một vị trí được làm việc sát hơn với team sản phẩm.",
-      "why_vi": "Ghi nhận chỗ cũ rồi nói điều bạn tìm. Không chê công ty cũ, không chỉ nói chuyện tiền."
-    },
-    {
-      "id": "i06q7",
-      "prompt_vi": "Mình muốn làm ở một công ty sản phẩm.",
-      "options": [
-        "I'd like to work at a product company.",
-        "I'd like to work at a company product.",
-        "I want work at a product company."
-      ],
-      "answer": 0,
-      "answer_vi": "Mình muốn làm ở một công ty sản phẩm.",
-      "why_vi": "Từ bổ nghĩa đứng trước danh từ: product company. want + to V."
-    },
-    {
-      "id": "i06q8",
       "prompt_vi": "Mình muốn phát triển lên vị trí tech lead.",
       "options": [
         "I'd like to grow into a tech lead role.",
@@ -156,10 +134,34 @@
       ],
       "answer": 0,
       "answer_vi": "Mình muốn phát triển lên vị trí tech lead.",
-      "why_vi": "Phát triển lên một vai trò là grow into. grow up là lớn lên. I'd like + to V."
+      "why_vi": "Phát triển lên một vai trò là grow into. grow up là lớn lên, trưởng thành. I'd like + to V."
     },
     {
-      "id": "i06q9",
+      "id": "i06q6",
+      "prompt_vi": "Chọn câu trả lời phù hợp hơn.",
+      "options": [
+        "I've learned a lot at my current company, but I'm looking for a role where I can work more closely with the product team.",
+        "My manager doesn't listen to anyone, so I want to leave as soon as possible.",
+        "Honestly, I just want more money."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình đã học được nhiều ở công ty hiện tại, nhưng mình đang tìm một vị trí được làm việc sát hơn với team sản phẩm.",
+      "why_vi": "Ghi nhận chỗ cũ rồi nói điều bạn tìm. Chê sếp cũ khiến nhà tuyển dụng lo bạn sẽ nói vậy về họ, còn chỉ nói chuyện tiền thì nghe thiếu động lực."
+    },
+    {
+      "id": "i06q7",
+      "prompt_vi": "Người phỏng vấn nói: 'So it sounds like you're after more ownership. Is that fair?' Ý họ là gì?",
+      "options": [
+        "Họ hiểu là bạn muốn tự lo trọn một phần việc nhiều hơn, và hỏi lại xem họ hiểu vậy có đúng không.",
+        "Họ hỏi bạn có muốn làm chủ công ty hay góp vốn không.",
+        "Họ nghĩ yêu cầu của bạn là không công bằng với team."
+      ],
+      "answer": 0,
+      "answer_vi": "Họ hiểu là bạn muốn tự lo trọn một phần việc nhiều hơn, và hỏi lại xem họ hiểu vậy có đúng không.",
+      "why_vi": "be after = đang muốn, đang tìm. ownership ở đây là tự chịu trách nhiệm một phần việc từ đầu đến cuối. Is that fair? = mình tóm vậy có đúng không."
+    },
+    {
+      "id": "i06q8",
       "prompt_vi": "Mình đã làm ở đó gần ba năm.",
       "options": [
         "I've been there for almost three years.",
@@ -168,20 +170,33 @@
       ],
       "answer": 0,
       "answer_vi": "Mình đã làm ở đó gần ba năm.",
-      "why_vi": "Một khoảng thời gian dùng for. Kéo dài tới giờ dùng have been, không dùng am."
+      "why_vi": "Một khoảng thời gian dùng for, since đi với một mốc như since 2023. Kéo dài tới giờ dùng have been, không dùng am."
+    },
+    {
+      "id": "i06q9",
+      "prompt_vi": "Vì sao chỉ làm tám tháng ở chỗ cũ? Chọn cách nói phù hợp hơn.",
+      "options": [
+        "The project I joined was cancelled after six months, and there wasn't another role that matched my skills. This time I'm looking for a team where I can stay for the long term.",
+        "It just didn't work out.",
+        "I'm really sorry about that. I know it looks bad, and I promise I won't leave so quickly again."
+      ],
+      "answer": 0,
+      "answer_vi": "Dự án mình tham gia bị hủy sau sáu tháng, và không còn vị trí nào hợp với kỹ năng của mình. Lần này mình tìm một team có thể gắn bó lâu dài.",
+      "why_vi": "Nêu lý do cụ thể rồi nói điều bạn tìm lần này. Câu quá ngắn nghe như né tránh, còn xin lỗi và hứa hẹn làm bạn yếu thế."
     },
     {
       "id": "i06q10",
-      "prompt_vi": "Mình muốn làm trong một team có quy trình rõ ràng.",
+      "prompt_vi": "Tin LinkedIn của recruiter: 'We need someone who can hit the ground running. The team is small, so you'd wear a few hats.' Ý họ là gì?",
       "options": [
-        "I'd like to work in a team with a clear process.",
-        "I'd like to work in a team has a clear process.",
-        "I'd like to work in team with a clear process."
+        "Họ cần người bắt tay vào việc được ngay, và vì team nhỏ nên bạn sẽ kiêm nhiều vai trò.",
+        "Họ cần người có nhiều năm kinh nghiệm, và vì team nhỏ nên việc sẽ ít hơn.",
+        "Họ cần người bắt đầu ngay tuần sau, và bạn chỉ làm một việc cố định."
       ],
       "answer": 0,
-      "answer_vi": "Mình muốn làm trong một team có quy trình rõ ràng.",
-      "why_vi": "Không dịch \"có\" thành has ngay sau danh từ, dùng with. team đếm được nên cần a."
+      "answer_vi": "Họ cần người bắt tay vào việc được ngay, và vì team nhỏ nên bạn sẽ kiêm nhiều vai trò.",
+      "why_vi": "hit the ground running = vào là làm được ngay, không cần kèm lâu. wear a few hats = kiêm nhiều vai trò cùng lúc."
     }
   ],
-  "write_prompt_vi": "Viết 2 câu về lý do bạn tìm việc mới. Nói điều bạn muốn có, không chê chỗ cũ."
+  "write_prompt_vi": "Nhà tuyển dụng một công ty sản phẩm hỏi 'Why are you looking for a new job?'. Viết câu trả lời 80 đến 150 từ: ghi nhận chỗ cũ, điều bạn đang tìm, và vì sao vị trí này hợp.",
+  "question_en": "Why are you looking for a new job?"
 }

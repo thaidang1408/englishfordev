@@ -4,31 +4,31 @@
   "slug": "khong-dong-y-mot-cach-lich-su",
   "title": "Không đồng ý một cách lịch sự",
   "free": false,
-  "goal_vi": "Nói ý kiến khác mà vẫn tôn trọng người kia, tập trung vào giải pháp.",
+  "goal_vi": "Nói ý kiến khác mà vẫn tôn trọng người kia: ghi nhận ý họ, nêu lý do, đề xuất cách khác, và ủng hộ quyết định chung khi nhóm đã chốt.",
   "pattern": {
     "formula": "I see your point, but I think + clause.",
-    "note_vi": "Ghi nhận ý người kia trước, rồi mới nói ý mình. Nói về giải pháp, không nói về người."
+    "note_vi": "Ghi nhận ý người kia trước, rồi mới nói ý mình, và luôn kèm lý do sau but. Nói về giải pháp, không nói về người."
   },
   "examples": [
     {
-      "en": "I see your point, but I think this function is easier to read as it is.",
-      "vi": "Mình hiểu ý bạn, nhưng mình nghĩ hàm này để nguyên thì dễ đọc hơn."
+      "en": "I see your point, but I think this function is easier to read as it is. Splitting it would mean jumping between three files.",
+      "vi": "Mình hiểu ý bạn, nhưng mình nghĩ hàm này để nguyên thì dễ đọc hơn. Tách ra thì phải nhảy qua lại giữa ba file."
     },
     {
       "en": "I'm not sure we should deploy on Friday. What if something breaks over the weekend?",
       "vi": "Mình không chắc là nên deploy vào thứ Sáu. Lỡ cuối tuần có lỗi thì sao?"
     },
     {
-      "en": "That makes sense, but could we try a simpler approach first?",
-      "vi": "Hợp lý, nhưng mình thử cách đơn giản hơn trước được không?"
+      "en": "That makes sense, but could we try a simpler approach first and measure the difference?",
+      "vi": "Hợp lý, nhưng mình thử cách đơn giản hơn trước rồi đo xem khác nhau bao nhiêu được không?"
     },
     {
-      "en": "I see your point, but I think the client needs the export feature more than dark mode.",
-      "vi": "Mình hiểu ý bạn, nhưng mình nghĩ khách cần tính năng xuất file hơn là dark mode."
+      "en": "I see your point, but I think the client needs the export feature more than dark mode. Three of them asked for it last month.",
+      "vi": "Mình hiểu ý bạn, nhưng mình nghĩ khách cần tính năng xuất file hơn là dark mode. Tháng trước có ba khách đã hỏi về nó."
     },
     {
-      "en": "I see your point, but I think we should roll back first and debug later.",
-      "vi": "Mình hiểu ý bạn, nhưng mình nghĩ nên rollback trước rồi debug sau."
+      "en": "I still see it a bit differently, but I'm happy to go with your approach.",
+      "vi": "Mình vẫn nhìn vấn đề này hơi khác, nhưng mình sẵn sàng làm theo cách của bạn."
     }
   ],
   "mistakes": [
@@ -52,27 +52,40 @@
     }
   ],
   "word_bank": [
-    "I see your point",
-    "I'm not sure",
-    "I don't agree",
-    "a bit differently",
+    "I see your point, but",
+    "I'm not sure I agree",
+    "I see it a bit differently",
+    "have we considered",
     "what if",
-    "could we",
-    "another option",
-    "trade-off"
+    "could we try",
+    "the trade-off is",
+    "push back on",
+    "let's take this offline",
+    "I'm happy to go with"
+  ],
+  "model": {
+    "title_vi": "Trả lời không đồng ý có lý do và đề xuất",
+    "en": "I see your point about caching the whole response, but I think it's risky here.\nPrices change every few minutes, so users could see old prices at checkout.\nCould we cache only the product list and keep prices live? I can run a quick load test today to compare both options.\nIf full caching turns out to be much faster, I'm happy to go with it.",
+    "vi": "Mình hiểu ý bạn về việc cache toàn bộ response, nhưng mình nghĩ ở đây làm vậy hơi rủi ro.\nGiá thay đổi vài phút một lần, nên người dùng có thể thấy giá cũ lúc thanh toán.\nMình chỉ cache danh sách sản phẩm và vẫn lấy giá trực tiếp được không? Hôm nay mình có thể chạy nhanh một bài load test để so sánh hai cách.\nNếu cache toàn bộ hóa ra nhanh hơn hẳn thì mình sẵn sàng làm theo cách đó."
+  },
+  "checklist_vi": [
+    "Ghi nhận ý của người kia trước khi nói ý mình",
+    "Có lý do hoặc bằng chứng cụ thể cho ý của bạn",
+    "Đề xuất một cách khác hoặc một cách kiểm chứng",
+    "Nói về giải pháp, không chê người"
   ],
   "quiz": [
     {
       "id": "s09q1",
       "prompt_vi": "Chọn câu đúng.",
       "options": [
-        "I don't agree with this approach.",
-        "I'm not agree with this approach.",
-        "I don't agree this approach."
+        "I'm not sure I agree with this approach.",
+        "I'm not sure I agree this approach.",
+        "I'm not agree with this approach."
       ],
       "answer": 0,
-      "answer_vi": "Mình không đồng ý với cách làm này.",
-      "why_vi": "Phủ định của agree là don't agree. agree with + ý kiến."
+      "answer_vi": "Mình không chắc là mình đồng ý với cách làm này.",
+      "why_vi": "Đồng ý với điều gì là agree with. agree là động từ nên phủ định dùng don't agree, không dùng I'm not agree."
     },
     {
       "id": "s09q2",
@@ -84,7 +97,7 @@
       ],
       "answer": 0,
       "answer_vi": "Mình hiểu ý bạn, nhưng mình nghĩ nên giữ hàm này.",
-      "why_vi": "Sau should là động từ nguyên mẫu không to. Hiểu ý bạn là see your point."
+      "why_vi": "Sau should là động từ nguyên mẫu không to. Hiểu ý bạn là see your point; mean là động từ, không dùng như danh từ."
     },
     {
       "id": "s09q3",
@@ -100,54 +113,6 @@
     },
     {
       "id": "s09q4",
-      "prompt_vi": "Chọn cách không đồng ý lịch sự nhất.",
-      "options": [
-        "I see it a bit differently.",
-        "You are wrong.",
-        "Your idea is not good."
-      ],
-      "answer": 0,
-      "answer_vi": "Mình nhìn vấn đề này hơi khác.",
-      "why_vi": "Nói về cách nhìn của mình, không phán xét người hay ý của người kia."
-    },
-    {
-      "id": "s09q5",
-      "prompt_vi": "Mình thử cách đơn giản hơn trước được không?",
-      "options": [
-        "Could we try a simpler approach first?",
-        "Could we try simpler approach first?",
-        "Could we trying a simpler approach first?"
-      ],
-      "answer": 0,
-      "answer_vi": "Mình thử cách đơn giản hơn trước được không?",
-      "why_vi": "approach đếm được nên cần a. Sau could là động từ nguyên mẫu."
-    },
-    {
-      "id": "s09q6",
-      "prompt_vi": "Mình hiểu ý bạn, nhưng mình nghĩ nên thêm index trước.",
-      "options": [
-        "I see your point, but I think we should add an index first.",
-        "I see your point, but I think we should add index first.",
-        "I see your point, but I'm think we should add an index first."
-      ],
-      "answer": 0,
-      "answer_vi": "Mình hiểu ý bạn, nhưng mình nghĩ nên thêm index trước.",
-      "why_vi": "index đếm được nên cần an. think là động từ thường, không dùng I'm think."
-    },
-    {
-      "id": "s09q7",
-      "prompt_vi": "Mình nghĩ ticket này quá lớn cho một sprint.",
-      "options": [
-        "I think this ticket is too big for one sprint.",
-        "I think this ticket too big for one sprint.",
-        "I think this ticket is so big for one sprint."
-      ],
-      "answer": 0,
-      "answer_vi": "Mình nghĩ ticket này quá lớn cho một sprint.",
-      "why_vi": "Câu cần is. Quá mức cho một việc thì dùng too, không dùng so."
-    },
-    {
-      "id": "s09q8",
       "prompt_vi": "Lỡ test bị lỗi trên CI thì sao?",
       "options": [
         "What if the tests fail on CI?",
@@ -159,29 +124,77 @@
       "why_vi": "Lỡ ... thì sao là what if. Sau if dùng hiện tại, không dùng will."
     },
     {
-      "id": "s09q9",
-      "prompt_vi": "Một cách khác là cache response của API.",
+      "id": "s09q5",
+      "prompt_vi": "Đồng nghiệp đề xuất bỏ hết unit test để kịp deadline. Chọn cách phản hồi phù hợp hơn.",
       "options": [
-        "Another option is to cache the API response.",
-        "Another option is cache the API response.",
-        "Other option is to cache the API response."
+        "I see your point, but I think skipping all tests is risky. Could we keep the tests for the payment flow at least?",
+        "That's a bad idea.",
+        "Hmm, maybe, I don't know, it could be fine. Whatever you think is best."
       ],
       "answer": 0,
-      "answer_vi": "Một cách khác là cache response của API.",
-      "why_vi": "is + to V. Một cách khác là another option."
+      "answer_vi": "Mình hiểu ý bạn, nhưng mình nghĩ bỏ hết test thì rủi ro. Ít nhất mình giữ test cho luồng thanh toán được không?",
+      "why_vi": "Câu đầu ghi nhận ý, nói rủi ro và đưa ra cách khác. Câu hai chê thẳng ý của người kia. Câu ba ngập ngừng quá mức, không nói rõ mình lo điều gì."
+    },
+    {
+      "id": "s09q6",
+      "prompt_vi": "Khách muốn thêm tính năng mới mà vẫn giữ ngày release. Chọn câu trả lời phù hợp hơn.",
+      "options": [
+        "I understand why you need it, but I don't think we can add it and keep the same date. We could ship it in the next release, or move the date by a week.",
+        "No, that's impossible.",
+        "Sure, no problem."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình hiểu vì sao bạn cần tính năng này, nhưng mình nghĩ không thể vừa thêm nó vừa giữ ngày cũ. Bên mình có thể đưa nó vào bản release sau, hoặc lùi ngày một tuần.",
+      "why_vi": "Câu đầu nói thật về rủi ro và đưa ra hai lựa chọn. Câu hai từ chối cụt, không có hướng đi. Câu ba nhận lời cho xong dù biết không kịp, tới lúc trễ mới lộ ra."
+    },
+    {
+      "id": "s09q7",
+      "prompt_vi": "Cả nhóm đã chọn phương án B, khác với đề xuất của bạn. Chọn câu phù hợp hơn.",
+      "options": [
+        "I still see it a bit differently, but I'm happy to go with option B.",
+        "Fine. Your call.",
+        "OK, but I really think option A is better, so let me explain again why A is better."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình vẫn nhìn vấn đề này hơi khác, nhưng mình sẵn sàng làm theo phương án B.",
+      "why_vi": "Câu đầu nói rõ mình vẫn có ý khác nhưng ủng hộ quyết định chung. Câu hai nghe như đang khó chịu. Câu ba tiếp tục tranh luận sau khi nhóm đã chốt."
+    },
+    {
+      "id": "s09q8",
+      "prompt_vi": "Reviewer viết: \"Not sure this is the best approach. Have we considered using a queue here?\" Ý họ là gì?",
+      "options": [
+        "Họ không đồng ý một cách nhẹ nhàng và gợi ý bạn cân nhắc dùng queue.",
+        "Họ chưa xem kỹ code nên chưa có ý kiến gì.",
+        "Họ khen cách làm hiện tại và chỉ hỏi cho biết."
+      ],
+      "answer": 0,
+      "answer_vi": "Họ không đồng ý một cách nhẹ nhàng và gợi ý bạn cân nhắc dùng queue.",
+      "why_vi": "Not sure this is the best approach là cách nói nhẹ của \"mình nghĩ nên đổi\". Have we considered... là gợi ý một cách khác, không phải câu hỏi cho biết."
+    },
+    {
+      "id": "s09q9",
+      "prompt_vi": "Tech lead nói trong standup: \"Let's take this offline. Can you and Huy sync after standup?\" Ý họ là gì?",
+      "options": [
+        "Đừng bàn tiếp việc này trong standup, bạn và Huy trao đổi riêng sau đó.",
+        "Hệ thống đang offline, bạn và Huy kiểm tra sau standup.",
+        "Bỏ việc này, không cần bàn nữa."
+      ],
+      "answer": 0,
+      "answer_vi": "Đừng bàn tiếp việc này trong standup, bạn và Huy trao đổi riêng sau đó.",
+      "why_vi": "take this offline là để bàn riêng sau, không liên quan đến mất mạng. sync là trao đổi để thống nhất."
     },
     {
       "id": "s09q10",
-      "prompt_vi": "Chọn câu đúng.",
+      "prompt_vi": "PM nhắn: \"Fair point. I'll push back on the client's request and see if they're OK with phase 2.\" Ý họ là gì?",
       "options": [
-        "That makes sense, but I'm worried about performance on older phones.",
-        "That's make sense, but I'm worried about performance on older phones.",
-        "That makes sense, but I'm worried for performance on older phones."
+        "Họ thấy bạn nói có lý, và sẽ đề nghị khách xem lại yêu cầu, dời sang giai đoạn 2.",
+        "Họ sẽ push code lên cho khách xem ở giai đoạn 2.",
+        "Họ không đồng ý với bạn và sẽ làm theo yêu cầu của khách ngay."
       ],
       "answer": 0,
-      "answer_vi": "Hợp lý, nhưng mình lo về hiệu năng trên điện thoại đời cũ.",
-      "why_vi": "Cụm cố định: that makes sense. Lo về điều gì là worried about."
+      "answer_vi": "Họ thấy bạn nói có lý, và sẽ đề nghị khách xem lại yêu cầu, dời sang giai đoạn 2.",
+      "why_vi": "Fair point là bạn nói có lý. push back on là phản đối, đề nghị xem lại, không phải push code. phase 2 là giai đoạn 2."
     }
   ],
-  "write_prompt_vi": "Viết 1 câu không đồng ý với một đề xuất trong review hoặc trong họp, giữ giọng lịch sự."
+  "write_prompt_vi": "Tech lead đề xuất viết lại cả module thanh toán trong sprint này, bạn thấy rủi ro. Viết 3 đến 4 câu trả lời trên Slack: ghi nhận ý, nêu lý do, đề xuất cách khác."
 }

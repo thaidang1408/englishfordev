@@ -4,31 +4,31 @@
   "slug": "tu-choi-hoac-xin-them-thoi-gian",
   "title": "Từ chối hoặc xin thêm thời gian",
   "free": false,
-  "goal_vi": "Từ chối nhẹ nhàng bằng I'm afraid, hoặc xin thêm thời gian bằng Could I have.",
+  "goal_vi": "Từ chối việc hoặc xin thêm thời gian một cách lịch sự: nói lý do, đưa phương án khác, và nêu mốc mới rõ ràng.",
   "pattern": {
     "formula": "I'm afraid I can't + V + ... . / Could I have + until + time / more time + to + V?",
-    "note_vi": "I'm afraid mở đầu lời từ chối cho lịch sự. Xin thêm thời gian: Could I have until + mốc, hoặc Could I have + thời gian + more."
+    "note_vi": "I'm afraid mở đầu lời từ chối cho mềm, hơi trang trọng; trong team cũng hay dùng Unfortunately hoặc I don't have the bandwidth. Luôn kèm lý do và một phương án khác. Lưu ý: finish by Friday là xong muộn nhất thứ Sáu (hạn chót), còn have until Friday là có thời gian kéo dài tới thứ Sáu."
   },
   "examples": [
     {
-      "en": "I'm afraid I can't take on this ticket this sprint.",
-      "vi": "Mình e là sprint này mình không nhận thêm ticket này được."
+      "en": "I'm afraid I can't take on this ticket this sprint, but I could pick it up next sprint.",
+      "vi": "Mình e là sprint này mình không nhận ticket này được, nhưng sprint sau mình có thể làm."
     },
     {
       "en": "I'm afraid I can't finish the report today. Could I have until Friday?",
-      "vi": "Mình e là hôm nay không xong báo cáo được. Cho mình đến thứ Sáu được không?"
+      "vi": "Mình e là hôm nay không xong báo cáo được. Cho mình đến hết thứ Sáu được không?"
     },
     {
-      "en": "Could I have two more days to fix the remaining bugs?",
-      "vi": "Cho mình thêm hai ngày để sửa các bug còn lại được không?"
+      "en": "Could I have two more days to fix the remaining bugs? The edge cases took longer than I expected.",
+      "vi": "Cho mình thêm hai ngày để sửa các bug còn lại được không? Mấy trường hợp biên tốn thời gian hơn mình nghĩ."
     },
     {
-      "en": "I'm afraid I can't review your PR today. I'm busy with a production issue.",
-      "vi": "Mình e là hôm nay mình không review PR của bạn được. Mình đang bận xử lý một sự cố trên production."
+      "en": "I'm afraid I can't review your PR today. I'm tied up with a production issue. Could Nam take a look instead?",
+      "vi": "Mình e là hôm nay mình không review PR của bạn được. Mình đang bận xử lý một sự cố trên production. Nhờ Nam xem thay được không?"
     },
     {
-      "en": "I'm afraid I can't add this feature to the current release, but we can plan it for the next one.",
-      "vi": "Mình e là không thêm tính năng này vào bản release hiện tại được, nhưng bên mình có thể đưa nó vào bản sau."
+      "en": "Unfortunately, I don't have the bandwidth for the full feature by Friday. I can ship the basic search by then and add the filters next week.",
+      "vi": "Tiếc là mình không đủ thời gian làm hết tính năng trong thứ Sáu. Đến thứ Sáu mình có thể giao phần tìm kiếm cơ bản, tuần sau thêm bộ lọc."
     }
   ],
   "mistakes": [
@@ -47,19 +47,33 @@
     {
       "wrong": "Could I have until Friday for finish it?",
       "right": "Could I have until Friday to finish it?",
-      "right_vi": "Cho mình đến thứ Sáu để làm xong được không?",
+      "right_vi": "Cho mình đến hết thứ Sáu để làm xong được không?",
       "why_vi": "Chỉ mục đích dùng to + V, không dùng for + V."
     }
   ],
   "word_bank": [
     "I'm afraid",
-    "I can't",
+    "Unfortunately",
+    "I don't have the bandwidth",
     "take on",
-    "Could I have",
-    "until Friday",
+    "pick up",
+    "tied up with",
+    "Could I have until",
     "two more days",
-    "more time",
-    "properly"
+    "instead",
+    "descope"
+  ],
+  "model": {
+    "title_vi": "Tin từ chối việc mới và xin dời hạn một việc đang làm",
+    "en": "Hi Hoa,\n\nThanks for thinking of me for the export feature.\nI'm afraid I can't take it on this sprint. I'm still working on the payment bugs, and they're due on Friday.\nI could pick it up next sprint, or Nam might have the bandwidth now.\nAlso, could I have until Wednesday for the API docs? I want to test the examples properly before we send them to the client.\n\nThanks,\nMinh",
+    "vi": "Chào Hoa,\n\nCảm ơn bạn đã nghĩ tới mình cho tính năng export.\nMình e là sprint này mình không nhận được. Mình vẫn đang sửa các bug thanh toán, hạn là thứ Sáu.\nSprint sau mình có thể nhận, hoặc Nam có thể đang rảnh tay.\nNgoài ra, cho mình đến hết thứ Tư cho phần tài liệu API được không? Mình muốn test kỹ các ví dụ trước khi gửi khách.\n\nCảm ơn bạn,\nMinh"
+  },
+  "checklist_vi": [
+    "Nói rõ không nhận được việc gì, hoặc cần thêm bao lâu.",
+    "Có lý do ngắn và cụ thể.",
+    "Đưa ra phương án khác: người khác, thời điểm khác, hoặc làm ít phạm vi hơn.",
+    "Có mốc mới rõ ràng nếu xin thêm thời gian.",
+    "Giọng lịch sự, không xin lỗi quá nhiều."
   ],
   "quiz": [
     {
@@ -88,100 +102,100 @@
     },
     {
       "id": "w10q3",
-      "prompt_vi": "Cho mình đến thứ Hai để làm xong phần này được không?",
+      "prompt_vi": "Cho mình đến hết thứ Hai để làm xong phần này được không?",
       "options": [
         "Could I have until Monday to finish this part?",
         "Could I have until Monday for finish this part?",
         "Could I have to Monday to finish this part?"
       ],
       "answer": 0,
-      "answer_vi": "Cho mình đến thứ Hai để làm xong phần này được không?",
-      "why_vi": "Xin hạn đến mốc nào dùng until. Chỉ mục đích dùng to + V."
+      "answer_vi": "Cho mình đến hết thứ Hai để làm xong phần này được không?",
+      "why_vi": "Xin có thời gian kéo dài tới mốc nào dùng have until, khác với finish by Monday là xong muộn nhất thứ Hai. Chỉ mục đích dùng to + V."
     },
     {
       "id": "w10q4",
-      "prompt_vi": "Mình e là sprint này mình không nhận thêm việc được.",
-      "options": [
-        "I'm afraid I can't take on more work this sprint.",
-        "I'm afraid I can't take on more works this sprint.",
-        "I'm afraid I'm not take on more work this sprint."
-      ],
-      "answer": 0,
-      "answer_vi": "Mình e là sprint này mình không nhận thêm việc được.",
-      "why_vi": "work theo nghĩa công việc không thêm s. Không làm được dùng can't + V."
-    },
-    {
-      "id": "w10q5",
       "prompt_vi": "Mình cần thêm thời gian để test kỹ hơn.",
       "options": [
         "I need more time to test it properly.",
         "I need more times to test it properly.",
-        "I need more time to test it more careful."
+        "I need more time to test it careful."
       ],
       "answer": 0,
       "answer_vi": "Mình cần thêm thời gian để test kỹ hơn.",
-      "why_vi": "time theo nghĩa thời gian không thêm s. Bổ nghĩa cho động từ dùng trạng từ: properly."
+      "why_vi": "time theo nghĩa thời gian không thêm s. Bổ nghĩa cho động từ test dùng trạng từ: properly, carefully."
+    },
+    {
+      "id": "w10q5",
+      "prompt_vi": "Lead nhờ bạn nhận thêm ticket nhưng bạn đã kín việc. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "I'm afraid I can't take on another ticket this sprint. I'm still on the payment bugs, but I could pick it up next sprint.",
+        "No, I'm busy.",
+        "I'm so sorry, I really wish I could, and I feel bad saying this, but I'm not sure I'll be able to, maybe?"
+      ],
+      "answer": 0,
+      "answer_vi": "Mình e là sprint này mình không nhận thêm ticket được. Mình vẫn đang làm các bug thanh toán, nhưng sprint sau mình có thể nhận.",
+      "why_vi": "\"No, I'm busy.\" cụt và nghe khó chịu. Câu thứ ba xin lỗi nhiều mà vẫn không rõ là có nhận hay không. Câu đầu từ chối rõ, có lý do và phương án khác."
     },
     {
       "id": "w10q6",
-      "prompt_vi": "Mình e là tối nay mình không hỗ trợ deploy được.",
+      "prompt_vi": "Bạn cần xin khách thêm thời gian cho tính năng export. Chọn cách nói phù hợp hơn.",
       "options": [
-        "I'm afraid I can't help with the deploy tonight.",
-        "I'm afraid I can't help with the deploy on tonight.",
-        "I'm afraid I can't helping with the deploy tonight."
+        "We need two more days to finish testing the export. We can deliver it by Wednesday instead of Monday.",
+        "The export will be late.",
+        "We'll try our best to finish the export as soon as possible."
       ],
       "answer": 0,
-      "answer_vi": "Mình e là tối nay mình không hỗ trợ deploy được.",
-      "why_vi": "Trước tonight không dùng giới từ. Sau can't là động từ nguyên mẫu."
+      "answer_vi": "Bên mình cần thêm hai ngày để test xong tính năng export. Bên mình có thể giao muộn nhất thứ Tư thay vì thứ Hai.",
+      "why_vi": "Câu thứ hai báo trễ mà không có mốc mới. Câu thứ ba nghe cố gắng nhưng giấu việc trễ và không có ngày. Câu đầu nói rõ cần bao lâu và mốc mới."
     },
     {
       "id": "w10q7",
-      "prompt_vi": "Cho mình thêm một tuần để viết test cho module thanh toán được không?",
+      "prompt_vi": "PM muốn có cả tính năng vào thứ Sáu, bạn chỉ kịp một phần. Chọn cách nói phù hợp hơn.",
       "options": [
-        "Could I have one more week to write tests for the payment module?",
-        "Could I have one more weeks to write tests for the payment module?",
-        "Could I have one more week to write tests for the module payment?"
+        "I can't finish the whole feature by Friday, but I can ship the basic search by then and add the filters next week. Would that work?",
+        "Friday is impossible.",
+        "OK, I'll get everything done by Friday."
       ],
       "answer": 0,
-      "answer_vi": "Cho mình thêm một tuần để viết test cho module thanh toán được không?",
-      "why_vi": "one đi với danh từ số ít: week. Từ bổ nghĩa đứng trước: payment module."
+      "answer_vi": "Mình không xong cả tính năng trong thứ Sáu được, nhưng đến thứ Sáu mình có thể giao phần tìm kiếm cơ bản và tuần sau thêm bộ lọc. Như vậy được không?",
+      "why_vi": "\"Friday is impossible.\" chỉ chặn lại, không đưa lựa chọn. Câu thứ ba hứa điều không làm được, tới thứ Sáu sẽ thành tin xấu. Câu đầu đề xuất bớt phạm vi để giữ mốc."
     },
     {
       "id": "w10q8",
-      "prompt_vi": "Mình e là mình không sửa được bug này trước bản release.",
+      "prompt_vi": "Bạn xin dời phần tài liệu. Lead trả lời: \"No worries. Can you push the docs to next sprint and focus on the hotfix? Let me know if you need someone to pair with.\" Ý họ là gì?",
       "options": [
-        "I'm afraid I can't fix this bug before the release.",
-        "I'm afraid I cannot to fix this bug before the release.",
-        "I'm afraid I can't fix this bug before the releasing."
+        "Lead đồng ý; bạn dời phần tài liệu sang sprint sau, tập trung vào bản hotfix, và báo nếu cần người làm cùng.",
+        "Lead muốn bạn làm xong tài liệu trước rồi mới làm hotfix.",
+        "Lead sẽ chuyển bản hotfix cho người khác."
       ],
       "answer": 0,
-      "answer_vi": "Mình e là mình không sửa được bug này trước bản release.",
-      "why_vi": "Sau cannot không có to. release ở đây là danh từ, không thêm ing."
+      "answer_vi": "Không sao. Bạn dời phần tài liệu sang sprint sau và tập trung vào bản hotfix nhé. Cần người làm cùng thì báo mình.",
+      "why_vi": "No worries là không sao. push X to next sprint là dời X sang sprint sau. pair with someone là ngồi làm cùng một người."
     },
     {
       "id": "w10q9",
-      "prompt_vi": "Chọn câu đúng.",
+      "prompt_vi": "PM nhắn: \"Can we descope the CSV export for now and ship the rest by the 15th? We can revisit it in the next release.\" Ý họ là gì?",
       "options": [
-        "I'm afraid I can't pick up this ticket. I'm still working on the login bug.",
-        "I'm afraid I can't pick up this ticket. I still working on the login bug.",
-        "I'm afraid I can't pick up this ticket. I'm still working at the login bug."
+        "PM đề xuất tạm bỏ phần xuất CSV khỏi phạm vi, giao phần còn lại muộn nhất ngày 15, và xem lại phần CSV ở bản release sau.",
+        "PM muốn thêm phần xuất CSV và giao trước ngày 15.",
+        "PM muốn lùi toàn bộ bản release sang sau ngày 15."
       ],
       "answer": 0,
-      "answer_vi": "Mình e là mình không nhận ticket này được. Mình vẫn đang làm bug đăng nhập.",
-      "why_vi": "Đang làm cần am + V-ing: I'm working. Làm việc gì dùng work on."
+      "answer_vi": "Mình tạm bỏ phần xuất CSV khỏi phạm vi và giao phần còn lại muộn nhất ngày 15 được không? Bản release sau mình xem lại phần đó.",
+      "why_vi": "descope là bỏ bớt khỏi phạm vi. by the 15th là muộn nhất ngày 15. revisit là xem lại sau."
     },
     {
       "id": "w10q10",
-      "prompt_vi": "Mình e là hôm nay mình không trả lời email của khách được.",
+      "prompt_vi": "Khách trả lời email xin dời hạn: \"We understand. Friday is fine, but we can't go past that because of the board meeting on Monday. Please keep us posted.\" Ý họ là gì?",
       "options": [
-        "I'm afraid I can't reply to the client's email today.",
-        "I'm afraid I can't reply the client's email today.",
-        "I'm afraid I can't reply to the email of client today."
+        "Khách đồng ý dời đến thứ Sáu nhưng không thể muộn hơn vì có họp hội đồng quản trị thứ Hai, và nhờ bạn cập nhật tình hình thường xuyên.",
+        "Khách muốn dời buổi họp hội đồng quản trị sang thứ Sáu.",
+        "Khách không đồng ý dời và muốn xong ngay hôm nay."
       ],
       "answer": 0,
-      "answer_vi": "Mình e là hôm nay mình không trả lời email của khách được.",
-      "why_vi": "Trả lời cái gì là reply to. Của khách viết the client's email."
+      "answer_vi": "Bên mình hiểu. Thứ Sáu thì được, nhưng không thể muộn hơn vì thứ Hai có họp hội đồng quản trị. Bạn cập nhật tình hình cho bên mình nhé.",
+      "why_vi": "go past that là vượt quá mốc đó. board meeting là họp hội đồng quản trị. keep us posted là báo tin cho họ thường xuyên."
     }
   ],
-  "write_prompt_vi": "Viết 1 câu từ chối một việc, hoặc xin thêm thời gian cho việc bạn đang làm."
+  "write_prompt_vi": "Viết tin 3 đến 5 câu trả lời PM: bạn chưa nhận tính năng export được vì đang sửa bug thanh toán. Nêu lý do, đề xuất phương án khác, và xin thêm hai ngày cho task hiện tại."
 }

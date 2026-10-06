@@ -1,0 +1,207 @@
+{
+  "id": 12,
+  "track": "writing",
+  "slug": "bao-tin-xau-hoac-rui-ro-cho-khach",
+  "title": "Báo tin xấu hoặc rủi ro cho khách",
+  "free": false,
+  "roles": [
+    "pm",
+    "ba"
+  ],
+  "goal_vi": "Báo sớm cho khách khi có trễ hạn hoặc rủi ro: chuyện gì xảy ra, ảnh hưởng tới mốc nào, các lựa chọn kèm cái được và cái mất, và cần khách quyết định gì. Nói thật, không đổ lỗi.",
+  "pattern": {
+    "formula": "We can either + V ... , or + V ... . Which would you prefer?",
+    "note_vi": "Báo tin xấu kèm lựa chọn để khách quyết định, đừng chỉ báo trễ. Sau either và sau or dùng cùng một dạng động từ nguyên mẫu. Nói thêm cái giá của mỗi lựa chọn (which adds a week, which increases the cost) và lựa chọn bên bạn đề xuất. Báo càng sớm càng tốt: I wanted to let you know early that ..."
+  },
+  "examples": [
+    {
+      "en": "We can either launch on June 20 without the export feature, or launch everything on June 27. Which would you prefer?",
+      "vi": "Bên mình có thể ra mắt ngày 20/6 nhưng chưa có tính năng xuất file, hoặc ra mắt đầy đủ vào ngày 27/6. Anh muốn phương án nào?"
+    },
+    {
+      "en": "The App Store review is taking longer than usual. We can either wait for approval, or release the web version first.",
+      "vi": "Bước duyệt của App Store đang lâu hơn bình thường. Bên mình có thể chờ duyệt, hoặc phát hành bản web trước."
+    },
+    {
+      "en": "We found a performance issue during load testing. We can either fix it before the release, which adds a week, or release on time and fix it in the next sprint.",
+      "vi": "Bên mình phát hiện một vấn đề hiệu năng khi test tải. Bên mình có thể sửa trước khi phát hành, mất thêm một tuần, hoặc phát hành đúng hạn và sửa trong sprint sau."
+    },
+    {
+      "en": "We still don't have the API keys for the shipping service, so the integration is at risk. We can either use test data for the demo, or move the demo to next week.",
+      "vi": "Bên mình vẫn chưa có API key của dịch vụ vận chuyển, nên phần tích hợp đang có rủi ro. Bên mình có thể dùng dữ liệu test cho buổi demo, hoặc dời demo sang tuần sau."
+    },
+    {
+      "en": "The data migration is bigger than we estimated. We can either add one more developer, which increases the cost, or keep the current team and finish two weeks later. Which works better for you?",
+      "vi": "Việc chuyển dữ liệu lớn hơn bên mình ước tính. Bên mình có thể thêm một dev, chi phí sẽ tăng, hoặc giữ team hiện tại và xong trễ hai tuần. Phương án nào hợp với bên anh hơn?"
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "We can either delay the release or to drop the export feature.",
+      "right": "We can either delay the release or drop the export feature.",
+      "right_vi": "Bên mình có thể lùi ngày phát hành hoặc bỏ tính năng xuất file.",
+      "why_vi": "Hai vế sau either và or phải cùng dạng. Vế đầu là delay thì vế sau là drop, không thêm to."
+    },
+    {
+      "wrong": "Because the test environment is down, so we can't finish by Friday.",
+      "right": "Because the test environment is down, we can't finish by Friday.",
+      "right_vi": "Vì môi trường test đang hỏng nên bên mình không kịp xong trong thứ Sáu.",
+      "why_vi": "Tiếng Việt nói vì ... nên ..., nhưng tiếng Anh chỉ dùng một trong hai: because hoặc so, không dùng cả hai trong một câu."
+    },
+    {
+      "wrong": "The release will be delay.",
+      "right": "The release will be delayed.",
+      "right_vi": "Ngày phát hành sẽ bị lùi lại.",
+      "why_vi": "Ngày phát hành bị người khác lùi lại, không tự lùi, nên dùng be + V3: be delayed, be moved, be postponed."
+    }
+  ],
+  "word_bank": [
+    "I wanted to let you know early",
+    "at risk",
+    "slip",
+    "We can either ... or ...",
+    "which adds a week",
+    "which increases the cost",
+    "trade-off",
+    "Our recommendation is",
+    "Which would you prefer?",
+    "Could you let us know by",
+    "in the meantime",
+    "impact"
+  ],
+  "model": {
+    "title_vi": "Email báo khách phần thanh toán trễ, kèm hai lựa chọn",
+    "en": "Subject: Payment integration: decision needed by Thursday\n\nHi Mark,\n\nI wanted to let you know early that the payment integration won't be ready for the June 20 release.\nThe bank's test environment has been unavailable since Monday, so we haven't been able to test real transactions.\nWe can either release on June 20 without online payment, or move the full release to June 27.\nWe recommend the second option, because payment is the main feature for your users.\nCould you let us know which option you prefer by Thursday, so we can plan the next sprint?\n\nBest regards,\nLinh",
+    "vi": "Tiêu đề: Tích hợp thanh toán: cần anh quyết định muộn nhất thứ Năm\n\nChào anh Mark,\n\nMình muốn báo sớm để anh biết là phần tích hợp thanh toán sẽ không kịp cho bản phát hành ngày 20/6.\nMôi trường test của ngân hàng không dùng được từ thứ Hai, nên bên mình chưa test được giao dịch thật.\nBên mình có thể phát hành ngày 20/6 nhưng chưa có thanh toán online, hoặc dời bản phát hành đầy đủ sang ngày 27/6.\nBên mình đề xuất phương án thứ hai, vì thanh toán là tính năng chính với người dùng của anh.\nAnh cho bên mình biết anh chọn phương án nào muộn nhất thứ Năm nhé, để bên mình lên kế hoạch cho sprint tới.\n\nTrân trọng,\nLinh"
+  },
+  "checklist_vi": [
+    "Nói rõ chuyện gì xảy ra và ảnh hưởng tới mốc nào.",
+    "Nói lý do ngắn gọn, không đổ lỗi cho ai.",
+    "Đưa ít nhất hai lựa chọn, kèm cái được hoặc cái mất của mỗi lựa chọn.",
+    "Nói rõ cần khách quyết định hoặc làm gì, trước khi nào.",
+    "Có lời chào và lời kết."
+  ],
+  "quiz": [
+    {
+      "id": "w12q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "We can either delay the release or drop the export feature.",
+        "We can either delay the release or dropping the export feature.",
+        "We can either to delay the release or drop the export feature."
+      ],
+      "answer": 0,
+      "answer_vi": "Bên mình có thể lùi ngày phát hành hoặc bỏ tính năng xuất file.",
+      "why_vi": "Sau can là động từ nguyên mẫu, không có to. Vế sau or phải cùng dạng với vế trước, nên là drop, không phải dropping."
+    },
+    {
+      "id": "w12q2",
+      "prompt_vi": "Bản phát hành sẽ được dời sang thứ Tư tuần sau.",
+      "options": [
+        "The release will be moved to next Wednesday.",
+        "The release will be move to next Wednesday.",
+        "The release will be moved on next Wednesday."
+      ],
+      "answer": 0,
+      "answer_vi": "Bản phát hành sẽ được dời sang thứ Tư tuần sau.",
+      "why_vi": "Bản phát hành bị dời nên dùng be moved. Dời sang ngày nào thì dùng to."
+    },
+    {
+      "id": "w12q3",
+      "prompt_vi": "Vì môi trường test của ngân hàng bị hỏng nên bên mình chưa test được phần thanh toán.",
+      "options": [
+        "Because the bank's test environment is down, we haven't been able to test payments.",
+        "Because the bank's test environment is down, so we haven't been able to test payments.",
+        "Because of the bank's test environment is down, we haven't been able to test payments."
+      ],
+      "answer": 0,
+      "answer_vi": "Vì môi trường test của ngân hàng bị hỏng nên bên mình chưa test được phần thanh toán.",
+      "why_vi": "Không dùng because và so cùng một câu. Trước một vế có chủ ngữ và động từ dùng because, không dùng because of."
+    },
+    {
+      "id": "w12q4",
+      "prompt_vi": "Việc này ảnh hưởng đến ngày go-live.",
+      "options": [
+        "This affects the go-live date.",
+        "This affects to the go-live date.",
+        "This effects the go-live date."
+      ],
+      "answer": 0,
+      "answer_vi": "Việc này ảnh hưởng đến ngày go-live.",
+      "why_vi": "affect đi thẳng với tân ngữ, không thêm to dù tiếng Việt có chữ đến. Động từ ảnh hưởng là affect; effect thường là danh từ."
+    },
+    {
+      "id": "w12q5",
+      "prompt_vi": "Bạn báo khách là module báo cáo sẽ trễ. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "I wanted to let you know early that the reports module will be about a week late. We can either ship it without PDF export on Friday, or ship the full module next Friday.",
+        "Reports module late. New date is next Friday.",
+        "We're extremely sorry, we feel terrible about this, and we completely understand if you're disappointed, but unfortunately there may be a small delay."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình muốn báo sớm là module báo cáo sẽ trễ khoảng một tuần. Bên mình có thể giao vào thứ Sáu nhưng chưa có xuất PDF, hoặc giao đầy đủ vào thứ Sáu tuần sau.",
+      "why_vi": "Câu thứ hai cụt và không cho khách lựa chọn. Câu thứ ba xin lỗi quá nhiều mà không nói trễ bao lâu. Câu đầu báo sớm, nói rõ mức trễ và đưa hai lựa chọn."
+    },
+    {
+      "id": "w12q6",
+      "prompt_vi": "Bên khách chưa gửi API key. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "We haven't received the API keys yet, so the integration can't start. Could you check with your vendor this week?",
+        "Your vendor is too slow, and that's why we're late.",
+        "If it's not too much trouble, and only if you have time, maybe someone could possibly look into the API keys at some point?"
+      ],
+      "answer": 0,
+      "answer_vi": "Bên mình chưa nhận được API key nên chưa bắt đầu tích hợp được. Anh hỏi giúp bên nhà cung cấp trong tuần này được không?",
+      "why_vi": "Câu thứ hai đổ lỗi, dễ làm khách khó chịu. Câu thứ ba vòng vo quá, không nói rõ cần gì và khi nào. Câu đầu nói sự thật, ảnh hưởng, và nhờ một việc cụ thể có hạn."
+    },
+    {
+      "id": "w12q7",
+      "prompt_vi": "Khách hỏi bên bạn chọn phương án nào. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "We'd recommend the second option, because it gives us time to test payments properly.",
+        "Option 2, obviously.",
+        "We're not really sure. It's completely up to you, and any option is fine with us."
+      ],
+      "answer": 0,
+      "answer_vi": "Bên mình đề xuất phương án thứ hai, vì như vậy bên mình có thời gian test phần thanh toán cho kỹ.",
+      "why_vi": "Câu thứ hai nghe như coi thường người hỏi. Câu thứ ba né tránh, trong khi khách đang cần ý kiến chuyên môn. Câu đầu đề xuất rõ và có lý do."
+    },
+    {
+      "id": "w12q8",
+      "prompt_vi": "Khách trả lời: \"Thanks for flagging this early. Let's go with option B, but I'll need to run it by our CFO first. Can you send me a one-pager on the cost impact by EOD tomorrow?\" Ý họ là gì?",
+      "options": [
+        "Khách cảm ơn vì báo sớm, muốn chọn B nhưng phải hỏi ý CFO trước, và nhờ bạn gửi một trang tóm tắt ảnh hưởng chi phí muộn nhất cuối ngày mai.",
+        "Khách đã chốt B, không cần ai duyệt thêm.",
+        "Khách nhờ bạn gửi thẳng cho CFO bản tóm tắt ngay trong hôm nay."
+      ],
+      "answer": 0,
+      "answer_vi": "Cảm ơn bạn đã báo sớm. Mình chọn phương án B, nhưng mình cần hỏi ý CFO trước. Bạn gửi mình một trang tóm tắt ảnh hưởng chi phí muộn nhất cuối ngày mai được không?",
+      "why_vi": "flag là báo cho người khác chú ý. run it by someone là hỏi ý ai đó trước khi chốt. one-pager là tài liệu một trang. EOD tomorrow là cuối ngày mai."
+    },
+    {
+      "id": "w12q9",
+      "prompt_vi": "Khách nhắn: \"Slipping a week is fine on our end, as long as the login flow is ready for the investor demo on the 12th. That's a hard deadline.\" Ý họ là gì?",
+      "options": [
+        "Trễ một tuần không sao, miễn là phần đăng nhập xong kịp buổi demo với nhà đầu tư ngày 12; mốc đó không thể lùi.",
+        "Khách không chấp nhận trễ, kể cả một tuần.",
+        "Khách muốn lùi buổi demo với nhà đầu tư thêm một tuần."
+      ],
+      "answer": 0,
+      "answer_vi": "Bên mình chấp nhận trễ một tuần, miễn là phần đăng nhập xong kịp buổi demo với nhà đầu tư ngày 12. Đó là hạn chót không thể lùi.",
+      "why_vi": "slip là trễ so với kế hoạch. on our end là về phía bên họ. as long as là miễn là. hard deadline là hạn chót không thể đổi."
+    },
+    {
+      "id": "w12q10",
+      "prompt_vi": "PM nhắn bạn trước khi gửi email cho khách: \"Before we go to the client, can we sanity-check the new estimate? I don't want to walk it back next week.\" Ý họ là gì?",
+      "options": [
+        "Trước khi báo khách, PM muốn cùng kiểm tra lại ước lượng mới cho chắc, để tuần sau không phải rút lại lời đã nói.",
+        "PM muốn báo khách ngay, tuần sau tính tiếp.",
+        "PM muốn đi gặp khách trực tiếp vào tuần sau."
+      ],
+      "answer": 0,
+      "answer_vi": "Trước khi báo khách, mình kiểm tra lại ước lượng mới cho chắc được không? Mình không muốn tuần sau lại phải rút lại.",
+      "why_vi": "go to the client ở đây là báo cho khách. sanity-check là kiểm tra nhanh xem có hợp lý không. walk it back là rút lại điều đã nói."
+    }
+  ],
+  "write_prompt_vi": "Bạn là PM. Khách (anh Mark) đang chờ bản phát hành ngày 20/6. Team vừa phát hiện phần chuyển dữ liệu cũ phức tạp hơn ước tính. Viết email 4 đến 6 câu: chuyện gì xảy ra, ảnh hưởng tới ngày 20/6, hai lựa chọn kèm cái được và cái mất, và cần anh Mark trả lời muộn nhất thứ Năm."
+}

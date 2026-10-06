@@ -4,31 +4,31 @@
   "slug": "uoc-luong-bao-lau-thi-xong",
   "title": "Ước lượng bao lâu thì xong",
   "free": false,
-  "goal_vi": "Đưa ra ước lượng thời gian hoặc mốc xong việc mà không hứa quá chắc.",
+  "goal_vi": "Đưa ra ước lượng thời gian hoặc mốc xong việc, có khoảng và điều kiện, mà không hứa quá chắc.",
   "pattern": {
     "formula": "It should take about + time. / I should be done by + time.",
-    "note_vi": "should cho thấy đây là ước lượng, không phải lời hứa. by là hạn chót: muộn nhất là lúc đó."
+    "note_vi": "should cho thấy đây là ước lượng, không phải lời hứa. by là hạn chót: xong muộn nhất là lúc đó. Chưa chắc thì nêu khoảng (two to three days) và điều kiện (assuming, if)."
   },
   "examples": [
     {
-      "en": "The search feature should take about two days.",
-      "vi": "Tính năng tìm kiếm chắc mất khoảng hai ngày."
+      "en": "The search feature should take about two to three days.",
+      "vi": "Tính năng tìm kiếm chắc mất khoảng hai đến ba ngày."
     },
     {
       "en": "I should be done with the bug fix by tomorrow afternoon.",
-      "vi": "Chắc chiều mai mình sửa xong bug."
+      "vi": "Chắc muộn nhất chiều mai mình sửa xong bug."
     },
     {
       "en": "Reviewing this PR should take about an hour.",
       "vi": "Review PR này chắc mất khoảng một tiếng."
     },
     {
-      "en": "The production deploy should take about 20 minutes.",
-      "vi": "Đợt deploy lên production chắc mất khoảng 20 phút."
+      "en": "The migration should take about 20 minutes, assuming the table isn't locked.",
+      "vi": "Nếu bảng không bị khóa thì migration chắc mất khoảng 20 phút."
     },
     {
-      "en": "I should be done with the client report by end of day.",
-      "vi": "Chắc cuối ngày mình làm xong báo cáo cho khách."
+      "en": "I should be done with the client report by end of day, if nothing urgent comes up.",
+      "vi": "Nếu không có việc gấp phát sinh, chắc muộn nhất cuối ngày mình xong báo cáo cho khách."
     }
   ],
   "mistakes": [
@@ -36,7 +36,7 @@
       "wrong": "I will finish until Friday.",
       "right": "I'll finish by Friday.",
       "right_vi": "Muộn nhất thứ Sáu mình sẽ xong.",
-      "why_vi": "Hạn chót dùng by. until là kéo dài liên tục đến lúc đó."
+      "why_vi": "Hạn chót dùng by. until là kéo dài liên tục đến lúc đó, ví dụ I'll be on leave until Friday."
     },
     {
       "wrong": "It will take about two days for finish.",
@@ -53,13 +53,26 @@
   ],
   "word_bank": [
     "should take",
-    "about",
-    "roughly",
+    "about / roughly",
+    "two to three days",
     "by Friday",
-    "by end of day",
-    "a couple of days",
-    "rough estimate",
+    "by end of day (EOD)",
+    "assuming ...",
+    "if nothing comes up",
+    "it depends on ...",
+    "ballpark",
     "get back to you"
+  ],
+  "model": {
+    "title_vi": "Trả lời ước lượng có điều kiện",
+    "en": "My rough estimate for the CSV export is about three days.\nThe export logic should take about a day, and the tests and edge cases another two.\nThat assumes the reporting API is ready by Wednesday. If it slips, I'll let you know right away.\nSo I should be done by Friday.",
+    "vi": "Ước lượng sơ bộ của mình cho phần xuất CSV là khoảng ba ngày.\nPhần logic xuất file chắc mất khoảng một ngày, còn test và các trường hợp biên thêm hai ngày.\nĐó là với điều kiện API báo cáo sẵn sàng muộn nhất thứ Tư. Nếu bị trễ, mình sẽ báo ngay.\nNên chắc muộn nhất thứ Sáu mình xong."
+  },
+  "checklist_vi": [
+    "Có thời lượng ước lượng (should take about ...) hoặc mốc xong (by ...).",
+    "Chia nhỏ phần việc hoặc nêu một khoảng, không chỉ đưa một con số trơn.",
+    "Có điều kiện hoặc rủi ro (assuming, if, it depends on).",
+    "Nói sẽ báo lại nếu ước lượng thay đổi."
   ],
   "quiz": [
     {
@@ -72,7 +85,7 @@
       ],
       "answer": 0,
       "answer_vi": "Chắc mất khoảng hai ngày.",
-      "why_vi": "Sau should là động từ nguyên mẫu: take."
+      "why_vi": "Sau should là động từ nguyên mẫu: take. Không thêm -s, không thêm be."
     },
     {
       "id": "s05q2",
@@ -108,80 +121,80 @@
       ],
       "answer": 0,
       "answer_vi": "Review PR này chắc mất khoảng một tiếng.",
-      "why_vi": "Động từ làm chủ ngữ thì thêm -ing. Việc mất bao lâu dùng take, người bỏ ra thời gian mới dùng spend."
+      "why_vi": "Hành động làm chủ ngữ thì thêm -ing. Việc mất bao lâu dùng take; spend là người bỏ thời gian ra."
     },
     {
       "id": "s05q5",
-      "prompt_vi": "Mình chưa chắc, để mình xem code rồi báo lại.",
+      "prompt_vi": "PM hỏi \"When can we ship this?\", bạn chưa xem code. Chọn cách nói phù hợp hơn.",
       "options": [
-        "I'm not sure yet. Let me check the code and get back to you.",
-        "I'm not sure yet. Let me check the code and feedback to you.",
-        "I'm not sure yet. Let me to check the code and get back to you."
+        "I'm not sure yet. Let me look into the code, and I'll get back to you with an estimate by noon.",
+        "Tomorrow, 100 percent.",
+        "I really can't say. It depends on a lot of things."
       ],
       "answer": 0,
-      "answer_vi": "Mình chưa chắc, để mình xem code rồi báo lại.",
-      "why_vi": "Báo lại sau là get back to you. Sau let me là động từ nguyên mẫu không to."
+      "answer_vi": "Mình chưa chắc. Để mình xem code, muộn nhất trưa nay mình báo lại ước lượng.",
+      "why_vi": "Chưa biết thì nói chưa biết, kèm khi nào bạn trả lời. Câu thứ hai hứa quá chắc, câu thứ ba không cho PM bước tiếp theo."
     },
     {
       "id": "s05q6",
-      "prompt_vi": "Migration này chắc mất khoảng 30 phút.",
+      "prompt_vi": "Việc còn phụ thuộc team khác. Chọn cách nói phù hợp hơn.",
       "options": [
-        "This migration should take about 30 minutes.",
-        "This migration should take about 30 minute.",
-        "This migration should take for about 30 minutes."
+        "It should take about three days, assuming the payment API is ready by Tuesday.",
+        "It'll take exactly three days.",
+        "I have no idea how long it'll take, because it depends on the other team."
       ],
       "answer": 0,
-      "answer_vi": "Migration này chắc mất khoảng 30 phút.",
-      "why_vi": "Nhiều phút thì dùng minutes. take + thời gian, không thêm for."
+      "answer_vi": "Chắc mất khoảng ba ngày, với điều kiện API thanh toán sẵn sàng muộn nhất thứ Ba.",
+      "why_vi": "Đưa con số và nói rõ điều kiện. Câu thứ hai chắc chắn quá mức, câu thứ ba nêu phụ thuộc nhưng không đưa ước lượng nào."
     },
     {
       "id": "s05q7",
-      "prompt_vi": "Chắc trưa nay mình xong hotfix.",
+      "prompt_vi": "Khách muốn xong trong hai ngày, bạn thấy cần năm ngày. Chọn cách nói phù hợp hơn.",
       "options": [
-        "I should be done with the hotfix by noon.",
-        "I should done with the hotfix by noon.",
-        "I should be done with hotfix by noon."
+        "Two days is tight for the full scope. We could ship the basic version by Friday and the rest next week.",
+        "That's impossible.",
+        "OK, I'll try my best."
       ],
       "answer": 0,
-      "answer_vi": "Chắc muộn nhất trưa nay mình xong hotfix.",
-      "why_vi": "Mẫu cố định: should be done with. hotfix đếm được nên cần the."
+      "answer_vi": "Hai ngày là gấp với toàn bộ phạm vi. Bên mình có thể giao bản cơ bản muộn nhất thứ Sáu và phần còn lại tuần sau.",
+      "why_vi": "Nói rõ rủi ro và đưa phương án. Câu thứ hai từ chối cụt, câu thứ ba nhận lời dù biết không kịp."
     },
     {
       "id": "s05q8",
-      "prompt_vi": "Mình ước lượng sơ bộ là khoảng một tuần.",
+      "prompt_vi": "Tech lead hỏi: \"Can you give me a ballpark for the search revamp? Doesn't need to be exact.\" Ý họ là gì?",
       "options": [
-        "My rough estimate is about a week.",
-        "My estimate rough is about a week.",
-        "My rough estimate about a week."
+        "Họ cần một con số ước lượng sơ bộ cho việc làm lại tính năng tìm kiếm, không cần chính xác.",
+        "Họ muốn bạn ước lượng chính xác từng giờ cho việc tìm kiếm.",
+        "Họ muốn bạn bắt đầu làm lại tính năng tìm kiếm ngay."
       ],
       "answer": 0,
-      "answer_vi": "Mình ước lượng sơ bộ là khoảng một tuần.",
-      "why_vi": "rough đứng trước estimate. Câu cần động từ is."
+      "answer_vi": "Họ cần một con số ước lượng sơ bộ cho việc làm lại tính năng tìm kiếm, không cần chính xác.",
+      "why_vi": "ballpark (figure) là con số ước chừng. revamp là làm lại, cải tiến lớn."
     },
     {
       "id": "s05q9",
-      "prompt_vi": "Mình cần khoảng 15 phút để chạy hết test trên CI.",
+      "prompt_vi": "PM nhắn: \"What's the ETA on the hotfix? The client is asking.\" Ý họ là gì?",
       "options": [
-        "I need about 15 minutes to run all the tests on CI.",
-        "I need about 15 minutes to running all the tests on CI.",
-        "I need 15 minutes about to run all the tests on CI."
+        "Họ hỏi khi nào bản hotfix dự kiến xong, vì khách đang hỏi.",
+        "Họ hỏi bản hotfix đang có lỗi gì.",
+        "Họ báo khách đã nhận được bản hotfix."
       ],
       "answer": 0,
-      "answer_vi": "Mình cần khoảng 15 phút để chạy hết test trên CI.",
-      "why_vi": "Sau to là động từ nguyên mẫu. about đứng ngay trước con số."
+      "answer_vi": "Họ hỏi khi nào bản hotfix dự kiến xong, vì khách đang hỏi.",
+      "why_vi": "ETA là estimated time of arrival: thời điểm dự kiến xong hoặc tới nơi."
     },
     {
       "id": "s05q10",
-      "prompt_vi": "Chọn câu đúng.",
+      "prompt_vi": "Đồng nghiệp nói: \"Should be done by EOD, unless something comes up with the review.\" Ý họ là gì?",
       "options": [
-        "The demo for the client should be ready by Thursday.",
-        "The demo for the client should is ready by Thursday.",
-        "The demo for the client should be ready by the Thursday."
+        "Chắc muộn nhất cuối ngày là xong, trừ khi phần review có vấn đề phát sinh.",
+        "Họ đã xong từ sáng, chỉ đang chờ review.",
+        "Họ sẽ xong sau cuối ngày vì còn đang review."
       ],
       "answer": 0,
-      "answer_vi": "Muộn nhất thứ Năm là bản demo cho khách sẽ xong.",
-      "why_vi": "Sau should là động từ nguyên mẫu: be. Thứ trong tuần không cần the."
+      "answer_vi": "Chắc muộn nhất cuối ngày là xong, trừ khi phần review có vấn đề phát sinh.",
+      "why_vi": "by EOD là muộn nhất cuối ngày. come up là phát sinh. unless là trừ khi."
     }
   ],
-  "write_prompt_vi": "Viết 1 câu ước lượng bao lâu thì bạn xong việc đang làm."
+  "write_prompt_vi": "PM hỏi tính năng xuất báo cáo PDF bao lâu thì xong. Viết câu trả lời 3 đến 4 câu: ước lượng, chia phần việc, điều kiện hoặc rủi ro, và mốc xong."
 }

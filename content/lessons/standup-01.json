@@ -4,31 +4,31 @@
   "slug": "hom-qua-da-lam-gi",
   "title": "Hôm qua đã làm gì",
   "free": true,
-  "goal_vi": "Báo cáo việc đã xong hôm qua bằng một câu quá khứ đơn gọn.",
+  "goal_vi": "Báo cáo việc đã xong hôm qua bằng quá khứ đơn, nối hai ba việc thành một cập nhật gọn.",
   "pattern": {
     "formula": "Yesterday I + V2/ed + object.",
-    "note_vi": "Việc đã xong, có mốc thời gian đã qua (yesterday, last week) thì dùng quá khứ đơn."
+    "note_vi": "Việc đã xong, có mốc thời gian đã qua (yesterday, last week) thì dùng quá khứ đơn. Nói Yesterday một lần, việc sau nối bằng and, also, then."
   },
   "examples": [
     {
-      "en": "Yesterday I fixed the login bug.",
-      "vi": "Hôm qua mình đã sửa bug đăng nhập."
+      "en": "Yesterday I fixed the login bug and reviewed Nam's PR.",
+      "vi": "Hôm qua mình sửa bug đăng nhập và review PR của Nam."
     },
     {
-      "en": "Yesterday I finished the payment API.",
-      "vi": "Hôm qua mình làm xong API thanh toán."
+      "en": "Yesterday I finished the payment API, so it's ready for QA now.",
+      "vi": "Hôm qua mình làm xong API thanh toán, giờ QA test được rồi."
     },
     {
-      "en": "Yesterday I reviewed two pull requests.",
-      "vi": "Hôm qua mình review hai pull request."
-    },
-    {
-      "en": "Yesterday I deployed the hotfix to production.",
-      "vi": "Hôm qua mình đã deploy bản hotfix lên production."
+      "en": "Yesterday I deployed the hotfix to production, and the error rate went back to normal.",
+      "vi": "Hôm qua mình deploy bản hotfix lên production, và tỉ lệ lỗi đã về mức bình thường."
     },
     {
       "en": "Yesterday I talked to the client about the new requirements.",
       "vi": "Hôm qua mình đã trao đổi với khách về yêu cầu mới."
+    },
+    {
+      "en": "Yesterday I paired with Linh on the flaky checkout test, and we found the root cause.",
+      "vi": "Hôm qua mình ngồi cùng Linh xử lý cái test checkout lúc chạy được lúc không, và tụi mình đã tìm ra nguyên nhân gốc."
     }
   ],
   "mistakes": [
@@ -42,7 +42,7 @@
       "wrong": "I fixed bug login.",
       "right": "I fixed the login bug.",
       "right_vi": "Mình đã sửa bug đăng nhập.",
-      "why_vi": "Từ bổ nghĩa đứng trước danh từ chính, và cần the."
+      "why_vi": "Từ bổ nghĩa đứng trước danh từ chính; bug là danh từ đếm được số ít nên cần a/the/my, dùng the vì người nghe biết là bug nào."
     },
     {
       "wrong": "Yesterday I writed the unit tests.",
@@ -54,13 +54,25 @@
   "word_bank": [
     "fixed",
     "finished",
-    "implemented",
+    "wrapped up",
     "reviewed",
     "deployed",
-    "tested",
-    "investigated",
-    "refactored",
-    "merged"
+    "looked into",
+    "paired with",
+    "merged",
+    "also",
+    "and then"
+  ],
+  "model": {
+    "title_vi": "Cập nhật standup đầy đủ",
+    "en": "Yesterday I fixed the login bug on Safari and opened a PR for it.\nI also reviewed Nam's PR for the export feature.\nToday I'm going to address the review comments and start on the password reset page.\nNo blockers on my side.",
+    "vi": "Hôm qua mình sửa bug đăng nhập trên Safari và mở PR cho nó.\nMình cũng review PR của Nam cho tính năng xuất file.\nHôm nay mình sẽ sửa theo comment review và bắt đầu làm trang đặt lại mật khẩu.\nBên mình không vướng gì."
+  },
+  "checklist_vi": [
+    "Có ít nhất hai việc đã xong hôm qua, dùng quá khứ đơn (fixed, reviewed...).",
+    "Nối các việc bằng and, also hoặc then, không lặp Yesterday ở mỗi câu.",
+    "Có việc sẽ làm hôm nay.",
+    "Có câu về vướng mắc, hoặc nói rõ không vướng gì."
   ],
   "quiz": [
     {
@@ -73,106 +85,34 @@
       ],
       "answer": 0,
       "answer_vi": "Hôm qua mình đã làm xong trang đăng nhập.",
-      "why_vi": "Mốc yesterday đi với quá khứ đơn: finished."
+      "why_vi": "Mốc yesterday đi với quá khứ đơn: finished. Không dùng have + V3 hay động từ nguyên mẫu."
     },
     {
       "id": "s01q2",
-      "prompt_vi": "Hôm qua mình đã sửa bug thanh toán.",
+      "prompt_vi": "Hôm qua mình sửa bug thanh toán và review PR của Nam.",
       "options": [
-        "I fixed the payment bug yesterday.",
-        "I fixed bug payment yesterday.",
-        "I was fix the payment bug yesterday."
+        "Yesterday I fixed the payment bug and reviewed Nam's PR.",
+        "Yesterday I fixed the payment bug and review Nam's PR.",
+        "Yesterday I fixed the payment bug and reviewed PR of Nam."
       ],
       "answer": 0,
-      "answer_vi": "Hôm qua mình đã sửa bug thanh toán.",
-      "why_vi": "the payment bug: từ bổ nghĩa đứng trước. Không dùng was + động từ nguyên mẫu."
+      "answer_vi": "Hôm qua mình sửa bug thanh toán và review PR của Nam.",
+      "why_vi": "Việc thứ hai sau and cũng đã xong nên vẫn chia quá khứ: reviewed. Sở hữu của người dùng 's: Nam's PR."
     },
     {
       "id": "s01q3",
-      "prompt_vi": "Hôm qua mình review PR của Nam.",
-      "options": [
-        "Yesterday I reviewed Nam's PR.",
-        "Yesterday I review PR of Nam.",
-        "Yesterday I had review Nam PR."
-      ],
-      "answer": 0,
-      "answer_vi": "Hôm qua mình đã review PR của Nam.",
-      "why_vi": "Sở hữu của người dùng 's: Nam's PR. Động từ chia quá khứ: reviewed."
-    },
-    {
-      "id": "s01q4",
-      "prompt_vi": "Hôm qua mình deploy bản mới lên staging.",
-      "options": [
-        "Yesterday I deployed the new version to staging.",
-        "Yesterday I deployed new version on the staging.",
-        "Yesterday I did deploy new version in staging."
-      ],
-      "answer": 0,
-      "answer_vi": "Hôm qua mình đã deploy bản mới lên staging.",
-      "why_vi": "deploy something to staging. Cần the trước new version."
-    },
-    {
-      "id": "s01q5",
-      "prompt_vi": "Hôm qua mình viết xong unit test cho module user.",
-      "options": [
-        "Yesterday I finished writing unit tests for the user module.",
-        "Yesterday I finished to write unit test for module user.",
-        "Yesterday I have wrote unit tests for the user module."
-      ],
-      "answer": 0,
-      "answer_vi": "Hôm qua mình đã viết xong unit test cho module user.",
-      "why_vi": "finish + V-ing: finished writing. the user module: từ bổ nghĩa đứng trước."
-    },
-    {
-      "id": "s01q6",
       "prompt_vi": "Hôm qua mình đã chạy migration cho database.",
       "options": [
         "Yesterday I ran the database migration.",
         "Yesterday I runned the database migration.",
-        "Yesterday I ran migration database."
+        "Yesterday I was run the database migration."
       ],
       "answer": 0,
       "answer_vi": "Hôm qua mình đã chạy migration cho database.",
-      "why_vi": "run là động từ bất quy tắc: ran. the database migration: từ bổ nghĩa đứng trước."
+      "why_vi": "run là động từ bất quy tắc, quá khứ là ran. Không ghép was với động từ nguyên mẫu."
     },
     {
-      "id": "s01q7",
-      "prompt_vi": "Hôm qua mình đã sửa build CI bị hỏng.",
-      "options": [
-        "Yesterday I fixed the broken CI build.",
-        "Yesterday I did fixed the broken CI build.",
-        "Yesterday I fixed the CI build broken."
-      ],
-      "answer": 0,
-      "answer_vi": "Hôm qua mình đã sửa build CI bị hỏng.",
-      "why_vi": "Câu khẳng định chỉ cần fixed, không thêm did. broken đứng trước danh từ."
-    },
-    {
-      "id": "s01q8",
-      "prompt_vi": "Hôm qua mình đã test app mobile trên Android.",
-      "options": [
-        "Yesterday I tested the mobile app on Android.",
-        "Yesterday I tested the mobile app in Android.",
-        "Yesterday I tested mobile app on Android."
-      ],
-      "answer": 0,
-      "answer_vi": "Hôm qua mình đã test app mobile trên Android.",
-      "why_vi": "Nền tảng đi với on: on Android. app đếm được nên cần the."
-    },
-    {
-      "id": "s01q9",
-      "prompt_vi": "Hôm qua mình đã cho khách xem tính năng mới.",
-      "options": [
-        "Yesterday I showed the new feature to the client.",
-        "Yesterday I show the new feature to the client.",
-        "Yesterday I showed to the client the new feature."
-      ],
-      "answer": 0,
-      "answer_vi": "Hôm qua mình đã cho khách xem tính năng mới.",
-      "why_vi": "Việc đã xong hôm qua dùng showed. show + thứ gì + to + ai."
-    },
-    {
-      "id": "s01q10",
+      "id": "s01q4",
       "prompt_vi": "Chọn câu đúng.",
       "options": [
         "Yesterday I spent the whole afternoon on sprint planning.",
@@ -182,7 +122,79 @@
       "answer": 0,
       "answer_vi": "Hôm qua mình dành cả buổi chiều cho sprint planning.",
       "why_vi": "Quá khứ của spend là spent. Dành thời gian cho việc gì dùng spend time on."
+    },
+    {
+      "id": "s01q5",
+      "prompt_vi": "Chọn cách nói phù hợp hơn trong standup.",
+      "options": [
+        "Yesterday I fixed the login bug and reviewed two PRs.",
+        "Yesterday I worked on some stuff.",
+        "So yesterday, as most of you probably know, I spent a lot of time looking at a few different things, including the login bug."
+      ],
+      "answer": 0,
+      "answer_vi": "Hôm qua mình sửa bug đăng nhập và review hai PR.",
+      "why_vi": "Standup cần gọn và cụ thể: làm gì, xong chưa. Câu thứ hai quá chung chung, câu thứ ba vòng vo, người nghe khó biết việc gì đã xong."
+    },
+    {
+      "id": "s01q6",
+      "prompt_vi": "Hôm qua bạn deploy nhầm bản lên staging rồi đã rollback. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "Yesterday I deployed the wrong build to staging, so I rolled it back. It's fine now.",
+        "Something went wrong with staging yesterday.",
+        "I'm so sorry, I made a terrible mistake yesterday and I feel really bad about it."
+      ],
+      "answer": 0,
+      "answer_vi": "Hôm qua mình deploy nhầm bản lên staging nên đã rollback. Giờ ổn rồi.",
+      "why_vi": "Nói thẳng chuyện gì xảy ra, bạn đã xử lý ra sao và tình trạng hiện tại. Câu thứ hai giấu thông tin, câu thứ ba xin lỗi quá mức mà không nói gì về sự cố."
+    },
+    {
+      "id": "s01q7",
+      "prompt_vi": "Chọn cách nói phù hợp hơn để QA biết bước tiếp theo.",
+      "options": [
+        "Yesterday I finished the payment API, so it's ready for QA now.",
+        "Yesterday I finished the payment API.",
+        "Yesterday I more or less finished the payment API, so maybe someone could possibly test it at some point."
+      ],
+      "answer": 0,
+      "answer_vi": "Hôm qua mình làm xong API thanh toán, giờ QA test được rồi.",
+      "why_vi": "Thêm kết quả (ready for QA) để người nghe biết họ làm được gì tiếp. Câu thứ hai đúng nhưng thiếu ý đó, câu thứ ba rào đón quá nhiều nên nghe như chưa xong."
+    },
+    {
+      "id": "s01q8",
+      "prompt_vi": "Tech lead nhắn sau standup: \"Thanks. Can you follow up with the client on the login issue and loop me in?\" Ý họ là gì?",
+      "options": [
+        "Bạn liên hệ tiếp với khách về lỗi đăng nhập và cho họ cùng theo dõi cuộc trao đổi.",
+        "Bạn đăng nhập lại hệ thống của khách rồi gửi kết quả cho họ.",
+        "Bạn chờ khách liên hệ lại rồi mới báo cho họ."
+      ],
+      "answer": 0,
+      "answer_vi": "Bạn liên hệ tiếp với khách về lỗi đăng nhập và cho họ cùng theo dõi cuộc trao đổi.",
+      "why_vi": "follow up with someone là liên hệ tiếp để chốt việc còn dở. loop me in là thêm họ vào cuộc trao đổi, ví dụ cc email hoặc tag trong thread."
+    },
+    {
+      "id": "s01q9",
+      "prompt_vi": "Đồng nghiệp viết trong kênh standup: \"Y: wrapped up the CSV export, PR is up. T: picking up PAY-212. B: none.\" Ý họ là gì?",
+      "options": [
+        "Hôm qua họ làm xong phần xuất CSV và đã mở PR; hôm nay họ nhận ticket PAY-212; không vướng gì.",
+        "Họ đang làm dở phần xuất CSV và cần người review; hôm nay họ nghỉ.",
+        "Họ đã merge PR xuất CSV; hôm nay họ chờ ticket PAY-212 được duyệt."
+      ],
+      "answer": 0,
+      "answer_vi": "Hôm qua họ làm xong phần xuất CSV và đã mở PR; hôm nay họ nhận ticket PAY-212; không vướng gì.",
+      "why_vi": "Y, T, B là Yesterday, Today, Blockers. wrap up là làm xong, PR is up là PR đã mở, pick up là nhận việc để làm."
+    },
+    {
+      "id": "s01q10",
+      "prompt_vi": "PM hỏi trong standup: \"Did the hotfix go out yesterday?\" Ý họ là gì?",
+      "options": [
+        "Hôm qua bản hotfix đã được phát hành lên production chưa?",
+        "Hôm qua bản hotfix có bị lỗi không?",
+        "Hôm qua bản hotfix có bị gỡ khỏi production không?"
+      ],
+      "answer": 0,
+      "answer_vi": "Hôm qua bản hotfix đã được phát hành lên production chưa?",
+      "why_vi": "go out khi nói về bản build, hotfix hay email là được phát hành, được gửi đi. Gỡ bản đã phát hành là roll back."
     }
   ],
-  "write_prompt_vi": "Viết 1 đến 2 câu về việc bạn đã làm hôm qua."
+  "write_prompt_vi": "Bạn là dev, sáng nay standup với team. Viết cập nhật 3 đến 4 câu: hai việc đã xong hôm qua, việc hôm nay, và vướng mắc nếu có."
 }

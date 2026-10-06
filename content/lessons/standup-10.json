@@ -4,10 +4,10 @@
   "slug": "tom-tat-mot-buoi-hop",
   "title": "Tóm tắt một buổi họp",
   "free": false,
-  "goal_vi": "Chốt lại cuối buổi họp: đã thống nhất gì, ai làm gì, xong khi nào.",
+  "goal_vi": "Chốt lại cuối buổi họp: đã thống nhất gì, ai làm gì, xong muộn nhất khi nào, và câu hỏi nào còn mở.",
   "pattern": {
     "formula": "To recap, we agreed to + V. / Someone + will + V + by + time.",
-    "note_vi": "Mỗi việc cần một người phụ trách và một mốc. by là hạn chót."
+    "note_vi": "Tách riêng điều đã chốt và việc cần làm. Mỗi việc cần một người phụ trách và một mốc; by + mốc là hạn chót, nghĩa là xong muộn nhất lúc đó."
   },
   "examples": [
     {
@@ -16,19 +16,19 @@
     },
     {
       "en": "Minh will look into the timeout bug and update us by Wednesday.",
-      "vi": "Minh sẽ tìm hiểu bug timeout và báo lại cho cả nhóm trước thứ Tư."
+      "vi": "Minh sẽ tìm hiểu bug timeout và báo lại cho cả nhóm, muộn nhất thứ Tư."
     },
     {
       "en": "We'll deploy to production on Friday if QA signs off.",
       "vi": "Nếu QA duyệt thì thứ Sáu mình deploy lên production."
     },
     {
-      "en": "To recap, we agreed to demo the new dashboard to the client next week.",
-      "vi": "Tóm lại, mình thống nhất tuần sau demo dashboard mới cho khách."
+      "en": "One open question: does the client want SSO in this phase? Lan will check with them by Thursday.",
+      "vi": "Còn một câu hỏi chưa chốt: khách có cần SSO trong giai đoạn này không? Lan sẽ hỏi lại khách, muộn nhất thứ Năm."
     },
     {
-      "en": "Hoa will write up the incident report by end of day.",
-      "vi": "Hoa sẽ viết xong báo cáo sự cố trong hôm nay."
+      "en": "Hoa will write up the incident report by end of day. Did I miss anything?",
+      "vi": "Hoa sẽ viết xong báo cáo sự cố trong hôm nay. Mình có bỏ sót gì không?"
     }
   ],
   "mistakes": [
@@ -36,7 +36,7 @@
       "wrong": "We agreed ship the feature first.",
       "right": "We agreed to ship the feature first.",
       "right_vi": "Mình thống nhất ra tính năng này trước.",
-      "why_vi": "agree to + động từ nguyên mẫu."
+      "why_vi": "Thống nhất làm gì: agree to + động từ nguyên mẫu."
     },
     {
       "wrong": "Minh will looks into the bug.",
@@ -54,12 +54,25 @@
   "word_bank": [
     "to recap",
     "we agreed to",
-    "will + V",
-    "by Thursday",
     "action items",
-    "next steps",
-    "follow up",
-    "meeting notes"
+    "owner",
+    "by Thursday",
+    "open question",
+    "parking lot",
+    "follow up with",
+    "loop in",
+    "did I miss anything"
+  ],
+  "model": {
+    "title_vi": "Tóm tắt buổi họp gửi lên Slack",
+    "en": "Thanks, everyone. Here's a quick recap of today's sprint planning.\nDecision: we agreed to ship search without filters in this release.\nAction items:\n- Minh will fix the timeout bug by Wednesday.\n- Lan will confirm the SSO scope with the client by Thursday.\n- Hoa will update the release notes by Friday.\nOpen question: do we still need the old export API? Let me know if I missed anything.",
+    "vi": "Cảm ơn mọi người. Mình tóm tắt nhanh buổi sprint planning hôm nay.\nĐã thống nhất: bản release này ra tính năng tìm kiếm, chưa có bộ lọc.\nViệc cần làm:\n- Minh sửa bug timeout, muộn nhất thứ Tư.\n- Lan xác nhận phạm vi SSO với khách, muộn nhất thứ Năm.\n- Hoa cập nhật release notes, muộn nhất thứ Sáu.\nCâu hỏi còn mở: mình có còn cần API xuất file cũ không? Nếu mình bỏ sót gì thì mọi người báo nhé."
+  },
+  "checklist_vi": [
+    "Có ít nhất một điều đã thống nhất (we agreed to...)",
+    "Mỗi việc cần làm có người phụ trách và hạn chót",
+    "Tách riêng điều đã chốt và việc cần làm",
+    "Có một câu hỏi còn mở hoặc lời mời mọi người bổ sung"
   ],
   "quiz": [
     {
@@ -72,19 +85,19 @@
       ],
       "answer": 0,
       "answer_vi": "Tóm lại, mình thống nhất ra tính năng này trước.",
-      "why_vi": "agree to + V. agree là động từ thường, không dùng were agreed."
+      "why_vi": "Thống nhất làm gì: we agreed to + V. Không bỏ to, và không thêm were trước agreed."
     },
     {
       "id": "s10q2",
-      "prompt_vi": "Lan sẽ cập nhật tài liệu API trước thứ Năm.",
+      "prompt_vi": "Lan sẽ cập nhật tài liệu API, muộn nhất thứ Năm.",
       "options": [
         "Lan will update the API docs by Thursday.",
         "Lan will updates the API docs by Thursday.",
-        "Lan will update the docs API by Thursday."
+        "Lan will update the API docs until Thursday."
       ],
       "answer": 0,
-      "answer_vi": "Lan sẽ cập nhật tài liệu API trước thứ Năm.",
-      "why_vi": "Sau will là động từ nguyên mẫu. the API docs: từ bổ nghĩa đứng trước."
+      "answer_vi": "Lan sẽ cập nhật tài liệu API, muộn nhất thứ Năm.",
+      "why_vi": "Sau will là động từ nguyên mẫu. Hạn chót dùng by; until là làm kéo dài tới thứ Năm, không phải xong muộn nhất thứ Năm."
     },
     {
       "id": "s10q3",
@@ -100,79 +113,7 @@
     },
     {
       "id": "s10q4",
-      "prompt_vi": "Mình sẽ gửi ghi chú buổi họp lên Slack.",
-      "options": [
-        "I'll post the meeting notes in Slack.",
-        "I'll post the meeting's note in Slack.",
-        "I'll post note of meeting in Slack."
-      ],
-      "answer": 0,
-      "answer_vi": "Mình sẽ gửi ghi chú buổi họp lên Slack.",
-      "why_vi": "meeting notes: từ bổ nghĩa đứng trước, notes ở số nhiều, cần the."
-    },
-    {
-      "id": "s10q5",
-      "prompt_vi": "Còn ai có câu hỏi gì nữa không?",
-      "options": [
-        "Does anyone have any other questions?",
-        "Does anyone has any other questions?",
-        "Have anyone any other questions?"
-      ],
-      "answer": 0,
-      "answer_vi": "Còn ai có câu hỏi gì nữa không?",
-      "why_vi": "Câu hỏi dùng does, sau does là have nguyên mẫu."
-    },
-    {
-      "id": "s10q6",
-      "prompt_vi": "Tóm lại, mình thống nhất bỏ tính năng chat khỏi sprint này.",
-      "options": [
-        "To recap, we agreed to drop the chat feature from this sprint.",
-        "To recap, we agreed dropping the chat feature from this sprint.",
-        "To recap, we agreed to drop the feature chat from this sprint."
-      ],
-      "answer": 0,
-      "answer_vi": "Tóm lại, mình thống nhất bỏ tính năng chat khỏi sprint này.",
-      "why_vi": "agree to + V. chat đứng trước feature."
-    },
-    {
-      "id": "s10q7",
-      "prompt_vi": "Huy sẽ tạo ticket Jira cho bug này.",
-      "options": [
-        "Huy will create a Jira ticket for this bug.",
-        "Huy will create Jira ticket for this bug.",
-        "Huy is will create a Jira ticket for this bug."
-      ],
-      "answer": 0,
-      "answer_vi": "Huy sẽ tạo ticket Jira cho bug này.",
-      "why_vi": "ticket đếm được nên cần a. will đứng một mình, không thêm is."
-    },
-    {
-      "id": "s10q8",
-      "prompt_vi": "Mình sẽ deploy hotfix trước 5 giờ chiều nay.",
-      "options": [
-        "I'll deploy the hotfix by 5 this afternoon.",
-        "I'll deploy the hotfix until 5 this afternoon.",
-        "I'll deploy the hotfix by 5 in this afternoon."
-      ],
-      "answer": 0,
-      "answer_vi": "Muộn nhất 5 giờ chiều nay mình sẽ deploy hotfix.",
-      "why_vi": "Hạn chót dùng by. Trước this afternoon không cần in."
-    },
-    {
-      "id": "s10q9",
-      "prompt_vi": "Bước tiếp theo là test lại app mobile.",
-      "options": [
-        "The next step is to retest the mobile app.",
-        "The next step is retest the mobile app.",
-        "The next steps is to retest the mobile app."
-      ],
-      "answer": 0,
-      "answer_vi": "Bước tiếp theo là test lại app mobile.",
-      "why_vi": "is + to V. Một bước là số ít: the next step is."
-    },
-    {
-      "id": "s10q10",
-      "prompt_vi": "Chọn câu đúng.",
+      "prompt_vi": "Tuấn sẽ trao đổi tiếp với DBA về migration.",
       "options": [
         "Tuan will follow up with the DBA about the migration.",
         "Tuan will follow up the DBA about the migration.",
@@ -180,8 +121,80 @@
       ],
       "answer": 0,
       "answer_vi": "Tuấn sẽ trao đổi tiếp với DBA về migration.",
-      "why_vi": "Trao đổi tiếp với ai là follow up with. Sau will là động từ nguyên mẫu."
+      "why_vi": "Trao đổi tiếp với ai là follow up with + người. Sau will là động từ nguyên mẫu, không thêm -ing."
+    },
+    {
+      "id": "s10q5",
+      "prompt_vi": "Gần hết giờ họp, bạn muốn chốt lại. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "Before we wrap up, let me quickly recap the action items and owners.",
+        "Meeting over. Bye.",
+        "If it's OK with everyone, and if nobody minds, maybe I could try to go over some of the things we talked about?"
+      ],
+      "answer": 0,
+      "answer_vi": "Trước khi kết thúc, mình tóm tắt nhanh các việc cần làm và người phụ trách nhé.",
+      "why_vi": "Câu đầu rõ ràng, nói luôn sẽ làm gì. Câu hai cụt, bỏ qua bước chốt việc. Câu ba xin phép vòng vo, nghe thiếu tự tin khi đang dẫn họp."
+    },
+    {
+      "id": "s10q6",
+      "prompt_vi": "Chọn dòng việc cần làm rõ ràng hơn cho bản tóm tắt.",
+      "options": [
+        "Minh will send the API spec to the client by Wednesday.",
+        "Someone should look at the API spec.",
+        "The API spec will be handled at some point."
+      ],
+      "answer": 0,
+      "answer_vi": "Minh sẽ gửi đặc tả API cho khách, muộn nhất thứ Tư.",
+      "why_vi": "Câu đầu có người phụ trách, việc cụ thể và hạn chót. Hai câu còn lại đúng ngữ pháp nhưng không nói ai làm và khi nào, nên dễ không ai làm."
+    },
+    {
+      "id": "s10q7",
+      "prompt_vi": "Buổi họp lan sang một chủ đề không có trong agenda. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "Good point. Let's put it in the parking lot and come back to it at the end.",
+        "Stop. That's off-topic.",
+        "Sorry, I don't want to interrupt, and it's a really interesting topic, but maybe, if possible, we could perhaps talk about it some other time?"
+      ],
+      "answer": 0,
+      "answer_vi": "Ý hay đấy. Mình ghi lại để bàn sau và quay lại ở cuối buổi nhé.",
+      "why_vi": "Câu đầu ghi nhận ý và hẹn bàn sau. parking lot là danh sách các ý để bàn sau. Câu hai cắt ngang thô. Câu ba vòng vo, mọi người khó biết bạn muốn dừng chủ đề đó."
+    },
+    {
+      "id": "s10q8",
+      "prompt_vi": "PM ghi sau họp: \"Action item: Tuan to loop in the DBA, ETA Wed. If I missed anything, shout.\" Ý họ là gì?",
+      "options": [
+        "Việc cần làm: Tuấn kéo DBA vào trao đổi, dự kiến xong thứ Tư. Ai thấy thiếu gì thì cứ báo.",
+        "Tuấn sẽ thay DBA làm việc, xong vào thứ Tư.",
+        "Tuấn sẽ hẹn lại DBA vì cuộc họp bị hủy."
+      ],
+      "answer": 0,
+      "answer_vi": "Việc cần làm: Tuấn kéo DBA vào trao đổi, dự kiến xong thứ Tư. Ai thấy thiếu gì thì cứ báo.",
+      "why_vi": "Trong ghi chú họp, Tuan to + V nghĩa là Tuấn sẽ làm việc đó. loop in là kéo ai vào cuộc trao đổi. ETA là thời điểm dự kiến xong. shout là cứ lên tiếng."
+    },
+    {
+      "id": "s10q9",
+      "prompt_vi": "Tech lead nói: \"We're running short on time, so let's park the logging discussion until next week's sync.\" Ý họ là gì?",
+      "options": [
+        "Sắp hết giờ, nên tạm gác chuyện logging, bàn tiếp ở buổi sync tuần sau.",
+        "Sắp hết giờ, nên phải chốt luôn chuyện logging ngay bây giờ.",
+        "Hệ thống logging sẽ tạm dừng tới tuần sau."
+      ],
+      "answer": 0,
+      "answer_vi": "Sắp hết giờ, nên tạm gác chuyện logging, bàn tiếp ở buổi sync tuần sau.",
+      "why_vi": "running short on time là sắp hết giờ. park là tạm gác lại để bàn sau. sync là buổi họp ngắn để cập nhật và thống nhất."
+    },
+    {
+      "id": "s10q10",
+      "prompt_vi": "Đồng nghiệp hỏi sau họp: \"Quick one: was the Friday release a decision or just an idea? Not sure I caught that.\" Ý họ là gì?",
+      "options": [
+        "Họ không chắc việc release thứ Sáu đã được chốt hay mới chỉ là ý tưởng, và muốn bạn xác nhận.",
+        "Họ đề xuất đổi ngày release sang thứ Sáu.",
+        "Họ báo là bản release thứ Sáu đã bị hủy."
+      ],
+      "answer": 0,
+      "answer_vi": "Họ không chắc việc release thứ Sáu đã được chốt hay mới chỉ là ý tưởng, và muốn bạn xác nhận.",
+      "why_vi": "Quick one là hỏi nhanh một câu. decision là điều đã chốt, idea là mới là ý tưởng. Not sure I caught that là không chắc mình nghe kịp. Vì vậy bản tóm tắt nên tách rõ điều đã chốt."
     }
   ],
-  "write_prompt_vi": "Viết 1 đến 2 câu tóm tắt buổi họp gần nhất: đã thống nhất gì và ai làm gì."
+  "write_prompt_vi": "Bạn vừa dẫn buổi họp về bản release tuần sau. Viết tin Slack tóm tắt 3 đến 5 câu: điều đã thống nhất, ai làm gì và xong muộn nhất khi nào, một câu hỏi còn mở."
 }

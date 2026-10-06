@@ -4,23 +4,23 @@
   "slug": "hom-nay-lam-gi",
   "title": "Hôm nay làm gì",
   "free": true,
-  "goal_vi": "Nói kế hoạch hôm nay bằng ba mẫu: I'm working on, I'm going to, I'll.",
+  "goal_vi": "Nói kế hoạch hôm nay bằng I'm working on, I'm going to, I'll, và nói rõ thứ tự khi có nhiều việc.",
   "pattern": {
     "formula": "Today I'm working on + noun. / Today I'm going to + V. / Today I'll + V.",
-    "note_vi": "working on cho việc đang làm dở. going to và I'll cho việc sẽ làm trong ngày."
+    "note_vi": "Trong standup ba cách này dùng thay nhau được: working on hợp với việc đang làm dở, going to và I'll cho việc sẽ làm. Nhiều việc thì nói First..., then...."
   },
   "examples": [
     {
-      "en": "Today I'm working on the search feature.",
-      "vi": "Hôm nay mình làm tính năng tìm kiếm."
+      "en": "Today I'm working on the search feature, and I plan to open a PR this afternoon.",
+      "vi": "Hôm nay mình làm tính năng tìm kiếm, và định mở PR chiều nay."
     },
     {
       "en": "Today I'm going to write tests for the checkout flow.",
       "vi": "Hôm nay mình sẽ viết test cho luồng checkout."
     },
     {
-      "en": "Today I'll continue with the API integration.",
-      "vi": "Hôm nay mình làm tiếp phần tích hợp API."
+      "en": "First I'll finish the API integration, then I'll pick up the next ticket.",
+      "vi": "Đầu tiên mình làm xong phần tích hợp API, sau đó nhận ticket tiếp theo."
     },
     {
       "en": "Today I'm going to look into the crash on the settings page.",
@@ -53,13 +53,25 @@
   ],
   "word_bank": [
     "work on",
-    "start",
+    "pick up (a ticket)",
     "continue with",
     "look into",
-    "write tests for",
+    "plan to",
+    "first ..., then ...",
     "set up",
-    "update",
-    "investigate"
+    "open a PR",
+    "sync with"
+  ],
+  "model": {
+    "title_vi": "Cập nhật standup có kế hoạch hôm nay",
+    "en": "Yesterday I finished the filter UI for the order list.\nToday I'm working on the API integration for the filters, and then I'll pick up the CSV export ticket.\nI plan to open a PR by end of day.\nNo blockers right now, but I might need Huy's help with the date format later.",
+    "vi": "Hôm qua mình làm xong giao diện bộ lọc cho danh sách đơn hàng.\nHôm nay mình làm phần tích hợp API cho bộ lọc, sau đó nhận ticket xuất CSV.\nMình định mở PR muộn nhất cuối ngày.\nHiện chưa vướng gì, nhưng lát nữa có thể mình cần Huy giúp phần định dạng ngày."
+  },
+  "checklist_vi": [
+    "Có một câu ngắn về việc hôm qua.",
+    "Có việc hôm nay, dùng I'm working on, I'm going to hoặc I'll.",
+    "Nếu có hai việc, nói rõ thứ tự (first, then).",
+    "Có câu về vướng mắc hoặc người cần phối hợp."
   ],
   "quiz": [
     {
@@ -72,7 +84,7 @@
       ],
       "answer": 0,
       "answer_vi": "Hôm nay mình làm tính năng tìm kiếm.",
-      "why_vi": "Hiện tại tiếp diễn: am + V-ing."
+      "why_vi": "Hiện tại tiếp diễn cần đủ hai phần: am + V-ing."
     },
     {
       "id": "s02q2",
@@ -80,11 +92,11 @@
       "options": [
         "Today I'm going to write tests for the checkout flow.",
         "Today I'm going to writing tests for the checkout flow.",
-        "Today I going write tests for checkout flow."
+        "Today I'm going write tests for the checkout flow."
       ],
       "answer": 0,
       "answer_vi": "Hôm nay mình sẽ viết test cho luồng checkout.",
-      "why_vi": "be going to + động từ nguyên mẫu."
+      "why_vi": "Mẫu đủ là be going to + động từ nguyên mẫu: không bỏ to, không thêm -ing."
     },
     {
       "id": "s02q3",
@@ -92,96 +104,96 @@
       "options": [
         "Today I'll continue with the API integration.",
         "Today I'll continue do the API integration.",
-        "Today I continue to the API integration."
+        "Today I'll continue to the API integration."
       ],
       "answer": 0,
       "answer_vi": "Hôm nay mình làm tiếp phần tích hợp API.",
-      "why_vi": "continue with + danh từ."
+      "why_vi": "Làm tiếp một việc: continue with + danh từ, hoặc continue + V-ing. continue to + danh từ là đi tiếp tới đâu đó."
     },
     {
       "id": "s02q4",
-      "prompt_vi": "Hôm nay mình bắt đầu ticket đăng nhập bằng Google.",
-      "options": [
-        "Today I'm starting the Google login ticket.",
-        "Today I start doing ticket login Google.",
-        "Today I'm start the Google login ticket."
-      ],
-      "answer": 0,
-      "answer_vi": "Hôm nay mình bắt đầu ticket đăng nhập bằng Google.",
-      "why_vi": "am + V-ing. the Google login ticket: từ bổ nghĩa đứng trước."
-    },
-    {
-      "id": "s02q5",
       "prompt_vi": "Sau đó mình sẽ xem bug mà QA báo.",
       "options": [
         "After that, I'll look into the bug that QA reported.",
-        "After that, I'll look the bug QA report.",
-        "After that, I look into the bug what QA reported."
+        "After that, I'll look the bug that QA reported.",
+        "After that, I'll look into the bug what QA reported."
       ],
       "answer": 0,
       "answer_vi": "Sau đó mình sẽ xem bug mà QA báo.",
-      "why_vi": "look into = tìm hiểu nguyên nhân. Mệnh đề quan hệ dùng that, và reported ở quá khứ."
+      "why_vi": "look into = tìm hiểu nguyên nhân, không bỏ into. Nối \"bug mà QA báo\" dùng that hoặc which, không dùng what."
+    },
+    {
+      "id": "s02q5",
+      "prompt_vi": "Hôm nay bạn có hai việc. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "First I'll fix the failing tests, then I'll pick up the search ticket.",
+        "Today I'll do some tests and some other things.",
+        "I'm not totally sure yet, but I might try to look at the tests, and maybe the search ticket if there's time."
+      ],
+      "answer": 0,
+      "answer_vi": "Đầu tiên mình sửa các test đang lỗi, sau đó nhận ticket tìm kiếm.",
+      "why_vi": "Nêu rõ hai việc và thứ tự ưu tiên. Câu thứ hai quá chung chung, câu thứ ba rào đón nhiều nên team không biết bạn thực sự làm gì."
     },
     {
       "id": "s02q6",
-      "prompt_vi": "Hôm nay mình sẽ sửa pipeline CI đang lỗi.",
+      "prompt_vi": "Hôm nay bạn cần Huy giúp. Chọn cách nói phù hợp hơn.",
       "options": [
-        "Today I'll fix the failing CI pipeline.",
-        "Today I'll fixing the failing CI pipeline.",
-        "Today I'll fix the CI pipeline failing."
+        "Today I'm working on the payment webhook. Huy, can we sync for 10 minutes after standup?",
+        "Today I'm working on the payment webhook. Huy, you need to help me today.",
+        "Today I'm working on the payment webhook. Huy, sorry to bother you, but if you ever have any free time, maybe we could talk?"
       ],
       "answer": 0,
-      "answer_vi": "Hôm nay mình sẽ sửa pipeline CI đang lỗi.",
-      "why_vi": "Sau will là động từ nguyên mẫu. failing đứng trước danh từ."
+      "answer_vi": "Hôm nay mình làm phần webhook thanh toán. Huy ơi, sau standup mình trao đổi 10 phút được không?",
+      "why_vi": "Hỏi lịch sự, có thời lượng cụ thể. Câu thứ hai nghe như ra lệnh, câu thứ ba quá khiêm tốn và không rõ cần gì, khi nào."
     },
     {
       "id": "s02q7",
-      "prompt_vi": "Hôm nay mình đang làm phần migration database.",
+      "prompt_vi": "Chọn cách nói phù hợp hơn để team biết khi nào có kết quả.",
       "options": [
-        "Today I'm working on the database migration.",
-        "Today I'm working the database migration.",
-        "Today I working on the database migration."
+        "Today I'm going to finish the checkout API and open a PR this afternoon.",
+        "Today I'm going to continue.",
+        "Today I'm going to do my best to make some progress on the checkout API."
       ],
       "answer": 0,
-      "answer_vi": "Hôm nay mình đang làm phần migration database.",
-      "why_vi": "Làm một việc là work on. Câu cần I'm trước working."
+      "answer_vi": "Hôm nay mình sẽ làm xong API checkout và mở PR chiều nay.",
+      "why_vi": "Có việc cụ thể và mốc thời gian. Câu thứ hai không nói tiếp việc gì, câu thứ ba chỉ hứa cố gắng, không nói sẽ xong gì."
     },
     {
       "id": "s02q8",
-      "prompt_vi": "Hôm nay mình sẽ chuẩn bị bản demo cho khách.",
+      "prompt_vi": "Tech lead nói trong standup: \"Can you pick up PAY-310 once you're done with the refactor?\" Ý họ là gì?",
       "options": [
-        "Today I'm going to prepare the demo for the client.",
-        "Today I'm going prepare the demo for the client.",
-        "Today I'm going to prepare the demo to the client."
+        "Làm xong phần refactor thì bạn nhận ticket PAY-310.",
+        "Bạn dừng refactor ngay để làm ticket PAY-310.",
+        "Bạn chuyển ticket PAY-310 cho người khác."
       ],
       "answer": 0,
-      "answer_vi": "Hôm nay mình sẽ chuẩn bị bản demo cho khách.",
-      "why_vi": "going to luôn có to. Chuẩn bị cho ai dùng for."
+      "answer_vi": "Làm xong phần refactor thì bạn nhận ticket PAY-310.",
+      "why_vi": "pick up a ticket là nhận việc để làm. once you're done with là sau khi xong việc đó, không phải dừng ngay."
     },
     {
       "id": "s02q9",
-      "prompt_vi": "Hôm nay mình sẽ review PR của Huy trước.",
+      "prompt_vi": "Đồng nghiệp nhắn: \"I'm OOO this afternoon. Can you cover the release check? Notes are in the ticket.\" Ý họ là gì?",
       "options": [
-        "Today I'll review Huy's PR first.",
-        "Today I'll review PR of Huy first.",
-        "Today I'll to review Huy's PR first."
+        "Chiều nay họ nghỉ, nhờ bạn kiểm tra bản release thay họ; ghi chú có trong ticket.",
+        "Chiều nay họ đi gặp khách nhưng vẫn tự kiểm tra bản release.",
+        "Chiều nay hệ thống bảo trì nên dời bản release."
       ],
       "answer": 0,
-      "answer_vi": "Hôm nay mình sẽ review PR của Huy trước.",
-      "why_vi": "Sở hữu của người dùng 's: Huy's PR. Sau will không có to."
+      "answer_vi": "Chiều nay họ nghỉ, nhờ bạn kiểm tra bản release thay họ; ghi chú có trong ticket.",
+      "why_vi": "OOO là out of office: nghỉ, không làm việc. cover something là làm thay phần việc của người khác."
     },
     {
       "id": "s02q10",
-      "prompt_vi": "Chọn câu đúng.",
+      "prompt_vi": "PM nhắn: \"Let's park the dark mode work for now and focus on the payment bug. ETA?\" Ý họ là gì?",
       "options": [
-        "Today I'm going to test the mobile app on iOS.",
-        "Today I'm going to test the mobile app in iOS.",
-        "Today I'm going to test mobile app on iOS."
+        "Tạm gác phần dark mode, tập trung sửa bug thanh toán, và hỏi khi nào bạn dự kiến xong.",
+        "Làm xong dark mode trước, rồi báo lại về bug thanh toán.",
+        "Hủy hẳn dark mode và hỏi bạn đã sửa xong bug thanh toán chưa."
       ],
       "answer": 0,
-      "answer_vi": "Hôm nay mình sẽ test app mobile trên iOS.",
-      "why_vi": "Nền tảng đi với on: on iOS. app đếm được nên cần the."
+      "answer_vi": "Tạm gác phần dark mode, tập trung sửa bug thanh toán, và hỏi khi nào bạn dự kiến xong.",
+      "why_vi": "park something là tạm gác lại để làm sau, không phải hủy. ETA là thời điểm dự kiến xong."
     }
   ],
-  "write_prompt_vi": "Viết 1 đến 2 câu về việc bạn sẽ làm hôm nay."
+  "write_prompt_vi": "Bạn là dev trong standup sáng nay. Viết cập nhật 3 đến 4 câu: việc hôm qua, hai việc hôm nay theo thứ tự ưu tiên, và vướng mắc nếu có."
 }

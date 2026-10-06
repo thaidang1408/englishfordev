@@ -4,10 +4,10 @@
   "slug": "viet-ghi-chu-ban-giao",
   "title": "Viết ghi chú bàn giao",
   "free": false,
-  "goal_vi": "Dặn người nhận bàn giao phải làm gì khi có chuyện xảy ra.",
+  "goal_vi": "Viết ghi chú bàn giao đủ ý: trạng thái từng việc, cần làm gì khi có chuyện, hỏi ai, việc không nên làm, và ngày bạn quay lại.",
   "pattern": {
     "formula": "If + subject + V (hiện tại), please + V + object.",
-    "note_vi": "Vế if dùng hiện tại đơn dù nói về tương lai. Vế sau dùng please + động từ nguyên mẫu."
+    "note_vi": "Vế if dùng hiện tại đơn dù nói về tương lai. Vế sau dùng please + động từ nguyên mẫu, dặn đừng làm gì thì please don't + V. FYI và Heads-up mở đầu một điều người nhận nên biết trước."
   },
   "examples": [
     {
@@ -19,16 +19,16 @@
       "vi": "Nếu QA tìm ra bug ở tính năng export, bạn giao cho Minh nhé."
     },
     {
-      "en": "If the client asks about the deadline, please check with Lan first.",
-      "vi": "Nếu khách hỏi về deadline, bạn hỏi lại Lan trước nhé."
+      "en": "If the client asks about the deadline, please check with Lan before you reply.",
+      "vi": "Nếu khách hỏi về deadline, bạn hỏi lại Lan trước khi trả lời nhé."
     },
     {
-      "en": "If the disk usage alert fires again, please clear the old logs on the server.",
-      "vi": "Nếu cảnh báo dung lượng ổ đĩa lại bật lên, bạn xoá log cũ trên server nhé."
+      "en": "Heads-up: the disk usage alert tends to fire around midnight. If it does, please clear the old logs on the server.",
+      "vi": "Báo trước: cảnh báo dung lượng ổ đĩa hay bật lên khoảng nửa đêm. Nếu nó bật, bạn xoá log cũ trên server nhé."
     },
     {
-      "en": "If the migration takes longer than 10 minutes, please stop it and let me know.",
-      "vi": "Nếu migration chạy quá 10 phút, bạn dừng nó lại và báo mình nhé."
+      "en": "If the migration takes longer than 10 minutes, please stop it and ping Tuan in #infra.",
+      "vi": "Nếu migration chạy quá 10 phút, bạn dừng nó lại và nhắn Tuấn trong kênh #infra nhé."
     }
   ],
   "mistakes": [
@@ -52,14 +52,28 @@
     }
   ],
   "word_bank": [
-    "If",
-    "please",
-    "rerun",
+    "Handover",
+    "FYI",
+    "Heads-up",
+    "for context",
+    "If ..., please ...",
+    "please don't",
     "roll back",
-    "assign it to",
     "check with",
-    "contact",
-    "ping"
+    "I'm back on",
+    "runbook"
+  ],
+  "model": {
+    "title_vi": "Ghi chú bàn giao trước khi nghỉ phép",
+    "en": "Handover: payment service (June 10 to 14)\n\nHi Nam, thanks for covering while I'm out. I'm back on Monday, June 17.\nStatus: PAY-210 (refund API) is merged and on staging. PAY-215 is still in review, and Lan is the reviewer.\nHeads-up: the nightly sync job sometimes times out. If it fails, please rerun it from the Jenkins dashboard.\nIf the client asks about the refund release date, please check with Lan before you reply.\nPlease don't merge anything into the release branch without QA sign-off.\nAll the docs are in Confluence under Payments > Handover.",
+    "vi": "Bàn giao: service thanh toán (từ 10 đến 14/6)\n\nChào Nam, cảm ơn bạn đã làm thay trong lúc mình vắng. Thứ Hai 17/6 mình quay lại.\nTrạng thái: PAY-210 (API hoàn tiền) đã merge và đang trên staging. PAY-215 vẫn đang review, người review là Lan.\nBáo trước: job đồng bộ chạy đêm thỉnh thoảng bị timeout. Nếu nó lỗi, bạn chạy lại từ dashboard Jenkins nhé.\nNếu khách hỏi ngày phát hành tính năng hoàn tiền, bạn hỏi lại Lan trước khi trả lời nhé.\nĐừng merge gì vào nhánh release khi QA chưa duyệt.\nToàn bộ tài liệu ở Confluence, mục Payments > Handover."
+  },
+  "checklist_vi": [
+    "Nói rõ bạn vắng đến khi nào hoặc ngày quay lại.",
+    "Có trạng thái của từng việc đang dở.",
+    "Có ít nhất một câu If ..., please ... cho tình huống có thể xảy ra.",
+    "Có người cần hỏi hoặc chỗ để tìm tài liệu.",
+    "Nói rõ việc không nên làm, nếu có."
   ],
   "quiz": [
     {
@@ -72,7 +86,7 @@
       ],
       "answer": 0,
       "answer_vi": "Nếu deploy bị lỗi, bạn rollback về bản trước nhé.",
-      "why_vi": "Vế if không dùng will. Động từ viết tách: roll back, rollback là danh từ."
+      "why_vi": "Vế if không dùng will. Động từ viết tách: roll back, còn rollback viết liền là danh từ."
     },
     {
       "id": "w09q2",
@@ -84,94 +98,22 @@
       ],
       "answer": 0,
       "answer_vi": "Nếu khách hỏi về hoá đơn, bạn chuyển cho chị Hà nhé.",
-      "why_vi": "the client số ít nên asks. forward cần tân ngữ it."
+      "why_vi": "the client số ít nên asks. forward cần nói chuyển cái gì: forward it."
     },
     {
       "id": "w09q3",
-      "prompt_vi": "Nếu có gì hỏng, bạn liên hệ Nam nhé.",
-      "options": [
-        "If anything breaks, please contact Nam.",
-        "If anything breaks, please contact to Nam.",
-        "If anything will break, please contact Nam."
-      ],
-      "answer": 0,
-      "answer_vi": "Nếu có gì hỏng, bạn liên hệ Nam nhé.",
-      "why_vi": "contact không đi với to. Vế if không dùng will."
-    },
-    {
-      "id": "w09q4",
-      "prompt_vi": "Nếu test chạy chậm, bạn xoá cache rồi chạy lại nhé.",
-      "options": [
-        "If the tests are slow, please clear the cache and run them again.",
-        "If the tests is slow, please clear the cache and run them again.",
-        "If the tests are slow, please clear the cache and run again them."
-      ],
-      "answer": 0,
-      "answer_vi": "Nếu test chạy chậm, bạn xoá cache rồi chạy lại nhé.",
-      "why_vi": "the tests số nhiều đi với are. Tân ngữ them đứng ngay sau run."
-    },
-    {
-      "id": "w09q5",
-      "prompt_vi": "Nếu bạn cần quyền admin, hãy hỏi anh Tuấn.",
-      "options": [
-        "If you need admin access, please ask Tuan.",
-        "If you need access admin, please ask Tuan.",
-        "If you need admin access, please ask to Tuan."
-      ],
-      "answer": 0,
-      "answer_vi": "Nếu bạn cần quyền admin, hãy hỏi anh Tuấn.",
-      "why_vi": "Từ bổ nghĩa đứng trước: admin access. ask đi thẳng với người, không có to."
-    },
-    {
-      "id": "w09q6",
-      "prompt_vi": "Nếu ticket bị mở lại, bạn cập nhật trạng thái trên Jira nhé.",
-      "options": [
-        "If the ticket is reopened, please update its status in Jira.",
-        "If the ticket is reopen, please update its status in Jira.",
-        "If the ticket is reopened, please update its status at Jira."
-      ],
-      "answer": 0,
-      "answer_vi": "Nếu ticket bị mở lại, bạn cập nhật trạng thái trên Jira nhé.",
-      "why_vi": "Bị mở lại là is reopened, có ed. Trong một công cụ như Jira dùng in."
-    },
-    {
-      "id": "w09q7",
-      "prompt_vi": "Nếu app iOS bị crash khi mở, bạn xem log trên Firebase nhé.",
-      "options": [
-        "If the iOS app crashes on launch, please check the logs in Firebase.",
-        "If the iOS app is crash on launch, please check the logs in Firebase.",
-        "If the app iOS crashes on launch, please check the logs in Firebase."
-      ],
-      "answer": 0,
-      "answer_vi": "Nếu app iOS bị crash khi mở, bạn xem log trên Firebase nhé.",
-      "why_vi": "crash đã là động từ, không thêm is. Từ bổ nghĩa đứng trước: iOS app."
-    },
-    {
-      "id": "w09q8",
-      "prompt_vi": "Nếu khách gửi email về hợp đồng, bạn trả lời giúp mình nhé.",
-      "options": [
-        "If the client emails about the contract, please reply on my behalf.",
-        "If the client emails about the contract, please reply help me.",
-        "If the client email about the contract, please reply on my behalf."
-      ],
-      "answer": 0,
-      "answer_vi": "Nếu khách gửi email về hợp đồng, bạn trả lời giúp mình nhé.",
-      "why_vi": "Làm thay mình là on my behalf, không dịch giúp mình thành help me. the client số ít nên emails."
-    },
-    {
-      "id": "w09q9",
       "prompt_vi": "Nếu pipeline vẫn fail sau khi chạy lại, bạn đừng merge PR nhé.",
       "options": [
         "If the pipeline still fails after a rerun, please don't merge the PR.",
         "If the pipeline still fails after a rerun, please not merge the PR.",
-        "If the pipeline still fails after rerun it, please don't merge the PR."
+        "If the pipeline still fail after a rerun, please don't merge the PR."
       ],
       "answer": 0,
       "answer_vi": "Nếu pipeline vẫn fail sau khi chạy lại, bạn đừng merge PR nhé.",
-      "why_vi": "Dặn đừng làm gì dùng please don't + V. Sau after cần danh từ hoặc V-ing."
+      "why_vi": "Dặn đừng làm gì dùng please don't + động từ. the pipeline số ít nên fails."
     },
     {
-      "id": "w09q10",
+      "id": "w09q4",
       "prompt_vi": "Chọn câu đúng.",
       "options": [
         "If Linh asks about the API changes, please send her the Swagger link.",
@@ -180,8 +122,80 @@
       ],
       "answer": 0,
       "answer_vi": "Nếu Linh hỏi về các thay đổi của API, bạn gửi Linh link Swagger nhé.",
-      "why_vi": "Gửi cho ai viết send her + thứ được gửi. Sau please là động từ nguyên mẫu."
+      "why_vi": "Gửi cho ai viết send her + thứ được gửi, không chen to ở giữa. Sau please là động từ nguyên mẫu."
+    },
+    {
+      "id": "w09q5",
+      "prompt_vi": "Bạn dặn đồng nghiệp cùng cấp trong ghi chú bàn giao. Chọn cách viết phù hợp hơn.",
+      "options": [
+        "If the nightly job fails, please rerun it from Jenkins. It usually works on the second try.",
+        "Rerun the nightly job if it fails. Don't message me about it.",
+        "If it's not too much trouble and you happen to have time, maybe you could possibly rerun the nightly job if it fails?"
+      ],
+      "answer": 0,
+      "answer_vi": "Nếu job chạy đêm bị lỗi, bạn chạy lại từ Jenkins nhé. Thường chạy lần hai là được.",
+      "why_vi": "Câu thứ hai nghe như ra lệnh và gạt người nhận đi. Câu thứ ba rào đón đến mức không rõ đây là việc cần làm. Câu đầu dặn rõ và thêm một mẹo có ích."
+    },
+    {
+      "id": "w09q6",
+      "prompt_vi": "Bạn dặn một việc tuyệt đối không được làm. Chọn cách viết phù hợp hơn.",
+      "options": [
+        "Please don't run the migration on prod until Tuan has reviewed it. It locks the orders table.",
+        "DON'T TOUCH THE MIGRATION.",
+        "It might be better to wait a little before running the migration on prod, if that's okay with you."
+      ],
+      "answer": 0,
+      "answer_vi": "Đừng chạy migration trên prod cho tới khi Tuấn review xong nhé. Nó khoá bảng orders.",
+      "why_vi": "Viết hoa toàn bộ nghe như quát và không nói lý do. Câu thứ ba quá nhẹ nên người đọc tưởng là tuỳ ý. Câu đầu nói rõ điều kiện và lý do."
+    },
+    {
+      "id": "w09q7",
+      "prompt_vi": "Bạn báo trước một chuyện người nhận nên biết. Chọn cách viết phù hợp hơn.",
+      "options": [
+        "FYI: the staging server restarts every night at 2 AM, so you may see a few failed health checks around then.",
+        "Staging restarts at 2.",
+        "I just wanted to let you know, in case it's useful, that I think the staging server might sometimes restart at night."
+      ],
+      "answer": 0,
+      "answer_vi": "Để bạn biết: server staging khởi động lại mỗi đêm lúc 2 giờ sáng, nên quanh giờ đó bạn có thể thấy vài lần health check bị lỗi.",
+      "why_vi": "Câu thứ hai cụt, không nói 2 giờ sáng hay chiều và ảnh hưởng ra sao. Câu thứ ba mơ hồ, nghe như không chắc. Câu đầu nói rõ giờ và hệ quả."
+    },
+    {
+      "id": "w09q8",
+      "prompt_vi": "Người nhận bàn giao hỏi: \"Thanks for the handover doc. Quick q: is PAY-215 blocked on the client or just waiting for review? Also, who's my go-to if the payment gateway acts up?\" Ý họ là gì?",
+      "options": [
+        "Họ hỏi PAY-215 đang bị chặn vì chờ khách hay chỉ đang chờ review, và nên hỏi ai khi cổng thanh toán gặp trục trặc.",
+        "Họ báo PAY-215 đã bị khách huỷ.",
+        "Họ muốn bạn sửa cổng thanh toán trước khi nghỉ."
+      ],
+      "answer": 0,
+      "answer_vi": "Cảm ơn bạn đã viết ghi chú bàn giao. Hỏi nhanh: PAY-215 đang bị chặn vì chờ khách hay chỉ đang chờ review? Còn nếu cổng thanh toán trục trặc thì mình nên hỏi ai?",
+      "why_vi": "blocked on là bị chặn vì chờ cái gì. go-to là người hay tìm đến để hỏi. act up là trục trặc, chạy không ổn định."
+    },
+    {
+      "id": "w09q9",
+      "prompt_vi": "Lead góp ý ghi chú bàn giao của bạn: \"Looks good. One thing: can you add the rollback steps and link the runbook? Nam hasn't done a release on this service before.\" Ý họ là gì?",
+      "options": [
+        "Lead thấy ổn, nhưng nhờ bạn thêm các bước rollback và link tới runbook, vì Nam chưa từng release service này.",
+        "Lead muốn Nam viết runbook trước khi release.",
+        "Lead bảo bạn rollback bản release trước của Nam."
+      ],
+      "answer": 0,
+      "answer_vi": "Ổn rồi. Thêm một chỗ: bạn bổ sung các bước rollback và gắn link runbook được không? Nam chưa release service này lần nào.",
+      "why_vi": "One thing mở đầu một góp ý nhỏ. link the runbook là gắn đường dẫn tới tài liệu hướng dẫn vận hành. hasn't done ... before là chưa từng làm."
+    },
+    {
+      "id": "w09q10",
+      "prompt_vi": "Ghi chú bàn giao có dòng: \"Heads-up: I've paused the reports cron job until the DB upgrade is done. Don't re-enable it before Thursday, or the numbers will be off.\" Ý họ là gì?",
+      "options": [
+        "Người viết đã tạm dừng cron job tạo báo cáo cho tới khi nâng cấp DB xong; đừng bật lại trước thứ Năm, nếu không số liệu sẽ bị sai.",
+        "Cron job bị lỗi và bạn cần bật lại ngay hôm nay.",
+        "Báo cáo đã bị tắt hẳn từ thứ Năm."
+      ],
+      "answer": 0,
+      "answer_vi": "Báo trước: mình đã tạm dừng cron job báo cáo cho tới khi nâng cấp DB xong. Đừng bật lại trước thứ Năm, nếu không số liệu sẽ bị sai.",
+      "why_vi": "paused là tạm dừng. re-enable là bật lại. the numbers will be off là số liệu sẽ lệch, không đúng."
     }
   ],
-  "write_prompt_vi": "Viết 1 đến 2 câu dặn người nhận bàn giao phải làm gì nếu có sự cố."
+  "write_prompt_vi": "Viết ghi chú bàn giao 4 đến 6 câu cho Minh trước khi bạn nghỉ phép 3 ngày: trạng thái hai ticket, việc cần làm nếu job chạy đêm lỗi, người cần hỏi, và ngày bạn quay lại."
 }

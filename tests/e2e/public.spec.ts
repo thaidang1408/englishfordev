@@ -1,3 +1,4 @@
+import { readdirSync } from 'node:fs';
 import { expect, test } from '@playwright/test';
 import lesson from '../../content/lessons/standup-01.json' with { type: 'json' };
 
@@ -64,7 +65,8 @@ test('sitemap có trang công khai và 30 trang mẫu câu, không có bài Prem
   const xml = await (await request.get('/sitemap.xml')).text();
   expect(xml).toContain('/dieu-khoan</loc>');
   expect(xml).toContain(`/hoc/${lesson.slug}</loc>`);
-  expect(xml.match(/\/mau-cau\//g)).toHaveLength(30);
+  // Mỗi file bài học có một trang mẫu câu.
+  expect(xml.match(/\/mau-cau\//g)).toHaveLength(readdirSync('content/lessons').length);
   expect(xml).not.toContain('/hoc/gioi-thieu-ban-than');
   expect(await (await request.get('/robots.txt')).text()).toContain('/sitemap.xml');
 });

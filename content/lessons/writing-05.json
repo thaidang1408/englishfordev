@@ -4,10 +4,14 @@
   "slug": "bao-mot-bug",
   "title": "Báo một bug",
   "free": false,
-  "goal_vi": "Mô tả bug bằng một câu: làm gì thì xảy ra chuyện gì.",
+  "roles": [
+    "qa",
+    "dev"
+  ],
+  "goal_vi": "Viết bug report có tiêu đề, các bước tái hiện, kết quả mong đợi, kết quả thực tế và môi trường.",
   "pattern": {
     "formula": "When I + V + object, + subject + V(s) + ... .",
-    "note_vi": "Bug lặp lại được thì dùng hiện tại đơn ở cả hai vế. Chủ ngữ số ít thì động từ thêm s."
+    "note_vi": "Bug lặp lại được thì dùng hiện tại đơn ở cả hai vế. Chủ ngữ số ít thì động từ thêm s. Trong bug report, câu này thường nằm ở phần Actual. Steps to reproduce viết dạng mệnh lệnh, có đánh số: 1. Open..., 2. Click...."
   },
   "examples": [
     {
@@ -27,8 +31,8 @@
       "vi": "Khi mình lọc đơn hàng theo ngày, tổng tiền không cập nhật."
     },
     {
-      "en": "When I log in with an expired token, the app shows a blank screen.",
-      "vi": "Khi mình đăng nhập bằng token hết hạn, app hiện màn hình trắng."
+      "en": "When I log in with an expired token, the app shows a blank screen about 3 out of 5 times.",
+      "vi": "Khi mình đăng nhập bằng token hết hạn, khoảng 3 trên 5 lần app hiện màn hình trắng."
     }
   ],
   "mistakes": [
@@ -52,15 +56,31 @@
     }
   ],
   "word_bank": [
-    "When I click",
-    "crashes",
-    "returns",
-    "doesn't work",
-    "goes blank",
-    "freezes",
     "Steps to reproduce",
     "Expected",
-    "Actual"
+    "Actual",
+    "Environment",
+    "every time",
+    "3 out of 5 times",
+    "intermittent",
+    "crashes",
+    "freezes",
+    "goes blank",
+    "returns a 500 error",
+    "can't reproduce",
+    "screenshot attached"
+  ],
+  "model": {
+    "title_vi": "Bug report có Steps, Expected, Actual, Environment",
+    "en": "Title: Total doesn't update after filtering orders by date\n\nSteps to reproduce:\n1. Log in as an admin.\n2. Go to Orders.\n3. Filter orders by date (Oct 1-7).\n\nExpected: The total shows the sum of the filtered orders.\nActual: When I filter orders by date, the total doesn't update. It still shows the total for all orders.\n\nEnvironment: Chrome 129 on Windows 11, staging\nFrequency: Every time. Screenshot attached.",
+    "vi": "Tiêu đề: Tổng tiền không cập nhật sau khi lọc đơn hàng theo ngày\n\nCác bước tái hiện:\n1. Đăng nhập bằng tài khoản admin.\n2. Vào trang Orders.\n3. Lọc đơn hàng theo ngày (1 đến 7/10).\n\nMong đợi: Tổng tiền hiện tổng của các đơn đã lọc.\nThực tế: Khi mình lọc đơn hàng theo ngày, tổng tiền không cập nhật. Nó vẫn hiện tổng của tất cả đơn hàng.\n\nMôi trường: Chrome 129 trên Windows 11, staging\nTần suất: Lần nào cũng bị. Có ảnh chụp màn hình đính kèm."
+  },
+  "checklist_vi": [
+    "Có tiêu đề ngắn nói bug là gì, ở màn hình nào.",
+    "Có các bước tái hiện đánh số, viết dạng mệnh lệnh.",
+    "Có Expected và Actual tách riêng.",
+    "Có Environment: trình duyệt hoặc thiết bị, phiên bản, môi trường.",
+    "Nói bug xảy ra mỗi lần hay chỉ thỉnh thoảng."
   ],
   "quiz": [
     {
@@ -77,112 +97,112 @@
     },
     {
       "id": "w05q2",
-      "prompt_vi": "Khi mình đổi ngôn ngữ, trang bị trắng.",
-      "options": [
-        "When I change the language, the page goes blank.",
-        "When I change the language, the page go blank.",
-        "When I change the language, the page is go blank."
-      ],
-      "answer": 0,
-      "answer_vi": "Khi mình đổi ngôn ngữ, trang bị trắng.",
-      "why_vi": "go blank = bị trắng trang. Chủ ngữ số ít nên goes, không thêm is."
-    },
-    {
-      "id": "w05q3",
       "prompt_vi": "Nút Save không hoạt động trên Firefox.",
       "options": [
-        "The Save button doesn't work on Firefox.",
-        "The button Save doesn't work on Firefox.",
-        "The Save button not work on Firefox."
+        "The Save button doesn't work in Firefox.",
+        "The button Save doesn't work in Firefox.",
+        "The Save button not work in Firefox."
       ],
       "answer": 0,
       "answer_vi": "Nút Save không hoạt động trên Firefox.",
-      "why_vi": "Tên nút đứng trước button. Phủ định hiện tại đơn cần doesn't."
+      "why_vi": "Tên nút đứng trước button: the Save button. Phủ định ở hiện tại đơn cần doesn't. Với trình duyệt, người bản ngữ thường nói in Firefox."
     },
     {
-      "id": "w05q4",
-      "prompt_vi": "Khi mình upload file lớn, API trả về lỗi timeout.",
-      "options": [
-        "When I upload a large file, the API returns a timeout error.",
-        "When I upload a file large, the API returns a timeout error.",
-        "When I upload a large file, the API return a timeout error."
-      ],
-      "answer": 0,
-      "answer_vi": "Khi mình upload file lớn, API trả về lỗi timeout.",
-      "why_vi": "Tính từ large đứng trước file. the API số ít nên returns."
-    },
-    {
-      "id": "w05q5",
+      "id": "w05q3",
       "prompt_vi": "Khi mình đăng xuất, giỏ hàng không bị xoá.",
       "options": [
         "When I log out, the cart isn't cleared.",
         "When I logout, the cart isn't cleared.",
-        "When I log out, the cart is not clear."
+        "When I log out, the cart isn't clear."
       ],
       "answer": 0,
       "answer_vi": "Khi mình đăng xuất, giỏ hàng không bị xoá.",
-      "why_vi": "Động từ viết tách: log out. Bị xoá là bị động: isn't cleared."
+      "why_vi": "Động từ viết tách: log out (logout liền là danh từ). Bị xoá là bị động: isn't cleared, có ed."
     },
     {
-      "id": "w05q6",
+      "id": "w05q4",
       "prompt_vi": "Khi mình chạy migration, bảng users bị khoá.",
       "options": [
         "When I run the migration, the users table gets locked.",
-        "When I run the migration, the users table is lock.",
-        "When I will run the migration, the users table gets locked."
+        "When I will run the migration, the users table gets locked.",
+        "When I run the migration, the users table is lock."
       ],
       "answer": 0,
       "answer_vi": "Khi mình chạy migration, bảng users bị khoá.",
-      "why_vi": "Bị khoá là gets locked, có ed. Vế when dùng hiện tại, không dùng will."
+      "why_vi": "Vế when dùng hiện tại, không dùng will. Bị khoá là gets locked hoặc is locked, cần ed."
+    },
+    {
+      "id": "w05q5",
+      "prompt_vi": "Chọn phần Steps to reproduce rõ ràng hơn.",
+      "options": [
+        "1. Log in as an admin. 2. Open Orders. 3. Filter by date.",
+        "Try the orders page, it's broken.",
+        "First of all, I think you should probably log in, and after that maybe open the orders page and try to filter something."
+      ],
+      "answer": 0,
+      "answer_vi": "1. Đăng nhập bằng tài khoản admin. 2. Mở trang Orders. 3. Lọc theo ngày.",
+      "why_vi": "Bước tái hiện nên đánh số, mỗi bước một hành động, viết dạng mệnh lệnh. Câu thứ hai không cho dev biết làm gì. Câu thứ ba dài, mơ hồ, khó làm theo."
+    },
+    {
+      "id": "w05q6",
+      "prompt_vi": "Chọn tiêu đề bug rõ ràng hơn.",
+      "options": [
+        "Checkout returns 500 when the cart has more than 50 items",
+        "Checkout is broken",
+        "There seems to be a small issue that I noticed on the checkout page during testing today"
+      ],
+      "answer": 0,
+      "answer_vi": "Checkout trả về lỗi 500 khi giỏ hàng có hơn 50 món.",
+      "why_vi": "Tiêu đề tốt nói chỗ nào, lỗi gì, khi nào xảy ra. Checkout is broken quá chung. Câu thứ ba dài mà không nói lỗi là gì."
     },
     {
       "id": "w05q7",
-      "prompt_vi": "Khi mình đổi mật khẩu, mình không nhận được email xác nhận.",
+      "prompt_vi": "Bạn báo bug cho dev trên Slack. Chọn tin nhắn phù hợp hơn.",
       "options": [
-        "When I change my password, I don't receive a confirmation email.",
-        "When I change my password, I don't receive a confirm email.",
-        "When I change my password, I doesn't receive a confirmation email."
+        "Hi Nam, I've filed BUG-231: login fails in Safari 17 about 3 out of 5 times. Steps and logs are in the ticket.",
+        "Login is broken again. Fix it.",
+        "Hi Nam, so sorry to bother you, I might be wrong, but maybe login has a small problem sometimes?"
       ],
       "answer": 0,
-      "answer_vi": "Khi mình đổi mật khẩu, mình không nhận được email xác nhận.",
-      "why_vi": "Đứng trước email cần danh từ confirmation, không phải động từ confirm. I đi với don't."
+      "answer_vi": "Chào Nam, mình đã tạo BUG-231: đăng nhập trên Safari 17 bị lỗi khoảng 3 trên 5 lần. Các bước và log có trong ticket.",
+      "why_vi": "Tin đầu có số ticket, lỗi gì, ở đâu, bao lâu bị một lần. Câu thứ hai nghe như trách và ra lệnh. Câu thứ ba quá dè dặt, không có thông tin để dev bắt đầu."
     },
     {
       "id": "w05q8",
-      "prompt_vi": "Khi mình push lên nhánh develop, CI chạy test hai lần.",
+      "prompt_vi": "Dev trả lời: 'Can't repro on my end. Can you share the browser version and a HAR file?' Ý họ là gì?",
       "options": [
-        "When I push to the develop branch, CI runs the tests twice.",
-        "When I push on the develop branch, CI runs the tests twice.",
-        "When I pushed to the develop branch, CI runs the tests twice."
+        "Dev không tái hiện được bug trên máy họ, cần bạn gửi phiên bản trình duyệt và file HAR.",
+        "Dev đã sửa xong, nhờ bạn test lại.",
+        "Dev không nhận bug này vì thiếu file."
       ],
       "answer": 0,
-      "answer_vi": "Khi mình push lên nhánh develop, CI chạy test hai lần.",
-      "why_vi": "Push lên nhánh nào dùng to. Bug lặp lại được thì cả hai vế dùng hiện tại."
+      "answer_vi": "Dev không tái hiện được bug trên máy họ, cần bạn gửi phiên bản trình duyệt và file HAR.",
+      "why_vi": "repro là reproduce, tái hiện lỗi. on my end là ở phía mình, trên máy mình. HAR file là file ghi lại các request mạng của trình duyệt."
     },
     {
       "id": "w05q9",
-      "prompt_vi": "Khi mình xoay màn hình, video dừng phát.",
+      "prompt_vi": "Dev comment trong ticket: 'Fixed on staging. Could you verify and close it if it looks good?' Ý họ là gì?",
       "options": [
-        "When I rotate the screen, the video stops playing.",
-        "When I rotate the screen, the video stops to play.",
-        "When I rotate the screen, the video stop playing."
+        "Đã sửa trên staging; nhờ bạn kiểm tra lại, ổn thì đóng ticket.",
+        "Đã sửa trên production và đã đóng ticket.",
+        "Nhờ bạn sửa trên staging rồi đóng ticket."
       ],
       "answer": 0,
-      "answer_vi": "Khi mình xoay màn hình, video dừng phát.",
-      "why_vi": "Ngừng làm gì dùng stop + V-ing. the video số ít nên stops."
+      "answer_vi": "Đã sửa trên staging; nhờ bạn kiểm tra lại, ổn thì đóng ticket.",
+      "why_vi": "Fixed on staging là đã sửa trên môi trường staging, chưa phải production. verify là kiểm tra lại. if it looks good là nếu thấy ổn."
     },
     {
       "id": "w05q10",
-      "prompt_vi": "Chọn câu đúng.",
+      "prompt_vi": "PM nhắn: 'Is this a blocker for the release, or can it wait till the next sprint?' Ý họ là gì?",
       "options": [
-        "When I send an empty request body, the API returns 200 instead of 400.",
-        "When I send an empty request body, the API returns 200 instead 400.",
-        "When I send a request body empty, the API returns 200 instead of 400."
+        "PM hỏi bug này có chặn bản phát hành không, hay để sang sprint sau được.",
+        "PM muốn bug này được sửa ngay trong sprint này.",
+        "PM hỏi khi nào bản phát hành ra."
       ],
       "answer": 0,
-      "answer_vi": "Khi mình gửi request body rỗng, API trả về 200 thay vì 400.",
-      "why_vi": "Thay vì là instead of, không bỏ of. Tính từ empty đứng trước danh từ."
+      "answer_vi": "PM hỏi bug này có chặn bản phát hành không, hay để sang sprint sau được.",
+      "why_vi": "blocker for the release là lỗi chặn, chưa sửa thì chưa phát hành được. can it wait till là có để tới ... được không."
     }
   ],
-  "write_prompt_vi": "Viết 1 câu mô tả một bug bạn từng gặp: làm gì thì xảy ra chuyện gì."
+  "write_prompt_vi": "Bạn là QA. Trên staging, bấm Save ở trang hồ sơ trong Safari 17 thì trang bị trắng, khoảng 3 trên 5 lần. Viết bug report có Title, Steps, Expected, Actual, Environment."
 }

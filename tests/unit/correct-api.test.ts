@@ -39,6 +39,7 @@ function fakeRepo(ent: EntitlementRow | null, rows: Date[] = [], others = 0) {
   const mine = [...rows];
   const repo: CorrectRepo = {
     getEntitlement: async () => ent,
+    getRoles: async () => ['ba'],
     getErrorStats: async () => ({ corrections: 4, errors: 6, repeating: 2 }),
     countUserCorrections: async (_u, since) => mine.filter((d) => d >= since).length,
     countAllCorrections: async (since) => others + mine.filter((d) => d >= since).length,
@@ -63,9 +64,9 @@ function post(body: unknown, init: { origin?: string | null; method?: string } =
 }
 
 function fakeAi(result: Correction | (() => Promise<Correction>) = RESULT) {
-  const calls: { sentence: string; mode: string }[] = [];
+  const calls: { sentence: string; mode: string; roles?: string; checklist?: readonly string[] }[] = [];
   const correct: CorrectSentence = async (sentence, context) => {
-    calls.push({ sentence, mode: context?.mode ?? 'work' });
+    calls.push({ sentence, mode: context?.mode ?? 'work', roles: context?.writerRoles, checklist: context?.lesson?.checklist });
     return typeof result === 'function' ? result() : result;
   };
   return { correct, calls };
@@ -112,17 +113,18 @@ describe('POST /api/correct: khuôn endpoint', () => {
     expect(json.error?.code).toBe('unauthenticated');
   });
 
-  it('câu dưới 3 hoặc trên 300 ký tự sau khi trim trả 400 và không gọi AI', async () => {
-    for (const s of ['  ab  ', 'a'.repeat(301), '']) {
+  it('câu dưới 3 hoặc trên 700 ký tự sau khi trim trả 400 và không gọi AI', async () => {
+    for (const s of ['  ab  ', 'a'.repeat(701), '']) {
       const { res, calls } = await run(post({ sentence: s }));
       expect(res.status).toBe(400);
       expect(calls).toHaveLength(0);
     }
   });
 
-  it('mode interview nhận câu trả lời tới 600 ký tự', async () => {
-    const { res } = await run(post({ sentence: 'a '.repeat(290), mode: 'interview', question: QUESTION }));
+  it('mode interview nhận câu trả lời tới 1200 ký tự', async () => {
+    const { res } = await run(post({ sentence: 'a '.repeat(590), mode: 'interview', question: QUESTION }));
     expect(res.status).toBe(200);
+    expect((await run(post({ sentence: 'a'.repeat(1201), mode: 'interview', question: QUESTION }))).res.status).toBe(400);
   });
 
   it('body sai dạng hoặc bài không tồn tại trả 400', async () => {
@@ -136,7 +138,9 @@ describe('POST /api/correct: khuôn endpoint', () => {
     expect(res.status).toBe(200);
     expect(res.headers.get('Cache-Control')).toBe('no-store');
     expect(json.data).toMatchObject({ id: 'c1', original: sentence, result: RESULT, remaining: 9 });
-    expect(calls).toEqual([{ sentence, mode: 'work' }]);
+    // AI nhận ngành người viết và danh sách "Bài viết nên có" của bài (SPEC mục 15, 16).
+    const standup01 = lessons.find((l) => l.slug === 'hom-qua-da-lam-gi')!;
+    expect(calls).toEqual([{ sentence, mode: 'work', roles: 'BA', checklist: standup01.checklist_vi }]);
     expect(saved[0]).toMatchObject({
       user_id: USER.id,
       lesson_key: 'standup-01',

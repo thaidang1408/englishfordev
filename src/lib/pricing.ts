@@ -13,7 +13,7 @@ export function formatVnd(amount: number): string {
 
 /** Bảng Miễn phí và Premium, SPEC mục 2. */
 export const COMPARE: { feature: string; free: string; premium: string }[] = [
-  { feature: 'Bài học', free: '3 bài đầu của track Standup', premium: 'Tất cả 30 bài, 3 track' },
+  { feature: 'Bài học', free: '3 bài đầu của track Standup', premium: 'Tất cả bài học, 3 track' },
   { feature: 'Test xếp trình độ', free: 'Có', premium: 'Có' },
   { feature: 'AI sửa câu của bạn', free: '1 lần mỗi 7 ngày', premium: '30 lần mỗi ngày' },
   { feature: 'Ôn câu trắc nghiệm đã sai', free: 'Có', premium: 'Có' },

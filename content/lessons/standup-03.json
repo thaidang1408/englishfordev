@@ -4,31 +4,31 @@
   "slug": "dang-ket-o-dau",
   "title": "Đang kẹt ở đâu",
   "free": true,
-  "goal_vi": "Nói rõ mình đang bị chặn bởi cái gì, đang chờ ai, hoặc không vướng gì.",
+  "goal_vi": "Nói rõ mình đang bị chặn bởi cái gì, đã thử gì, cần ai giúp, hoặc nói rằng không vướng gì.",
   "pattern": {
     "formula": "I'm blocked by + noun. / I'm waiting for + someone + to V. / No blockers on my side.",
-    "note_vi": "blocked by: bị chặn bởi. waiting for: luôn có for."
+    "note_vi": "blocked by và blocked on đều được. waiting for luôn có for. Báo vướng thì kết bằng một lời nhờ cụ thể: cần ai làm gì."
   },
   "examples": [
     {
-      "en": "I'm blocked by the missing API docs.",
-      "vi": "Mình đang kẹt vì thiếu tài liệu API."
+      "en": "I'm blocked by the missing API docs. Could someone from the backend team share them?",
+      "vi": "Mình đang kẹt vì thiếu tài liệu API. Bên backend có ai gửi giúp mình được không?"
     },
     {
       "en": "I'm waiting for the design team to send the final mockups.",
       "vi": "Mình đang chờ team design gửi mockup cuối."
     },
     {
-      "en": "No blockers on my side.",
-      "vi": "Bên mình không vướng gì."
+      "en": "No blockers on my side, so I can help with testing if anyone needs it.",
+      "vi": "Bên mình không vướng gì, nên ai cần thì mình phụ test được."
     },
     {
-      "en": "I'm blocked by a failing migration on the staging database.",
-      "vi": "Mình đang kẹt vì một migration bị lỗi trên database staging."
+      "en": "I'm blocked on a failing migration in staging. I tried rolling it back, but it still fails.",
+      "vi": "Mình đang kẹt vì một migration bị lỗi trên staging. Mình đã thử rollback nhưng vẫn lỗi."
     },
     {
-      "en": "I'm waiting for the client to confirm the requirements.",
-      "vi": "Mình đang chờ khách xác nhận yêu cầu."
+      "en": "I'm waiting for the client to confirm the requirements, so I'll start on the UI in the meantime.",
+      "vi": "Mình đang chờ khách xác nhận yêu cầu, nên trong lúc chờ mình làm phần UI trước."
     }
   ],
   "mistakes": [
@@ -36,7 +36,7 @@
       "wrong": "I'm blocking by the server issue.",
       "right": "I'm blocked by the server issue.",
       "right_vi": "Mình đang kẹt vì lỗi server.",
-      "why_vi": "Mình bị chặn nên dùng bị động: blocked."
+      "why_vi": "Mình là người bị chặn nên dùng blocked. blocking là mình đang chặn người khác."
     },
     {
       "wrong": "I'm waiting the review.",
@@ -52,12 +52,26 @@
     }
   ],
   "word_bank": [
-    "blocked by",
+    "blocked by / blocked on",
     "waiting for",
+    "stuck on",
     "need access to",
     "depend on",
-    "stuck on",
-    "could someone"
+    "I've tried ...",
+    "Can we sync after standup?",
+    "in the meantime",
+    "unblock"
+  ],
+  "model": {
+    "title_vi": "Cập nhật standup có vướng mắc và lời nhờ",
+    "en": "Yesterday I set up the webhook endpoint for the payment gateway.\nToday I want to test the full payment flow on staging.\nI'm blocked by the missing sandbox API key. I asked in #payments yesterday, but I haven't heard back yet.\nLinh, could you share the key, or can we sync for five minutes after standup?",
+    "vi": "Hôm qua mình dựng endpoint webhook cho cổng thanh toán.\nHôm nay mình muốn test toàn bộ luồng thanh toán trên staging.\nMình đang kẹt vì chưa có API key sandbox. Hôm qua mình đã hỏi trong kênh #payments nhưng chưa ai trả lời.\nLinh ơi, bạn gửi giúp mình key được không, hoặc sau standup mình trao đổi năm phút nhé?"
+  },
+  "checklist_vi": [
+    "Nói rõ thứ đang chặn bạn (blocked by, blocked on, waiting for).",
+    "Có việc bạn đã thử hoặc đã hỏi ai.",
+    "Nói rõ cần ai giúp gì, hoặc đề nghị trao đổi sau standup.",
+    "Có câu ngắn về việc hôm qua và hôm nay."
   ],
   "quiz": [
     {
@@ -66,110 +80,38 @@
       "options": [
         "I'm blocked by the staging server issue.",
         "I'm blocking by the staging server issue.",
-        "I blocked by staging server issue."
+        "I blocked by the staging server issue."
       ],
       "answer": 0,
       "answer_vi": "Mình đang kẹt vì lỗi server staging.",
-      "why_vi": "Bị động: am blocked by."
+      "why_vi": "Mình là người bị chặn: am blocked by. Thiếu am thì câu thành \"mình đã chặn\"."
     },
     {
       "id": "s03q2",
       "prompt_vi": "Mình đang chờ backend làm xong API.",
       "options": [
         "I'm waiting for the backend team to finish the API.",
-        "I'm waiting the backend team finish the API.",
+        "I'm waiting the backend team to finish the API.",
         "I'm waiting for the backend team finish the API."
       ],
       "answer": 0,
       "answer_vi": "Mình đang chờ team backend làm xong API.",
-      "why_vi": "wait for + someone + to V."
+      "why_vi": "Mẫu đủ: wait for + người + to V. Không bỏ for, không bỏ to."
     },
     {
       "id": "s03q3",
-      "prompt_vi": "Mình không bị kẹt gì.",
-      "options": [
-        "No blockers on my side.",
-        "I have no any blocker.",
-        "I don't have blocker nothing."
-      ],
-      "answer": 0,
-      "answer_vi": "Bên mình không vướng gì.",
-      "why_vi": "Câu chuẩn trong standup. Không dùng hai phủ định cùng lúc."
-    },
-    {
-      "id": "s03q4",
       "prompt_vi": "Mình cần quyền truy cập database production.",
       "options": [
         "I need access to the production database.",
         "I need to access to the production database.",
-        "I need access production database."
+        "I need access the production database."
       ],
       "answer": 0,
       "answer_vi": "Mình cần quyền truy cập database production.",
-      "why_vi": "Danh từ access đi với to. Động từ access thì không có to: I need to access the database."
+      "why_vi": "Danh từ access đi với to: need access to. Động từ access thì không có to: I need to access the database."
     },
     {
-      "id": "s03q5",
-      "prompt_vi": "Ai review giúp mình PR này hôm nay được không?",
-      "options": [
-        "Could someone review my PR today?",
-        "Could someone to review my PR today?",
-        "Could someone reviewing my PR today?"
-      ],
-      "answer": 0,
-      "answer_vi": "Ai review giúp mình PR này hôm nay được không?",
-      "why_vi": "Sau could là động từ nguyên mẫu không to."
-    },
-    {
-      "id": "s03q6",
-      "prompt_vi": "Mình đang kẹt vì pipeline CI bị hỏng.",
-      "options": [
-        "I'm blocked by the broken CI pipeline.",
-        "I'm blocked from the broken CI pipeline.",
-        "I'm blocked by the CI pipeline broken."
-      ],
-      "answer": 0,
-      "answer_vi": "Mình đang kẹt vì pipeline CI bị hỏng.",
-      "why_vi": "Bị chặn bởi cái gì thì dùng blocked by. broken đứng trước danh từ."
-    },
-    {
-      "id": "s03q7",
-      "prompt_vi": "Mình đang chờ QA test lại bản fix.",
-      "options": [
-        "I'm waiting for QA to retest the fix.",
-        "I'm waiting for QA to retesting the fix.",
-        "I waiting for QA to retest the fix."
-      ],
-      "answer": 0,
-      "answer_vi": "Mình đang chờ QA test lại bản fix.",
-      "why_vi": "Sau to là động từ nguyên mẫu. Câu cần I'm trước waiting."
-    },
-    {
-      "id": "s03q8",
-      "prompt_vi": "Mình đang kẹt ở ticket Jira này.",
-      "options": [
-        "I'm stuck on this Jira ticket.",
-        "I stuck on this Jira ticket.",
-        "I'm sticking on this Jira ticket."
-      ],
-      "answer": 0,
-      "answer_vi": "Mình đang kẹt ở ticket Jira này.",
-      "why_vi": "Đang kẹt là I'm stuck on. Không dùng sticking."
-    },
-    {
-      "id": "s03q9",
-      "prompt_vi": "Mình đang chờ ai đó approve hotfix.",
-      "options": [
-        "I'm waiting for someone to approve my hotfix.",
-        "I'm waiting someone to approve my hotfix.",
-        "I'm waiting for someone approves my hotfix."
-      ],
-      "answer": 0,
-      "answer_vi": "Mình đang chờ ai đó approve hotfix của mình.",
-      "why_vi": "wait for + người + to V."
-    },
-    {
-      "id": "s03q10",
+      "id": "s03q4",
       "prompt_vi": "Chọn câu đúng.",
       "options": [
         "This task depends on the payment API.",
@@ -179,7 +121,79 @@
       "answer": 0,
       "answer_vi": "Task này phụ thuộc vào API thanh toán.",
       "why_vi": "Chủ ngữ số ít nên depends. Phụ thuộc vào là depend on."
+    },
+    {
+      "id": "s03q5",
+      "prompt_vi": "Bạn kẹt ở API thanh toán. Chọn cách nói phù hợp hơn trong standup.",
+      "options": [
+        "I'm blocked on the payment API. I've checked the logs, but I can't find the cause. Can someone pair with me after standup?",
+        "The payment API is broken.",
+        "It's probably my fault, I'm still trying, so please don't worry about it."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình đang kẹt ở API thanh toán. Mình đã xem log nhưng chưa tìm ra nguyên nhân. Sau standup có ai ngồi cùng mình xem được không?",
+      "why_vi": "Báo vướng tốt có ba ý: kẹt ở đâu, đã thử gì, cần ai giúp. Câu thứ hai thiếu lời nhờ, câu thứ ba giấu vấn đề nên team không giúp được."
+    },
+    {
+      "id": "s03q6",
+      "prompt_vi": "PR của bạn chờ review đã hai ngày. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "My PR for the export feature has been waiting for review since Tuesday. Could someone take a look today?",
+        "Nobody has reviewed my PR again.",
+        "Whenever anyone has a moment, no rush at all, maybe someone could glance at my PR sometime."
+      ],
+      "answer": 0,
+      "answer_vi": "PR tính năng xuất file của mình chờ review từ thứ Ba. Hôm nay có ai xem giúp được không?",
+      "why_vi": "Nói sự thật và một lời nhờ có mốc. Câu thứ hai nghe như trách móc, câu thứ ba nói \"no rush\" trong khi việc đang bị chặn."
+    },
+    {
+      "id": "s03q7",
+      "prompt_vi": "Bạn không vướng gì. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "No blockers on my side. I have some time this afternoon if anyone needs help with testing.",
+        "I have no problems at all, everything is perfect.",
+        "I don't think I have any blockers, but I'm not 100% sure, maybe I'll find some later."
+      ],
+      "answer": 0,
+      "answer_vi": "Bên mình không vướng gì. Chiều nay mình rảnh, ai cần phụ test thì cứ nói.",
+      "why_vi": "Nói gọn là không vướng và mở lời giúp team. Câu thứ hai nói quá, câu thứ ba rào đón khiến người nghe không biết có vướng hay không."
+    },
+    {
+      "id": "s03q8",
+      "prompt_vi": "Đồng nghiệp nói: \"I'm blocked on infra. Waiting for DevOps to bump the memory limit.\" Ý họ là gì?",
+      "options": [
+        "Họ đang kẹt ở phần hạ tầng, chờ DevOps tăng giới hạn bộ nhớ.",
+        "Họ đang chặn team DevOps vì giới hạn bộ nhớ.",
+        "Họ đã tăng giới hạn bộ nhớ và đang chờ DevOps kiểm tra."
+      ],
+      "answer": 0,
+      "answer_vi": "Họ đang kẹt ở phần hạ tầng, chờ DevOps tăng giới hạn bộ nhớ.",
+      "why_vi": "infra là infrastructure, hạ tầng. bump something là tăng một con số lên (version, limit)."
+    },
+    {
+      "id": "s03q9",
+      "prompt_vi": "Tech lead đáp: \"Let's take this offline. Ping me after standup and we'll dig into it.\" Ý họ là gì?",
+      "options": [
+        "Đừng bàn chi tiết trong standup; sau standup nhắn họ để cùng tìm hiểu kỹ.",
+        "Tắt mạng rồi thử lại sau standup.",
+        "Bỏ qua vấn đề này, không cần làm nữa."
+      ],
+      "answer": 0,
+      "answer_vi": "Đừng bàn chi tiết trong standup; sau standup nhắn họ để cùng tìm hiểu kỹ.",
+      "why_vi": "take this offline là bàn riêng sau, không phải tắt mạng. ping me là nhắn cho họ. dig into là đào sâu tìm hiểu."
+    },
+    {
+      "id": "s03q10",
+      "prompt_vi": "QA nhắn: \"Heads-up: staging is down, so I can't verify your fix until it's back up.\" Ý họ là gì?",
+      "options": [
+        "Báo trước: staging đang sập, khi nào staging chạy lại thì họ mới kiểm tra được bản sửa của bạn.",
+        "Bản sửa của bạn làm staging sập, bạn cần rollback.",
+        "Staging vừa được nâng cấp, họ sẽ kiểm tra bản sửa ngay."
+      ],
+      "answer": 0,
+      "answer_vi": "Báo trước: staging đang sập, khi nào staging chạy lại thì họ mới kiểm tra được bản sửa của bạn.",
+      "why_vi": "heads-up là báo trước một tin. down là đang không chạy, back up là chạy lại. Tin này không nói lỗi do bạn."
     }
   ],
-  "write_prompt_vi": "Viết 1 câu về thứ đang chặn bạn, hoặc nói rằng bạn không vướng gì."
+  "write_prompt_vi": "Bạn là dev, đang chờ team backend cấp quyền vào database staging. Viết cập nhật standup 3 đến 4 câu: hôm qua, hôm nay, chỗ đang vướng và bạn cần ai làm gì."
 }

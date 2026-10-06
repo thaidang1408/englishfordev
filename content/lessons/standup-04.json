@@ -4,10 +4,10 @@
   "slug": "viec-xong-viec-con-do",
   "title": "Việc xong, việc còn dở",
   "free": false,
-  "goal_vi": "Nói rõ phần nào đã xong và phần nào còn đang làm trong cùng một câu.",
+  "goal_vi": "Nói rõ phần nào đã xong, phần nào còn dở, vì sao còn dở và khi nào xong.",
   "pattern": {
     "formula": "I've finished + noun, but + noun + is still in progress.",
-    "note_vi": "I've + V3 cho việc vừa xong. is still in progress cho việc còn dở."
+    "note_vi": "I've + V3 cho việc vừa xong. is still in progress cho việc còn dở. Nói cụ thể (2 trong 3 endpoint) rõ hơn nói phần trăm."
   },
   "examples": [
     {
@@ -23,8 +23,8 @@
       "vi": "Mình đã sửa theo phần lớn comment review, còn hai cái chưa xong."
     },
     {
-      "en": "I've finished the database migration, but the data cleanup is still in progress.",
-      "vi": "Mình làm xong migration database rồi, nhưng phần dọn dữ liệu vẫn đang làm."
+      "en": "Two of the three endpoints are done. The last one is still in progress because I'm waiting for the schema change.",
+      "vi": "Ba endpoint thì xong hai rồi. Cái cuối vẫn đang làm vì mình đang chờ thay đổi schema."
     },
     {
       "en": "I've prepared the client demo, but the release notes are still in progress.",
@@ -48,18 +48,30 @@
       "wrong": "It's done 80 percent.",
       "right": "It's about 80 percent done.",
       "right_vi": "Phần này xong khoảng 80% rồi.",
-      "why_vi": "Phần trăm đứng trước done: 80 percent done."
+      "why_vi": "Phần trăm đứng trước done: 80 percent done. Nếu được, nói cụ thể còn lại gì sẽ rõ hơn."
     }
   ],
   "word_bank": [
     "finished",
-    "done",
+    "wrapped up",
     "in progress",
     "still",
-    "almost done",
+    "almost there",
     "haven't ... yet",
-    "wrapped up",
+    "the remaining part is ...",
+    "two of the three ...",
     "left"
+  ],
+  "model": {
+    "title_vi": "Cập nhật standup: phần xong, phần còn dở",
+    "en": "Yesterday I finished the order history API and opened a PR.\nTwo of the three screens are done, but the order details screen is still in progress.\nThe remaining part is the refund status, because the backend field isn't ready yet.\nToday I'll finish that screen, and I should have everything ready for QA by tomorrow.",
+    "vi": "Hôm qua mình làm xong API lịch sử đơn hàng và đã mở PR.\nBa màn hình thì xong hai, còn màn hình chi tiết đơn hàng vẫn đang làm.\nPhần còn lại là trạng thái hoàn tiền, vì field bên backend chưa sẵn sàng.\nHôm nay mình sẽ làm xong màn hình đó, và muộn nhất ngày mai sẽ có đủ để QA test."
+  },
+  "checklist_vi": [
+    "Có phần đã xong, dùng I've + V3 hoặc is done.",
+    "Có phần còn dở, dùng still in progress hoặc haven't ... yet.",
+    "Nói cụ thể còn lại gì (ví dụ 2 trong 3 màn hình), không chỉ nói phần trăm.",
+    "Có lý do phần còn dở hoặc khi nào xong."
   ],
   "quiz": [
     {
@@ -100,88 +112,88 @@
     },
     {
       "id": "s04q4",
-      "prompt_vi": "Phần này xong khoảng 80% rồi.",
-      "options": [
-        "It's about 80 percent done.",
-        "It finished about 80 percent.",
-        "It's done about 80 percent."
-      ],
-      "answer": 0,
-      "answer_vi": "Phần này xong khoảng 80% rồi.",
-      "why_vi": "Mẫu gọn: it's + about + phần trăm + done. Phần trăm đứng trước done."
-    },
-    {
-      "id": "s04q5",
-      "prompt_vi": "Bug đó sửa xong rồi, đang chờ review.",
-      "options": [
-        "That bug is fixed and waiting for review.",
-        "That bug is fixed and waiting review.",
-        "That bug fixed and is waiting for review."
-      ],
-      "answer": 0,
-      "answer_vi": "Bug đó sửa xong rồi, đang chờ review.",
-      "why_vi": "Bug được sửa nên dùng is fixed. wait luôn đi với for."
-    },
-    {
-      "id": "s04q6",
-      "prompt_vi": "Mình sửa xong pipeline CI rồi, nhưng bước deploy vẫn đang làm.",
-      "options": [
-        "I've fixed the CI pipeline, but the deploy step is still in progress.",
-        "I've fixed the CI pipeline, but the deploy step is still on progress.",
-        "I've fixed CI pipeline, but the deploy step is still in progress."
-      ],
-      "answer": 0,
-      "answer_vi": "Mình sửa xong pipeline CI rồi, nhưng bước deploy vẫn đang làm.",
-      "why_vi": "Cụm cố định: in progress. pipeline đếm được nên cần the."
-    },
-    {
-      "id": "s04q7",
-      "prompt_vi": "Mình vừa làm xong hotfix.",
-      "options": [
-        "I've just finished the hotfix.",
-        "I just have finished the hotfix.",
-        "I've just finishing the hotfix."
-      ],
-      "answer": 0,
-      "answer_vi": "Mình vừa làm xong hotfix.",
-      "why_vi": "just đứng giữa I've và động từ. Sau have là V3: finished."
-    },
-    {
-      "id": "s04q8",
       "prompt_vi": "QA test xong màn hình đăng ký rồi, màn hình thanh toán thì chưa.",
       "options": [
         "QA has finished testing the sign-up screen, but not the payment screen yet.",
         "QA has finished to test the sign-up screen, but not the payment screen yet.",
-        "QA has finished testing the sign-up screen, but the payment screen not yet."
+        "QA has finished testing the sign-up screen, but the payment screen didn't yet."
       ],
       "answer": 0,
       "answer_vi": "QA test xong màn hình đăng ký rồi, màn hình thanh toán thì chưa.",
-      "why_vi": "finish + V-ing: finished testing. Nói phần chưa xong gọn là but not ... yet."
+      "why_vi": "finish + V-ing: finished testing. Phần chưa xong nói gọn là but not ... yet; màn hình không tự test nên không dùng didn't."
+    },
+    {
+      "id": "s04q5",
+      "prompt_vi": "Chọn cách nói phù hợp hơn khi báo tiến độ.",
+      "options": [
+        "Two of the three endpoints are done. I'm working on the last one now.",
+        "It's about 80 percent done.",
+        "It's almost done, don't worry."
+      ],
+      "answer": 0,
+      "answer_vi": "Ba endpoint thì xong hai rồi. Giờ mình đang làm cái cuối.",
+      "why_vi": "Nói cụ thể phần nào xong, phần nào còn. Phần trăm và \"almost done\" nghe ổn nhưng người nghe không biết còn lại bao nhiêu việc."
+    },
+    {
+      "id": "s04q6",
+      "prompt_vi": "PM hỏi bản fix xong chưa, nhưng bạn chưa test. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "The fix is done, but I haven't tested it on staging yet. I'll confirm after lunch.",
+        "Yes, it's done.",
+        "I mean, technically it's sort of done, but who knows, there might be problems, I can't really say."
+      ],
+      "answer": 0,
+      "answer_vi": "Bản fix xong rồi, nhưng mình chưa test trên staging. Sau giờ trưa mình sẽ xác nhận.",
+      "why_vi": "Nói đúng tình trạng và khi nào chắc chắn. Câu thứ hai giấu việc chưa test, câu thứ ba rào đón quá nhiều nên PM không biết gì hơn."
+    },
+    {
+      "id": "s04q7",
+      "prompt_vi": "Phần export còn dở vì chờ Minh gửi API spec. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "The UI is done, but the export is still in progress. I'm waiting for the final API spec, and I'll ping Minh after standup.",
+        "The export isn't done because Minh still hasn't sent the API spec.",
+        "The export is still in progress."
+      ],
+      "answer": 0,
+      "answer_vi": "Phần UI xong rồi, nhưng phần export vẫn đang làm. Mình đang chờ API spec bản cuối, sau standup mình sẽ nhắn Minh.",
+      "why_vi": "Có lý do và việc bạn sẽ làm tiếp. Câu thứ hai nghe như đổ lỗi cho Minh trước cả team, câu thứ ba thiếu lý do."
+    },
+    {
+      "id": "s04q8",
+      "prompt_vi": "Đồng nghiệp nhắn: \"The PR is up, but it's still WIP, so no need to review yet.\" Ý họ là gì?",
+      "options": [
+        "PR đã mở nhưng vẫn đang làm dở, chưa cần review.",
+        "PR đã xong, nhờ bạn review ngay.",
+        "PR bị lỗi nên họ đã đóng lại."
+      ],
+      "answer": 0,
+      "answer_vi": "PR đã mở nhưng vẫn đang làm dở, chưa cần review.",
+      "why_vi": "WIP là work in progress: đang làm dở. PR is up là PR đã được mở."
     },
     {
       "id": "s04q9",
-      "prompt_vi": "Còn hai endpoint API chưa làm.",
+      "prompt_vi": "Tech lead hỏi: \"Is the migration done-done, or just merged?\" Ý họ là gì?",
       "options": [
-        "There are still two API endpoints left.",
-        "There are still two endpoints API left.",
-        "There is still two API endpoints left."
+        "Họ hỏi migration đã thật sự xong hẳn (đã chạy, đã kiểm tra) hay mới chỉ merge code.",
+        "Họ hỏi migration đã chạy hai lần chưa.",
+        "Họ hỏi ai là người đã merge migration."
       ],
       "answer": 0,
-      "answer_vi": "Còn hai endpoint API chưa làm.",
-      "why_vi": "API đứng trước endpoints. Hai endpoint là số nhiều nên dùng there are."
+      "answer_vi": "Họ hỏi migration đã thật sự xong hẳn (đã chạy, đã kiểm tra) hay mới chỉ merge code.",
+      "why_vi": "done-done là cách nói thân mật cho \"xong hẳn\", phân biệt với xong trên giấy như mới merge."
     },
     {
       "id": "s04q10",
-      "prompt_vi": "Chọn câu đúng.",
+      "prompt_vi": "QA nhắn: \"Sign-up flow LGTM. Still going through checkout, will wrap up by EOD.\" Ý họ là gì?",
       "options": [
-        "I haven't tested the mobile app on Android yet.",
-        "I haven't tested yet the mobile app on Android.",
-        "I not tested the mobile app on Android yet."
+        "Luồng đăng ký ổn rồi; họ vẫn đang kiểm tra checkout và sẽ xong muộn nhất cuối ngày.",
+        "Luồng đăng ký có lỗi; phần checkout họ đã kiểm tra xong.",
+        "Họ cần bạn sửa xong checkout trong hôm nay."
       ],
       "answer": 0,
-      "answer_vi": "Mình chưa test app mobile trên Android.",
-      "why_vi": "yet đứng cuối câu. Phủ định cần trợ động từ: haven't."
+      "answer_vi": "Luồng đăng ký ổn rồi; họ vẫn đang kiểm tra checkout và sẽ xong muộn nhất cuối ngày.",
+      "why_vi": "LGTM là looks good to me: ổn rồi. go through là xem lần lượt từng phần. wrap up by EOD là xong muộn nhất cuối ngày."
     }
   ],
-  "write_prompt_vi": "Viết 1 đến 2 câu về một việc bạn đã xong và một việc còn dở."
+  "write_prompt_vi": "Bạn làm một tính năng có 3 màn hình, đã xong 2. Viết cập nhật standup 3 đến 4 câu: phần đã xong, phần còn dở, vì sao còn dở, và khi nào xong."
 }

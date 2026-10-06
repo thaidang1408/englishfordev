@@ -1,3 +1,4 @@
+import type { Role } from '../content/roles';
 import type { EventName } from '../events/schema';
 
 /**
@@ -30,9 +31,10 @@ export type ProfileRow = {
   created_at: string;
   reminded_on: string | null;
   reported_on: string | null;
+  roles: Role[];
 };
 export type ProfileUpdate = Partial<
-  Pick<ProfileRow, 'display_name' | 'level' | 'weak_area' | 'track' | 'standup_time' | 'interview_date'>
+  Pick<ProfileRow, 'display_name' | 'level' | 'weak_area' | 'track' | 'standup_time' | 'interview_date' | 'roles'>
 >;
 
 /** Cột chỉ server ghi (service role): liên kết Telegram, ngày đã nhắc, ngày đã báo cáo. */

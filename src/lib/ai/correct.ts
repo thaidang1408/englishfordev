@@ -14,7 +14,9 @@ export type CorrectContext = {
   /** Câu hỏi phỏng vấn, chỉ mode interview. */
   question?: string;
   /** Mẫu câu của bài đang học, để AI hiểu người dùng đang luyện gì. */
-  lesson?: { title: string; formula: string };
+  lesson?: { title: string; formula: string; checklist?: readonly string[] };
+  /** Ngành của người viết (SPEC mục 16), ví dụ "BA, QA". */
+  writerRoles?: string;
 };
 
 export type CorrectSentence = (sentence: string, context?: CorrectContext) => Promise<Correction>;
@@ -41,7 +43,8 @@ export type Ask = (system: string, user: string, mode: Mode) => Promise<unknown>
 const categories = ERROR_CATEGORIES.map((c) => `${c} (${CATEGORY_NAMES[c]})`).join(', ');
 
 export const SYSTEM_PROMPT = `You are an English writing coach for Vietnamese software developers, QA, BA and PM.
-They write short English sentences they would use at work: standups, meetings, pull requests, chat with the team, job interviews.
+They write English they would use at work: standups, meetings, pull requests, bug reports, chat with the team and clients, job interviews.
+If the field "writer_role" is given (Dev, QA, BA, PM), explain with examples from that role's daily work.
 
 Your job: correct one piece of text written by the user.
 
@@ -54,9 +57,10 @@ Rules:
 - why_vi: one short sentence in Vietnamese explaining the rule, addressing the reader as "bạn". No praise, no exclamation marks, no emoji.
 - category: one of ${categories}.
 - corrected_vi: a natural Vietnamese translation of the whole corrected text, the way a Vietnamese developer would say it. Keep technical terms such as API, bug, deploy, pull request, staging in English. Always fill it, also when the text is already correct.
+- missing_vi: only when the field "checklist" is given. It lists, in Vietnamese, what a complete piece of writing for this task should contain. Copy verbatim each checklist item the text clearly does not cover (at most 5). Use [] when everything is covered. Judge content and structure only, not grammar. Omit the field when there is no checklist.
 - tip_vi: one short Vietnamese sentence with a practical tip for next time, or an empty string if there is nothing useful to add.
 - Output only one JSON object, no markdown, no text before or after it, with exactly this shape:
-{"is_already_correct": boolean, "corrected": string, "corrected_vi": string, "changes": [{"from": string, "to": string, "why_vi": string, "category": string}], "tip_vi": string, "stronger": string (interview only)}`;
+{"is_already_correct": boolean, "corrected": string, "corrected_vi": string, "changes": [{"from": string, "to": string, "why_vi": string, "category": string}], "tip_vi": string, "stronger": string (interview only), "missing_vi": string[] (only with checklist)}`;
 
 const INTERVIEW_RULE = `This text is an answer to a job interview question, given in the field "question".
 Also fill "stronger": a better answer with the same meaning, natural spoken English, at most 3 sentences.
@@ -69,17 +73,23 @@ export function buildUserPrompt(sentence: string, context: CorrectContext = { mo
   const data: Record<string, string> = { text: sentence };
   if (context.mode === 'interview' && context.question) data.question = context.question;
   if (context.lesson) data.lesson_pattern = `${context.lesson.title}: ${context.lesson.formula}`;
+  if (context.writerRoles) data.writer_role = context.writerRoles;
+  const payload: Record<string, unknown> = { ...data };
+  if (context.lesson?.checklist?.length) payload.checklist = context.lesson.checklist;
   return `${context.mode === 'interview' ? INTERVIEW_RULE : WORK_RULE}
 
 Data:
-${JSON.stringify(data)}`;
+${JSON.stringify(payload)}`;
 }
 
 /** Chuẩn hóa những chỗ mô hình hay lệch mà vẫn đúng schema. */
-function normalize(result: Correction, sentence: string, mode: Mode): Correction {
-  const base = result.is_already_correct
-    ? { ...result, corrected: sentence, changes: [] }
-    : result;
+function normalize(result: Correction, sentence: string, mode: Mode, hasChecklist: boolean): Correction {
+  const { missing_vi, ...rest0 } = result;
+  // Không gửi danh sách thì không nhận "còn thiếu" (model có thể tự bịa); null coi như không có.
+  const withMissing = hasChecklist && missing_vi?.length ? { ...rest0, missing_vi } : rest0;
+  const base = withMissing.is_already_correct
+    ? { ...withMissing, corrected: sentence, changes: [] }
+    : withMissing;
   if (mode === 'work') {
     const { stronger: _drop, ...rest } = base;
     return rest;
@@ -107,7 +117,7 @@ export function correctWith(ask: Ask): CorrectSentence {
       const parsed = correctionSchema.safeParse(raw);
       if (!parsed.success) continue;
       if (context.mode === 'interview' && !parsed.data.stronger?.trim()) continue;
-      const result = normalize(parsed.data, sentence, context.mode);
+      const result = normalize(parsed.data, sentence, context.mode, Boolean(context.lesson?.checklist?.length));
       if (result.corrected_vi?.trim()) return result;
       withoutVi = result;
     }
@@ -125,7 +135,7 @@ export function anthropicAsk({ apiKey, model }: { apiKey: string; model: string 
     try {
       message = await client.messages.parse({
         model,
-        max_tokens: mode === 'interview' ? 2000 : 1200,
+        max_tokens: mode === 'interview' ? 3000 : 2200,
         system,
         messages: [{ role: 'user', content: user }],
         output_config: { format },
@@ -183,7 +193,7 @@ export function extractWorkersAiJson(result: unknown): unknown {
 /** Gọi model trên Cloudflare Workers AI qua binding. Không cần key, dùng hạn mức miễn phí mỗi ngày. */
 export function workersAiAsk({ ai, model }: { ai: WorkersAi; model: string }): Ask {
   return async (system, user, mode) => {
-    const max_tokens = mode === 'interview' ? 1500 : 1000;
+    const max_tokens = mode === 'interview' ? 2600 : 2000;
     const input: Record<string, unknown> = model.startsWith('@cf/openai/gpt-oss')
       ? { instructions: system, input: user, reasoning: { effort: 'low' }, max_output_tokens: max_tokens }
       : {

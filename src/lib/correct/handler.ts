@@ -3,6 +3,7 @@ import { AiError, type CorrectContext, type CorrectSentence } from '../ai/correc
 import { MODES, SENTENCE_MAX, SENTENCE_MIN, type Correction, type Mode } from '../ai/schema';
 import { accessFrom, hasFullAccess } from '../auth/access';
 import { lessonKey, type Lesson } from '../content/schema';
+import { ROLE_SHORT, type Role } from '../content/roles';
 import type { EntitlementRow } from '../db/types';
 import { errors, fail, ok, sameOrigin } from '../http/response';
 import { firstDue } from '../review/leitner';
@@ -42,6 +43,8 @@ export type SaveResult = { status: 'ok'; id: string } | { status: 'quota' } | { 
 
 export type CorrectRepo = {
   getEntitlement(userId: string): Promise<EntitlementRow | null>;
+  /** Ngành người dùng đã chọn (SPEC mục 16), mảng rỗng khi chưa chọn. */
+  getRoles(userId: string): Promise<readonly Role[]>;
   /** Số liệu thật cho lời mời nâng cấp khi tài khoản miễn phí hết lượt (SPEC mục 2). */
   getErrorStats(userId: string): Promise<ErrorStats>;
   countUserCorrections(userId: string, since: Date): Promise<number>;
@@ -125,10 +128,12 @@ export async function runCorrection(input: RunInput): Promise<CorrectOutcome> {
   if ((await repo.countAllCorrections(capSince)) >= dailyCap) return failed(429, 'system_cap', SYSTEM_CAP_MESSAGE);
 
   // Việc chính. Lượt chỉ bị trừ khi đã lưu được kết quả hợp lệ.
+  const roles = await repo.getRoles(userId);
   const context: CorrectContext = {
     mode,
     question,
-    lesson: lesson ? { title: lesson.title, formula: lesson.pattern.formula } : undefined,
+    writerRoles: roles.length ? roles.map((r) => ROLE_SHORT[r]).join(', ') : undefined,
+    lesson: lesson ? { title: lesson.title, formula: lesson.pattern.formula, checklist: mode === 'work' ? lesson.checklist_vi : undefined } : undefined,
   };
   let result: Correction;
   try {

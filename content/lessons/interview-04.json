@@ -4,8 +4,7 @@
   "slug": "phong-van-bug-kho-da-xu-ly",
   "title": "Một bug khó bạn đã xử lý",
   "free": false,
-  "question_en": "Tell me about a difficult bug you had to fix.",
-  "goal_vi": "Kể một bug theo ba bước: lỗi là gì, nguyên nhân là gì, bạn sửa thế nào.",
+  "goal_vi": "Kể một bug khó theo STAR: bối cảnh, cách bạn điều tra, nguyên nhân, cách sửa, và việc bạn làm thêm để lỗi không lặp lại.",
   "pattern": {
     "formula": "We had a bug where + S + V2. It turned out (that) + S + V2. I fixed it by + V-ing.",
     "note_vi": "Kể ở quá khứ. Nói cách sửa bằng fixed it by + V-ing."
@@ -16,8 +15,8 @@
       "vi": "Bọn mình gặp một bug là một số người dùng bị trừ tiền hai lần. Hóa ra request thanh toán bị gửi lại khi timeout. Mình sửa bằng cách thêm idempotency key."
     },
     {
-      "en": "Our Android app crashed only on some older phones. After a lot of logging, I found a memory leak in the image loader and fixed it by switching to Glide.",
-      "vi": "App Android của bọn mình chỉ crash trên một số máy cũ. Sau khi thêm rất nhiều log, mình tìm ra memory leak ở phần tải ảnh và sửa bằng cách chuyển sang Glide."
+      "en": "Our Android app crashed only on some older phones. After adding a lot of logging, I narrowed it down to a memory leak in the image loader and fixed it by switching to Glide.",
+      "vi": "App Android của bọn mình chỉ crash trên một số máy cũ. Sau khi thêm rất nhiều log, mình khoanh vùng được một memory leak ở phần tải ảnh và sửa bằng cách chuyển sang Glide."
     },
     {
       "en": "A monthly report showed the wrong totals. The cause was a time zone mismatch between the server and the database. We fixed it by storing all dates in UTC.",
@@ -29,7 +28,7 @@
     },
     {
       "en": "We had a bug where users got logged out every few minutes. It turned out the token refresh used the wrong expiry time. My part as the QA engineer was finding the exact steps to reproduce it.",
-      "vi": "Bọn mình gặp một bug là người dùng bị đăng xuất sau vài phút. Hóa ra phần làm mới token dùng sai thời gian hết hạn. Phần của mình, với vai trò QA, là tìm ra đúng các bước để tái hiện lỗi."
+      "vi": "Bọn mình gặp một bug là người dùng cứ vài phút lại bị đăng xuất. Hóa ra phần làm mới token dùng sai thời gian hết hạn. Phần của mình, với vai trò QA, là tìm ra đúng các bước để tái hiện lỗi."
     }
   ],
   "mistakes": [
@@ -54,13 +53,26 @@
   ],
   "word_bank": [
     "we had a bug where",
+    "I went through the logs",
+    "I ruled out",
+    "I narrowed it down to",
     "it turned out",
     "the root cause",
-    "reproduce",
     "fixed it by",
-    "race condition",
-    "memory leak",
-    "time zone"
+    "I added a regression test",
+    "we haven't seen it since"
+  ],
+  "model": {
+    "title_vi": "Câu trả lời STAR về một bug khó",
+    "en": "At my last company, we had a bug where some customers were charged twice for the same order. It only happened a few times a week, so it was hard to catch.\nI went through the payment logs and noticed that every duplicate charge came right after a gateway timeout. I ruled out the frontend, because the user had only clicked once, and narrowed it down to our retry logic. It turned out we retried on every timeout, even when the first request had actually gone through.\nI fixed it by adding an idempotency key to every payment request. I also added a test that simulates a timeout and an alert for duplicate charges.\nWe haven't seen a double charge since.",
+    "vi": "Ở công ty cũ, bọn mình gặp một bug là một số khách bị trừ tiền hai lần cho cùng một đơn. Lỗi chỉ xảy ra vài lần mỗi tuần nên rất khó bắt.\nMình xem lại log thanh toán và thấy lần trừ tiền thừa nào cũng xảy ra ngay sau một lần cổng thanh toán bị timeout. Mình loại trừ phía frontend, vì người dùng chỉ bấm một lần, rồi khoanh vùng được phần logic gửi lại request. Hóa ra hệ thống gửi lại mỗi khi timeout, kể cả khi request đầu tiên thật ra đã thành công.\nMình sửa bằng cách thêm idempotency key vào mọi request thanh toán. Mình cũng thêm một test giả lập timeout và một cảnh báo khi có giao dịch trùng.\nTừ đó tới giờ không còn trường hợp trừ tiền hai lần nào nữa."
+  },
+  "checklist_vi": [
+    "Có bối cảnh: hệ thống gì, lỗi ảnh hưởng ai",
+    "Kể cách bạn điều tra: xem log, loại trừ, khoanh vùng",
+    "Nói nguyên nhân gốc",
+    "Nói cách sửa bằng fixed it by + V-ing",
+    "Có việc làm thêm để lỗi không lặp lại: test, cảnh báo hoặc postmortem"
   ],
   "quiz": [
     {
@@ -73,7 +85,7 @@
       ],
       "answer": 0,
       "answer_vi": "Mình sửa bằng cách thêm giới hạn số lần thử lại.",
-      "why_vi": "Nói cách sửa dùng by + V-ing."
+      "why_vi": "Nói cách sửa dùng by + V-ing. Không dùng with + V-ing cho nghĩa \"bằng cách\"."
     },
     {
       "id": "i04q2",
@@ -89,30 +101,6 @@
     },
     {
       "id": "i04q3",
-      "prompt_vi": "Hóa ra nguyên nhân là một race condition.",
-      "options": [
-        "It turned out the cause was a race condition.",
-        "It was turned out the cause was a race condition.",
-        "It turned out the cause was race condition."
-      ],
-      "answer": 0,
-      "answer_vi": "Hóa ra nguyên nhân là một race condition.",
-      "why_vi": "it turned out không có was. race condition đếm được nên cần a."
-    },
-    {
-      "id": "i04q4",
-      "prompt_vi": "Mình sửa bằng cách thêm index cho bảng orders.",
-      "options": [
-        "I fixed it by adding an index on the orders table.",
-        "I fixed it by adding an index on table orders.",
-        "I fixed it by to add an index on the orders table."
-      ],
-      "answer": 0,
-      "answer_vi": "Mình sửa bằng cách thêm index cho bảng orders.",
-      "why_vi": "the orders table: tên bảng đứng trước table. Sau by dùng V-ing."
-    },
-    {
-      "id": "i04q5",
       "prompt_vi": "Mình mất hai ngày mới tìm ra nguyên nhân.",
       "options": [
         "It took me two days to find the cause.",
@@ -121,10 +109,22 @@
       ],
       "answer": 0,
       "answer_vi": "Mình mất hai ngày mới tìm ra nguyên nhân.",
-      "why_vi": "It took me + thời gian + to V. spend chỉ dùng với người làm chủ ngữ: I spent two days."
+      "why_vi": "It took me + thời gian + to V. spend chỉ dùng khi người làm chủ ngữ: I spent two days finding the cause."
     },
     {
-      "id": "i04q6",
+      "id": "i04q4",
+      "prompt_vi": "Mình khoanh vùng lỗi xuống còn hai service.",
+      "options": [
+        "I narrowed it down to two services.",
+        "I narrowed down it to two services.",
+        "I narrowed it down until two services."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình khoanh vùng lỗi xuống còn hai service.",
+      "why_vi": "Với cụm narrow down, đại từ it đứng giữa: narrowed it down. Khoanh xuống còn bao nhiêu thì dùng to, không dùng until."
+    },
+    {
+      "id": "i04q5",
       "prompt_vi": "Chọn câu trả lời phù hợp hơn.",
       "options": [
         "We had a bug where some emails were sent twice. It turned out two workers picked up the same job, so I added a lock.",
@@ -136,53 +136,66 @@
       "why_vi": "Kể lỗi, nguyên nhân và cách sửa. Không nói mình chưa từng gặp bug khó, không đổ lỗi cho người khác."
     },
     {
-      "id": "i04q7",
-      "prompt_vi": "Mình không tái hiện được bug trên máy mình.",
+      "id": "i04q6",
+      "prompt_vi": "Chọn cách kể quá trình điều tra phù hợp hơn.",
       "options": [
-        "I couldn't reproduce the bug on my machine.",
-        "I couldn't reproduce the bug in my machine.",
-        "I can't reproduced the bug on my machine."
+        "First I checked the logs, then I ruled out the cache, and finally I narrowed it down to one slow SQL query.",
+        "I just tried random things until it worked.",
+        "I knew the answer right away, because I always know where the bugs are."
       ],
       "answer": 0,
-      "answer_vi": "Mình không tái hiện được bug trên máy mình.",
-      "why_vi": "Trên máy tính dùng on my machine. Sau can hoặc could là động từ nguyên mẫu."
+      "answer_vi": "Đầu tiên mình xem log, sau đó loại trừ cache, cuối cùng khoanh vùng được một câu SQL chạy chậm.",
+      "why_vi": "Người phỏng vấn muốn nghe cách bạn suy luận từng bước. \"Thử lung tung\" cho thấy bạn không có phương pháp, còn \"lúc nào cũng biết ngay\" nghe như khoe."
+    },
+    {
+      "id": "i04q7",
+      "prompt_vi": "Chọn câu kết phù hợp hơn cho câu chuyện về bug.",
+      "options": [
+        "After the fix, I added a regression test and an alert, and we haven't seen the issue since.",
+        "So yeah, that's it. It got fixed.",
+        "After that, our system had zero bugs, and the client said I saved the company."
+      ],
+      "answer": 0,
+      "answer_vi": "Sau khi sửa, mình thêm một regression test và một cảnh báo, và từ đó tới giờ lỗi không xuất hiện lại.",
+      "why_vi": "Câu kết tốt nói kết quả và việc bạn làm để lỗi không lặp lại. Kết cụt lủn thì phí mất phần quan trọng, còn \"zero bugs\" thì không ai tin."
     },
     {
       "id": "i04q8",
-      "prompt_vi": "Lỗi chỉ xảy ra khi có nhiều người dùng cùng lúc.",
+      "prompt_vi": "Người phỏng vấn hỏi: \"How did you rule out the network as the cause?\" Ý họ là gì?",
       "options": [
-        "It only happened when a lot of users were online at the same time.",
-        "It only happened when have a lot of users online at the same time.",
-        "It only happened when a lot of users were online in the same time."
+        "Họ hỏi bạn đã làm gì để chắc chắn lỗi không phải do mạng.",
+        "Họ hỏi bạn đã sửa lỗi mạng thế nào.",
+        "Họ cho rằng nguyên nhân thật ra là do mạng."
       ],
       "answer": 0,
-      "answer_vi": "Lỗi chỉ xảy ra khi có nhiều người dùng online cùng lúc.",
-      "why_vi": "Sau when cần chủ ngữ, không dịch \"có\" thành have. Cùng lúc là at the same time."
+      "answer_vi": "Họ hỏi bạn đã làm gì để chắc chắn lỗi không phải do mạng.",
+      "why_vi": "rule out là loại trừ một khả năng. Họ muốn nghe bằng chứng bạn dùng để gạch mạng ra khỏi danh sách nghi vấn."
     },
     {
       "id": "i04q9",
-      "prompt_vi": "Mình thêm log để tìm ra chỗ bị chậm.",
+      "prompt_vi": "Đồng nghiệp nhắn: \"Heads-up: the double-charge issue is back on prod. Rolled back to v2.3 for now, RCA to follow.\" Ý họ là gì?",
       "options": [
-        "I added logging to find the slow part.",
-        "I added logging for find the slow part.",
-        "I added logging to find the part slow."
+        "Lỗi trừ tiền hai lần xuất hiện lại trên production. Họ tạm quay về bản v2.3, phân tích nguyên nhân gốc sẽ gửi sau.",
+        "Lỗi trừ tiền hai lần đã được sửa xong trong bản v2.3.",
+        "Họ nhờ bạn nâng production lên bản v2.3 ngay."
       ],
       "answer": 0,
-      "answer_vi": "Mình thêm log để tìm ra chỗ bị chậm.",
-      "why_vi": "Làm gì để đạt mục đích dùng to V. Từ bổ nghĩa đứng trước danh từ: the slow part."
+      "answer_vi": "Lỗi trừ tiền hai lần xuất hiện lại trên production. Họ tạm quay về bản v2.3, phân tích nguyên nhân gốc sẽ gửi sau.",
+      "why_vi": "Heads-up là báo trước để bạn biết. roll back là quay về bản cũ. RCA là root cause analysis. to follow là sẽ gửi sau."
     },
     {
       "id": "i04q10",
-      "prompt_vi": "Sau khi sửa, app không còn crash nữa.",
+      "prompt_vi": "Người phỏng vấn hỏi: \"If that happened again tomorrow, what would you do first?\" Ý họ là gì?",
       "options": [
-        "After the fix, the app stopped crashing.",
-        "After the fix, the app stopped to crash.",
-        "After fix, the app stopped crashing."
+        "Họ hỏi nếu lỗi đó xảy ra lại thì việc đầu tiên bạn làm là gì.",
+        "Họ hỏi lỗi đó có còn xảy ra tới hôm nay không.",
+        "Họ hỏi bạn có thể bắt đầu đi làm từ ngày mai không."
       ],
       "answer": 0,
-      "answer_vi": "Sau khi sửa, app không còn crash nữa.",
-      "why_vi": "Thôi không còn làm gì là stop + V-ing. fix ở đây là danh từ nên cần the."
+      "answer_vi": "Họ hỏi nếu lỗi đó xảy ra lại thì việc đầu tiên bạn làm là gì.",
+      "why_vi": "If + quá khứ, would + V là câu giả định. tomorrow chỉ là ví dụ, họ muốn nghe bước đầu tiên bạn sẽ làm khi gặp lại lỗi."
     }
   ],
-  "write_prompt_vi": "Viết 2 đến 3 câu về một bug khó: lỗi gì, vì sao xảy ra, bạn sửa thế nào."
+  "write_prompt_vi": "Người phỏng vấn hỏi về một bug khó bạn từng xử lý. Viết 80 đến 150 từ: bối cảnh, cách bạn điều tra, nguyên nhân, cách sửa, và việc làm thêm để lỗi không lặp lại.",
+  "question_en": "Tell me about a difficult bug you had to fix."
 }

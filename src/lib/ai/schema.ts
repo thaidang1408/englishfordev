@@ -41,12 +41,14 @@ export type Change = z.infer<typeof changeSchema>;
  */
 export const correctionSchema = z.object({
   is_already_correct: z.boolean(),
-  corrected: z.string().max(1500),
+  corrected: z.string().max(3000),
   /** Nghĩa tiếng Việt của câu đã sửa (SPEC mục 14). Dòng cũ trong database không có trường này. */
-  corrected_vi: z.string().max(1500).optional(),
+  corrected_vi: z.string().max(3000).optional(),
   changes: z.array(changeSchema).max(MAX_CHANGES),
   tip_vi: z.string().max(300),
-  stronger: z.string().max(1500).optional(),
+  stronger: z.string().max(2000).optional(),
+  /** Các ý trong checklist_vi của bài mà bài viết chưa có (SPEC mục 15). */
+  missing_vi: z.array(z.string().max(300)).max(5).nullish(),
 });
 export type Correction = z.infer<typeof correctionSchema>;
 
@@ -55,4 +57,5 @@ export type Mode = (typeof MODES)[number];
 
 /** Độ dài câu gửi sửa, tính sau khi trim (SPEC mục 7). */
 export const SENTENCE_MIN = 3;
-export const SENTENCE_MAX: Record<Mode, number> = { work: 300, interview: 600 };
+// Đủ cho một tin hoàn chỉnh: cập nhật standup, mô tả PR, báo bug, câu trả lời STAR (SPEC mục 15).
+export const SENTENCE_MAX: Record<Mode, number> = { work: 700, interview: 1200 };

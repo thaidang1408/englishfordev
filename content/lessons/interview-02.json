@@ -4,8 +4,7 @@
   "slug": "ke-ve-du-an-gan-nhat",
   "title": "Kể về dự án gần nhất",
   "free": false,
-  "question_en": "Can you tell me about the most recent project you worked on?",
-  "goal_vi": "Nói dự án làm ra sản phẩm gì, cho ai dùng, và dùng công nghệ gì.",
+  "goal_vi": "Kể dự án gần nhất trong khoảng một phút: sản phẩm cho ai dùng, quy mô, công nghệ, vai trò của bạn, một khó khăn và kết quả.",
   "pattern": {
     "formula": "My most recent project was + a/an + product + that + V(s) + ... We built it with + tech.",
     "note_vi": "Nói sản phẩm làm gì trước, công nghệ sau. that nối phần mô tả. Dùng công nghệ gì thì dùng with."
@@ -16,8 +15,8 @@
       "vi": "Dự án gần nhất của mình là một app đặt lịch giúp phòng khám quản lý lịch hẹn. Bọn mình làm bằng React Native và Firebase."
     },
     {
-      "en": "Most recently I worked on an internal tool that helps the sales team track orders. It's a Laravel app with a MySQL database.",
-      "vi": "Gần đây nhất mình làm một tool nội bộ giúp team sales theo dõi đơn hàng. Đó là một app Laravel dùng database MySQL."
+      "en": "Most recently I worked on an internal tool that helps the sales team track orders. It's a Laravel app with a MySQL database, and about 80 people use it every day.",
+      "vi": "Gần đây nhất mình làm một tool nội bộ giúp team sales theo dõi đơn hàng. Đó là một app Laravel dùng database MySQL, mỗi ngày có khoảng 80 người dùng."
     },
     {
       "en": "My most recent project was a data pipeline that collects logs from about 200 servers. We used Kafka and Spark.",
@@ -28,8 +27,8 @@
       "vi": "Dự án gần nhất của mình là một app ngân hàng cho người dùng thanh toán bằng mã QR. Team làm bằng Flutter, còn mình test bằng Appium."
     },
     {
-      "en": "My most recent project was a learning platform that helps teachers create online quizzes. We built it with Next.js and PostgreSQL.",
-      "vi": "Dự án gần nhất của mình là một nền tảng học tập giúp giáo viên tạo bài kiểm tra online. Bọn mình làm bằng Next.js và PostgreSQL."
+      "en": "My most recent project was a learning platform that helps teachers create online quizzes. We built it with Next.js and PostgreSQL, and it now serves about 300 schools.",
+      "vi": "Dự án gần nhất của mình là một nền tảng học tập giúp giáo viên tạo bài kiểm tra online. Bọn mình làm bằng Next.js và PostgreSQL, giờ có khoảng 300 trường đang dùng."
     }
   ],
   "mistakes": [
@@ -53,13 +52,27 @@
     }
   ],
   "word_bank": [
-    "most recent project",
+    "my most recent project was",
     "that lets ... + V",
     "that helps ... + V",
-    "built it with",
-    "users",
-    "internal tool",
-    "about"
+    "we built it with",
+    "monthly active users",
+    "at peak time",
+    "I owned",
+    "the hardest part was",
+    "we launched in"
+  ],
+  "model": {
+    "title_vi": "Câu trả lời kể về dự án gần nhất, có quy mô, vai trò và kết quả",
+    "en": "My most recent project was a loyalty app that lets customers of a coffee chain collect points and pay with a QR code. The chain has about 300 stores, so the app has to handle heavy traffic during the morning rush.\nWe built it with Flutter for the mobile app and Go services on AWS.\nI was one of four backend developers, and I owned the points and rewards service.\nThe hardest part was keeping payments fast at peak time. We load-tested early and put a queue in front of the payment service.\nWe launched in March, and the app now has around 200,000 monthly active users.",
+    "vi": "Dự án gần nhất của mình là một app khách hàng thân thiết, giúp khách của một chuỗi cà phê tích điểm và thanh toán bằng mã QR. Chuỗi có khoảng 300 cửa hàng, nên app phải chịu lượng truy cập lớn vào giờ cao điểm buổi sáng.\nBọn mình làm app mobile bằng Flutter, còn các service viết bằng Go chạy trên AWS.\nMình là một trong bốn backend developer, và mình phụ trách service tích điểm và đổi quà.\nKhó nhất là giữ cho thanh toán nhanh vào giờ cao điểm. Bọn mình test tải từ sớm và đặt một queue trước service thanh toán.\nApp ra mắt vào tháng Ba, giờ có khoảng 200.000 người dùng hoạt động mỗi tháng."
+  },
+  "checklist_vi": [
+    "Nói sản phẩm làm gì và cho ai dùng",
+    "Có quy mô: số người dùng, lượng dữ liệu hoặc số khách hàng",
+    "Có công nghệ chính",
+    "Nói rõ vai trò của bạn trong dự án",
+    "Có một khó khăn hoặc một kết quả cụ thể"
   ],
   "quiz": [
     {
@@ -72,7 +85,7 @@
       ],
       "answer": 0,
       "answer_vi": "App cho tài xế xem thu nhập của họ.",
-      "why_vi": "lets + người + động từ nguyên mẫu. Không ghép make với can."
+      "why_vi": "lets + người + động từ nguyên mẫu, không có to. Không ghép make với can."
     },
     {
       "id": "i02q2",
@@ -84,22 +97,10 @@
       ],
       "answer": 0,
       "answer_vi": "Dự án gần nhất của mình là một trang thương mại điện tử.",
-      "why_vi": "Gần nhất về thời gian là most recent, nearest là gần về khoảng cách. Trước âm e dùng an."
+      "why_vi": "Gần nhất về thời gian là most recent, nearest là gần về khoảng cách. e-commerce bắt đầu bằng nguyên âm nên dùng an."
     },
     {
       "id": "i02q3",
-      "prompt_vi": "Bọn mình làm nó bằng Vue và Go.",
-      "options": [
-        "We built it with Vue and Go.",
-        "We built it by Vue and Go.",
-        "We were built it with Vue and Go."
-      ],
-      "answer": 0,
-      "answer_vi": "Bọn mình làm nó bằng Vue và Go.",
-      "why_vi": "built it with + công nghệ. Không thêm were trước động từ quá khứ."
-    },
-    {
-      "id": "i02q4",
       "prompt_vi": "Đó là một tool nội bộ giúp team HR quản lý đơn nghỉ phép.",
       "options": [
         "It's an internal tool that helps the HR team manage leave requests.",
@@ -111,43 +112,7 @@
       "why_vi": "Cần that helps để nối phần mô tả. Từ bổ nghĩa đứng trước danh từ: internal tool."
     },
     {
-      "id": "i02q5",
-      "prompt_vi": "App có khoảng 5.000 người dùng mỗi ngày.",
-      "options": [
-        "The app has about 5,000 daily users.",
-        "The app has about 5,000 users every days.",
-        "The app is about 5,000 users per day."
-      ],
-      "answer": 0,
-      "answer_vi": "App có khoảng 5.000 người dùng mỗi ngày.",
-      "why_vi": "every đi với danh từ số ít, gọn hơn là daily users. Có người dùng thì dùng has, không dùng is."
-    },
-    {
-      "id": "i02q6",
-      "prompt_vi": "Chọn câu trả lời phù hợp hơn.",
-      "options": [
-        "My most recent project was a CRM for a logistics company. We built it with .NET and Angular.",
-        "My most recent project was a huge system that changed the whole company.",
-        "My last project? It was just some CRM thing, nothing special."
-      ],
-      "answer": 0,
-      "answer_vi": "Dự án gần nhất của mình là một hệ thống CRM cho một công ty logistics. Bọn mình làm bằng .NET và Angular.",
-      "why_vi": "Nói rõ sản phẩm cho ai và dùng công nghệ gì. Không nói quá, cũng không nói qua loa."
-    },
-    {
-      "id": "i02q7",
-      "prompt_vi": "Nó giúp nhân viên kho kiểm hàng nhanh hơn.",
-      "options": [
-        "It helps warehouse staff check inventory faster.",
-        "It helps warehouse staff checking inventory faster.",
-        "It help warehouse staff check inventory faster."
-      ],
-      "answer": 0,
-      "answer_vi": "Nó giúp nhân viên kho kiểm hàng nhanh hơn.",
-      "why_vi": "helps + người + động từ nguyên mẫu. Chủ ngữ là it nên dùng helps."
-    },
-    {
-      "id": "i02q8",
+      "id": "i02q4",
       "prompt_vi": "Dự án kéo dài khoảng tám tháng.",
       "options": [
         "The project lasted about eight months.",
@@ -159,29 +124,78 @@
       "why_vi": "last không dùng bị động nên không có was. Sau lasted nói thời gian luôn, không thêm in."
     },
     {
-      "id": "i02q9",
-      "prompt_vi": "Team dự án có năm dev và một QA.",
+      "id": "i02q5",
+      "prompt_vi": "Chọn câu trả lời phù hợp hơn.",
       "options": [
-        "Our team had five developers and one QA engineer.",
-        "In our team had five developers and one QA engineer.",
-        "Our team had five developer and one QA engineer."
+        "My most recent project was a CRM for a logistics company. We built it with .NET and Angular.",
+        "My most recent project was a huge system that changed the whole company.",
+        "My last project? It was just some CRM thing, nothing special."
       ],
       "answer": 0,
-      "answer_vi": "Team dự án của mình có năm dev và một QA.",
-      "why_vi": "Không dịch chữ \"trong\" thành in đứng đầu câu, team là chủ ngữ. Năm người thì dùng số nhiều: developers."
+      "answer_vi": "Dự án gần nhất của mình là một hệ thống CRM cho một công ty logistics. Bọn mình làm bằng .NET và Angular.",
+      "why_vi": "Nói rõ sản phẩm cho ai và dùng công nghệ gì. Không nói quá, cũng không nói qua loa như thể dự án không đáng kể."
+    },
+    {
+      "id": "i02q6",
+      "prompt_vi": "Chọn cách nói về quy mô phù hợp hơn.",
+      "options": [
+        "The app has about 50,000 users, and traffic peaks at around 300 requests per second.",
+        "The app has millions of users and the most traffic in Vietnam.",
+        "The app has some users, I think, but I'm not really sure how many."
+      ],
+      "answer": 0,
+      "answer_vi": "App có khoảng 50.000 người dùng, lúc cao điểm khoảng 300 request mỗi giây.",
+      "why_vi": "Con số cụ thể và có about cho thấy bạn hiểu hệ thống mình làm. Nói quá thì dễ bị hỏi vặn, còn không biết số liệu thì nghe như bạn không quan tâm sản phẩm."
+    },
+    {
+      "id": "i02q7",
+      "prompt_vi": "Người phỏng vấn hỏi: \"Why did you choose Kafka?\" Chọn câu trả lời phù hợp hơn.",
+      "options": [
+        "We needed to process about a million events a day, and Kafka let us replay messages when a consumer failed.",
+        "Because Kafka is the best, and everyone uses it.",
+        "Honestly, it wasn't my decision, so I don't really know."
+      ],
+      "answer": 0,
+      "answer_vi": "Bọn mình cần xử lý khoảng một triệu event mỗi ngày, và Kafka cho phép đọc lại message khi một consumer bị lỗi.",
+      "why_vi": "Nói lý do gắn với nhu cầu thật của dự án. \"Vì ai cũng dùng\" không phải lý do kỹ thuật. Dù không phải bạn quyết định, bạn vẫn nên hiểu vì sao team chọn nó."
+    },
+    {
+      "id": "i02q8",
+      "prompt_vi": "Người phỏng vấn nói: \"Let's dig into the architecture a bit. At a high level, how did the services talk to each other?\" Ý họ là gì?",
+      "options": [
+        "Họ muốn bạn nói tổng quát các service giao tiếp với nhau thế nào.",
+        "Họ muốn bạn mô tả chi tiết từng bảng trong database.",
+        "Họ muốn bỏ qua phần kiến trúc để hỏi chuyện khác."
+      ],
+      "answer": 0,
+      "answer_vi": "Họ muốn bạn nói tổng quát các service giao tiếp với nhau thế nào.",
+      "why_vi": "dig into là đi sâu vào một chủ đề. at a high level là nói tổng quát, chưa cần chi tiết. talk to each other ở đây là gọi nhau qua API, queue..."
+    },
+    {
+      "id": "i02q9",
+      "prompt_vi": "Người phỏng vấn hỏi: \"You mentioned 50k DAU. Was that at launch, or did it ramp up over time?\" Ý họ là gì?",
+      "options": [
+        "Họ hỏi con số 50 nghìn người dùng mỗi ngày là có ngay lúc ra mắt hay tăng dần sau đó.",
+        "Họ hỏi app có 50 nghìn lượt tải trong ngày ra mắt không.",
+        "Họ hỏi bạn có kế hoạch tăng số người dùng lên 50 nghìn không."
+      ],
+      "answer": 0,
+      "answer_vi": "Họ hỏi con số 50 nghìn người dùng mỗi ngày là có ngay lúc ra mắt hay tăng dần sau đó.",
+      "why_vi": "DAU là daily active users, số người dùng hoạt động mỗi ngày. ramp up over time là tăng dần theo thời gian."
     },
     {
       "id": "i02q10",
-      "prompt_vi": "Phần lớn người dùng của bọn mình là chủ cửa hàng nhỏ.",
+      "prompt_vi": "Người phỏng vấn nói: \"Sorry, could you go back to the part about the queue? I didn't quite follow how the retries worked.\" Ý họ là gì?",
       "options": [
-        "Most of our users are small shop owners.",
-        "Most of our user are small shop owners.",
-        "Most of our users are small shops owners."
+        "Họ chưa hiểu cách retry hoạt động và muốn bạn giải thích lại phần về queue.",
+        "Họ không đồng ý với cách bạn dùng queue.",
+        "Họ muốn bạn bỏ qua phần queue và nói tiếp."
       ],
       "answer": 0,
-      "answer_vi": "Phần lớn người dùng của bọn mình là chủ cửa hàng nhỏ.",
-      "why_vi": "Most of our + danh từ số nhiều. Danh từ đứng trước để bổ nghĩa thì không thêm s: shop owners."
+      "answer_vi": "Họ chưa hiểu cách retry hoạt động và muốn bạn giải thích lại phần về queue.",
+      "why_vi": "go back to là quay lại một phần đã nói. I didn't quite follow là \"mình chưa theo kịp\", một cách lịch sự để nói chưa hiểu, không phải chê."
     }
   ],
-  "write_prompt_vi": "Viết 2 đến 3 câu về dự án gần nhất của bạn: sản phẩm làm gì, dùng công nghệ gì."
+  "write_prompt_vi": "Người phỏng vấn hỏi về dự án gần nhất của bạn. Viết câu trả lời 80 đến 150 từ: sản phẩm cho ai, quy mô, công nghệ, vai trò của bạn, một khó khăn và kết quả.",
+  "question_en": "Can you tell me about the most recent project you worked on?"
 }

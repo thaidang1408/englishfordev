@@ -1,6 +1,6 @@
 # EPC — Đặc tả bản 1
 
-Cập nhật: 06/10/2026 (thêm M8, mục 14). Người quyết định: chủ dự án. Mọi con số dưới đây là quyết định đã chốt cho bản 1.
+Cập nhật: 06/10/2026 (thêm M8 mục 14, M9 mục 15, M10 mục 16). Người quyết định: chủ dự án. Mọi con số dưới đây là quyết định đã chốt cho bản 1.
 
 ## 1. Sản phẩm
 
@@ -29,7 +29,7 @@ Trang chủ → học thử bài 1 (không đăng nhập) → đăng nhập → 
 
 | | Miễn phí, sau dùng thử | Premium |
 | --- | --- | --- |
-| Bài học | 3 bài đầu của track Standup | Tất cả 30 bài, 3 track |
+| Bài học | 3 bài đầu của track Standup | Tất cả bài, 3 track |
 | Test xếp trình độ | Có | Có |
 | AI sửa câu của bạn | 1 lần mỗi 7 ngày | 30 lần mỗi ngày |
 | Ôn câu trắc nghiệm đã sai | Có | Có |
@@ -95,10 +95,10 @@ API (server):
 Một bài khoảng 10 phút, năm phần theo thứ tự:
 
 1. **Mẫu câu:** công thức và ghi chú một dòng.
-2. **Ví dụ:** ba câu lấy ngẫu nhiên từ năm câu của bài, có nghĩa tiếng Việt. Tắt JavaScript thì hiện đủ năm câu.
+2. **Ví dụ:** ba câu lấy ngẫu nhiên từ năm câu của bài, có nghĩa tiếng Việt. Tắt JavaScript thì hiện đủ năm câu. Tiếp theo là **tin nhắn hoàn chỉnh** (`model`): một tin, tài liệu hoặc câu trả lời đầy đủ như ngoài đời, 3 đến 8 câu, nghĩa tiếng Việt mở khi bấm.
 3. **Lỗi hay gặp:** hiển thị dạng diff, dòng sai màu đỏ, dòng đúng màu xanh, nghĩa tiếng Việt của câu đúng và lý do bên dưới.
 4. **Luyện tập:** 5 câu trắc nghiệm lấy ngẫu nhiên từ 10 câu của bài, mỗi lần một câu. Đảo thứ tự đáp án khi hiển thị. Chọn xong hiện đúng/sai, nghĩa tiếng Việt của câu đúng (`answer_vi`) và `why_vi`. Câu sai tạo mục ôn.
-5. **Câu của bạn:** ô nhập theo `write_prompt_vi` → `POST /api/correct` → tự sửa trước (mục 14) → kết quả dạng diff, nghĩa tiếng Việt của câu đã sửa và ghi chú.
+5. **Câu của bạn:** viết đúng loại tin thật theo `write_prompt_vi`, có danh sách "Bài viết nên có" (`checklist_vi`) → `POST /api/correct` → tự sửa trước (mục 14) → kết quả dạng diff, nghĩa tiếng Việt, ghi chú, và phần còn thiếu so với danh sách (`missing_vi`).
 
 Khách chưa đăng nhập học được phần 1 đến 4 của bài miễn phí, tiến độ lưu `localStorage`. Phần 5 yêu cầu đăng nhập; sau khi đăng nhập thì chuyển tiến độ từ `localStorage` lên tài khoản.
 
@@ -166,17 +166,20 @@ type Lesson = {
   examples: { en: string; vi: string }[];          // đúng 5, trình học hiện 3 câu ngẫu nhiên
   mistakes: { wrong: string; right: string; right_vi: string; why_vi: string }[];  // đúng 3
   word_bank: string[];
+  model: { title_vi: string; en: string; vi: string };  // tin nhắn hoàn chỉnh, 3 đến 8 câu, xuống dòng bằng \n
+  checklist_vi: string[];     // 3 đến 5 ý bài viết của người học nên có
   quiz: { id: string; prompt_vi: string; options: string[]; answer: number; answer_vi: string; why_vi: string }[]; // đúng 10, 3 đáp án; mỗi lượt học lấy 5
   write_prompt_vi: string;
   question_en?: string;        // chỉ track interview: câu hỏi nhà tuyển dụng sẽ hỏi
+  roles?: ("dev" | "qa" | "ba" | "pm")[]; // bài chuyên ngành; không có là bài chung cho mọi ngành (mục 16)
 };
 ```
 
 Kiểm schema bằng zod lúc build. Build phải hỏng nếu một file sai schema.
 
-**Track Standup và họp (10 bài):** 1 Hôm qua đã làm gì. 2 Hôm nay làm gì. 3 Đang kẹt ở đâu. 4 Việc xong, việc còn dở. 5 Ước lượng bao lâu thì xong. 6 Hỏi lại khi chưa hiểu. 7 Xin người khác giúp. 8 Báo trễ và đề xuất mốc mới. 9 Không đồng ý một cách lịch sự. 10 Tóm tắt một buổi họp.
+**Track Standup và họp (13 bài):** 1 Hôm qua đã làm gì. 2 Hôm nay làm gì. 3 Đang kẹt ở đâu. 4 Việc xong, việc còn dở. 5 Ước lượng bao lâu thì xong. 6 Hỏi lại khi chưa hiểu. 7 Xin người khác giúp. 8 Báo trễ và đề xuất mốc mới. 9 Không đồng ý một cách lịch sự. 10 Tóm tắt một buổi họp. 11 Chen vào và xác nhận lại trong cuộc họp. 12 Giải thích kỹ thuật cho người không làm kỹ thuật. 13 Nói chuyện xã giao đầu buổi họp.
 
-**Track Viết cho team (10 bài):** 1 Tiêu đề và mô tả pull request. 2 Commit message. 3 Comment khi review code. 4 Trả lời comment review. 5 Báo một bug. 6 Hỏi trên Slack ngắn mà đủ ý. 7 Báo tiến độ cho khách. 8 Email xin nghỉ, xin dời lịch. 9 Viết ghi chú bàn giao. 10 Từ chối hoặc xin thêm thời gian.
+**Track Viết cho team (14 bài):** 1 Tiêu đề và mô tả pull request. 2 Commit message. 3 Comment khi review code. 4 Trả lời comment review. 5 Báo một bug. 6 Hỏi trên Slack ngắn mà đủ ý. 7 Báo tiến độ cho khách. 8 Email xin nghỉ, xin dời lịch. 9 Viết ghi chú bàn giao. 10 Từ chối hoặc xin thêm thời gian. 11 Cập nhật khi có sự cố. 12 Báo tin xấu hoặc rủi ro cho khách. 13 Acceptance criteria và kết quả test. 14 Đọc hiểu tin nhắn của đồng nghiệp nước ngoài.
 
 **Track Phỏng vấn (10 bài, Premium):** 1 Giới thiệu bản thân. 2 Kể về dự án gần nhất. 3 Vai trò và đóng góp của bạn. 4 Một bug khó bạn đã xử lý. 5 Điểm mạnh và điểm cần cải thiện. 6 Vì sao muốn đổi việc. 7 Bất đồng trong team và cách xử lý. 8 Trả lời khi không biết câu trả lời. 9 Hỏi lại nhà tuyển dụng. 10 Nói về lương và ngày bắt đầu.
 
@@ -197,7 +200,7 @@ Quy tắc viết bài:
 
 Kiểm theo thứ tự, sai thì trả lỗi tương ứng:
 
-1. `sentence` từ 3 đến 300 ký tự sau khi trim (`interview`: tới 600).
+1. `sentence` từ 3 đến 700 ký tự sau khi trim (`interview`: tới 1200). Nâng ngày 06/10/2026 để viết được tin hoàn chỉnh (mục 15).
 2. Hạn mức, đếm từ bảng `corrections`: Premium dưới 30 lần hôm nay; đang dùng thử dưới 10 lần hôm nay; còn lại dưới 1 lần trong 7 ngày gần nhất. `mode: "interview"` chỉ cho Premium và dùng thử.
 3. Tổng số lần gọi toàn hệ thống hôm nay dưới `AI_DAILY_CALL_CAP` (mặc định 500). Vượt thì trả "Hôm nay hệ thống đã hết lượt, thử lại ngày mai".
 
@@ -211,6 +214,7 @@ type Correction = {
   changes: { from: string; to: string; why_vi: string; category: ErrorCategory }[];  // tối đa 4
   tip_vi: string;   // một câu, có thể rỗng
   stronger?: string; // chỉ mode interview: một phiên bản trả lời tốt hơn, cùng ý, tối đa 3 câu
+  missing_vi?: string[]; // các ý trong checklist_vi của bài mà bài viết chưa có (mục 15)
 };
 type ErrorCategory = "article" | "tense" | "preposition" | "word_order" | "word_choice" | "verb_form" | "plural" | "other";
 export async function correctSentence(sentence: string, context?: string): Promise<Correction>;
@@ -241,7 +245,8 @@ Supabase Postgres. Bật RLS trên mọi bảng. Người dùng chỉ đọc đ�
 profiles      (id uuid pk → auth.users, display_name text, level text, weak_area text,
                track text default 'standup', standup_time time default '09:00', interview_date date,
                telegram_chat_id bigint, telegram_link_token text unique, created_at timestamptz,
-               reminded_on date, reported_on date)  -- ngày đã gửi tin nhắc, Chủ nhật đã gửi báo cáo tuần (thêm 05/10/2026)
+               reminded_on date, reported_on date,
+               roles text[] default '{}')  -- ngành đã chọn: dev, qa, ba, pm (thêm 06/10/2026, mục 16)  -- ngày đã gửi tin nhắc, Chủ nhật đã gửi báo cáo tuần (thêm 05/10/2026)
 entitlements  (user_id uuid pk → auth.users, premium_until timestamptz,
                trial_until timestamptz)         -- đặt bằng now() + 7 ngày khi tạo tài khoản
 lesson_progress (user_id uuid, lesson_key text, score int, completed_at timestamptz,
@@ -312,6 +317,8 @@ Mỗi milestone kết thúc bằng: check, test, build đều qua; mô tả các
 | M5 | Khóa bài và tính năng Premium ở server. Bốn điểm mời nâng cấp dùng số liệu thật của người dùng. `/nang-cap`, tạo đơn, mã VietQR qua payOS, tự mở Premium khi nhận đúng tiền. `/admin` xác nhận và hoàn tiền | Đặt `trial_until` về quá khứ thì tài khoản mất quyền Premium ngay nhưng dữ liệu còn nguyên. Gọi thẳng API bài bị khóa trả 403. Xác nhận đơn xong tài khoản mở khóa ngay |
 | M6 | Bot Telegram, liên kết, worker cron, tin nhắc, báo cáo tuần, đếm ngược phỏng vấn | Đặt giờ standup sau hiện tại 40 phút thì nhận đúng một tin. Gọi tay hàm báo cáo tuần thì tài khoản Premium có câu đã sửa nhận đúng một tin. `/stop` hoạt động |
 | M8 | Mục 14: nghĩa tiếng Việt, tự sửa trước, bot sửa câu, bản đồ lỗi, mở rộng nội dung 30 bài | Sửa một câu sai thì thấy chỗ tô và nhóm lỗi trước, sửa khớp thì được báo đúng, rồi thấy diff và nghĩa tiếng Việt. Nhắn một câu cho bot đã liên kết thì nhận bản sửa và lỗi vào sổ lỗi. `/so-loi` có bản đồ 8 tuần. Học lại một bài thấy câu trắc nghiệm khác |
+| M10 | Mục 16: chọn ngành | Chọn Dev và BA sau test xếp trình độ thì bài của ngày bỏ qua bài chỉ dành cho QA hoặc PM. Đổi ngành được ở `/tai-khoan`. Trang chủ lọc bài theo ngành khi tắt JavaScript |
+| M9 | Mục 15: nâng cấp chất lượng bài học | Mỗi bài có tin nhắn hoàn chỉnh và danh sách "Bài viết nên có"; viết thiếu ý thì AI chỉ ra ý còn thiếu. Trắc nghiệm có câu chọn giọng điệu và câu đọc hiểu. 7 bài mới. Các lỗi nội dung trong `docs/research/content-audit.md` đã sửa |
 | M7 | Sự kiện phễu và bảng trong `/admin`. Trang điều khoản, bảo mật. Sitemap, thẻ OG, favicon. Soạn 27 bài còn lại và `placement.json`. Chạy `docs/LAUNCH_CHECKLIST.md` | Mọi mục trong checklist ra mắt được đánh dấu, gồm cả việc chủ dự án đã duyệt nội dung |
 
 ## 13. Sau khi ra mắt
@@ -339,3 +346,24 @@ Thêm ngày 06/10/2026 theo quyết định của chủ dự án, sau khi xem b�
 - **Bot sửa câu** qua Telegram (mục 9). Mọi trang có nút Telegram nổi ở góc phải dưới, trỏ tới `/telegram`: đã đăng nhập mà chưa liên kết thì mở bot kèm mã liên kết, còn lại mở chat với bot. Đây là một link, không phải popup.
 - **Bản đồ lỗi** ở `/so-loi` (mục 5b).
 - **Nội dung đa dạng hơn:** mỗi bài có 5 ví dụ, 3 lỗi hay gặp, 10 câu trắc nghiệm (mục 6). Trình học lấy ngẫu nhiên 3 ví dụ và 5 câu trắc nghiệm mỗi lượt, nên học lại không gặp y hệt lần trước. Điểm bài vẫn tính trên 5. Câu mới soạn ghi vào `docs/CONTENT_REVIEW.md` để chủ dự án duyệt.
+
+## 15. Bản 1.2: bài học sát việc thật hơn
+
+Thêm ngày 06/10/2026 theo yêu cầu của chủ dự án, sau khi đánh giá nội dung (báo cáo ở `docs/research/content-audit.md` và `docs/research/content-needs.md`). Kết luận: tiếng Anh trong bài đúng, nhưng mỗi bài chỉ dạy một khung câu ở mức A2 đến B1, trong khi làm việc với khách nước ngoài cần B1+ đến B2: tin nhiều câu có cấu trúc, lý do, giọng điệu phù hợp, và hiểu tin của người bản ngữ.
+
+- **Tin nhắn hoàn chỉnh (`model`):** mỗi bài có một mẫu đầy đủ như ngoài đời. Ví dụ: cập nhật standup đủ ba phần; mô tả PR có What, Why, How to test; báo bug có Steps, Expected, Actual, Environment; câu trả lời phỏng vấn theo STAR khoảng 80 đến 150 từ.
+- **Bài viết nên có (`checklist_vi`):** 3 đến 5 ý. Phần 5 yêu cầu viết đúng loại tin thật. AI nhận danh sách này cùng câu của người dùng và trả `missing_vi` là những ý còn thiếu; giao diện hiện "Còn thiếu" dưới kết quả. Ý thiếu không vào sổ lỗi.
+- **Trắc nghiệm đa dạng hơn:** trong 10 câu của mỗi bài có khoảng 4 câu hình thức (ngữ pháp, cách viết), 3 câu chọn cách nói tự nhiên hoặc lịch sự hơn mà cả ba đáp án đều đúng ngữ pháp, 3 câu đọc hiểu ("Đồng nghiệp nhắn ... Ý họ là gì?") thay cho phần nghe chưa có. Một quy tắc ngữ pháp không lặp quá 2 lần trong một bài. Quy ước của team (ví dụ tiêu đề PR dùng động từ nguyên mẫu) được giải thích là quy ước, không gọi là sai ngữ pháp.
+- **7 bài mới, Premium:** Standup 11 đến 13, Viết 11 đến 14 (mục 6).
+- **Sửa nội dung:** các lỗi trong báo cáo audit (câu sai logic, câu hỏi có hai đáp án đúng, giải thích chưa chính xác, dịch "by Friday" thành "muộn nhất thứ Sáu").
+
+## 16. Chọn ngành
+
+Thêm ngày 06/10/2026 theo quyết định của chủ dự án. Không tách thành khóa riêng cho từng ngành, vì phần lớn bài (standup, Slack, báo tiến độ, phỏng vấn) dùng chung. Ngành chỉ dùng để đưa đúng bài lên trước.
+
+- **Ngành:** Dev, QA (tester), BA, PM, mỗi ngành có một dòng giải thích cho người mới (ví dụ BA: phân tích nghiệp vụ, làm rõ yêu cầu với khách, viết user story). Chọn được nhiều ngành. Chọn ở bước cuối của test xếp trình độ (cùng form chọn track), đổi được ở `/tai-khoan`. Lưu ở `profiles.roles`, người dùng tự sửa được qua RLS.
+- **Nhãn bài:** bài chuyên ngành có `roles` (ví dụ Commit message chỉ Dev; Acceptance criteria cho BA và QA). Bài không có `roles` là bài chung.
+- **Bài của ngày:** trong track đang học, bài chưa xong hợp ngành (bài chung hoặc có ngành của người dùng) đi trước, theo `id`; bài không hợp ngành để cuối, vẫn mở học được. Chưa chọn ngành thì như cũ.
+- **Hiển thị:** `/hom-nay` ghi nhãn ngành cạnh bài chuyên ngành. Trang chủ có nút lọc Tất cả, Dev, QA, BA, PM, chạy bằng CSS nên vẫn dùng được khi tắt JavaScript.
+- **AI sửa câu** nhận ngành của người viết để giải thích đúng ngữ cảnh (ví dụ BA viết user story).
+

@@ -4,8 +4,7 @@
   "slug": "hoi-lai-nha-tuyen-dung",
   "title": "Hỏi lại nhà tuyển dụng",
   "free": false,
-  "question_en": "Do you have any questions for us?",
-  "goal_vi": "Đặt một hai câu hỏi ngắn, đúng trật tự, về team và cách làm việc.",
+  "goal_vi": "Đặt hai ba câu hỏi đúng trật tự về team và cách làm việc, hỏi nối tiếp câu trả lời, rồi cảm ơn và kết thúc buổi phỏng vấn.",
   "pattern": {
     "formula": "How / What + does + noun + V? / How / What + do + you + V?",
     "note_vi": "Câu hỏi cần do hoặc does đứng trước chủ ngữ. Có does rồi thì động từ không thêm s."
@@ -28,8 +27,8 @@
       "vi": "Ở đây team QA làm việc với dev như thế nào?"
     },
     {
-      "en": "What do you think is the biggest challenge for this team right now?",
-      "vi": "Anh chị nghĩ thử thách lớn nhất của team hiện giờ là gì?"
+      "en": "How much overlap does the team have with the client's time zone?",
+      "vi": "Giờ làm của team trùng với múi giờ của khách khoảng bao nhiêu tiếng?"
     }
   ],
   "mistakes": [
@@ -56,10 +55,24 @@
     "How does the team",
     "What does ... look like",
     "What would you expect",
-    "onboarding",
-    "tech stack",
+    "That's helpful. And",
+    "time-zone overlap",
+    "on-call",
+    "get up to speed",
     "next steps",
-    "the biggest challenge"
+    "I really enjoyed this conversation",
+    "I'm looking forward to hearing from you"
+  ],
+  "model": {
+    "title_vi": "Phần hỏi lại và lời kết cuối buổi phỏng vấn",
+    "en": "Yes, thanks, I have a couple of questions. First, how does the team handle code reviews? Do developers review each other's PRs, or does a lead approve everything?\nThat's helpful, thanks. And how much overlap does the team have with the client in Sydney? I'd like to know whether most calls fall in my morning or my afternoon.\nMy last question is about the role: what would you expect from me in the first three months?\nThanks, that gives me a clear picture. I really enjoyed this conversation, and I'm looking forward to hearing about the next steps.",
+    "vi": "Có, cảm ơn anh chị, mình có vài câu hỏi. Trước tiên, team review code như thế nào? Các bạn dev review PR cho nhau, hay một lead duyệt hết?\nRất hữu ích, cảm ơn anh chị. Còn giờ làm của team trùng với khách ở Sydney khoảng bao nhiêu? Mình muốn biết phần lớn các cuộc gọi rơi vào buổi sáng hay buổi chiều theo giờ của mình.\nCâu hỏi cuối của mình về vị trí này: trong ba tháng đầu, anh chị mong mình làm được gì?\nCảm ơn anh chị, giờ mình đã hình dung rõ. Mình rất vui vì buổi trao đổi hôm nay, và mong nhận tin về các bước tiếp theo."
+  },
+  "checklist_vi": [
+    "Có 2 đến 3 câu hỏi về team, cách làm việc hoặc vị trí.",
+    "Câu hỏi đúng trật tự: do hoặc does đứng trước chủ ngữ.",
+    "Có một câu hỏi nối tiếp câu trả lời của nhà tuyển dụng, ví dụ That's helpful. And...",
+    "Có lời cảm ơn và câu kết ở cuối."
   ],
   "quiz": [
     {
@@ -76,30 +89,42 @@
     },
     {
       "id": "i09q2",
+      "prompt_vi": "Chọn câu hỏi phù hợp hơn để hỏi lại nhà tuyển dụng.",
+      "options": [
+        "Yes, thanks. How does the team decide what goes into each sprint?",
+        "No, I think you've covered everything.",
+        "What does your company do?"
+      ],
+      "answer": 0,
+      "answer_vi": "Có, cảm ơn anh chị. Team quyết định việc nào đưa vào mỗi sprint như thế nào?",
+      "why_vi": "Nên hỏi một câu về cách team làm việc. Không hỏi gì nghe như bạn không quan tâm, còn hỏi công ty làm gì cho thấy bạn chưa tìm hiểu."
+    },
+    {
+      "id": "i09q3",
       "prompt_vi": "Một ngày làm việc bình thường ở đây thế nào?",
       "options": [
         "What does a typical day look like here?",
         "How does a typical day look like here?",
-        "What a typical day looks like here?"
+        "What does a typical day looks like here?"
       ],
       "answer": 0,
       "answer_vi": "Một ngày làm việc bình thường ở đây thế nào?",
-      "why_vi": "look like đi với what, không đi với how. Câu hỏi cần does."
-    },
-    {
-      "id": "i09q3",
-      "prompt_vi": "Team hiện có bao nhiêu người?",
-      "options": [
-        "How many people are on the team right now?",
-        "How many people the team has right now?",
-        "How much people are on the team right now?"
-      ],
-      "answer": 0,
-      "answer_vi": "Team hiện có bao nhiêu người?",
-      "why_vi": "people đếm được nên dùng how many. Câu hỏi phải đảo động từ lên trước chủ ngữ."
+      "why_vi": "look like đi với what, không đi với how. Đã có does thì look không thêm s."
     },
     {
       "id": "i09q4",
+      "prompt_vi": "Người phỏng vấn trả lời: 'Honestly, our biggest pain point right now is tech debt in the billing service. We're trying to carve out 20% of each sprint for it.' Ý họ là gì?",
+      "options": [
+        "Khó khăn lớn nhất của team là nợ kỹ thuật ở billing service, và họ đang cố dành 20% mỗi sprint để xử lý.",
+        "Team đang nợ tiền khách hàng ở phần billing và phải trả 20% mỗi sprint.",
+        "Billing service đang chạy chậm 20%, và team sẽ viết lại trong sprint này."
+      ],
+      "answer": 0,
+      "answer_vi": "Khó khăn lớn nhất của team là nợ kỹ thuật ở billing service, và họ đang cố dành 20% mỗi sprint để xử lý.",
+      "why_vi": "pain point = chỗ gây khó khăn nhất. tech debt = nợ kỹ thuật, phần code cần dọn lại. carve out = dành riêng ra một phần."
+    },
+    {
+      "id": "i09q5",
       "prompt_vi": "Công ty có hỗ trợ học tiếng Anh không?",
       "options": [
         "Do you offer any support for learning English?",
@@ -108,70 +133,34 @@
       ],
       "answer": 0,
       "answer_vi": "Công ty có hỗ trợ học tiếng Anh không?",
-      "why_vi": "you đi với do, không đi với does. Sau for dùng V-ing."
-    },
-    {
-      "id": "i09q5",
-      "prompt_vi": "Các bước tiếp theo trong quy trình là gì?",
-      "options": [
-        "What are the next steps in the process?",
-        "What is next step of the process?",
-        "What the next steps are in the process?"
-      ],
-      "answer": 0,
-      "answer_vi": "Các bước tiếp theo trong quy trình là gì?",
-      "why_vi": "Cần the trước next steps. Câu hỏi đưa are lên trước chủ ngữ."
+      "why_vi": "you đi với do, không đi với does. Sau giới từ for, động từ thêm ing."
     },
     {
       "id": "i09q6",
-      "prompt_vi": "Chọn câu trả lời phù hợp hơn.",
+      "prompt_vi": "Bạn muốn hỏi về lịch trực on-call. Chọn cách hỏi phù hợp hơn.",
       "options": [
-        "Yes, thanks. How does the team decide what goes into each sprint?",
-        "No.",
-        "What does your company do?"
+        "How does on-call work for this team? I'd like to understand how often each person is on call.",
+        "Do I have to do on-call? I don't want to work at night.",
+        "Sorry, I hope this isn't a strange question, but would it maybe be okay to ask a little bit about on-call, if that's alright?"
       ],
       "answer": 0,
-      "answer_vi": "Có, cảm ơn anh chị. Team quyết định việc nào đưa vào mỗi sprint như thế nào?",
-      "why_vi": "Nên hỏi một câu về cách team làm việc. Trả lời cụt hoặc hỏi công ty làm gì cho thấy bạn chưa tìm hiểu."
+      "answer_vi": "On-call của team này hoạt động thế nào? Mình muốn biết mỗi người trực bao lâu một lần.",
+      "why_vi": "Hỏi thẳng và trung tính về cách team làm. Câu thứ hai nghe như bạn ngại việc, câu thứ ba rào đón quá nhiều nên thiếu tự tin."
     },
     {
       "id": "i09q7",
-      "prompt_vi": "Team dùng công cụ gì để quản lý task?",
+      "prompt_vi": "Người phỏng vấn nói: 'We're fully remote. Most of the team is in Sydney, so we ask for at least three hours of overlap, usually your morning.' Ý họ là gì?",
       "options": [
-        "What tools does the team use to manage tasks?",
-        "What tools does the team uses to manage tasks?",
-        "What tools does the team use for manage tasks?"
+        "Team làm từ xa hoàn toàn, phần lớn ở Sydney, nên bạn cần làm trùng giờ với họ ít nhất ba tiếng, thường là buổi sáng giờ của bạn.",
+        "Team làm ở văn phòng Sydney, và bạn phải họp ba tiếng mỗi sáng.",
+        "Team làm từ xa, và bạn chỉ cần làm ba tiếng mỗi ngày vào buổi sáng."
       ],
       "answer": 0,
-      "answer_vi": "Team dùng công cụ gì để quản lý task?",
-      "why_vi": "Đã có does thì động từ không thêm s. Để làm gì dùng to V."
+      "answer_vi": "Team làm từ xa hoàn toàn, phần lớn ở Sydney, nên bạn cần làm trùng giờ với họ ít nhất ba tiếng, thường là buổi sáng giờ của bạn.",
+      "why_vi": "fully remote = làm từ xa hoàn toàn. overlap = khoảng giờ làm trùng nhau giữa hai nơi. your morning = buổi sáng theo giờ của bạn."
     },
     {
       "id": "i09q8",
-      "prompt_vi": "Anh chị làm ở công ty bao lâu rồi?",
-      "options": [
-        "How long have you worked here?",
-        "How long do you work here?",
-        "How long you have worked here?"
-      ],
-      "answer": 0,
-      "answer_vi": "Anh chị làm ở đây bao lâu rồi?",
-      "why_vi": "Kéo dài tới giờ dùng have + V3. Câu hỏi đưa have lên trước you."
-    },
-    {
-      "id": "i09q9",
-      "prompt_vi": "Người mới thường mất bao lâu để quen việc?",
-      "options": [
-        "How long does it usually take new people to get up to speed?",
-        "How long does it usually take new people for getting up to speed?",
-        "How long it usually takes new people to get up to speed?"
-      ],
-      "answer": 0,
-      "answer_vi": "Người mới thường mất bao lâu để quen việc?",
-      "why_vi": "take + người + to V. Câu hỏi cần does trước it."
-    },
-    {
-      "id": "i09q10",
       "prompt_vi": "Dev ở đây có làm việc trực tiếp với khách hàng không?",
       "options": [
         "Do developers here work directly with clients?",
@@ -181,7 +170,32 @@
       "answer": 0,
       "answer_vi": "Dev ở đây có làm việc trực tiếp với khách hàng không?",
       "why_vi": "developers là số nhiều nên dùng do. Làm việc với ai là work with."
+    },
+    {
+      "id": "i09q9",
+      "prompt_vi": "Chọn câu kết phù hợp hơn ở cuối buổi phỏng vấn.",
+      "options": [
+        "Thanks, that's really helpful. I enjoyed this conversation, and I'm looking forward to the next steps.",
+        "OK. Bye.",
+        "Thank you so, so much for your precious time. I will try my very best if you give me this chance."
+      ],
+      "answer": 0,
+      "answer_vi": "Cảm ơn anh chị, rất hữu ích. Mình rất vui vì buổi trao đổi, và mong chờ các bước tiếp theo.",
+      "why_vi": "Cảm ơn ngắn, thân thiện và tự tin. Câu thứ hai quá cụt, còn câu thứ ba dịch kiểu 'thời gian quý báu' và nghe như đang xin xỏ."
+    },
+    {
+      "id": "i09q10",
+      "prompt_vi": "Recruiter gửi email: 'Thanks for your time today. We'll circle back by the end of next week with next steps. In the meantime, feel free to reach out if anything comes up.' Ý họ là gì?",
+      "options": [
+        "Muộn nhất cuối tuần sau họ sẽ liên lạc lại về các bước tiếp theo, và trong lúc chờ bạn cứ nhắn họ nếu có gì phát sinh.",
+        "Họ sẽ gọi lại trước cuối tuần này, và bạn không cần liên lạc thêm.",
+        "Bạn cần gửi các bước tiếp theo cho họ muộn nhất cuối tuần sau."
+      ],
+      "answer": 0,
+      "answer_vi": "Muộn nhất cuối tuần sau họ sẽ liên lạc lại về các bước tiếp theo, và trong lúc chờ bạn cứ nhắn họ nếu có gì phát sinh.",
+      "why_vi": "circle back = quay lại liên lạc. by the end of next week = muộn nhất cuối tuần sau. reach out = liên lạc. come up = phát sinh."
     }
   ],
-  "write_prompt_vi": "Viết 2 câu hỏi bạn muốn hỏi nhà tuyển dụng ở cuối buổi phỏng vấn."
+  "write_prompt_vi": "Cuối buổi phỏng vấn cho vị trí làm với khách ở Úc, nhà tuyển dụng hỏi 'Do you have any questions for us?'. Viết 2 đến 3 câu hỏi, một câu hỏi nối tiếp, và lời cảm ơn kết thúc.",
+  "question_en": "Do you have any questions for us?"
 }

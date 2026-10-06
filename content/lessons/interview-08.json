@@ -4,23 +4,22 @@
   "slug": "phong-van-khi-khong-biet-cau-tra-loi",
   "title": "Trả lời khi không biết câu trả lời",
   "free": false,
-  "question_en": "Have you worked with Kubernetes in production?",
-  "goal_vi": "Nói thật là mình chưa làm hoặc chưa chắc, rồi nói phần mình biết hoặc cách mình sẽ tìm hiểu.",
+  "goal_vi": "Nói thật là mình chưa làm hoặc chưa chắc, nói phần gần nhất mình đã làm, rồi suy luận thành tiếng về cách mình sẽ bắt đầu.",
   "pattern": {
     "formula": "I haven't + V3 + ..., but I've + V3 + ... / I'm not sure, but I think + clause.",
-    "note_vi": "Kinh nghiệm tính tới giờ dùng have + V3. Không bịa, nói phần gần nhất mà bạn đã làm."
+    "note_vi": "Kinh nghiệm tính tới giờ dùng have + V3. Không bịa, nói phần gần nhất bạn đã làm, rồi nói bạn sẽ bắt đầu thế nào (I'd start by + V-ing)."
   },
   "examples": [
     {
-      "en": "I haven't used Kubernetes in production, but I've deployed a few side projects with Docker Compose, so I know the basic ideas.",
-      "vi": "Mình chưa dùng Kubernetes trên production, nhưng mình đã deploy vài dự án cá nhân bằng Docker Compose, nên mình nắm ý tưởng cơ bản."
+      "en": "I haven't used Kubernetes in production, but I've deployed a few side projects with Docker Compose, so I understand the basic concepts.",
+      "vi": "Mình chưa dùng Kubernetes trên production, nhưng mình đã deploy vài dự án cá nhân bằng Docker Compose, nên mình nắm các khái niệm cơ bản."
     },
     {
-      "en": "I'm not sure about the exact answer. I think it's related to caching, but I'd need to check the docs to be sure.",
-      "vi": "Mình không chắc câu trả lời chính xác. Mình nghĩ nó liên quan đến cache, nhưng mình cần đọc tài liệu mới chắc được."
+      "en": "I'm not sure without seeing the query plan, but I think it's missing an index. I'd start by running EXPLAIN and checking which columns it filters on.",
+      "vi": "Chưa xem query plan thì mình không chắc, nhưng mình nghĩ nó thiếu index. Mình sẽ bắt đầu bằng việc chạy EXPLAIN và xem nó lọc theo những cột nào."
     },
     {
-      "en": "I haven't worked with GraphQL before, but I've built REST APIs for three years, and I'm happy to learn it.",
+      "en": "I haven't worked with GraphQL before, but I've built REST APIs for three years, and I'm happy to pick it up.",
       "vi": "Mình chưa làm với GraphQL, nhưng mình đã làm REST API ba năm, và mình sẵn sàng học thêm."
     },
     {
@@ -55,11 +54,25 @@
   "word_bank": [
     "I haven't ... yet",
     "I'm not sure, but",
-    "I think",
-    "related to",
-    "I'd need to check",
     "the closest thing I've done",
-    "I'm happy to learn"
+    "Let me think out loud",
+    "I'd start by checking",
+    "I'd need to check",
+    "related to",
+    "pick it up",
+    "get up to speed",
+    "walk you through"
+  ],
+  "model": {
+    "title_vi": "Câu trả lời đầy đủ khi chưa có kinh nghiệm với công nghệ được hỏi",
+    "en": "Not in production, no. The closest thing I've done is running our staging environment on Docker Compose for about a year.\nI set up the services, wrote the health checks, and fixed most of the networking issues we ran into.\nSo I understand containers, ports and environment variables, but I haven't managed a cluster or written Helm charts.\nIf I had to deploy a service to Kubernetes next week, I'd start by reading our existing manifests and pairing with someone from the platform team on the first release.\nI've picked up new tools quickly before. For example, I learned Terraform in about two weeks when our team moved to AWS last year.",
+    "vi": "Trên production thì chưa. Việc gần nhất mình đã làm là chạy môi trường staging bằng Docker Compose khoảng một năm.\nMình dựng các service, viết health check, và sửa phần lớn các lỗi mạng bọn mình gặp phải.\nNên mình hiểu container, port và biến môi trường, nhưng mình chưa quản lý cluster hay viết Helm chart.\nNếu tuần sau phải deploy một service lên Kubernetes, mình sẽ bắt đầu bằng việc đọc các file manifest đang có và làm cùng một bạn ở team platform trong lần release đầu.\nTrước đây mình đã học công cụ mới khá nhanh. Ví dụ, mình học Terraform trong khoảng hai tuần khi team chuyển sang AWS năm ngoái."
+  },
+  "checklist_vi": [
+    "Nói thật phần bạn chưa làm, không bịa.",
+    "Nêu việc gần nhất bạn đã làm, có chi tiết cụ thể.",
+    "Có cách bạn sẽ bắt đầu hoặc tìm hiểu, ví dụ I'd start by...",
+    "Có một ví dụ bạn từng học nhanh một công cụ hay kỹ năng mới."
   ],
   "quiz": [
     {
@@ -76,15 +89,15 @@
     },
     {
       "id": "i08q2",
-      "prompt_vi": "Mình chưa dùng nó trên production, nhưng đã dùng trong dự án cá nhân.",
+      "prompt_vi": "Chọn câu trả lời phù hợp hơn cho 'Have you used Kafka?'.",
       "options": [
-        "I haven't used it in production, but I've used it in side projects.",
-        "I haven't used it in production, but I've used it in personal project.",
-        "I haven't use it in production, but I've used it in side projects."
+        "Not in production, but I've built a small demo with it, so I know the basics.",
+        "Yes, I'm an expert in it.",
+        "No. Next question, please."
       ],
       "answer": 0,
-      "answer_vi": "Mình chưa dùng nó trên production, nhưng đã dùng trong dự án cá nhân.",
-      "why_vi": "project đếm được nên cần số nhiều hoặc a. Sau have dùng V3."
+      "answer_vi": "Chưa dùng trên production, nhưng mình đã làm một demo nhỏ với nó, nên mình nắm những điều cơ bản.",
+      "why_vi": "Nói thật rồi nói phần gần nhất mình đã làm. Nhận bừa là chuyên gia sẽ lộ ngay ở câu hỏi sau, còn trả lời cụt nghe như bỏ cuộc."
     },
     {
       "id": "i08q3",
@@ -96,46 +109,22 @@
       ],
       "answer": 0,
       "answer_vi": "Mình không chắc, nhưng mình nghĩ nó liên quan đến cache.",
-      "why_vi": "be related to: cần is, và giới từ là to."
+      "why_vi": "Liên quan đến là be related to: cần is, và giới từ là to."
     },
     {
       "id": "i08q4",
-      "prompt_vi": "Mình cần đọc tài liệu mới chắc được.",
+      "prompt_vi": "Người phỏng vấn nói: 'No worries if you haven't used it. Just walk me through how you'd approach it.' Ý họ là gì?",
       "options": [
-        "I'd need to check the docs to be sure.",
-        "I'd need checking the docs to be sure.",
-        "I'd need to check the docs to sure."
+        "Chưa dùng cũng không sao, họ muốn bạn trình bày từng bước bạn sẽ làm thế nào.",
+        "Họ muốn dừng câu hỏi này vì bạn chưa dùng công cụ đó.",
+        "Họ muốn bạn viết code chạy được ngay trên máy."
       ],
       "answer": 0,
-      "answer_vi": "Mình cần đọc tài liệu mới chắc được.",
-      "why_vi": "need + to V. sure là tính từ nên cần be: to be sure."
+      "answer_vi": "Chưa dùng cũng không sao, họ muốn bạn trình bày từng bước bạn sẽ làm thế nào.",
+      "why_vi": "No worries = không sao. walk me through = trình bày từng bước cho mình nghe. approach ở đây là cách bạn tiếp cận vấn đề."
     },
     {
       "id": "i08q5",
-      "prompt_vi": "Bạn giải thích thêm câu hỏi một chút được không?",
-      "options": [
-        "Could you explain the question a bit more?",
-        "Could you explain more the question?",
-        "Could you explaining the question a bit more?"
-      ],
-      "answer": 0,
-      "answer_vi": "Bạn giải thích thêm câu hỏi một chút được không?",
-      "why_vi": "more đứng sau tân ngữ. Sau could là động từ nguyên mẫu."
-    },
-    {
-      "id": "i08q6",
-      "prompt_vi": "Chọn câu trả lời phù hợp hơn.",
-      "options": [
-        "Not in production, but I've built a small demo with it, so I know the basics.",
-        "Yes, I'm an expert in it.",
-        "No. Next question, please."
-      ],
-      "answer": 0,
-      "answer_vi": "Chưa dùng trên production, nhưng mình đã làm một demo nhỏ với nó, nên mình nắm những điều cơ bản.",
-      "why_vi": "Nói thật rồi nói phần gần nhất mình đã làm. Không nhận bừa là chuyên gia, cũng không trả lời cụt lủn."
-    },
-    {
-      "id": "i08q7",
       "prompt_vi": "Mình chưa có dịp dùng Terraform.",
       "options": [
         "I haven't had a chance to use Terraform yet.",
@@ -147,7 +136,19 @@
       "why_vi": "Câu phủ định dùng yet, không dùng already. Sau have dùng V3: had."
     },
     {
-      "id": "i08q8",
+      "id": "i08q6",
+      "prompt_vi": "Bạn chưa rõ cách GC của Go hoạt động. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "I haven't gone deep into Go's garbage collector. I think it runs alongside the program to keep pauses short, but I'd need to check the details.",
+        "I don't know.",
+        "I'm so sorry, I really should know this. I guess I'm not a very good engineer."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình chưa tìm hiểu sâu bộ thu gom rác của Go. Mình nghĩ nó chạy song song với chương trình để giữ thời gian dừng ngắn, nhưng mình cần kiểm tra lại chi tiết.",
+      "why_vi": "Nói thật, nói phần mình nghĩ là đúng, và nói sẽ kiểm tra lại. Câu cụt không cho người phỏng vấn thấy cách bạn suy nghĩ, còn tự chê mình thì làm bạn mất điểm."
+    },
+    {
+      "id": "i08q7",
       "prompt_vi": "Câu hỏi hay, cho mình nghĩ một chút.",
       "options": [
         "That's a good question. Let me think for a second.",
@@ -156,32 +157,45 @@
       ],
       "answer": 0,
       "answer_vi": "Câu hỏi hay, cho mình nghĩ một chút.",
-      "why_vi": "let me + động từ nguyên mẫu, không có to. question đếm được nên cần a."
+      "why_vi": "let me + động từ nguyên mẫu, không có to. question là danh từ đếm được số ít nên cần a."
+    },
+    {
+      "id": "i08q8",
+      "prompt_vi": "Người phỏng vấn nói: 'Fair enough. Off the top of your head, what would you check first?' Ý họ là gì?",
+      "options": [
+        "Họ chấp nhận câu trả lời, và muốn bạn nói ngay, không cần tra cứu, việc đầu tiên bạn sẽ kiểm tra.",
+        "Họ thấy câu trả lời chưa công bằng và muốn bạn kiểm tra lại.",
+        "Họ muốn bạn đọc tài liệu rồi trả lời vào buổi sau."
+      ],
+      "answer": 0,
+      "answer_vi": "Họ chấp nhận câu trả lời, và muốn bạn nói ngay, không cần tra cứu, việc đầu tiên bạn sẽ kiểm tra.",
+      "why_vi": "Fair enough = được, hợp lý. Off the top of your head = nghĩ ngay trong đầu, không tra cứu."
     },
     {
       "id": "i08q9",
-      "prompt_vi": "Mình từng đọc về nó nhưng chưa dùng trong dự án thật.",
+      "prompt_vi": "Cần thời gian nghĩ câu thiết kế hệ thống. Chọn cách nói phù hợp hơn.",
       "options": [
-        "I've read about it, but I haven't used it in a real project.",
-        "I've read about it, but I haven't used it in real project.",
-        "I read about it, but I don't use it in a real project."
+        "Good question. Can I take a moment to think it through?",
+        "Wait.",
+        "Oh, I'm really sorry, but could you possibly give me a few minutes, if it's not too much trouble?"
       ],
       "answer": 0,
-      "answer_vi": "Mình từng đọc về nó nhưng chưa dùng trong dự án thật.",
-      "why_vi": "project đếm được nên cần a. Kinh nghiệm tính tới giờ dùng have + V3."
+      "answer_vi": "Câu hỏi hay. Cho mình một chút để nghĩ kỹ nhé?",
+      "why_vi": "Xin thời gian nghĩ là bình thường, nói ngắn và tự tin. Một chữ Wait nghe cộc, còn xin lỗi vòng vo làm bạn có vẻ thiếu tự tin."
     },
     {
       "id": "i08q10",
-      "prompt_vi": "Mình chưa làm với khách hàng trong ngành bảo hiểm.",
+      "prompt_vi": "Recruiter gửi email: 'The panel appreciated that you were upfront about the gaps in your Kubernetes experience. They'd like to dig into it more in the next round.' Ý họ là gì?",
       "options": [
-        "I haven't worked with clients in the insurance industry.",
-        "I haven't work with clients in the insurance industry.",
-        "I haven't worked with clients on the insurance industry."
+        "Hội đồng đánh giá cao việc bạn thẳng thắn về phần còn thiếu trong kinh nghiệm Kubernetes, và muốn hỏi sâu hơn ở vòng sau.",
+        "Hội đồng thấy bạn thiếu kinh nghiệm nên dừng ở vòng này.",
+        "Hội đồng muốn bạn học thêm Kubernetes rồi mới phỏng vấn lại."
       ],
       "answer": 0,
-      "answer_vi": "Mình chưa làm với khách hàng trong ngành bảo hiểm.",
-      "why_vi": "Sau have dùng V3: worked. Trong một ngành là in the industry."
+      "answer_vi": "Hội đồng đánh giá cao việc bạn thẳng thắn về phần còn thiếu trong kinh nghiệm Kubernetes, và muốn hỏi sâu hơn ở vòng sau.",
+      "why_vi": "upfront = thẳng thắn ngay từ đầu. gaps = phần còn thiếu. dig into = tìm hiểu, hỏi sâu. Có next round nghĩa là bạn đi tiếp."
     }
   ],
-  "write_prompt_vi": "Viết 2 câu trả lời một câu hỏi bạn chưa chắc: nói thật, rồi nói phần bạn biết."
+  "write_prompt_vi": "Nhà tuyển dụng hỏi về một công nghệ bạn chưa dùng trên production, ví dụ Kafka hoặc Kubernetes. Viết câu trả lời 80 đến 150 từ: nói thật, việc gần nhất bạn đã làm, và bạn sẽ bắt đầu thế nào.",
+  "question_en": "Have you worked with Kubernetes in production?"
 }

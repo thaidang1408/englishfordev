@@ -4,15 +4,14 @@
   "slug": "phong-van-bat-dong-trong-team",
   "title": "Bất đồng trong team và cách xử lý",
   "free": false,
-  "question_en": "Tell me about a time you disagreed with a teammate. How did you handle it?",
-  "goal_vi": "Kể một lần bất đồng: chuyện gì, bạn làm gì, và hai bên thống nhất ra sao.",
+  "goal_vi": "Kể một lần bất đồng theo STAR: chuyện gì, người kia nghĩ gì, bạn làm gì, kết quả ra sao và bạn rút ra điều gì.",
   "pattern": {
     "formula": "My teammate and I disagreed about + noun. We + V2 + ... and agreed to + V.",
-    "note_vi": "disagree with + người, disagree about + chuyện. Kết bằng điều hai bên thống nhất, không kể ai thắng ai."
+    "note_vi": "disagree with + người, disagree about + chuyện. Nói cả lý do của người kia, kết bằng điều hai bên thống nhất và bài học, không kể ai thắng ai."
   },
   "examples": [
     {
-      "en": "A teammate and I disagreed about using Redux or React Context. We tried both on one screen and agreed to go with Context.",
+      "en": "A teammate and I disagreed about whether to use Redux or React Context. We tried both on one screen and agreed to go with Context.",
       "vi": "Mình và một bạn trong team bất đồng về việc dùng Redux hay React Context. Bọn mình thử cả hai trên một màn hình và thống nhất dùng Context."
     },
     {
@@ -24,8 +23,8 @@
       "vi": "Một bạn designer muốn dùng một hiệu ứng chạy chậm trên máy cũ. Mình cho bạn ấy xem số liệu, và bọn mình cùng tìm ra một phiên bản nhẹ hơn."
     },
     {
-      "en": "My teammate and I disagreed about whether to use a queue or a cron job. We wrote down the pros and cons and agreed to start with the cron job.",
-      "vi": "Mình và một bạn trong team bất đồng về việc dùng queue hay cron job. Bọn mình ghi ra ưu nhược điểm và thống nhất bắt đầu với cron job."
+      "en": "I disagreed with my manager about skipping code reviews before a deadline. I understood the pressure, so I suggested reviewing only the payment changes, and we still shipped on time. What I learned was to offer a smaller option instead of just saying no.",
+      "vi": "Mình không đồng ý với manager về việc bỏ review code trước deadline. Mình hiểu áp lực của chị ấy, nên mình đề xuất chỉ review phần thanh toán, và bọn mình vẫn giao đúng hạn. Điều mình rút ra là nên đưa một phương án nhỏ hơn thay vì chỉ nói không."
     },
     {
       "en": "A developer and I disagreed about the severity of a bug. We checked how many users it affected and agreed to fix it in the next release.",
@@ -37,7 +36,7 @@
       "wrong": "Me and my teammate disagreed about the API design.",
       "right": "My teammate and I disagreed about the API design.",
       "right_vi": "Mình và bạn cùng team bất đồng về thiết kế API.",
-      "why_vi": "Làm chủ ngữ thì dùng I, và nói người kia trước mình."
+      "why_vi": "Làm chủ ngữ thì dùng I và nói người kia trước. Me and my teammate nghe suồng sã, không hợp khi phỏng vấn."
     },
     {
       "wrong": "I disagreed my lead about the deadline.",
@@ -46,21 +45,35 @@
       "why_vi": "disagree luôn có with trước người mình không đồng ý."
     },
     {
-      "wrong": "We agreed to used GraphQL.",
-      "right": "We agreed to use GraphQL.",
-      "right_vi": "Bọn mình thống nhất dùng GraphQL.",
-      "why_vi": "Sau to là động từ nguyên mẫu."
+      "wrong": "I explained him the risk of releasing on Friday.",
+      "right": "I explained the risk of releasing on Friday to him.",
+      "right_vi": "Mình giải thích cho anh ấy rủi ro của việc release vào thứ Sáu.",
+      "why_vi": "explain không đi thẳng với người: explain + điều gì + to + người."
     }
   ],
   "word_bank": [
     "disagreed with",
     "disagreed about",
-    "explained",
+    "I could see why",
+    "walk me through",
     "talked it through",
+    "backed it up with data",
     "agreed to",
     "went with",
     "in the end",
-    "compromise"
+    "What I learned was"
+  ],
+  "model": {
+    "title_vi": "Câu trả lời STAR đầy đủ về một lần bất đồng",
+    "en": "On my last project, a teammate and I disagreed about how to handle failed payment webhooks.\nHe wanted to retry them inside the API right away, but I was worried that a slow provider would tie up our servers.\nFirst I asked him to walk me through his idea, and I could see why he liked it: it was simple and quick to build.\nThen I showed him the logs from our last incident, when the provider was down for twenty minutes.\nWe talked it through and agreed to ship his simpler version first, with a limit on retries, and move to a queue in the next sprint.\nThe queue went live two weeks later, and we haven't lost a payment event since.\nWhat I learned was to listen first and bring data, not just opinions.",
+    "vi": "Ở dự án trước, mình và một bạn trong team bất đồng về cách xử lý các webhook thanh toán bị lỗi.\nBạn ấy muốn retry ngay trong API, còn mình lo nếu bên cung cấp chậm thì server của bọn mình sẽ bị kẹt.\nĐầu tiên mình nhờ bạn ấy giải thích từng bước ý tưởng, và mình hiểu vì sao bạn ấy thích cách đó: đơn giản và làm nhanh.\nSau đó mình cho bạn ấy xem log của sự cố lần trước, khi bên cung cấp bị sập hai mươi phút.\nBọn mình trao đổi kỹ và thống nhất ra bản đơn giản của bạn ấy trước, có giới hạn số lần retry, rồi chuyển sang queue ở sprint sau.\nQueue chạy thật hai tuần sau đó, và từ đó tới giờ bọn mình chưa mất sự kiện thanh toán nào.\nĐiều mình rút ra là nên lắng nghe trước và đưa số liệu, không chỉ đưa ý kiến."
+  },
+  "checklist_vi": [
+    "Nêu rõ hai bên bất đồng về chuyện gì.",
+    "Có lý do hoặc góc nhìn của người kia.",
+    "Kể việc bạn đã làm: lắng nghe, đưa số liệu hoặc đề xuất cách thử.",
+    "Có kết quả hai bên thống nhất, tốt nhất có con số.",
+    "Có một câu về điều bạn rút ra, ví dụ What I learned was..."
   ],
   "quiz": [
     {
@@ -73,7 +86,7 @@
       ],
       "answer": 0,
       "answer_vi": "Mình và bạn cùng team bất đồng về schema của database.",
-      "why_vi": "disagree about + chuyện. disagree là động từ, không thêm were."
+      "why_vi": "Bất đồng về chuyện gì là disagree about. disagree là động từ, không thêm were."
     },
     {
       "id": "i07q2",
@@ -81,71 +94,71 @@
       "options": [
         "I disagreed with my tech lead about the deadline.",
         "I disagreed my tech lead about the deadline.",
-        "I didn't agree to my tech lead about the deadline."
+        "I was disagreed with my tech lead about the deadline."
       ],
       "answer": 0,
       "answer_vi": "Mình không đồng ý với tech lead về deadline.",
-      "why_vi": "disagree with + người. agree to dùng cho đề xuất, không dùng cho người."
+      "why_vi": "Không đồng ý với ai là disagree with + người. Chính mình không đồng ý nên dùng disagreed, không thêm was."
     },
     {
       "id": "i07q3",
-      "prompt_vi": "Bọn mình thống nhất dùng PostgreSQL.",
+      "prompt_vi": "Chọn cách nói phù hợp hơn khi kể chuyện bất đồng.",
       "options": [
-        "We agreed to use PostgreSQL.",
-        "We agreed using PostgreSQL.",
-        "We unified to use PostgreSQL."
+        "A teammate wanted to skip tests to meet a deadline. We talked it through and agreed to test the critical paths first.",
+        "My teammate was wrong, so I just did it my way.",
+        "I never really disagree with anyone. I always just do what the team wants."
       ],
       "answer": 0,
-      "answer_vi": "Bọn mình thống nhất dùng PostgreSQL.",
-      "why_vi": "Thống nhất làm gì là agreed to + V. unify nghĩa là gộp lại, không dùng cho ý kiến."
+      "answer_vi": "Một bạn trong team muốn bỏ qua test để kịp deadline. Bọn mình trao đổi kỹ và thống nhất test các luồng quan trọng trước.",
+      "why_vi": "Kể chuyện gì, hai bên làm gì và thống nhất ra sao. Kể mình thắng nghe khó hợp tác, còn nói chưa bao giờ bất đồng thì né câu hỏi."
     },
     {
       "id": "i07q4",
-      "prompt_vi": "Mình giải thích rủi ro và cho xem số liệu.",
+      "prompt_vi": "Người phỏng vấn hỏi tiếp: 'And how did you get buy-in from the rest of the team?' Ý họ là gì?",
       "options": [
-        "I explained the risks and showed the numbers.",
-        "I explained him the risks and showed the numbers.",
-        "I explained about the risks and showed the numbers."
+        "Họ hỏi bạn đã làm thế nào để cả team đồng ý và ủng hộ cách làm đó.",
+        "Họ hỏi team đã mua thêm công cụ gì để giải quyết vấn đề.",
+        "Họ hỏi bạn đã thuyết phục khách hàng trả thêm tiền như thế nào."
       ],
       "answer": 0,
-      "answer_vi": "Mình giải thích các rủi ro và cho xem số liệu.",
-      "why_vi": "explain + điều cần giải thích, không có người ngay sau, không có about."
+      "answer_vi": "Họ hỏi bạn đã làm thế nào để cả team đồng ý và ủng hộ cách làm đó.",
+      "why_vi": "get buy-in from = được ai đó đồng ý và ủng hộ một ý tưởng. Không liên quan đến mua bán."
     },
     {
       "id": "i07q5",
       "prompt_vi": "Cuối cùng bọn mình chọn cách đơn giản hơn.",
       "options": [
         "In the end, we went with the simpler option.",
-        "At the end, we went with the simpler option.",
-        "In the end, we chose the option simpler."
+        "In the last, we went with the simpler option.",
+        "In the end, we went with the option simpler."
       ],
       "answer": 0,
       "answer_vi": "Cuối cùng, bọn mình chọn phương án đơn giản hơn.",
-      "why_vi": "Cuối cùng là in the end. Từ bổ nghĩa đứng trước danh từ: the simpler option."
+      "why_vi": "Cuối cùng là in the end, không có in the last. Từ bổ nghĩa đứng trước danh từ: the simpler option."
     },
     {
       "id": "i07q6",
-      "prompt_vi": "Chọn câu trả lời phù hợp hơn.",
+      "prompt_vi": "Bất đồng với manager, bạn đã làm gì? Chọn cách nói phù hợp hơn.",
       "options": [
-        "A teammate wanted to skip tests to meet a deadline. We talked it through and agreed to test only the critical paths first.",
-        "My teammate was wrong, so I just did it my way.",
-        "I never disagree with my teammates."
+        "I asked her for fifteen minutes, explained the risk with numbers, and offered a smaller option.",
+        "I told her in the team channel that her plan wouldn't work.",
+        "I didn't want to cause problems, so I kept quiet and did what she said."
       ],
       "answer": 0,
-      "answer_vi": "Một bạn trong team muốn bỏ qua test để kịp deadline. Bọn mình trao đổi kỹ và thống nhất test các luồng quan trọng trước.",
-      "why_vi": "Kể chuyện gì, hai bên làm gì và thống nhất ra sao. Không kể ai thắng ai, cũng không né câu hỏi."
+      "answer_vi": "Mình xin chị ấy mười lăm phút, giải thích rủi ro bằng số liệu, và đưa ra một phương án nhỏ hơn.",
+      "why_vi": "Nói riêng, có số liệu và có phương án là cách nhà tuyển dụng muốn nghe. Phản đối trước cả team nghe gay gắt, còn im lặng làm theo thì cho thấy bạn né vấn đề."
     },
     {
       "id": "i07q7",
-      "prompt_vi": "Bọn mình gọi nhanh một cuộc để trao đổi cho rõ.",
+      "prompt_vi": "Đồng nghiệp nhắn: 'I hear you, but I'm not sold on adding Redis just for this. Can we table it till Monday's sync?' Ý họ là gì?",
       "options": [
-        "We had a quick call to talk it through.",
-        "We had a quick call for talking it through.",
-        "We had quick call to talk it through."
+        "Họ hiểu ý bạn nhưng chưa bị thuyết phục việc thêm Redis, và muốn gác lại bàn tiếp ở buổi họp thứ Hai.",
+        "Họ đồng ý thêm Redis và sẽ làm xong muộn nhất thứ Hai.",
+        "Họ không nghe rõ bạn nói, và muốn bạn gửi bảng so sánh vào thứ Hai."
       ],
       "answer": 0,
-      "answer_vi": "Bọn mình gọi nhanh một cuộc để trao đổi cho rõ.",
-      "why_vi": "Làm gì để đạt mục đích dùng to V. call đếm được nên cần a."
+      "answer_vi": "Họ hiểu ý bạn nhưng chưa bị thuyết phục việc thêm Redis, và muốn gác lại bàn tiếp ở buổi họp thứ Hai.",
+      "why_vi": "I hear you = mình hiểu ý bạn. not sold on = chưa bị thuyết phục. table it till... = gác lại, để bàn sau. sync là buổi họp ngắn để cập nhật."
     },
     {
       "id": "i07q8",
@@ -157,32 +170,33 @@
       ],
       "answer": 0,
       "answer_vi": "Mình hiểu vì sao bạn ấy muốn làm theo cách đó.",
-      "why_vi": "Câu hỏi nằm trong câu khác thì không đảo, không thêm did. Kể chuyện đã qua dùng wanted."
+      "why_vi": "Câu hỏi nằm trong câu khác thì giữ thứ tự bình thường, không thêm did. Kể chuyện đã qua dùng wanted."
     },
     {
       "id": "i07q9",
-      "prompt_vi": "Bọn mình quyết định thử cách của anh ấy trong một sprint.",
+      "prompt_vi": "Chọn câu kết phù hợp hơn cho câu trả lời.",
       "options": [
-        "We decided to try his approach for one sprint.",
-        "We decided trying his approach for one sprint.",
-        "We decided to try the approach of him for one sprint."
+        "What I learned was to ask about the other person's reasons before I push for my own idea.",
+        "In the end I was right, and he admitted it.",
+        "I think I learned that I should probably just agree with people more often."
       ],
       "answer": 0,
-      "answer_vi": "Bọn mình quyết định thử cách của anh ấy trong một sprint.",
-      "why_vi": "decide + to V. Của anh ấy nói gọn là his approach."
+      "answer_vi": "Điều mình rút ra là nên hỏi lý do của người kia trước khi thuyết phục người ta theo ý mình.",
+      "why_vi": "Câu kết nên là một bài học cụ thể. Kể mình đúng nghe hiếu thắng, còn nói nên chiều theo người khác thì cho thấy bạn thiếu chính kiến."
     },
     {
       "id": "i07q10",
-      "prompt_vi": "Cả hai bọn mình đều hài lòng với kết quả.",
+      "prompt_vi": "Tech lead viết trong PR: 'Let's disagree and commit here. Ship it as is, and we'll revisit once we have metrics.' Ý họ là gì?",
       "options": [
-        "We were both happy with the result.",
-        "We were both happy for the result.",
-        "Both we were happy with the result."
+        "Dù chưa cùng ý, cả team cứ làm theo cách hiện tại, khi có số liệu thì xem lại.",
+        "Họ không đồng ý và muốn bạn sửa lại toàn bộ rồi mới merge.",
+        "Họ muốn mỗi người tự commit theo cách của mình."
       ],
       "answer": 0,
-      "answer_vi": "Cả hai bọn mình đều hài lòng với kết quả.",
-      "why_vi": "Hài lòng với điều gì là happy with. both đứng sau were, hoặc nói both of us."
+      "answer_vi": "Dù chưa cùng ý, cả team cứ làm theo cách hiện tại, khi có số liệu thì xem lại.",
+      "why_vi": "disagree and commit = vẫn còn khác ý nhưng cùng làm theo một quyết định. as is = giữ nguyên. revisit = xem lại sau."
     }
   ],
-  "write_prompt_vi": "Viết 2 đến 3 câu về một lần bạn bất đồng với đồng nghiệp và hai bên giải quyết thế nào."
+  "write_prompt_vi": "Nhà tuyển dụng hỏi: 'Tell me about a time you disagreed with a teammate.' Viết câu trả lời STAR 80 đến 150 từ về một lần thật: chuyện gì, lý do hai bên, bạn làm gì, kết quả và bài học.",
+  "question_en": "Tell me about a time you disagreed with a teammate. How did you handle it?"
 }

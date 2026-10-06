@@ -1,0 +1,201 @@
+{
+  "id": 11,
+  "track": "standup",
+  "slug": "chen-vao-va-xac-nhan-lai",
+  "title": "Chen vào và xác nhận lại trong cuộc họp",
+  "free": false,
+  "goal_vi": "Chen vào cuộc họp một cách lịch sự, xin người khác nói chậm hoặc nhắc lại, và nhắc lại ý của họ bằng lời của bạn để chắc là mình hiểu đúng.",
+  "pattern": {
+    "formula": "Sorry to jump in, but + question/point. / So what you're saying is + clause, right?",
+    "note_vi": "Chen vào thì xin lỗi một câu ngắn rồi nói ngay ý của bạn. Nhắc lại ý người kia bằng lời của bạn rồi thêm right? để họ chỉ cần trả lời đúng hay sai. Nghe không kịp thì xin nói chậm lại hoặc nhắc lại, không cần xin lỗi nhiều."
+  },
+  "examples": [
+    {
+      "en": "Sorry to jump in, but does this change affect the mobile app too?",
+      "vi": "Xin lỗi mình chen vào một chút, thay đổi này có ảnh hưởng tới app mobile không?"
+    },
+    {
+      "en": "So what you're saying is the bug only happens after the session times out, right?",
+      "vi": "Vậy ý bạn là bug chỉ xảy ra sau khi phiên đăng nhập hết hạn, đúng không?"
+    },
+    {
+      "en": "Sorry, could you slow down a bit? I want to make sure I get the steps right.",
+      "vi": "Xin lỗi, bạn nói chậm lại một chút được không? Mình muốn ghi đúng các bước."
+    },
+    {
+      "en": "Can I just add something before we move on? The migration needs a maintenance window.",
+      "vi": "Trước khi chuyển sang ý khác, mình bổ sung một chút được không? Migration này cần một khung giờ bảo trì."
+    },
+    {
+      "en": "Let me make sure I've got this right: we roll back first and investigate after?",
+      "vi": "Để mình chắc là mình hiểu đúng: mình roll back trước rồi điều tra sau, phải không?"
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "Sorry for interrupt, but can I ask a question?",
+      "right": "Sorry to interrupt, but can I ask a question?",
+      "right_vi": "Xin lỗi đã chen ngang, mình hỏi một câu được không?",
+      "why_vi": "Nói sorry to + động từ nguyên mẫu (sorry to interrupt), hoặc sorry for + V-ing (sorry for interrupting)."
+    },
+    {
+      "wrong": "So your mean is we need to roll back?",
+      "right": "So what you're saying is we need to roll back?",
+      "right_vi": "Vậy ý bạn là mình cần roll back?",
+      "why_vi": "mean là động từ, không dùng như danh từ \"ý\". Nói you mean hoặc what you're saying is."
+    },
+    {
+      "wrong": "Can you speak slowly a little?",
+      "right": "Could you slow down a little?",
+      "right_vi": "Bạn nói chậm lại một chút được không?",
+      "why_vi": "Xin người khác nói chậm hơn thì dùng slow down a little hoặc speak a little more slowly; không nói speak slowly a little."
+    }
+  ],
+  "word_bank": [
+    "sorry to jump in",
+    "sorry to interrupt",
+    "can I just add something?",
+    "before we move on",
+    "so what you're saying is",
+    "let me make sure I've got this right",
+    "could you slow down a bit?",
+    "could you repeat that?",
+    "you cut out",
+    "park that for now"
+  ],
+  "model": {
+    "title_vi": "Chen vào và xác nhận lại trong cuộc gọi với khách",
+    "en": "Sorry to jump in, Tom. Could you slow down a bit? I missed the part about the API limit.\nThanks. So what you're saying is the partner API only allows 100 requests a minute, right?\nIf that's the case, our nightly sync will hit the limit.\nI'll look into batching the requests and share an estimate tomorrow.",
+    "vi": "Xin lỗi mình chen vào một chút, Tom. Bạn nói chậm lại một chút được không? Mình nghe sót đoạn về giới hạn của API.\nCảm ơn bạn. Vậy ý bạn là API của đối tác chỉ cho gửi 100 request mỗi phút, đúng không?\nNếu vậy thì job đồng bộ ban đêm của bên mình sẽ chạm giới hạn đó.\nMình sẽ tìm cách gom request lại và gửi ước lượng vào ngày mai."
+  },
+  "checklist_vi": [
+    "Có một câu chen vào lịch sự (Sorry to jump in, Sorry to interrupt)",
+    "Có một câu xin nói chậm lại hoặc nhắc lại một chỗ cụ thể",
+    "Có một câu nhắc lại ý người kia bằng lời của bạn (So what you're saying is...)",
+    "Có câu hỏi để người kia xác nhận (right?, Is that right?)",
+    "Nói bước tiếp theo bạn sẽ làm"
+  ],
+  "quiz": [
+    {
+      "id": "s11q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "Sorry to interrupt, but can I ask a quick question?",
+        "Sorry for interrupt, but can I ask a quick question?",
+        "Sorry to interrupt, but can I ask an quick question?"
+      ],
+      "answer": 0,
+      "answer_vi": "Xin lỗi đã chen ngang, mình hỏi nhanh một câu được không?",
+      "why_vi": "sorry to + động từ nguyên mẫu. quick bắt đầu bằng phụ âm nên dùng a, không dùng an."
+    },
+    {
+      "id": "s11q2",
+      "prompt_vi": "Bạn nói chậm hơn một chút được không?",
+      "options": [
+        "Could you speak a bit more slowly?",
+        "Could you speak a bit slowly more?",
+        "Could you speaking a bit more slowly?"
+      ],
+      "answer": 0,
+      "answer_vi": "Bạn nói chậm hơn một chút được không?",
+      "why_vi": "more đứng trước từ nó so sánh: more slowly. Sau could là động từ nguyên mẫu: speak."
+    },
+    {
+      "id": "s11q3",
+      "prompt_vi": "Vậy ý bạn là mình cũng cần đổi cả API, đúng không?",
+      "options": [
+        "So what you're saying is we need to change the API too, right?",
+        "So your mean is we need to change the API too, right?",
+        "So what you're saying is we need change the API too, right?"
+      ],
+      "answer": 0,
+      "answer_vi": "Vậy ý bạn là mình cũng cần đổi cả API, đúng không?",
+      "why_vi": "mean là động từ, không dùng như danh từ \"ý\". need đi với to + động từ: need to change."
+    },
+    {
+      "id": "s11q4",
+      "prompt_vi": "Bạn nhắc lại phần cuối được không? Mạng mình vừa bị rớt.",
+      "options": [
+        "Could you repeat the last part? My connection dropped.",
+        "Could you repeat again the last part? My connection dropped.",
+        "Could you repeat the last part? My connection was drop."
+      ],
+      "answer": 0,
+      "answer_vi": "Bạn nhắc lại phần cuối được không? Mạng mình vừa bị rớt.",
+      "why_vi": "repeat đã là nói lại, không thêm again. Việc vừa xảy ra dùng quá khứ: dropped."
+    },
+    {
+      "id": "s11q5",
+      "prompt_vi": "Khách đang nói dài về một tính năng, bạn cần chen vào để hỏi. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "Sorry to jump in. Does this also apply to existing users?",
+        "Wait. Existing users?",
+        "I'm so sorry, I really don't want to interrupt you, but if it's OK, maybe I could ask a small question?"
+      ],
+      "answer": 0,
+      "answer_vi": "Xin lỗi mình chen vào. Điều này có áp dụng cho người dùng hiện tại không?",
+      "why_vi": "Câu đầu xin lỗi ngắn rồi hỏi thẳng vào ý. Câu hai cộc, nghe như ngắt lời khách. Câu ba xin lỗi quá nhiều mà chưa nói được câu hỏi."
+    },
+    {
+      "id": "s11q6",
+      "prompt_vi": "Tech lead nói rất nhanh và bạn không theo kịp. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "Sorry, could you slow down a bit? I want to make sure I get this right.",
+        "You talk too fast.",
+        "Sorry, my English is not good, so could you please speak very slowly for me?"
+      ],
+      "answer": 0,
+      "answer_vi": "Xin lỗi, bạn nói chậm lại một chút được không? Mình muốn chắc là mình hiểu đúng.",
+      "why_vi": "Câu đầu nhờ lịch sự và nêu lý do là muốn hiểu đúng. Câu hai nghe như trách người kia. Câu ba tự hạ mình, không cần nói tiếng Anh của bạn kém."
+    },
+    {
+      "id": "s11q7",
+      "prompt_vi": "Bạn muốn xác nhận lại ý của PM trước khi kết thúc họp. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "So what you're saying is the login page comes first, and reports can wait. Is that right?",
+        "OK, got it.",
+        "I'm not sure I understood anything, so could you explain everything again from the start?"
+      ],
+      "answer": 0,
+      "answer_vi": "Vậy ý bạn là làm trang đăng nhập trước, phần báo cáo để sau. Đúng không?",
+      "why_vi": "Câu đầu nhắc lại ý cụ thể để PM chỉ cần xác nhận. Câu hai không kiểm tra gì, dễ hiểu sai mà không biết. Câu ba bắt PM nói lại từ đầu, mất thời gian của cả nhóm."
+    },
+    {
+      "id": "s11q8",
+      "prompt_vi": "Khách nói trong cuộc gọi: \"Sorry, you cut out for a second. Could you say that again?\" Ý họ là gì?",
+      "options": [
+        "Tiếng của bạn bị mất một lúc, họ muốn bạn nói lại.",
+        "Họ muốn bạn cắt bớt phần vừa nói.",
+        "Họ muốn tạm dừng cuộc gọi một lát."
+      ],
+      "answer": 0,
+      "answer_vi": "Tiếng của bạn bị mất một lúc, họ muốn bạn nói lại.",
+      "why_vi": "you cut out là tiếng của bạn bị ngắt do mạng. Could you say that again? là nhờ nói lại."
+    },
+    {
+      "id": "s11q9",
+      "prompt_vi": "Đồng nghiệp nói: \"Can I just jump in here? I think we're talking about two different bugs.\" Ý họ là gì?",
+      "options": [
+        "Họ xin chen vào vì nghĩ mọi người đang nói về hai bug khác nhau.",
+        "Họ muốn chuyển sang chủ đề khác vì hai bug đã sửa xong.",
+        "Họ muốn tự nhận sửa cả hai bug."
+      ],
+      "answer": 0,
+      "answer_vi": "Họ xin chen vào vì nghĩ mọi người đang nói về hai bug khác nhau.",
+      "why_vi": "jump in là chen vào cuộc nói chuyện. Câu sau là lý do họ chen vào: mọi người đang nhầm hai bug với nhau."
+    },
+    {
+      "id": "s11q10",
+      "prompt_vi": "PM nói: \"Good point. Let's park that for now and come back to it at the end.\" Ý họ là gì?",
+      "options": [
+        "Tạm gác chuyện đó lại, cuối buổi họp sẽ bàn tiếp.",
+        "Bỏ hẳn chuyện đó, không bàn nữa.",
+        "Bàn ngay chuyện đó trước khi làm việc khác."
+      ],
+      "answer": 0,
+      "answer_vi": "Tạm gác chuyện đó lại, cuối buổi họp sẽ bàn tiếp.",
+      "why_vi": "park that là tạm gác một chủ đề. come back to it at the end là cuối buổi quay lại bàn."
+    }
+  ],
+  "write_prompt_vi": "Khách đang giải thích rất nhanh một yêu cầu mới trong cuộc gọi. Viết 3 đến 4 câu bạn sẽ nói: chen vào lịch sự, xin nói chậm hoặc nhắc lại một chỗ, nhắc lại ý của khách bằng lời của bạn để xác nhận, rồi nói bước tiếp theo."
+}

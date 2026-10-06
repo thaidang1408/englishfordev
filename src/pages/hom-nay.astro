@@ -12,6 +12,7 @@ import { accessFrom, hasFullAccess } from '../lib/auth/access';
 import { lessons } from '../lib/content/lessons';
 import { lessonKey } from '../lib/content/schema';
 import { TRACK_NAMES, TRACK_OUTLINE } from '../lib/content/tracks';
+import { fitsRoles, ROLE_SHORT } from '../lib/content/roles';
 import {
   countCorrections,
   countDueReviews,
@@ -49,7 +50,8 @@ const [progress, due, repeating, correctionCount, correctionTimes] = await Promi
 const done = new Map(progress.map((p) => [p.lesson_key, p]));
 // Đếm ngược phỏng vấn (SPEC mục 5b): có ngày phỏng vấn chưa qua thì hiện và gợi ý track Phỏng vấn.
 const interviewIn = profile.interview_date ? daysUntil(profile.interview_date, now) : null;
-const today = lessonOfTheDay(lessons, profile.track, new Set(done.keys()), now);
+const myRoles = profile.roles ?? [];
+const today = lessonOfTheDay(lessons, profile.track, new Set(done.keys()), now, myRoles);
 const cells = buildHeatmap([...progress.map((p) => new Date(p.completed_at)), ...correctionTimes], now, WEEKS);
 
 const rows = TRACK_OUTLINE[profile.track].map((title, i) => {
@@ -61,7 +63,10 @@ const rows = TRACK_OUTLINE[profile.track].map((title, i) => {
   const isToday = today.kind === 'lesson' && today.lesson.id === id;
   // Bài bị khóa vẫn dẫn tới trang bài, nơi hiện lời mời nâng cấp (SPEC mục 2).
   const href = lesson ? `/hoc/${lesson.slug}` : undefined;
-  return { id, title, formula: lesson?.pattern.formula, result, locked, isToday, href };
+  // Nhãn ngành chỉ hiện ở bài chuyên ngành; bài không hợp ngành của bạn được làm mờ, vẫn mở học được.
+  const roleTag = lesson?.roles?.map((r) => ROLE_SHORT[r]).join(', ');
+  const offRole = !fitsRoles(lesson?.roles, myRoles);
+  return { id, title, formula: lesson?.pattern.formula, result, locked, isToday, href, roleTag, offRole };
 });
 const doneInTrack = rows.filter((r) => r.result).length;
 const pct = Math.round((doneInTrack / rows.length) * 100);
@@ -302,6 +307,7 @@ const stepsLeft = steps.filter((s) => !s.done).length;
                 <span class="num">{String(r.id).padStart(2, '0')}</span>
                 <span>
                   <b>{r.title}</b>
+                  {r.roleTag && <span class="role-tag">Cho {r.roleTag}</span>}
                   {r.formula && <small lang="en">{r.formula}</small>}
                 </span>
                 {r.result ? (
@@ -316,7 +322,7 @@ const stepsLeft = steps.filter((s) => !s.done).length;
               </>
             );
             return r.href ? (
-              <a class="lrow" href={r.href}>
+              <a class:list={['lrow', { 'off-role': r.offRole }]} href={r.href}>
                 {inner}
               </a>
             ) : (

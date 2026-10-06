@@ -60,3 +60,92 @@ Cả 30 bài được thêm: 2 ví dụ (đủ 5), lỗi thứ 3 cho bài còn t
 - [ ] Track Standup: 20 ví dụ mới, 50 câu trắc nghiệm mới. Cần xem: s06q9 (lỗi trật tự từ "make clear this requirement"), s09q7 ("so big" và "too big"), s08q10 (đáp án dạng bị động "will be delayed").
 - [ ] Track Viết: 20 ví dụ mới, 50 câu trắc nghiệm mới, thêm lỗi thứ 3 cho writing-06. Cần xem: w03q6 (giới từ sau "move"), ví dụ 4 của w08 ("push the client call back by an hour" hơi khó), `right_vi` của w01 và w02 không có dấu chấm vì câu gốc là tiêu đề và commit.
 - [ ] Track Phỏng vấn: 20 ví dụ mới, 50 câu trắc nghiệm mới, q6 mỗi bài là câu chọn giọng điệu ("Chọn câu trả lời phù hợp hơn."). Cần xem: i09q6 (đáp án sai vì thiếu tìm hiểu, không vì ngữ pháp), i10q7 (chỉ sai trật tự từ), i02q9.
+
+## Nâng cấp chất lượng M9 (06/10/2026)
+
+Cả 30 bài cũ được nâng theo SPEC mục 15: thêm tin hoàn chỉnh (`model`), danh sách "Bài viết nên có" (`checklist_vi`), đề viết theo tình huống thật, trắc nghiệm chia 4 câu hình thức, 3 câu giọng điệu, 3 câu đọc hiểu; sửa các lỗi trong `docs/research/content-audit.md`. Thêm 7 bài mới (Premium). Gắn nhãn ngành (SPEC mục 16) cho 10 bài chuyên ngành.
+
+- [ ] standup-11 — Chen vào và xác nhận lại trong cuộc họp (bài mới)
+- [ ] standup-12 — Giải thích kỹ thuật cho người không làm kỹ thuật (bài mới)
+- [ ] standup-13 — Nói chuyện xã giao đầu buổi họp (bài mới)
+- [ ] writing-11 — Cập nhật khi có sự cố (bài mới)
+- [ ] writing-12 — Báo tin xấu hoặc rủi ro cho khách (bài mới)
+- [ ] writing-13 — Acceptance criteria và kết quả test (bài mới)
+- [ ] writing-14 — Đọc hiểu tin nhắn của đồng nghiệp nước ngoài (bài mới)
+- [ ] Nhãn ngành: writing-01 đến 04 chỉ Dev; writing-05 QA và Dev; writing-07 và writing-12 PM và BA; writing-11 Dev và PM; writing-13 BA và QA; standup-12 Dev và QA. Các bài khác là bài chung.
+
+Ghi chú của người soạn, cần chủ dự án xem:
+
+### standup-01..05
+
+- **standup-02:** note_vi nói rõ ba mẫu dùng thay nhau được trong standup và thêm cách nói thứ tự "First..., then...". Câu s02q10 (giải thích mạo từ sai) đã bỏ. Distractor của q2 đổi để bớt lặp lỗi "thiếu am". Thêm ví dụ có plan to và pick up.
+- **standup-03:** note_vi và word_bank có thêm "blocked on" (#9). Các ví dụ giờ có việc đã thử và lời nhờ người giúp. Model là standup có chỗ vướng và kết bằng một lời nhờ cụ thể.
+- **standup-04:** Distractor của s04q8 đổi thành "the payment screen didn't yet" theo audit §5. Câu s04q6 (giải thích mạo từ sai) đã bỏ. Có thêm ví dụ "Two of the three endpoints are done". Tip "nói cụ thể thay vì nói phần trăm" được đưa vào note_vi, mistake và một câu hỏi giọng điệu.
+- **standup-05:** Câu s05q7 (giải thích mạo từ sai) đã bỏ. Các ví dụ có thêm khoảng thời gian, assuming và if nothing comes up. Mọi chỗ "by + thời điểm" đều dịch là "muộn nhất". Mistake về until có thêm ví dụ dùng until đúng. Có câu hỏi đẩy lùi khi khách đòi một deadline không thực tế.
+**Cần chủ dự án xem lại:**
+- s01q7: đáp án sai "Yesterday I finished the payment API." vẫn là câu dùng được. Lý do chọn đáp án đúng chỉ là "thiếu ý tiếp theo", nên câu này có thể gây tranh cãi.
+- s04q7: đáp án sai "...because Minh still hasn't sent the API spec." bị coi là đổ lỗi. Cách đánh giá này phụ thuộc văn hóa từng team.
+- s04q9: "done-done" là tiếng lóng thân mật. Cần xác nhận người học có cần biết từ này không.
+- s01q9: cách viết tắt Y/T/B trong kênh standup có team dùng, có team không.
+- Các prompt_vi của câu giọng điệu có kèm bối cảnh nên dài khoảng 15 đến 18 từ, hơi quá giới hạn 15 từ của skill.
+
+### standup-06..10
+
+- **standup-10:** All "trước + day" translations are now "muộn nhất". Rewrote the s10q1 `why_vi` so it no longer says "were agreed" is never used. Added open questions, a parking lot, "Did I miss anything?" and a recap split into decision, action items and open question. s10q2 now tests by vs until, and s10q8 now reads a meeting note.
+- **s10q8:** "If I missed anything, shout." is a little British. "let me know" would be the neutral version.
+- **s08q10:** "delayed until Monday" is used as correct English, side by side with "by Friday EOD". Check that this sits well with the until vs by note planned for writing-10.
+- **standup-09 `mistakes[1]`:** "You are wrong → I see it a bit differently" is a tone problem, not a grammar error. I kept it from the original file.
+- **s07q10:** The second wrong option, about the colleague offering to cover your shift, is fairly close to the right answer. Check that it is clearly wrong.
+
+### writing-01..05
+
+- **writing-02 (Commit):** The why_vi for w02q1 now calls "Added"/"Adds" a convention, not a grammar error, and so does `mistakes[0]`. `note_vi` adds the 50-character subject line, the "If applied, this commit will…" test, `feat:`/`fix:`/`chore:` prefixes, and a body that explains why. The model is a Conventional Commit with a body and "Closes #318". New quiz items cover choosing the commit type, a vague subject or body vs a clear one, and reading squash/WIP, a reverted commit and the 50-character rule.
+- **writing-03 (Review comments):** `mistakes[0]` is fixed to "Could we change this to a map? The lookup runs on every request." The wrong option in w03q6 (now w03q4) is changed to "at the config file", and its why_vi says "move to/into" are both correct. The article why_vi now uses the determiner wording. Examples now give reasons. The model is a set of review comments with praise, a reason, a nit and a question. New quiz items cover blunt vs over-hedged comments, "Is there a reason we…?", and nit vs must, plus reading "not a blocker / pull out into / as is", "I'm not sure this handles…" and "nothing blocking, LGTM once CI is green".
+- **writing-04 (Reply to review):** Removed the old w04q8 "in the config file" distractor. Fixed the translations of examples 0 and 4. Added a pushback example ("I've kept the loop because…"). The model is a reply covering a fix, a pushback with a reason, a deferral to a ticket, and a request to look again. New quiz items cover "I've fixed it yesterday", tone for disagreeing, asking for clarification and deferring, and reading "resolve the thread", "Fair enough", and "Not sure this is addressed yet".
+- **writing-05 (Bug):** Changed "on Firefox" to "in Firefox". Example 5 now includes frequency ("3 out of 5 times"). The model is a full bug report (Title, Steps, Expected, Actual, Environment, Frequency). New quiz items cover tone and clarity for Steps to reproduce, the bug title and the Slack message to a dev, plus reading "Can't repro on my end / HAR", "Fixed on staging, verify and close" and "blocker for the release … till the next sprint".
+**For the owner's review list:**
+- w02q7 asks the learner to pick fix:, feat: or chore: under the Conventional Commits convention. I counted it as one of the 3 "phù hợp hơn" items, but the options differ by convention, not tone.
+- w04q3 marks "I've fixed it yesterday" as wrong. This is standard textbook US/UK English, though some speakers (Indian or Australian English, for example) do say it.
+- w05q3 treats "logout" as a noun only. Many apps write "logout" as a verb, so a native reviewer might call this distractor a spelling issue, not a grammar error.
+- w01q5 and w02q5 use "Fix bug" as the too-blunt option. It is grammatical. The why_vi explains it is too vague to be useful.
+
+### writing-06..10
+
+- The writing-08 model translation calls the PM "chị Hoa" ("Cảm ơn chị"). The writing-07 and writing-10 translations use "bạn" for the recipient. In all of them the writer is "mình".
+- Some tone-item wrong options are deliberately very short but still grammatical: w06q5 is just "Hi Lan", w09q6 is all caps ("DON'T TOUCH THE MIGRATION."). Please check these suit your style.
+- For reading items, `answer_vi` is a Vietnamese translation of the colleague's original message, not a repeat of the Vietnamese answer in `options[0]`.
+- w08q3 uses "a time off" as a wrong option, as a learner error. Please confirm it is a typical Vietnamese mistake.
+
+### interview-01..05
+
+- The audit (§8 P1) suggested the interview `model` be a skeleton with blanks, so learners don't memorise an essay. I followed the task brief and wrote full STAR answers of 80 to 150 words instead. Please confirm that's what you want.
+- interview-01's `model` is not strictly STAR. It goes present, past, a result with a number, then the future, because that structure fits a self-intro better.
+- i04q9 is a colleague's Slack message, not something an interviewer would say. I kept it because it teaches "roll back" and "RCA", which come up in this lesson's topic.
+- Two wording choices may need your approval: i01q7 uses the very short "I'm a tester." as its too-brief option, and i05q3's explanation teaches that after "stay" you use "calm", not "calmly".
+- Each write prompt is about 36 to 40 words, close to the ~40-word limit.
+
+### interview-06..10
+
+- **i07q7, "table it till Monday":** this means "postpone" in US English but "bring it up now" in British English. "till Monday's sync" makes the meaning clear, but please confirm it is acceptable.
+- **i10q10, "move on base" and "sign-on bonus":** these are real recruiter phrases but may be too advanced for the level.
+- **i08q6, the Go garbage-collection answer** ("runs alongside the program to keep pauses short"): I believe this is technically accurate but simplified. Please check it.
+- **interview-07 mistake 1:** the native-speaker reviewer should confirm the softer "too casual" explanation for "Me and my teammate" is acceptable.
+- **interview-09 model:** it assumes the Vietnam–Sydney overlap falls in the Vietnamese morning, and reading item i09q7 says the same. That is correct, since Sydney is 3 to 4 hours ahead.
+
+### standup-11..13 (bài mới)
+
+- **s13q1:** the wrong option "How is your weekend?" is grammatical. It is only wrong because the question says it's Monday morning, and `why_vi` explains that.
+- **standup-13 model:** it is a two-person dialogue, not a single message, and has 8 sentences, the maximum allowed.
+- **standup-12 model:** it has 9 sentences, one over the 3–8 limit in the lesson rules; the checker doesn't check this. Merging or cutting one line would bring it within the limit.
+- **standup-12 mistake 2:** "The server is overload" is one I believe Vietnamese learners make, but please confirm it's common enough.
+- **New `roles` field:** the schema now has an optional `roles` field (dev/qa/ba/pm) that wasn't in the field order I was given, so none of the three lessons has it.
+- **Review checklist:** I didn't add these three lessons to `docs/CONTENT_REVIEW.md`, because the task limited me to these three files.
+
+### writing-11..14 (bài mới)
+
+- **writing-12:** example translations use "bên mình/anh" for client emails rather than "em/anh". The task said to use "mình", but you may prefer "em" in a client email.
+- **writing-14, q6:** "OOO until Wednesday" doesn't say whether the manager is back on Wednesday or the day after. The Vietnamese "nghỉ đến thứ Tư" is just as vague, so it doesn't change the answer, but you may want to check it.
+- **writing-14, q9:** the wrong option "I'll follow up the client" is sometimes used in Asian English, though native speakers say "follow up with".
+- **writing-14, q3:** the correct answer reads "It might be worth..." as a firm "you should do this". That fits a tech lead before release; in other contexts it can be optional.
+- **writing-11:** the model and examples use 24-hour times with "ICT"; a US or EU team might write "2:35 PM" and their own timezone.
+- **Review list not updated:** I didn't add these four lessons to `docs/CONTENT_REVIEW.md`, because that file wasn't assigned to me.

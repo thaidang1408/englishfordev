@@ -36,7 +36,7 @@ const stats = allowed ? null : await getErrorStats(db, user.id);
           <UpgradeCard
             stats={stats ?? { corrections: 0, errors: 0, repeating: 0 }}
             fallback="Phỏng vấn thử có ở Premium"
-            points={['Trả lời 5 câu hỏi nhà tuyển dụng hay hỏi, AI sửa từng câu', 'Gợi ý một cách trả lời tốt hơn, giữ đúng ý của bạn', 'Tất cả 30 bài, gồm 10 bài luyện phỏng vấn']}
+            points={['Trả lời 5 câu hỏi nhà tuyển dụng hay hỏi, AI sửa từng câu', 'Gợi ý một cách trả lời tốt hơn, giữ đúng ý của bạn', 'Tất cả bài học, gồm 10 bài luyện phỏng vấn']}
           />
         </div>
       ) : questions.length === 0 ? (

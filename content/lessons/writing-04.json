@@ -4,31 +4,34 @@
   "slug": "tra-loi-comment-review",
   "title": "Trả lời comment review",
   "free": false,
-  "goal_vi": "Trả lời người review rằng bạn đã sửa xong, bằng một câu ngắn và lịch sự.",
+  "roles": [
+    "dev"
+  ],
+  "goal_vi": "Trả lời người review: báo đã sửa gì, và lịch sự nêu lý do khi bạn giữ nguyên code.",
   "pattern": {
     "formula": "Good catch / Thanks / Done, + I've + V3 + object.",
-    "note_vi": "Việc vừa sửa xong, không nói thời điểm, thì dùng I've + V3."
+    "note_vi": "Việc vừa sửa xong, không nói thời điểm, thì dùng I've + V3. Khi giữ nguyên code, cảm ơn trước rồi nói lý do: I've kept it this way because... Việc để sau thì nói rõ ở đâu: in a follow-up PR, hoặc ghi số ticket."
   },
   "examples": [
     {
       "en": "Good catch, I've fixed the typo.",
-      "vi": "Bắt lỗi chuẩn đấy, mình sửa lỗi chính tả rồi."
+      "vi": "Chuẩn, mình sửa lỗi chính tả rồi."
     },
     {
       "en": "Thanks, I've added a test for the empty input case.",
       "vi": "Cảm ơn, mình đã thêm test cho trường hợp input rỗng."
     },
     {
-      "en": "Done. I've moved the validation into a separate function.",
-      "vi": "Xong rồi. Mình đã tách phần validate ra một hàm riêng."
+      "en": "Done. I've moved the validation into a separate function in a1b2c3d.",
+      "vi": "Xong rồi. Mình đã tách phần validate ra một hàm riêng trong commit a1b2c3d."
     },
     {
       "en": "Thanks, I've rebased onto main and resolved the conflicts.",
       "vi": "Cảm ơn, mình đã rebase lên main và xử lý xong conflict."
     },
     {
-      "en": "Good catch, I've wrapped the migration in a transaction.",
-      "vi": "Bắt lỗi chuẩn đấy, mình đã bọc migration trong một transaction."
+      "en": "Thanks for the suggestion. I've kept the loop because the list never has more than 10 items.",
+      "vi": "Cảm ơn góp ý. Mình giữ vòng lặp vì danh sách không bao giờ quá 10 phần tử."
     }
   ],
   "mistakes": [
@@ -53,13 +56,27 @@
   ],
   "word_bank": [
     "Good catch",
-    "Thanks",
+    "Good point",
     "Done",
-    "I've fixed",
-    "I've added",
-    "I've updated",
+    "Fixed in <commit>",
     "based on your feedback",
-    "in a separate PR"
+    "I've kept it this way because...",
+    "Happy to change it if you feel strongly.",
+    "in a follow-up PR",
+    "I've opened a ticket for this",
+    "Could you clarify what you mean by...?",
+    "resolve the thread"
+  ],
+  "model": {
+    "title_vi": "Trả lời các comment review trong một PR",
+    "en": "Thanks for the review, Linh.\nGood catch on the null check. I've fixed it in 4f2a91c and added a test.\nI've kept the loop instead of a map because the list never has more than 10 items, and the loop is easier to read. Happy to change it if you feel strongly.\nThe naming issue needs a bigger change, so I've opened #412 to handle it in a follow-up PR.\nCould you take another look when you have time?",
+    "vi": "Cảm ơn Linh đã review.\nBạn để ý kỹ thật, chỗ kiểm tra null mình đã sửa trong commit 4f2a91c và thêm test rồi.\nMình giữ vòng lặp thay vì dùng map vì danh sách không bao giờ quá 10 phần tử, và vòng lặp dễ đọc hơn. Nếu bạn thấy thật sự cần đổi thì mình đổi.\nPhần đặt tên cần sửa nhiều hơn, nên mình đã tạo ticket #412 để làm trong một PR sau.\nKhi nào rảnh bạn xem lại giúp mình nhé."
+  },
+  "checklist_vi": [
+    "Có cảm ơn hoặc ghi nhận góp ý (Thanks, Good catch, Good point).",
+    "Nói rõ đã sửa gì, dùng I've + V3.",
+    "Chỗ giữ nguyên code có lý do bằng because.",
+    "Có lời nhờ reviewer xem lại, hoặc hẹn rõ việc để sau (PR sau, số ticket)."
   ],
   "quiz": [
     {
@@ -71,117 +88,117 @@
         "Good catch, I fixed."
       ],
       "answer": 0,
-      "answer_vi": "Bắt lỗi chuẩn đấy, mình sửa rồi.",
-      "why_vi": "have + V3: I've fixed. fix cần tân ngữ it."
+      "answer_vi": "Chuẩn, mình sửa rồi.",
+      "why_vi": "have + V3: I've fixed. fix cần tân ngữ đi sau: fixed it."
     },
     {
       "id": "w04q2",
-      "prompt_vi": "Cảm ơn, mình đã thêm test cho trường hợp này.",
-      "options": [
-        "Thanks, I've added a test for this case.",
-        "Thanks, I've add a test for this case.",
-        "Thanks, I've added test for this case."
-      ],
-      "answer": 0,
-      "answer_vi": "Cảm ơn, mình đã thêm test cho trường hợp này.",
-      "why_vi": "have + V3: added. test đếm được nên cần a."
-    },
-    {
-      "id": "w04q3",
       "prompt_vi": "Mình đã sửa theo góp ý của bạn.",
       "options": [
         "I've updated it based on your feedback.",
-        "I've updated follow your feedback.",
+        "I've updated it follow your feedback.",
         "I've updated it based on your feedbacks."
       ],
       "answer": 0,
       "answer_vi": "Mình đã sửa theo góp ý của bạn.",
-      "why_vi": "Theo góp ý dùng based on. feedback không đếm được nên không thêm s."
+      "why_vi": "Theo góp ý dùng based on, không dịch theo thành follow. feedback không đếm được nên không thêm s."
+    },
+    {
+      "id": "w04q3",
+      "prompt_vi": "Mình sửa hôm qua rồi, trong commit a1b2c3d.",
+      "options": [
+        "I fixed it yesterday in a1b2c3d.",
+        "I've fixed it yesterday in a1b2c3d.",
+        "I was fixed it yesterday in a1b2c3d."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình sửa hôm qua rồi, trong commit a1b2c3d.",
+      "why_vi": "Có mốc thời gian như yesterday thì dùng quá khứ đơn, không dùng I've. Không thêm was: was + V3 là bị động, không dùng để nói mình đã sửa gì."
     },
     {
       "id": "w04q4",
-      "prompt_vi": "Mình sẽ sửa phần này trong một PR khác.",
-      "options": [
-        "I'll fix this in a separate PR.",
-        "I will fix in a separate PR.",
-        "I'll fix this in separate PR."
-      ],
-      "answer": 0,
-      "answer_vi": "Mình sẽ sửa phần này trong một PR khác.",
-      "why_vi": "fix cần tân ngữ this. PR đếm được nên cần a."
-    },
-    {
-      "id": "w04q5",
-      "prompt_vi": "Xong rồi, mình đã đổi tên biến.",
-      "options": [
-        "Done, I've renamed the variable.",
-        "Done, I've changed name the variable.",
-        "Done, I've renamed variable."
-      ],
-      "answer": 0,
-      "answer_vi": "Xong rồi, mình đã đổi tên biến.",
-      "why_vi": "Đổi tên là rename. Cần the trước variable."
-    },
-    {
-      "id": "w04q6",
-      "prompt_vi": "Cảm ơn, mình đã xoá đoạn code không dùng.",
-      "options": [
-        "Thanks, I've removed the unused code.",
-        "Thanks, I've removed the code unused.",
-        "Thanks, I've removed the unused codes."
-      ],
-      "answer": 0,
-      "answer_vi": "Cảm ơn, mình đã xoá đoạn code không dùng.",
-      "why_vi": "Tính từ unused đứng trước danh từ. code không đếm được nên không thêm s."
-    },
-    {
-      "id": "w04q7",
-      "prompt_vi": "Xong rồi, mình đã cập nhật tài liệu API.",
-      "options": [
-        "Done, I've updated the API docs.",
-        "Done, I've updated the API docs yesterday.",
-        "Done, I've been updated the API docs."
-      ],
-      "answer": 0,
-      "answer_vi": "Xong rồi, mình đã cập nhật tài liệu API.",
-      "why_vi": "I've + V3 không đi với mốc thời gian như yesterday. Không thêm been."
-    },
-    {
-      "id": "w04q8",
-      "prompt_vi": "Cảm ơn, mình đã chuyển hằng số này vào file config.",
-      "options": [
-        "Thanks, I've moved this constant to the config file.",
-        "Thanks, I've moved this constant in the config file.",
-        "Thanks, I've moving this constant to the config file."
-      ],
-      "answer": 0,
-      "answer_vi": "Cảm ơn, mình đã chuyển hằng số này vào file config.",
-      "why_vi": "Chuyển vào đâu dùng to. Sau have là V3: moved."
-    },
-    {
-      "id": "w04q9",
-      "prompt_vi": "Mình chưa sửa phần này, mình sẽ làm trong PR sau.",
+      "prompt_vi": "Mình chưa sửa phần này, sẽ làm trong PR sau.",
       "options": [
         "I haven't fixed this yet. I'll handle it in a follow-up PR.",
         "I haven't fix this yet. I'll handle it in a follow-up PR.",
         "I haven't fixed this already. I'll handle it in a follow-up PR."
       ],
       "answer": 0,
-      "answer_vi": "Mình chưa sửa phần này, mình sẽ xử lý trong một PR sau.",
+      "answer_vi": "Mình chưa sửa phần này, sẽ xử lý trong một PR sau.",
       "why_vi": "Sau have là V3: fixed. Câu phủ định dùng yet, không dùng already."
     },
     {
-      "id": "w04q10",
-      "prompt_vi": "Cảm ơn, mình đã test lại trên Android và iOS.",
+      "id": "w04q5",
+      "prompt_vi": "Bạn muốn giữ vòng lặp thay vì đổi sang map như reviewer gợi ý. Chọn câu trả lời phù hợp hơn.",
       "options": [
-        "Thanks, I've retested it on Android and iOS.",
-        "Thanks, I've retested it in Android and iOS.",
-        "Thanks, I've retested it on the Android and the iOS."
+        "Thanks for the suggestion. I've kept the loop because the list is always small, but I'm happy to change it if you feel strongly.",
+        "No, the loop is fine.",
+        "Sorry, you're right, I'm not good at this. I'll change everything you said."
       ],
       "answer": 0,
-      "answer_vi": "Cảm ơn, mình đã test lại trên Android và iOS.",
-      "why_vi": "Trên hệ điều hành nào dùng on. Tên riêng như Android, iOS không có the."
+      "answer_vi": "Cảm ơn góp ý. Mình giữ vòng lặp vì danh sách lúc nào cũng nhỏ, nhưng nếu bạn thấy thật sự cần thì mình đổi.",
+      "why_vi": "Không đồng ý vẫn được, miễn có lý do và để ngỏ cho trao đổi. No, the loop is fine nghe cụt và gạt đi. Câu thứ ba tự hạ mình và bỏ luôn lý do kỹ thuật của bạn."
+    },
+    {
+      "id": "w04q6",
+      "prompt_vi": "Bạn chưa hiểu góp ý 'simplify this' của reviewer. Chọn cách hỏi lại phù hợp hơn.",
+      "options": [
+        "Could you clarify what you mean by \"simplify this\"? Do you mean merging the two functions?",
+        "What?",
+        "I'm really sorry, my English is bad, so maybe I don't understand anything you wrote."
+      ],
+      "answer": 0,
+      "answer_vi": "Bạn nói rõ hơn giúp mình \"simplify this\" là ý gì được không? Có phải là gộp hai hàm lại không?",
+      "why_vi": "Hỏi lại kèm một cách hiểu cụ thể giúp reviewer trả lời nhanh. What? quá cụt. Câu thứ ba tự chê mình và không hỏi được điều gì cụ thể."
+    },
+    {
+      "id": "w04q7",
+      "prompt_vi": "Góp ý đúng nhưng sửa mất nhiều thời gian. Chọn câu trả lời phù hợp hơn.",
+      "options": [
+        "Good point. It's a bigger change, so I've opened #412 to handle it in a follow-up PR.",
+        "Not in this PR.",
+        "You're absolutely right. I'll rewrite the whole module right now, even if it delays the release."
+      ],
+      "answer": 0,
+      "answer_vi": "Ý hay đấy. Phần này cần sửa nhiều, nên mình đã tạo ticket #412 để làm trong một PR sau.",
+      "why_vi": "Câu đầu ghi nhận góp ý, nói lý do để sau và có ticket để theo dõi. Not in this PR cụt và không hẹn khi nào. Câu thứ ba hứa quá mức, làm chậm cả bản phát hành."
+    },
+    {
+      "id": "w04q8",
+      "prompt_vi": "Reviewer trả lời: 'Thanks, LGTM now. Feel free to resolve the thread.' Ý họ là gì?",
+      "options": [
+        "Giờ thì ổn rồi, bạn cứ đánh dấu thread góp ý này là đã xử lý xong.",
+        "Bạn cần sửa thêm rồi mới được resolve thread.",
+        "Họ sẽ tự đóng PR."
+      ],
+      "answer": 0,
+      "answer_vi": "Giờ thì ổn rồi, bạn cứ đánh dấu thread góp ý này là đã xử lý xong.",
+      "why_vi": "LGTM now là bây giờ mình thấy ổn. resolve the thread là bấm Resolve, đánh dấu chuỗi comment đã xử lý xong. Feel free to là bạn cứ làm."
+    },
+    {
+      "id": "w04q9",
+      "prompt_vi": "Reviewer viết: 'Fair enough, let's keep it. Maybe leave a comment so the next person knows why.' Ý họ là gì?",
+      "options": [
+        "Họ đồng ý giữ nguyên code, gợi ý thêm comment trong code để người sau hiểu lý do.",
+        "Họ vẫn muốn bạn đổi code và trả lời thêm trong thread.",
+        "Họ muốn người khác review tiếp PR này."
+      ],
+      "answer": 0,
+      "answer_vi": "Họ đồng ý giữ nguyên code, gợi ý thêm comment trong code để người sau hiểu lý do.",
+      "why_vi": "Fair enough là nghe hợp lý, mình đồng ý. let's keep it là giữ nguyên. leave a comment ở đây là ghi chú trong code, the next person là người đọc code sau này."
+    },
+    {
+      "id": "w04q10",
+      "prompt_vi": "Reviewer viết: 'Not sure this is addressed yet. I still see the old query on line 42.' Ý họ là gì?",
+      "options": [
+        "Họ thấy bạn chưa sửa xong: dòng 42 vẫn còn query cũ.",
+        "Họ không chắc dòng 42 có query hay không.",
+        "Họ đã sửa giúp query ở dòng 42."
+      ],
+      "answer": 0,
+      "answer_vi": "Họ thấy bạn chưa sửa xong: dòng 42 vẫn còn query cũ.",
+      "why_vi": "Not sure this is addressed yet là cách nói nhẹ của 'bạn chưa sửa chỗ này'. addressed là đã xử lý. I still see là mình vẫn thấy."
     }
   ],
-  "write_prompt_vi": "Viết 1 câu trả lời một comment review, nói bạn đã sửa gì."
+  "write_prompt_vi": "Reviewer góp ý hai điểm: thiếu test cho input rỗng, và nên đổi vòng lặp sang map. Bạn đã thêm test nhưng muốn giữ vòng lặp. Viết câu trả lời 3 đến 4 câu."
 }

@@ -1,0 +1,209 @@
+{
+  "id": 11,
+  "track": "writing",
+  "slug": "cap-nhat-khi-co-su-co",
+  "title": "Cập nhật khi có sự cố",
+  "free": false,
+  "roles": [
+    "dev",
+    "pm"
+  ],
+  "goal_vi": "Viết cập nhật sự cố trên Slack hoặc status page: trạng thái (Investigating, Identified, Monitoring, Resolved), ai bị ảnh hưởng, team đang làm gì, và giờ cập nhật tiếp theo.",
+  "pattern": {
+    "formula": "[Status]: subject + am/is/are + V-ing ... . Next update by + time (timezone).",
+    "note_vi": "Bốn trạng thái quen dùng: Investigating (đang tìm hiểu), Identified (đã biết nguyên nhân), Monitoring (đã sửa, đang theo dõi), Resolved (đã xong). Việc đang diễn ra dùng be + V-ing: Users are seeing errors, We're rolling back. Việc đã làm xong vào một giờ cụ thể dùng quá khứ đơn: We rolled back at 14:20. Next update by 15:00 ICT nghĩa là muộn nhất 15:00 giờ Việt Nam sẽ có cập nhật tiếp."
+  },
+  "examples": [
+    {
+      "en": "Investigating: Some users are seeing 500 errors at checkout. We're looking into it now. Next update by 14:30 ICT.",
+      "vi": "Investigating: Một số người dùng đang gặp lỗi 500 khi thanh toán. Bọn mình đang kiểm tra. Muộn nhất 14:30 giờ Việt Nam sẽ có cập nhật tiếp."
+    },
+    {
+      "en": "Identified: Login is failing on the Android app because an SSL certificate expired. We're renewing the certificate now.",
+      "vi": "Identified: Đăng nhập trên app Android đang lỗi vì một chứng chỉ SSL đã hết hạn. Bọn mình đang gia hạn chứng chỉ."
+    },
+    {
+      "en": "Monitoring: We rolled back the 13:50 deploy, and the error rate is back to normal. We're watching it for the next hour.",
+      "vi": "Monitoring: Bọn mình đã rollback bản deploy lúc 13:50, và tỉ lệ lỗi đã trở lại bình thường. Bọn mình sẽ theo dõi thêm một tiếng."
+    },
+    {
+      "en": "Resolved: Search has been working normally since 16:05. We'll share a short postmortem by Thursday.",
+      "vi": "Resolved: Tính năng tìm kiếm đã chạy bình thường từ 16:05. Bọn mình sẽ gửi bản postmortem ngắn muộn nhất thứ Năm."
+    },
+    {
+      "en": "For the support team: CSV export is failing for some enterprise customers. Workaround: they can download the report from the Reports page. Next update in 30 minutes.",
+      "vi": "Gửi team support: Xuất CSV đang lỗi với một số khách hàng doanh nghiệp. Cách tạm thời: khách có thể tải báo cáo từ trang Reports. 30 phút nữa sẽ có cập nhật tiếp."
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "We are investigate the issue.",
+      "right": "We're investigating the issue.",
+      "right_vi": "Bọn mình đang tìm hiểu sự cố.",
+      "why_vi": "Việc đang làm ngay lúc này dùng are + V-ing, không dùng are + động từ nguyên mẫu."
+    },
+    {
+      "wrong": "Some users can't login.",
+      "right": "Some users can't log in.",
+      "right_vi": "Một số người dùng không đăng nhập được.",
+      "why_vi": "Động từ đăng nhập viết hai chữ log in. login viết liền là danh từ, như the login page."
+    },
+    {
+      "wrong": "We have rolled back the deploy at 14:20.",
+      "right": "We rolled back the deploy at 14:20.",
+      "right_vi": "Bọn mình đã rollback bản deploy lúc 14:20.",
+      "why_vi": "Đã nói giờ cụ thể trong quá khứ thì dùng quá khứ đơn, không dùng have + V3."
+    }
+  ],
+  "word_bank": [
+    "Investigating",
+    "Identified",
+    "Monitoring",
+    "Resolved",
+    "we're looking into it",
+    "some users are seeing",
+    "impact",
+    "workaround",
+    "roll back",
+    "error rate",
+    "back to normal",
+    "root cause",
+    "postmortem",
+    "Next update by"
+  ],
+  "model": {
+    "title_vi": "Cập nhật sự cố trên kênh #incidents khi đã biết nguyên nhân",
+    "en": "[Identified] Checkout errors, update at 14:35 ICT\nImpact: Since 14:05, about 12% of checkout requests have been failing with a 500 error. Other pages are working normally.\nCause: The errors started right after the 13:50 deploy.\nAction: We're rolling back that deploy now.\nWorkaround: Customers can retry the payment. Failed payments are not charged.\nNext update by 15:00 ICT, or sooner if anything changes.",
+    "vi": "[Identified] Lỗi thanh toán, cập nhật lúc 14:35 giờ Việt Nam\nẢnh hưởng: Từ 14:05, khoảng 12% yêu cầu thanh toán bị lỗi 500. Các trang khác vẫn chạy bình thường.\nNguyên nhân: Lỗi bắt đầu ngay sau bản deploy lúc 13:50.\nĐang làm: Bọn mình đang rollback bản deploy đó.\nCách tạm thời: Khách có thể thanh toán lại. Giao dịch lỗi không bị trừ tiền.\nMuộn nhất 15:00 giờ Việt Nam sẽ có cập nhật tiếp, hoặc sớm hơn nếu có gì thay đổi."
+  },
+  "checklist_vi": [
+    "Có trạng thái: Investigating, Identified, Monitoring hoặc Resolved.",
+    "Nói rõ tính năng nào, người dùng nào bị ảnh hưởng và từ lúc nào.",
+    "Nói team đang làm gì ngay lúc này.",
+    "Có giờ cập nhật tiếp theo kèm múi giờ.",
+    "Nếu có cách tạm thời cho người dùng thì nêu ra."
+  ],
+  "quiz": [
+    {
+      "id": "w11q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "We're investigating the issue.",
+        "We are investigate the issue.",
+        "We're investigating about the issue."
+      ],
+      "answer": 0,
+      "answer_vi": "Bọn mình đang tìm hiểu sự cố.",
+      "why_vi": "Việc đang làm dùng are + V-ing. investigate đi thẳng với tân ngữ, không thêm about."
+    },
+    {
+      "id": "w11q2",
+      "prompt_vi": "Một số người dùng không đăng nhập được.",
+      "options": [
+        "Some users can't log in.",
+        "Some users can't login.",
+        "Some users cannot to log in."
+      ],
+      "answer": 0,
+      "answer_vi": "Một số người dùng không đăng nhập được.",
+      "why_vi": "Động từ là log in, viết hai chữ. Sau can't là động từ nguyên mẫu, không có to."
+    },
+    {
+      "id": "w11q3",
+      "prompt_vi": "Lúc 14:20 bọn mình đã rollback bản deploy.",
+      "options": [
+        "We rolled back the deploy at 14:20.",
+        "We have rolled back the deploy at 14:20.",
+        "We rollbacked the deploy at 14:20."
+      ],
+      "answer": 0,
+      "answer_vi": "Lúc 14:20 bọn mình đã rollback bản deploy.",
+      "why_vi": "Có giờ cụ thể trong quá khứ thì dùng quá khứ đơn. Động từ là roll back, thì quá khứ là rolled back, không viết rollbacked."
+    },
+    {
+      "id": "w11q4",
+      "prompt_vi": "Sự cố đã được khắc phục.",
+      "options": [
+        "The issue has been resolved.",
+        "The issue has been resolve.",
+        "The issue was been resolved."
+      ],
+      "answer": 0,
+      "answer_vi": "Sự cố đã được khắc phục.",
+      "why_vi": "Sự cố được người khác xử lý nên dùng has been + V3. was been không có trong tiếng Anh."
+    },
+    {
+      "id": "w11q5",
+      "prompt_vi": "Bạn báo sự cố cho cả công ty trên Slack. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "Investigating: Some users can't load the dashboard. We're looking into it. Next update by 10:30 ICT.",
+        "Dashboard down. Fixing.",
+        "We're so sorry, we're not sure what happened yet, but we'll try our very best to fix it as soon as possible."
+      ],
+      "answer": 0,
+      "answer_vi": "Investigating: Một số người dùng không mở được dashboard. Bọn mình đang kiểm tra. Muộn nhất 10:30 giờ Việt Nam sẽ có cập nhật tiếp.",
+      "why_vi": "Câu thứ hai quá cụt, không nói ai bị ảnh hưởng và khi nào có tin tiếp. Câu thứ ba xin lỗi nhiều nhưng không có thông tin cụ thể. Câu đầu có trạng thái, ảnh hưởng, việc đang làm và giờ cập nhật."
+    },
+    {
+      "id": "w11q6",
+      "prompt_vi": "Bạn viết lên status page cho khách xem. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "We've identified the cause of the delayed emails and are deploying a fix. Emails sent during the incident will be delivered automatically.",
+        "A developer pushed a bad config, so emails broke. We're fixing it.",
+        "Something went wrong with emails, but everything should be fine soon, hopefully."
+      ],
+      "answer": 0,
+      "answer_vi": "Bọn mình đã tìm ra nguyên nhân khiến email bị chậm và đang triển khai bản sửa. Email gửi trong lúc có sự cố sẽ được tự động gửi đi.",
+      "why_vi": "Câu thứ hai đổ lỗi cho một người và nói chuyện nội bộ với khách. Câu thứ ba mơ hồ, không nói đang làm gì. Câu đầu nói rõ tình hình và điều khách quan tâm: email có bị mất không."
+    },
+    {
+      "id": "w11q7",
+      "prompt_vi": "Bạn báo sự cố đã xong. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "Resolved: Search has been working normally since 16:05. We'll share a short postmortem by Thursday.",
+        "Fixed.",
+        "We believe the issue may possibly have been resolved, but we can't be completely sure, so please let us know if anything seems wrong."
+      ],
+      "answer": 0,
+      "answer_vi": "Resolved: Tính năng tìm kiếm đã chạy bình thường từ 16:05. Bọn mình sẽ gửi bản postmortem ngắn muộn nhất thứ Năm.",
+      "why_vi": "Câu thứ hai không nói cái gì đã xong và từ lúc nào. Câu thứ ba rào đón quá nhiều nên người đọc không biết đã xong thật chưa. Câu đầu nói rõ mốc thời gian và bước tiếp theo."
+    },
+    {
+      "id": "w11q8",
+      "prompt_vi": "Đồng nghiệp nhắn trong kênh incident: \"Mitigated for now. We failed over to the secondary DB, root cause TBD. I'll keep an eye on it and post an update in 30 min.\" Ý họ là gì?",
+      "options": [
+        "Tạm thời đã giảm được ảnh hưởng bằng cách chuyển sang DB dự phòng; chưa rõ nguyên nhân gốc; họ sẽ theo dõi và cập nhật sau 30 phút.",
+        "Sự cố đã xử lý xong hẳn và đã biết nguyên nhân gốc.",
+        "Họ đề nghị 30 phút nữa mới chuyển sang DB dự phòng."
+      ],
+      "answer": 0,
+      "answer_vi": "Tạm thời đã giảm được ảnh hưởng. Bọn mình đã chuyển sang DB dự phòng, nguyên nhân gốc chưa rõ. Mình sẽ theo dõi và cập nhật sau 30 phút.",
+      "why_vi": "mitigated là đã giảm ảnh hưởng, chưa phải đã sửa hẳn. failed over là chuyển sang hệ thống dự phòng. TBD là to be determined, chưa xác định. keep an eye on it là theo dõi."
+    },
+    {
+      "id": "w11q9",
+      "prompt_vi": "Tech lead nhắn: \"Can you hold off on deploying until the incident is closed out? And loop in support so they can update affected customers.\" Ý họ là gì?",
+      "options": [
+        "Bạn tạm chưa deploy cho đến khi sự cố được đóng hẳn, và kéo team support vào để họ báo cho khách bị ảnh hưởng.",
+        "Bạn deploy ngay để đóng sự cố, rồi báo cho team support.",
+        "Bạn nhờ team support deploy thay và báo cho khách."
+      ],
+      "answer": 0,
+      "answer_vi": "Bạn tạm chưa deploy cho đến khi sự cố được đóng hẳn nhé. Và kéo team support vào để họ báo cho những khách bị ảnh hưởng.",
+      "why_vi": "hold off on là tạm hoãn. close out là đóng hẳn. loop in là kéo ai đó vào cuộc trao đổi để họ nắm tình hình."
+    },
+    {
+      "id": "w11q10",
+      "prompt_vi": "Status page của nhà cung cấp ghi: \"Monitoring: A fix has been implemented and we are monitoring the results.\" Ý họ là gì?",
+      "options": [
+        "Họ đã triển khai bản sửa và đang theo dõi xem lỗi còn không; chưa tuyên bố xong hẳn.",
+        "Họ đã tìm ra nguyên nhân nhưng chưa sửa.",
+        "Sự cố đã kết thúc, không cần theo dõi nữa."
+      ],
+      "answer": 0,
+      "answer_vi": "Monitoring: Bản sửa đã được triển khai và bọn mình đang theo dõi kết quả.",
+      "why_vi": "Monitoring là bước sau khi đã sửa: đang theo dõi xem bản sửa có hiệu quả không. Tìm ra nguyên nhân là Identified, xong hẳn là Resolved."
+    }
+  ],
+  "write_prompt_vi": "Bạn đang trực on-call. Từ 9:20 sáng giờ Việt Nam, khoảng 20% người dùng iOS không đăng nhập được; Android và web vẫn bình thường; chưa rõ nguyên nhân. Viết cập nhật đầu tiên trên kênh #incidents (3 đến 5 câu): trạng thái, ảnh hưởng, việc team đang làm, và giờ cập nhật tiếp theo."
+}

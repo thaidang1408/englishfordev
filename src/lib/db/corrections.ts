@@ -1,5 +1,8 @@
 import { z } from 'zod';
 import { correctionSchema, type Correction, type Mode } from '../ai/schema';
+import { roleSchema } from '../content/roles';
+
+const rolesSchema = z.array(roleSchema);
 import type { CorrectRepo } from '../correct/handler';
 import type { ErrorStats } from '../pay/upsell';
 import { countRepeatingErrors, getEntitlement } from './queries';
@@ -26,6 +29,10 @@ const saveResultSchema = z.union([
 export function correctRepo(db: Db, service: Db): CorrectRepo {
   return {
     getEntitlement: (userId) => getEntitlement(db, userId),
+    async getRoles(userId) {
+      const row = check('getRoles', await db.from('profiles').select('roles').eq('id', userId).maybeSingle());
+      return rolesSchema.catch([]).parse(row?.roles ?? []);
+    },
     getErrorStats: (userId) => getErrorStats(db, userId),
     async countUserCorrections(userId, since) {
       const res = await db

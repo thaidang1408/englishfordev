@@ -385,7 +385,7 @@ describe('POST /api/telegram/webhook', () => {
     const correctFor = async (): Promise<CorrectOutcome> => (calls++, { ok: true, data: CORRECTED });
     await hook(update('/start tok_ok'), { repo, bot });
     await hook(update('ok'), { repo, bot, correctFor });
-    await hook(update('a'.repeat(301)), { repo, bot, correctFor });
+    await hook(update('a'.repeat(701)), { repo, bot, correctFor });
     expect(calls).toBe(0);
     expect(sent.slice(-2).map((m) => m.text)).toEqual([TEXT.length, TEXT.length]);
   });

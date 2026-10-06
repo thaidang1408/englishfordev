@@ -4,10 +4,13 @@
   "slug": "commit-message",
   "title": "Commit message",
   "free": false,
-  "goal_vi": "Viết dòng đầu commit ngắn, bắt đầu bằng động từ nguyên mẫu, nói rõ thay đổi gì.",
+  "roles": [
+    "dev"
+  ],
+  "goal_vi": "Viết commit có dòng đầu ngắn theo dạng mệnh lệnh và phần thân nói vì sao thay đổi.",
   "pattern": {
     "formula": "Verb + object (+ in/to/for + noun)",
-    "note_vi": "Quy ước của git: dòng đầu viết như ra lệnh, dùng động từ nguyên mẫu (Fix, Add, Remove), không chia quá khứ, không chấm cuối."
+    "note_vi": "Quy ước phổ biến của git: dòng đầu viết như ra lệnh, dùng động từ nguyên mẫu (Fix, Add, Remove), khoảng 50 ký tự, không chấm cuối. Mẹo kiểm: đọc thử 'If applied, this commit will...' + dòng đầu, thấy trôi là được. Nhiều team thêm tiền tố feat:, fix:, chore:. Phần thân cách dòng đầu một dòng trống và nói vì sao đổi."
   },
   "examples": [
     {
@@ -15,8 +18,8 @@
       "vi": "Sửa phần kiểm tra null trong order service."
     },
     {
-      "en": "Add rate limiting to the login endpoint",
-      "vi": "Thêm giới hạn số lần gọi cho endpoint đăng nhập."
+      "en": "feat: add rate limiting to the login endpoint",
+      "vi": "feat: thêm giới hạn số lần gọi cho endpoint đăng nhập."
     },
     {
       "en": "Upgrade axios to 1.7.2",
@@ -27,8 +30,8 @@
       "vi": "Hoàn tác thay đổi về cache trong luồng checkout."
     },
     {
-      "en": "Handle empty responses in the mobile sync service",
-      "vi": "Xử lý response rỗng trong service đồng bộ của app mobile."
+      "en": "fix(auth): refresh the token before it expires",
+      "vi": "fix(auth): làm mới token trước khi hết hạn."
     }
   ],
   "mistakes": [
@@ -36,13 +39,13 @@
       "wrong": "Fixed login bug",
       "right": "Fix login bug",
       "right_vi": "Sửa lỗi đăng nhập",
-      "why_vi": "Dòng đầu commit dùng động từ nguyên mẫu, như đang ra lệnh cho code."
+      "why_vi": "Fixed không sai ngữ pháp, nhưng quy ước phổ biến của git là dòng đầu dùng động từ nguyên mẫu, như đang ra lệnh cho code."
     },
     {
       "wrong": "Update the parser for fix the date bug",
       "right": "Update the parser to fix the date bug",
       "right_vi": "Cập nhật parser để sửa lỗi ngày tháng",
-      "why_vi": "Chỉ mục đích dùng to + V, không dùng for + V."
+      "why_vi": "Chỉ mục đích dùng to + động từ, không dùng for + động từ."
     },
     {
       "wrong": "Remove unuse imports",
@@ -55,17 +58,33 @@
     "Fix",
     "Add",
     "Remove",
-    "Update",
     "Rename",
     "Refactor",
     "Upgrade",
     "Revert",
-    "unused"
+    "Bump",
+    "feat:",
+    "fix:",
+    "chore:",
+    "If applied, this commit will...",
+    "unused",
+    "squash"
+  ],
+  "model": {
+    "title_vi": "Commit có dòng đầu và phần thân",
+    "en": "fix(cart): update total when a coupon is removed\n\nThe cart total stayed discounted after the user removed a coupon. We only recalculated the total when a coupon was added.\nThis commit moves the calculation into one function and calls it in both cases.\n\nCloses #318",
+    "vi": "fix(cart): cập nhật tổng tiền khi bỏ mã giảm giá\n\nTổng tiền trong giỏ vẫn giữ mức đã giảm sau khi người dùng bỏ mã giảm giá. Trước đây mình chỉ tính lại tổng khi thêm mã.\nCommit này gom phần tính toán vào một hàm và gọi hàm đó ở cả hai trường hợp.\n\nĐóng ticket #318"
+  },
+  "checklist_vi": [
+    "Dòng đầu bắt đầu bằng động từ nguyên mẫu (Fix, Add, Update), có thể có tiền tố như fix: hoặc feat:.",
+    "Dòng đầu ngắn, nói cụ thể đổi cái gì, không chấm cuối.",
+    "Có một dòng trống giữa dòng đầu và phần thân.",
+    "Phần thân nói vì sao cần thay đổi."
   ],
   "quiz": [
     {
       "id": "w02q1",
-      "prompt_vi": "Chọn câu đúng.",
+      "prompt_vi": "Chọn dòng commit theo quy ước phổ biến của git.",
       "options": [
         "Add pagination to the user list",
         "Added pagination to the user list",
@@ -73,7 +92,7 @@
       ],
       "answer": 0,
       "answer_vi": "Thêm phân trang cho danh sách user.",
-      "why_vi": "Commit dùng động từ nguyên mẫu: Add. Từ bổ nghĩa đứng trước: user list."
+      "why_vi": "Added đúng ngữ pháp nhưng lệch quy ước: dòng đầu commit dùng động từ nguyên mẫu. list user sai thứ tự, từ bổ nghĩa đứng trước: user list."
     },
     {
       "id": "w02q2",
@@ -85,22 +104,10 @@
       ],
       "answer": 0,
       "answer_vi": "Sửa lỗi múi giờ trong báo cáo.",
-      "why_vi": "timezone bug: từ bổ nghĩa đứng trước. Nằm trong thứ gì thì dùng in."
+      "why_vi": "timezone bug: từ bổ nghĩa đứng trước. Nằm trong báo cáo thì dùng in, không dùng at."
     },
     {
       "id": "w02q3",
-      "prompt_vi": "Commit: Xoá các biến môi trường không dùng nữa.",
-      "options": [
-        "Remove unused environment variables",
-        "Remove environment variables unused",
-        "Remove unuse environment variables"
-      ],
-      "answer": 0,
-      "answer_vi": "Xoá các biến môi trường không dùng nữa.",
-      "why_vi": "Tính từ unused đứng trước danh từ và có ed."
-    },
-    {
-      "id": "w02q4",
       "prompt_vi": "Commit: Đổi tên hàm cho dễ hiểu hơn.",
       "options": [
         "Rename the function to make it clearer",
@@ -109,80 +116,92 @@
       ],
       "answer": 0,
       "answer_vi": "Đổi tên hàm cho dễ hiểu hơn.",
-      "why_vi": "Chỉ mục đích dùng to + động từ nguyên mẫu."
+      "why_vi": "Chỉ mục đích dùng to + động từ nguyên mẫu: to make. Không dùng for make hay to making."
     },
     {
-      "id": "w02q5",
-      "prompt_vi": "Commit: Nâng React lên bản 18.",
-      "options": [
-        "Upgrade React to 18",
-        "Upgrade React up to 18",
-        "Upgrade React to the version 18"
-      ],
-      "answer": 0,
-      "answer_vi": "Nâng React lên bản 18.",
-      "why_vi": "Nâng lên bản nào dùng to. up to nghĩa là tối đa đến. Không dùng the trước version + số."
-    },
-    {
-      "id": "w02q6",
-      "prompt_vi": "Commit: Thêm log cho job gửi email.",
-      "options": [
-        "Add logging to the email job",
-        "Adding logging to the email job",
-        "Add logging to the job send email"
-      ],
-      "answer": 0,
-      "answer_vi": "Thêm log cho job gửi email.",
-      "why_vi": "Commit bắt đầu bằng động từ nguyên mẫu, không dùng V-ing. Không dịch từng chữ: email job."
-    },
-    {
-      "id": "w02q7",
-      "prompt_vi": "Commit: Hoàn tác thay đổi cấu hình CI.",
-      "options": [
-        "Revert the CI config change",
-        "Reverted the CI config change",
-        "Revert the change config CI"
-      ],
-      "answer": 0,
-      "answer_vi": "Hoàn tác thay đổi cấu hình CI.",
-      "why_vi": "Commit dùng động từ nguyên mẫu: Revert. Từ bổ nghĩa đứng trước: CI config change."
-    },
-    {
-      "id": "w02q8",
-      "prompt_vi": "Commit: Sửa lỗi layout trên màn hình nhỏ.",
-      "options": [
-        "Fix layout bug on small screens",
-        "Fix layout bug at small screens",
-        "Fix bug of layout on small screens"
-      ],
-      "answer": 0,
-      "answer_vi": "Sửa lỗi layout trên màn hình nhỏ.",
-      "why_vi": "Trên màn hình dùng on. Không dịch lỗi của layout thành bug of layout, viết layout bug."
-    },
-    {
-      "id": "w02q9",
+      "id": "w02q4",
       "prompt_vi": "Commit: Thêm migration cho bảng payments.",
       "options": [
-        "Add migration for the payments table",
-        "Add migrate for the payments table",
-        "Add migration at the payments table"
+        "Add a migration for the payments table",
+        "Add a migrate for the payments table",
+        "Adds a migration for the payments table"
       ],
       "answer": 0,
       "answer_vi": "Thêm migration cho bảng payments.",
-      "why_vi": "Sau add cần danh từ migration, không phải động từ migrate. Cho cái gì dùng for."
+      "why_vi": "Sau a cần danh từ migration, không phải động từ migrate. Adds không sai ngữ pháp nhưng lệch quy ước: dòng đầu dùng Add."
+    },
+    {
+      "id": "w02q5",
+      "prompt_vi": "Chọn dòng commit rõ ràng hơn.",
+      "options": [
+        "Fix duplicate emails on password reset",
+        "Fix bug",
+        "Fix a bug that some users reported last week where they got two emails after resetting their password"
+      ],
+      "answer": 0,
+      "answer_vi": "Sửa lỗi gửi trùng email khi đặt lại mật khẩu.",
+      "why_vi": "Dòng đầu nên ngắn mà nói được sửa gì. Fix bug không giúp ai khi đọc git log. Câu thứ ba quá dài, chi tiết nên để ở phần thân."
+    },
+    {
+      "id": "w02q6",
+      "prompt_vi": "Chọn phần thân commit phù hợp hơn.",
+      "options": [
+        "The old query loaded every order into memory, so the export timed out for large accounts.",
+        "Changed some stuff.",
+        "Sorry, I had to change the query a bit because I think there might have been some problem with it."
+      ],
+      "answer": 0,
+      "answer_vi": "Query cũ tải hết đơn hàng vào bộ nhớ, nên chức năng xuất file bị timeout với tài khoản lớn.",
+      "why_vi": "Phần thân nói rõ vấn đề cũ và vì sao đổi. Changed some stuff không có thông tin. Câu thứ ba xin lỗi và đoán mò, người đọc vẫn không biết lỗi là gì."
+    },
+    {
+      "id": "w02q7",
+      "prompt_vi": "Team dùng Conventional Commits. Bạn vừa sửa lỗi đăng nhập trên Safari. Chọn dòng commit phù hợp.",
+      "options": [
+        "fix(auth): handle login redirect in Safari",
+        "feat(auth): handle login redirect in Safari",
+        "chore(auth): handle login redirect in Safari"
+      ],
+      "answer": 0,
+      "answer_vi": "fix(auth): xử lý chuyển hướng sau đăng nhập trên Safari.",
+      "why_vi": "Theo quy ước Conventional Commits, fix: dùng cho sửa lỗi, feat: cho tính năng mới, chore: cho việc lặt vặt không đổi hành vi như cập nhật cấu hình."
+    },
+    {
+      "id": "w02q8",
+      "prompt_vi": "Reviewer nhắn: 'Can you squash these WIP commits before merging?' Ý họ là gì?",
+      "options": [
+        "Gộp các commit đang làm dở thành một commit trước khi merge.",
+        "Xoá các commit WIP, không cần đẩy lên.",
+        "Merge ngay, sau đó sửa lại các commit WIP."
+      ],
+      "answer": 0,
+      "answer_vi": "Gộp các commit đang làm dở thành một commit trước khi merge.",
+      "why_vi": "squash là gộp nhiều commit thành một. WIP là work in progress, việc đang làm dở. before merging là trước khi merge."
+    },
+    {
+      "id": "w02q9",
+      "prompt_vi": "Đồng nghiệp nhắn: 'Your last commit broke the build on main. I'm reverting it for now, can you take another look?' Ý họ là gì?",
+      "options": [
+        "Commit của bạn làm build trên main bị lỗi; họ hoàn tác tạm và nhờ bạn xem lại.",
+        "Họ đã sửa lỗi build và nhờ bạn review lại.",
+        "Họ muốn bạn tự revert commit trên main."
+      ],
+      "answer": 0,
+      "answer_vi": "Commit của bạn làm build trên main bị lỗi; họ hoàn tác tạm và nhờ bạn xem lại.",
+      "why_vi": "broke the build là làm build lỗi. I'm reverting it là chính họ đang hoàn tác. for now là tạm thời. take another look là xem lại."
     },
     {
       "id": "w02q10",
-      "prompt_vi": "Commit: Xoá code debug khỏi trang thanh toán.",
+      "prompt_vi": "Tech lead nhắn: 'Please keep the subject line under 50 chars and put the details in the body.' Ý họ là gì?",
       "options": [
-        "Remove debug code from the checkout page",
-        "Remove debug codes from the checkout page",
-        "Remove code debug from the checkout page"
+        "Dòng đầu commit dưới 50 ký tự, chi tiết viết ở phần thân.",
+        "Cả commit message chỉ được dài tối đa 50 ký tự.",
+        "Viết chi tiết ở dòng đầu, phần thân để trống."
       ],
       "answer": 0,
-      "answer_vi": "Xoá code debug khỏi trang thanh toán.",
-      "why_vi": "code không đếm được nên không thêm s. Từ bổ nghĩa đứng trước: debug code."
+      "answer_vi": "Dòng đầu commit dưới 50 ký tự, chi tiết viết ở phần thân.",
+      "why_vi": "subject line là dòng đầu của commit. chars là characters (ký tự). body là phần thân bên dưới, nơi giải thích chi tiết."
     }
   ],
-  "write_prompt_vi": "Viết dòng đầu commit cho thay đổi gần nhất bạn làm."
+  "write_prompt_vi": "Bạn vừa thêm phân trang cho API danh sách đơn hàng vì trang tải quá chậm khi có nhiều đơn. Viết commit message: dòng đầu, một dòng trống, rồi 1 đến 2 câu nói vì sao."
 }

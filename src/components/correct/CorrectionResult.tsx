@@ -3,6 +3,21 @@ import ReviewDiffView from '../ReviewDiffView';
 
 type Props = { original: string; result: Correction; headLeft?: string };
 
+/** Ý còn thiếu so với danh sách "Bài viết nên có" của bài (SPEC mục 15). */
+function Missing({ items }: { items?: string[] }) {
+  if (!items?.length) return null;
+  return (
+    <div className="note info missing">
+      <b>Bài viết còn thiếu</b>
+      <ul>
+        {items.map((m, i) => (
+          <li key={i}>{m}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 /** Kết quả AI sửa câu: khung diff, mỗi chỗ sửa một dòng ghi chú, mẹo nếu có. Chỉ render văn bản. */
 export default function CorrectionResult({ original, result, headLeft = 'Câu của bạn' }: Props) {
   if (result.is_already_correct) {
@@ -11,6 +26,7 @@ export default function CorrectionResult({ original, result, headLeft = 'Câu c�
         <p className="note ok">Câu này đã đúng, không cần sửa.</p>
         {result.corrected_vi && <p className="vi-line">Nghĩa: {result.corrected_vi}</p>}
         {result.tip_vi && <p className="why">{result.tip_vi}</p>}
+        <Missing items={result.missing_vi} />
       </div>
     );
   }
@@ -31,6 +47,7 @@ export default function CorrectionResult({ original, result, headLeft = 'Câu c�
         </ul>
         {result.tip_vi && <p className="muted">{result.tip_vi}</p>}
       </ReviewDiffView>
+      <Missing items={result.missing_vi} />
     </div>
   );
 }

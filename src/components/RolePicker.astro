@@ -1,0 +1,23 @@
+---
+import { ROLE_HINTS, ROLE_NAMES, ROLES, type Role } from '../lib/content/roles';
+
+/** Ô chọn ngành (SPEC mục 16), mỗi ngành kèm một dòng giải thích cho người mới. Dùng trong form POST. */
+interface Props {
+  selected?: readonly Role[];
+}
+const { selected = [] } = Astro.props;
+---
+
+<div class="role-cards">
+  {
+    ROLES.map((r) => (
+      <label class="role-card">
+        <input type="checkbox" name="roles" value={r} checked={selected.includes(r)} />
+        <span>
+          <b>{ROLE_NAMES[r]}</b>
+          <small>{ROLE_HINTS[r]}</small>
+        </span>
+      </label>
+    ))
+  }
+</div>

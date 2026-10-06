@@ -3,9 +3,9 @@ import { changeSchema } from '../ai/schema';
 
 /** Payload của mục ôn own_error do save_correction ghi. Đọc từ database thì kiểm lại bằng schema này. */
 export const ownErrorPayloadSchema = changeSchema.extend({
-  original: z.string().max(700),
-  corrected: z.string().max(1500),
-  corrected_vi: z.string().max(1500).optional(),
+  original: z.string().max(1300),
+  corrected: z.string().max(3000),
+  corrected_vi: z.string().max(3000).optional(),
 });
 export type OwnErrorPayload = z.infer<typeof ownErrorPayloadSchema>;
 

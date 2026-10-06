@@ -1,0 +1,204 @@
+{
+  "id": 12,
+  "track": "standup",
+  "slug": "giai-thich-cho-nguoi-khong-lam-ky-thuat",
+  "title": "Giải thích kỹ thuật cho người không làm kỹ thuật",
+  "free": false,
+  "roles": [
+    "dev",
+    "qa"
+  ],
+  "goal_vi": "Giải thích một vấn đề hoặc quyết định kỹ thuật cho PM hoặc khách: nói ảnh hưởng trước, dùng lời đơn giản và một so sánh quen thuộc, tránh thuật ngữ.",
+  "pattern": {
+    "formula": "In simple terms, + cause. What this means for you is + impact.",
+    "note_vi": "Người không làm kỹ thuật cần biết việc này ảnh hưởng gì tới họ, nên nói ảnh hưởng trước, nguyên nhân sau. Thay thuật ngữ bằng điều người dùng thấy được. Khó hình dung thì thêm một so sánh đời thường: It's like... hoặc Think of it as..."
+  },
+  "examples": [
+    {
+      "en": "What this means for you is that some users will need to log in again after the update.",
+      "vi": "Với bạn, điều này nghĩa là sau bản cập nhật, một số người dùng sẽ phải đăng nhập lại."
+    },
+    {
+      "en": "In simple terms, the payment provider limits how many requests we can send, so some orders are delayed.",
+      "vi": "Nói đơn giản là bên cổng thanh toán giới hạn số yêu cầu mình được gửi, nên một số đơn hàng bị chậm."
+    },
+    {
+      "en": "Think of the cache as a shortcut: pages load faster, but they can show old data for a few minutes.",
+      "vi": "Bạn cứ hình dung cache như một lối tắt: trang tải nhanh hơn, nhưng có thể hiện dữ liệu cũ trong vài phút."
+    },
+    {
+      "en": "We need two days to clean up the old code first. It's like fixing the foundation before adding another floor.",
+      "vi": "Bên mình cần hai ngày để dọn lại code cũ trước. Giống như sửa móng nhà trước khi xây thêm tầng."
+    },
+    {
+      "en": "In simple terms, the report was checking every record one by one. Now it loads in two seconds instead of thirty.",
+      "vi": "Nói đơn giản là trước đây báo cáo kiểm tra từng bản ghi một. Giờ nó tải trong hai giây thay vì ba mươi giây."
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "This bug will impact to all users on Android.",
+      "right": "This bug will affect all users on Android.",
+      "right_vi": "Bug này sẽ ảnh hưởng tới mọi người dùng Android.",
+      "why_vi": "affect và impact đi thẳng với người hoặc vật bị ảnh hưởng, không có to ở giữa."
+    },
+    {
+      "wrong": "The server is overload, so the site is slow.",
+      "right": "The server is overloaded, so the site is slow.",
+      "right_vi": "Server đang bị quá tải nên trang web chạy chậm.",
+      "why_vi": "Bị quá tải là overloaded. overload là động từ hoặc danh từ, không đứng sau is để tả trạng thái."
+    },
+    {
+      "wrong": "In simple, the app checks every record one by one.",
+      "right": "In simple terms, the app checks every record one by one.",
+      "right_vi": "Nói đơn giản là app kiểm tra từng bản ghi một.",
+      "why_vi": "Cụm cố định là in simple terms, không bỏ terms. Có thể nói Simply put thay thế."
+    }
+  ],
+  "word_bank": [
+    "in simple terms",
+    "simply put",
+    "what this means for you is",
+    "it's like",
+    "think of it as",
+    "affect",
+    "the impact is",
+    "the bottom line",
+    "the big picture",
+    "trade-off"
+  ],
+  "model": {
+    "title_vi": "Tin giải thích cho khách vì sao bản release bị lùi",
+    "en": "Hi Sarah, a quick update on the release.\nThe release will move from Friday to next Tuesday.\nIn simple terms, the shipping company's system only accepts a limited number of orders per minute, and on busy days we send more than that.\nIt's like a toll booth on a busy road: every car gets through, just more slowly.\nWhat this means for you is that no orders are lost, but tracking numbers can show up to an hour late.\nWe're changing how we send orders and will test the fix on Monday.\nIf you prefer, we can release the other features on Friday and add this fix next week. Let me know which works better for you.",
+    "vi": "Chào Sarah, mình cập nhật nhanh về bản release.\nBản release sẽ lùi từ thứ Sáu sang thứ Ba tuần sau.\nNói đơn giản là hệ thống của bên vận chuyển chỉ nhận một số đơn nhất định mỗi phút, mà vào ngày đông khách thì bên mình gửi nhiều hơn mức đó.\nGiống như một trạm thu phí: xe nào cũng qua được, chỉ là chậm hơn.\nVới bạn, điều này nghĩa là không mất đơn nào, nhưng mã vận đơn có thể hiện muộn tới một tiếng.\nBên mình đang đổi cách gửi đơn và sẽ test bản sửa vào thứ Hai.\nNếu bạn muốn, bên mình có thể ra các tính năng khác vào thứ Sáu và thêm bản sửa này vào tuần sau. Bạn cho mình biết phương án nào phù hợp hơn nhé."
+  },
+  "checklist_vi": [
+    "Ngay sau lời chào, nói ảnh hưởng tới khách hoặc người dùng (lùi ngày, ai bị ảnh hưởng)",
+    "Giải thích nguyên nhân bằng lời đơn giản, không dùng thuật ngữ khó hiểu",
+    "Có một so sánh hoặc ví dụ đời thường",
+    "Có mốc mới, bước tiếp theo hoặc phương án cho người nhận chọn"
+  ],
+  "quiz": [
+    {
+      "id": "s12q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "This change will affect users on the old app version.",
+        "This change will affect to users on the old app version.",
+        "This change will affects users on the old app version."
+      ],
+      "answer": 0,
+      "answer_vi": "Thay đổi này sẽ ảnh hưởng tới người dùng bản app cũ.",
+      "why_vi": "affect đi thẳng với người bị ảnh hưởng, không có to. Sau will là động từ nguyên mẫu, không thêm s."
+    },
+    {
+      "id": "s12q2",
+      "prompt_vi": "Nói đơn giản là app chậm vì ảnh quá nặng.",
+      "options": [
+        "In simple terms, the app is slow because the images are too large.",
+        "In simple terms, the app is slow because the images are too much large.",
+        "In simple terms, the app is slowly because the images are too large."
+      ],
+      "answer": 0,
+      "answer_vi": "Nói đơn giản là app chậm vì ảnh quá nặng.",
+      "why_vi": "too đứng ngay trước tính từ: too large, không thêm much. Sau is dùng tính từ slow, không dùng slowly."
+    },
+    {
+      "id": "s12q3",
+      "prompt_vi": "Với bạn, điều này nghĩa là báo cáo sẽ trễ một ngày.",
+      "options": [
+        "What this means for you is that the report will be one day late.",
+        "What this mean for you is that the report will be one day late.",
+        "What this means with you is that the report will be one day late."
+      ],
+      "answer": 0,
+      "answer_vi": "Với bạn, điều này nghĩa là báo cáo sẽ trễ một ngày.",
+      "why_vi": "this là số ít nên dùng means. Nói ý nghĩa đối với ai dùng for you, không dùng with you."
+    },
+    {
+      "id": "s12q4",
+      "prompt_vi": "Bạn cứ hình dung staging như buổi tổng duyệt trước khi diễn thật.",
+      "options": [
+        "Think of staging as a rehearsal before the real show.",
+        "Think staging as a rehearsal before the real show.",
+        "Think of staging as a rehearse before the real show."
+      ],
+      "answer": 0,
+      "answer_vi": "Bạn cứ hình dung staging như buổi tổng duyệt trước khi diễn thật.",
+      "why_vi": "Cụm cố định là think of A as B, không bỏ of. rehearsal là danh từ (buổi tổng duyệt); rehearse là động từ."
+    },
+    {
+      "id": "s12q5",
+      "prompt_vi": "PM hỏi vì sao sáng nay trang thanh toán bị lỗi. Chọn cách trả lời phù hợp hơn.",
+      "options": [
+        "Some customers couldn't pay for about 20 minutes this morning. A setting changed during the deploy, and we've fixed it.",
+        "There was a race condition in the idempotency layer after the deploy, so the webhook retries failed.",
+        "It was a technical issue. It's fixed now."
+      ],
+      "answer": 0,
+      "answer_vi": "Sáng nay một số khách không thanh toán được trong khoảng 20 phút. Một cấu hình bị thay đổi khi deploy, và bên mình đã sửa xong.",
+      "why_vi": "Câu đầu nói ảnh hưởng trước, nguyên nhân ngắn gọn bằng lời thường. Câu hai toàn thuật ngữ, PM khó hiểu. Câu ba quá chung, không nói ai bị ảnh hưởng và bao lâu."
+    },
+    {
+      "id": "s12q6",
+      "prompt_vi": "Khách hỏi vì sao cần thêm hai ngày để dọn code. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "The old code makes every change slow and risky. Two days of cleanup now will make the next features faster to build.",
+        "We need to refactor because the code has too much tech debt and tight coupling.",
+        "Sorry, I know it's a lot to ask, and maybe it's not really needed, but if possible we'd like two days, if that's OK."
+      ],
+      "answer": 0,
+      "answer_vi": "Code cũ làm mọi thay đổi đều chậm và dễ lỗi. Dọn dẹp hai ngày bây giờ sẽ giúp các tính năng sau làm nhanh hơn.",
+      "why_vi": "Câu đầu nói lợi ích khách nhận được. Câu hai dùng thuật ngữ khách không hiểu. Câu ba quá rụt rè, còn tự nói là có thể không cần, nên khách khó đồng ý."
+    },
+    {
+      "id": "s12q7",
+      "prompt_vi": "Bạn giải thích cho khách vì sao không nên release vào chiều thứ Sáu. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "If we release on Friday afternoon and something breaks, fewer people are around to fix it. Monday morning is safer.",
+        "Friday releases are bad. Everyone knows that.",
+        "We'd rather not deploy on Friday because our MTTR goes up on weekends due to reduced on-call coverage."
+      ],
+      "answer": 0,
+      "answer_vi": "Nếu release chiều thứ Sáu mà có lỗi thì ít người ở lại để sửa. Sáng thứ Hai an toàn hơn.",
+      "why_vi": "Câu đầu nêu rủi ro bằng tình huống ai cũng hình dung được. Câu hai không có lý do, nghe như gạt đi. Câu ba dùng thuật ngữ như MTTR, on-call mà khách không biết."
+    },
+    {
+      "id": "s12q8",
+      "prompt_vi": "Khách nhắn: \"Could you explain this in layman's terms? I'm not very technical.\" Ý họ là gì?",
+      "options": [
+        "Họ muốn bạn giải thích bằng lời đơn giản, không dùng thuật ngữ.",
+        "Họ muốn bạn gửi tài liệu kỹ thuật chi tiết hơn.",
+        "Họ muốn một người khác giải thích thay bạn."
+      ],
+      "answer": 0,
+      "answer_vi": "Họ muốn bạn giải thích bằng lời đơn giản, không dùng thuật ngữ.",
+      "why_vi": "in layman's terms là bằng lời của người ngoài ngành, tức là lời đơn giản. not very technical là họ không rành kỹ thuật."
+    },
+    {
+      "id": "s12q9",
+      "prompt_vi": "PM hỏi: \"So what's the bottom line? Can we ship on Friday or not?\" Ý họ là gì?",
+      "options": [
+        "Họ muốn nghe kết luận ngắn: thứ Sáu có ra được hay không.",
+        "Họ muốn xem dòng cuối cùng của log.",
+        "Họ muốn biết chi phí thấp nhất để ra bản thứ Sáu."
+      ],
+      "answer": 0,
+      "answer_vi": "Họ muốn nghe kết luận ngắn: thứ Sáu có ra được hay không.",
+      "why_vi": "the bottom line là kết luận, điều quan trọng nhất. Câu sau nói rõ họ cần câu trả lời có hay không."
+    },
+    {
+      "id": "s12q10",
+      "prompt_vi": "Giám đốc bên khách nói: \"Can you give me the big picture? I don't need all the details.\" Ý họ là gì?",
+      "options": [
+        "Họ muốn nghe tổng quan, không cần chi tiết kỹ thuật.",
+        "Họ muốn xem sơ đồ kiến trúc thật lớn.",
+        "Họ muốn bạn gửi đầy đủ chi tiết sau buổi họp."
+      ],
+      "answer": 0,
+      "answer_vi": "Họ muốn nghe tổng quan, không cần chi tiết kỹ thuật.",
+      "why_vi": "the big picture là bức tranh tổng thể, không liên quan đến hình ảnh. I don't need all the details là không cần chi tiết."
+    }
+  ],
+  "write_prompt_vi": "Khách không làm kỹ thuật hỏi vì sao bản release bị lùi. Nguyên nhân: API của bên thứ ba giới hạn số request mỗi phút. Viết tin 4 đến 6 câu gửi khách: nói ảnh hưởng trước, giải thích nguyên nhân bằng lời đơn giản, không dùng thuật ngữ, và đưa ra mốc mới hoặc phương án."
+}

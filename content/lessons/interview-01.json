@@ -4,8 +4,7 @@
   "slug": "gioi-thieu-ban-than",
   "title": "Giới thiệu bản thân",
   "free": false,
-  "question_en": "Can you tell me a little about yourself?",
-  "goal_vi": "Giới thiệu vai trò, số năm kinh nghiệm và việc đang làm trong 2 đến 3 câu.",
+  "goal_vi": "Giới thiệu bản thân trong khoảng một phút: việc đang làm, việc đã làm trước đó, một kết quả có số, và vì sao bạn quan tâm vị trí này.",
   "pattern": {
     "formula": "I'm a + role + with + N years of experience in + area. Right now I + V + ...",
     "note_vi": "Nghề nghiệp cần a/an. years of experience luôn có of. Việc đang làm dùng hiện tại đơn."
@@ -53,13 +52,26 @@
     }
   ],
   "word_bank": [
-    "I'm a ... developer",
-    "years of experience",
-    "mostly",
-    "right now",
-    "my main stack is",
-    "I'm responsible for",
-    "before that"
+    "I'm a ... developer with ... years of experience",
+    "mostly in",
+    "right now I work on",
+    "I look after",
+    "before that, I spent ... years at",
+    "one thing I'm proud of is",
+    "I'm looking for",
+    "which is why this role caught my eye"
+  ],
+  "model": {
+    "title_vi": "Câu trả lời giới thiệu bản thân khoảng một phút",
+    "en": "I'm a backend developer with five years of experience, mostly in Java and Spring Boot. Right now I work on the payment platform at a fintech company in Ho Chi Minh City, where I look after the services that handle card and QR payments.\nBefore that, I spent two years at an outsourcing company, building web apps for Japanese clients.\nOne thing I'm proud of is a reconciliation job I rewrote last year. It used to take three hours every night, and now it runs in about twenty minutes.\nI'm now looking for a product team where I can work on systems at a larger scale, which is why this role caught my eye.",
+    "vi": "Mình là backend developer, có năm năm kinh nghiệm, chủ yếu với Java và Spring Boot. Hiện mình làm nền tảng thanh toán ở một công ty fintech tại TP.HCM, phụ trách các service xử lý thanh toán bằng thẻ và QR.\nTrước đó, mình làm hai năm ở một công ty outsource, làm web app cho khách hàng Nhật.\nMột việc mình thấy tự hào là job đối soát mình viết lại năm ngoái. Trước đây nó chạy mất ba tiếng mỗi đêm, giờ chỉ còn khoảng hai mươi phút.\nGiờ mình muốn tìm một team làm sản phẩm, nơi mình được làm hệ thống ở quy mô lớn hơn, nên vị trí này làm mình chú ý."
+  },
+  "checklist_vi": [
+    "Có vai trò và số năm kinh nghiệm",
+    "Nói việc đang làm, có công nghệ hoặc lĩnh vực",
+    "Có một việc đã làm trước đó",
+    "Có một kết quả cụ thể, tốt nhất là có con số",
+    "Kết bằng lý do bạn quan tâm vị trí này"
   ],
   "quiz": [
     {
@@ -67,12 +79,12 @@
       "prompt_vi": "Chọn câu đúng.",
       "options": [
         "I'm a mobile developer with three years of experience.",
-        "I'm mobile developer with three years experience.",
-        "I'm a mobile developer with three years of experiences."
+        "I'm mobile developer with three years of experience.",
+        "I'm a mobile developer with three years experience."
       ],
       "answer": 0,
       "answer_vi": "Mình là mobile developer, có ba năm kinh nghiệm.",
-      "why_vi": "Cần a trước nghề và of sau years. experience ở đây không thêm s."
+      "why_vi": "Nói nghề nghiệp cần a trước tên nghề. Số năm kinh nghiệm luôn có of: years of experience."
     },
     {
       "id": "i01q2",
@@ -84,82 +96,10 @@
       ],
       "answer": 0,
       "answer_vi": "Mình làm ở công ty hiện tại được hai năm rồi.",
-      "why_vi": "Việc kéo dài tới giờ dùng have + V3. Một khoảng thời gian dùng for, một mốc mới dùng since."
+      "why_vi": "Việc kéo dài tới giờ dùng have + V3. Một khoảng thời gian dùng for, một mốc bắt đầu mới dùng since."
     },
     {
       "id": "i01q3",
-      "prompt_vi": "Hiện mình chủ yếu làm backend với Node.js.",
-      "options": [
-        "Right now I mostly do backend work with Node.js.",
-        "Right now I mostly do backend work by Node.js.",
-        "Right now I mostly doing backend work with Node.js."
-      ],
-      "answer": 0,
-      "answer_vi": "Hiện mình chủ yếu làm backend với Node.js.",
-      "why_vi": "Dùng công nghệ gì thì dùng with. Không có am thì không dùng V-ing."
-    },
-    {
-      "id": "i01q4",
-      "prompt_vi": "Mình là kỹ sư QA.",
-      "options": [
-        "I'm a QA engineer.",
-        "I'm QA engineer.",
-        "I'm an engineer QA."
-      ],
-      "answer": 0,
-      "answer_vi": "Mình là kỹ sư QA.",
-      "why_vi": "Cần a trước nghề, và QA đứng trước engineer."
-    },
-    {
-      "id": "i01q5",
-      "prompt_vi": "Trước đó mình làm hai năm ở một công ty outsource.",
-      "options": [
-        "Before that, I worked at an outsourcing company for two years.",
-        "Before that, I have worked at an outsourcing company for two years.",
-        "Before that, I worked at an outsourcing company in two years."
-      ],
-      "answer": 0,
-      "answer_vi": "Trước đó mình làm hai năm ở một công ty outsource.",
-      "why_vi": "Việc đã xong trong quá khứ dùng quá khứ đơn. Kéo dài bao lâu thì dùng for."
-    },
-    {
-      "id": "i01q6",
-      "prompt_vi": "Chọn câu trả lời phù hợp hơn.",
-      "options": [
-        "I'm a frontend developer with three years of experience. Right now I mostly build dashboards with Vue and TypeScript.",
-        "I'm an expert frontend developer, and I can build any kind of web app.",
-        "Well, I'm just a frontend guy, I do some Vue stuff."
-      ],
-      "answer": 0,
-      "answer_vi": "Mình là frontend developer, có ba năm kinh nghiệm. Hiện mình chủ yếu làm dashboard bằng Vue và TypeScript.",
-      "why_vi": "Nói vai trò, số năm và việc cụ thể. Không tự nhận là chuyên gia, cũng không nói quá suồng sã."
-    },
-    {
-      "id": "i01q7",
-      "prompt_vi": "Mình phụ trách service gửi thông báo trong app.",
-      "options": [
-        "I'm responsible for the notification service in our app.",
-        "I'm responsible of the notification service in our app.",
-        "I responsible for the notification service in our app."
-      ],
-      "answer": 0,
-      "answer_vi": "Mình phụ trách service gửi thông báo trong app của bọn mình.",
-      "why_vi": "Cụm đúng là be responsible for. responsible không phải động từ nên cần am."
-    },
-    {
-      "id": "i01q8",
-      "prompt_vi": "Mình làm PM từ năm 2020.",
-      "options": [
-        "I've been a project manager since 2020.",
-        "I'm a project manager since 2020.",
-        "I've been a project manager from 2020."
-      ],
-      "answer": 0,
-      "answer_vi": "Mình làm project manager từ năm 2020 đến giờ.",
-      "why_vi": "Kéo dài từ một mốc tới giờ dùng have been. Mốc bắt đầu đi với since, không dùng from."
-    },
-    {
-      "id": "i01q9",
       "prompt_vi": "Mình có kinh nghiệm làm việc với khách hàng Nhật.",
       "options": [
         "I have experience working with Japanese clients.",
@@ -171,7 +111,7 @@
       "why_vi": "experience + V-ing, không dùng to V. Từ chỉ quốc tịch đứng trước danh từ: Japanese clients."
     },
     {
-      "id": "i01q10",
+      "id": "i01q4",
       "prompt_vi": "Mình bắt đầu là tester, sau đó chuyển sang làm dev.",
       "options": [
         "I started as a tester and then moved into development.",
@@ -180,8 +120,81 @@
       ],
       "answer": 0,
       "answer_vi": "Mình bắt đầu là tester, sau đó chuyển sang làm dev.",
-      "why_vi": "Nói vai trò dùng as, không dùng like. Chuyện đã qua dùng quá khứ: started."
+      "why_vi": "Nói vai trò dùng as, không dùng like. Chuyện đã qua dùng quá khứ cho cả hai động từ: started, moved."
+    },
+    {
+      "id": "i01q5",
+      "prompt_vi": "Chọn câu trả lời phù hợp hơn.",
+      "options": [
+        "I'm a frontend developer with three years of experience. Right now I mostly build dashboards with Vue and TypeScript.",
+        "I'm an expert frontend developer, and I can build any kind of web app.",
+        "Well, I'm just a frontend guy. I do some Vue stuff."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình là frontend developer, có ba năm kinh nghiệm. Hiện mình chủ yếu làm dashboard bằng Vue và TypeScript.",
+      "why_vi": "Nói vai trò, số năm và việc cụ thể. Không tự nhận là chuyên gia làm được mọi thứ, cũng không nói qua loa như đang tán gẫu."
+    },
+    {
+      "id": "i01q6",
+      "prompt_vi": "Chọn câu kết phù hợp hơn cho phần giới thiệu.",
+      "options": [
+        "I'm now looking for a team where I can work on larger systems, which is why this role caught my eye.",
+        "I just need a new job, and I heard your company pays well.",
+        "I would be so honored and grateful if your great company could give me a chance."
+      ],
+      "answer": 0,
+      "answer_vi": "Giờ mình muốn tìm một team được làm hệ thống lớn hơn, nên vị trí này làm mình chú ý.",
+      "why_vi": "Câu kết nên nối kinh nghiệm của bạn với vị trí đang tuyển. Nói thẳng chuyện lương nghe thiếu chuyên nghiệp, còn nói quá khiêm tốn thì nghe như đang xin."
+    },
+    {
+      "id": "i01q7",
+      "prompt_vi": "Nhà tuyển dụng hỏi \"Tell me about yourself.\" Chọn câu mở đầu phù hợp hơn.",
+      "options": [
+        "I'm a QA engineer with three years of experience, mostly in test automation for e-commerce apps.",
+        "I was born in Nghe An in 1996, and I studied at a university in Hanoi.",
+        "I'm a tester."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình là QA engineer, có ba năm kinh nghiệm, chủ yếu làm test tự động cho app thương mại điện tử.",
+      "why_vi": "Trong phỏng vấn, câu này hỏi về công việc, nên mở đầu bằng vai trò, số năm và mảng bạn làm. Kể từ năm sinh thì lạc đề, còn một câu quá ngắn thì người nghe phải hỏi lại."
+    },
+    {
+      "id": "i01q8",
+      "prompt_vi": "Recruiter nhắn: \"Thanks for applying. Could you hop on a quick 15-minute call this week? I'd like to hear a bit about your background before we set up the technical round.\" Ý họ là gì?",
+      "options": [
+        "Họ muốn gọi ngắn 15 phút trong tuần này để nghe bạn kể về kinh nghiệm, trước khi xếp vòng kỹ thuật.",
+        "Họ mời bạn vào vòng phỏng vấn kỹ thuật dài 15 phút ngay trong tuần này.",
+        "Họ báo bạn đã qua vòng kỹ thuật và hẹn gọi để bàn lương."
+      ],
+      "answer": 0,
+      "answer_vi": "Họ muốn gọi ngắn 15 phút trong tuần này để nghe bạn kể về kinh nghiệm, trước khi xếp vòng kỹ thuật.",
+      "why_vi": "hop on a call là tham gia một cuộc gọi. background là kinh nghiệm và quá trình làm việc. before we set up the technical round nghĩa là vòng kỹ thuật còn ở phía sau."
+    },
+    {
+      "id": "i01q9",
+      "prompt_vi": "Người phỏng vấn nói: \"Thanks, that's a great overview. Could you walk me through your current stack in a bit more detail?\" Ý họ là gì?",
+      "options": [
+        "Họ muốn bạn nói kỹ hơn, lần lượt từng phần, về các công nghệ bạn đang dùng.",
+        "Họ muốn dẫn bạn đi xem hệ thống của công ty họ.",
+        "Họ thấy phần giới thiệu quá dài và muốn bạn dừng lại."
+      ],
+      "answer": 0,
+      "answer_vi": "Họ muốn bạn nói kỹ hơn, lần lượt từng phần, về các công nghệ bạn đang dùng.",
+      "why_vi": "walk me through là giải thích lần lượt từng bước. stack là bộ công nghệ bạn dùng. great overview là lời khen, không phải ý chê dài."
+    },
+    {
+      "id": "i01q10",
+      "prompt_vi": "Người phỏng vấn hỏi: \"You mentioned you moved from QA into development. What made you make the switch?\" Ý họ là gì?",
+      "options": [
+        "Họ hỏi lý do bạn chuyển từ QA sang làm dev.",
+        "Họ hỏi bạn có muốn quay lại làm QA không.",
+        "Họ hỏi bạn chuyển sang làm dev từ khi nào."
+      ],
+      "answer": 0,
+      "answer_vi": "Họ hỏi lý do bạn chuyển từ QA sang làm dev.",
+      "why_vi": "make the switch là chuyển hẳn sang việc khác. What made you ... hỏi điều gì khiến bạn làm vậy, tức là hỏi lý do, không hỏi thời điểm."
     }
   ],
-  "write_prompt_vi": "Viết 2 đến 3 câu giới thiệu bạn: vai trò, số năm kinh nghiệm, việc đang làm."
+  "write_prompt_vi": "Nhà tuyển dụng hỏi \"Tell me about yourself.\" Viết 80 đến 150 từ: vai trò và số năm kinh nghiệm, việc hiện tại, việc trước đó, một kết quả có số, và vì sao bạn quan tâm vị trí này.",
+  "question_en": "Can you tell me a little about yourself?"
 }

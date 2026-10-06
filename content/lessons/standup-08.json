@@ -4,31 +4,31 @@
   "slug": "bao-tre-va-de-xuat-moc-moi",
   "title": "Báo trễ và đề xuất mốc mới",
   "free": false,
-  "goal_vi": "Báo sớm là việc sẽ trễ, nói ngắn lý do và đưa ra mốc mới.",
+  "goal_vi": "Báo sớm là việc sẽ trễ: chuyện gì xảy ra, ảnh hưởng gì, mốc mới, và phương án hoặc việc cần người khác giúp.",
   "pattern": {
     "formula": "This is taking longer than expected. I can have it ready by + time.",
-    "note_vi": "Báo trễ thì luôn kèm mốc mới. have it ready by: xong muộn nhất vào lúc đó."
+    "note_vi": "Báo trễ thì luôn kèm mốc mới. have it ready by: xong muộn nhất vào lúc đó. Báo càng sớm càng tốt, đừng đợi tới ngày hạn chót."
   },
   "examples": [
     {
       "en": "The payment feature is taking longer than expected. I can have it ready by Thursday.",
-      "vi": "Tính năng thanh toán mất nhiều thời gian hơn dự kiến. Thứ Năm mình mới xong được."
+      "vi": "Tính năng thanh toán mất nhiều thời gian hơn dự kiến. Muộn nhất thứ Năm mình sẽ xong."
     },
     {
-      "en": "This bug is trickier than I thought, so I need one more day.",
-      "vi": "Bug này khó hơn mình nghĩ, nên mình cần thêm một ngày."
+      "en": "Heads-up: this bug is trickier than I thought, so I need one more day.",
+      "vi": "Mình báo trước: bug này khó hơn mình nghĩ, nên mình cần thêm một ngày."
     },
     {
       "en": "Staging is down, so I suggest moving the release to Monday.",
       "vi": "Staging đang sập, nên mình đề xuất lùi release sang thứ Hai."
     },
     {
-      "en": "The data migration is taking longer than expected. I can have it ready by tomorrow morning.",
-      "vi": "Migration dữ liệu mất nhiều thời gian hơn dự kiến. Sáng mai mình mới xong được."
+      "en": "We won't make Friday for the whole feature. We can ship search on Friday and filters early next week.",
+      "vi": "Bên mình không kịp xong cả tính năng vào thứ Sáu. Bên mình có thể ra phần tìm kiếm vào thứ Sáu và phần bộ lọc vào đầu tuần sau."
     },
     {
-      "en": "The client changed the requirements, so I can have the export feature ready by next Tuesday.",
-      "vi": "Khách đổi yêu cầu, nên thứ Ba tuần sau mình mới xong tính năng xuất file được."
+      "en": "The client changed the requirements, so the export feature will slip to next Tuesday.",
+      "vi": "Khách đổi yêu cầu nên tính năng xuất file sẽ lùi sang thứ Ba tuần sau."
     }
   ],
   "mistakes": [
@@ -52,14 +52,27 @@
     }
   ],
   "word_bank": [
+    "heads-up",
     "taking longer than expected",
     "trickier than I thought",
-    "one more day",
-    "push back",
-    "move to",
+    "slip to",
+    "push back to",
     "have it ready by",
-    "sorry for the delay",
-    "new ETA"
+    "one more day",
+    "new ETA",
+    "descope",
+    "sorry for the delay"
+  ],
+  "model": {
+    "title_vi": "Tin nhắn báo trễ có lý do, mốc mới và phương án",
+    "en": "Hi Linh, a heads-up on the report export. It's taking longer than expected because the API now returns paginated data, so I need to rewrite the loader.\nI won't be able to finish everything by Friday. I can have the CSV export ready by Friday and the PDF export by next Tuesday.\nIf the client needs both on Friday, I'll need Nam's help with the PDF part. Let me know which option works better.",
+    "vi": "Chào Linh, mình báo trước về tính năng xuất báo cáo. Việc này mất nhiều thời gian hơn dự kiến vì API giờ trả dữ liệu theo trang, nên mình phải viết lại phần tải dữ liệu.\nMình sẽ không xong hết trong thứ Sáu được. Phần xuất CSV muộn nhất thứ Sáu sẽ xong, còn phần xuất PDF muộn nhất thứ Ba tuần sau.\nNếu khách cần cả hai vào thứ Sáu thì mình cần Nam giúp phần PDF. Bạn cho mình biết phương án nào hợp hơn nhé."
+  },
+  "checklist_vi": [
+    "Nói rõ việc nào bị trễ",
+    "Có lý do ngắn gọn",
+    "Có mốc mới cụ thể (by + ngày)",
+    "Đưa ra một phương án hoặc nói cần ai giúp gì"
   ],
   "quiz": [
     {
@@ -72,7 +85,7 @@
       ],
       "answer": 0,
       "answer_vi": "Việc này mất nhiều thời gian hơn dự kiến.",
-      "why_vi": "Cụm cố định: than expected. Đang diễn ra: is taking."
+      "why_vi": "Cụm cố định: than expected. Việc đang diễn ra dùng is taking."
     },
     {
       "id": "s08q2",
@@ -84,7 +97,7 @@
       ],
       "answer": 0,
       "answer_vi": "Xin lỗi vì bị trễ.",
-      "why_vi": "Sau for cần danh từ: the delay. late là tính từ."
+      "why_vi": "Sau for cần danh từ: the delay. late là tính từ nên không đứng sau for hay the."
     },
     {
       "id": "s08q3",
@@ -96,92 +109,92 @@
       ],
       "answer": 0,
       "answer_vi": "Muộn nhất thứ Năm mình sẽ xong.",
-      "why_vi": "Hạn chót dùng by. Thứ trong tuần không đi với in."
+      "why_vi": "Hạn chót dùng by: xong muộn nhất thứ Năm. until dùng cho việc kéo dài tới lúc đó, ví dụ wait until Thursday. Thứ trong tuần không đi với in."
     },
     {
       "id": "s08q4",
-      "prompt_vi": "Bug này khó hơn mình nghĩ.",
-      "options": [
-        "This bug is harder than I thought.",
-        "This bug is more harder than I thought.",
-        "This bug harder than I thought."
-      ],
-      "answer": 0,
-      "answer_vi": "Bug này khó hơn mình nghĩ.",
-      "why_vi": "harder đã là so sánh hơn, không thêm more. Câu cần is."
-    },
-    {
-      "id": "s08q5",
       "prompt_vi": "Mình đề xuất lùi release sang thứ Hai.",
       "options": [
         "I suggest moving the release to Monday.",
         "I suggest to move the release to Monday.",
-        "I suggest move the release on Monday."
+        "I suggest moving the release in Monday."
       ],
       "answer": 0,
       "answer_vi": "Mình đề xuất lùi release sang thứ Hai.",
-      "why_vi": "suggest + V-ing. Dời sang ngày nào dùng move to."
+      "why_vi": "suggest + V-ing, không dùng to. Dời sang ngày nào dùng move to, không dùng in."
+    },
+    {
+      "id": "s08q5",
+      "prompt_vi": "Thứ Tư bạn đã biết sẽ không kịp hạn thứ Sáu. Chọn cách báo PM phù hợp hơn.",
+      "options": [
+        "Heads-up: the report page won't be ready by Friday because the API changed yesterday. I can have it ready by Tuesday.",
+        "Report page is late. Tuesday.",
+        "I'll try my best to finish it by Friday."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình báo trước: trang báo cáo sẽ không xong muộn nhất thứ Sáu vì hôm qua API thay đổi. Muộn nhất thứ Ba mình sẽ xong.",
+      "why_vi": "Câu đầu báo sớm, có lý do và mốc mới. Câu hai cụt, không có lý do. Câu ba nghe tích cực nhưng giấu rủi ro, tới thứ Sáu PM mới biết là trễ."
     },
     {
       "id": "s08q6",
-      "prompt_vi": "Sửa mấy test chập chờn mất nhiều thời gian hơn dự kiến.",
+      "prompt_vi": "Bạn cần báo khách là một phần tính năng sẽ trễ. Chọn câu phù hợp hơn.",
       "options": [
-        "Fixing the flaky tests is taking longer than expected.",
-        "Fix the flaky tests is taking longer than expected.",
-        "Fixing the flaky tests is taking more long than expected."
+        "We can ship login and search on Friday as planned, and filters next Wednesday. Would that work for you?",
+        "Filters will be late.",
+        "We are terribly sorry. This is completely our fault, and we will do anything to make it right."
       ],
       "answer": 0,
-      "answer_vi": "Sửa mấy test chập chờn mất nhiều thời gian hơn dự kiến.",
-      "why_vi": "Động từ làm chủ ngữ thì thêm -ing. So sánh hơn của long là longer."
+      "answer_vi": "Bên mình có thể ra đăng nhập và tìm kiếm vào thứ Sáu như kế hoạch, còn bộ lọc vào thứ Tư tuần sau. Như vậy có ổn với bạn không?",
+      "why_vi": "Câu đầu đưa ra phương án cụ thể và hỏi ý khách. Câu hai cụt, không có mốc mới. Câu ba xin lỗi quá mức nhưng không nói khi nào xong, khách vẫn không biết phải làm gì."
     },
     {
       "id": "s08q7",
-      "prompt_vi": "Mình cần lùi ticket này sang tuần sau.",
+      "prompt_vi": "Chọn câu phù hợp hơn để báo trễ trong email gửi khách.",
       "options": [
-        "I need to push this ticket back to next week.",
-        "I need push this ticket back to next week.",
-        "I need to push this ticket back on next week."
+        "Unfortunately, the release will slip to next Tuesday because the payment provider changed their API.",
+        "The release is late because of the payment provider.",
+        "Due to unforeseen circumstances, the release date has been adjusted."
       ],
       "answer": 0,
-      "answer_vi": "Mình cần lùi ticket này sang tuần sau.",
-      "why_vi": "need + to V. Lùi sang lúc nào dùng push back to."
+      "answer_vi": "Rất tiếc, bản release sẽ lùi sang thứ Ba tuần sau vì bên cung cấp thanh toán đã đổi API.",
+      "why_vi": "Câu đầu nói rõ lùi tới khi nào và vì sao. Câu hai thiếu mốc mới và nghe như đổ lỗi. Câu ba vòng vo, nghe như né tránh và cũng không có ngày mới."
     },
     {
       "id": "s08q8",
-      "prompt_vi": "Mốc mới cho bản demo là thứ Tư.",
+      "prompt_vi": "PM nhắn: \"Thanks for the heads-up. Can we still demo the happy path on Thursday?\" Ý họ là gì?",
       "options": [
-        "The new ETA for the demo is Wednesday.",
-        "The ETA new for the demo is Wednesday.",
-        "The new ETA for the demo are Wednesday."
+        "Họ cảm ơn bạn đã báo trước và hỏi thứ Năm có vẫn demo được luồng chạy bình thường không.",
+        "Họ phàn nàn vì bạn báo muộn và hủy buổi demo thứ Năm.",
+        "Họ hỏi thứ Năm có demo được tất cả các trường hợp lỗi không."
       ],
       "answer": 0,
-      "answer_vi": "Mốc mới cho bản demo là thứ Tư.",
-      "why_vi": "new đứng trước ETA. ETA là số ít nên dùng is."
+      "answer_vi": "Họ cảm ơn bạn đã báo trước và hỏi thứ Năm có vẫn demo được luồng chạy bình thường không.",
+      "why_vi": "heads-up là lời báo trước. happy path là luồng chạy bình thường, không có lỗi. still là vẫn."
     },
     {
       "id": "s08q9",
-      "prompt_vi": "API bên thứ ba bị chậm nên mình cần thêm một ngày.",
+      "prompt_vi": "Tech lead nhắn: \"If it's going to slip, let's descope the export and push it to the next sprint.\" Ý họ là gì?",
       "options": [
-        "The third-party API is slow, so I need one more day.",
-        "The third-party API is slow, so I need more one day.",
-        "The third-party API slow, so I need one more day."
+        "Nếu sẽ trễ thì bỏ phần xuất file khỏi đợt này và dời sang sprint sau.",
+        "Nếu sẽ trễ thì làm thêm giờ để xong phần xuất file trong sprint này.",
+        "Phần xuất file đã được push lên production."
       ],
       "answer": 0,
-      "answer_vi": "API bên thứ ba bị chậm nên mình cần thêm một ngày.",
-      "why_vi": "Con số đứng trước more: one more day. Câu cần is."
+      "answer_vi": "Nếu sẽ trễ thì bỏ phần xuất file khỏi đợt này và dời sang sprint sau.",
+      "why_vi": "slip là bị trễ, bị lùi. descope là bỏ bớt khỏi phạm vi. push it to the next sprint là dời sang sprint sau, không phải push code."
     },
     {
       "id": "s08q10",
-      "prompt_vi": "Chọn câu đúng.",
+      "prompt_vi": "Khách viết: \"The launch has been delayed until Monday. We'll still need the build by Friday EOD.\" Ý họ là gì?",
       "options": [
-        "QA found a few more bugs, so the release will be delayed until Monday.",
-        "QA found a few more bugs, so the release will delay until Monday.",
-        "QA found a few more bug, so the release will be delayed until Monday."
+        "Ngày ra mắt lùi tới thứ Hai, nhưng bên bạn vẫn phải gửi bản build muộn nhất cuối ngày thứ Sáu.",
+        "Ngày ra mắt lùi tới thứ Hai, nên bản build gửi vào thứ Hai là được.",
+        "Ngày ra mắt giữ nguyên, bản build gửi trong tuần sau là được."
       ],
       "answer": 0,
-      "answer_vi": "QA tìm ra thêm vài bug, nên release sẽ lùi đến thứ Hai.",
-      "why_vi": "Release bị lùi nên dùng be delayed. a few đi với danh từ số nhiều: bugs."
+      "answer_vi": "Ngày ra mắt lùi tới thứ Hai, nhưng bên bạn vẫn phải gửi bản build muộn nhất cuối ngày thứ Sáu.",
+      "why_vi": "delayed until Monday là bị lùi tới thứ Hai. by Friday EOD là hạn chót: muộn nhất cuối ngày thứ Sáu. until nói về thời gian kéo dài tới, by nói về hạn chót."
     }
   ],
-  "write_prompt_vi": "Viết 1 đến 2 câu báo một việc bị trễ và đưa ra mốc mới."
+  "write_prompt_vi": "Bạn sẽ không kịp giao một tính năng vào thứ Sáu như đã hứa. Viết tin Slack 3 đến 4 câu gửi PM: việc nào trễ, vì sao, mốc mới, và một phương án."
 }

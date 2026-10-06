@@ -45,6 +45,21 @@ const label = (n: number) => (numbered ? `Phần ${n} trên 5` : undefined);
   </ul>
 </section>
 
+{
+  /* Chỉ trong trình học: trang /mau-cau công khai chỉ có công thức, ví dụ, lỗi hay gặp (SPEC mục 3). */
+  numbered && (
+    <section class="part" aria-labelledby="tin-hoan-chinh">
+      <h2 id="tin-hoan-chinh">Tin hoàn chỉnh: {lesson.model.title_vi}</h2>
+      <p class="muted">Mẫu câu của bài nằm trong một tin đầy đủ như ngoài đời: có phần dẫn, lý do và lời kết.</p>
+      <div class="model-msg" lang="en">{lesson.model.en}</div>
+      <details class="model-vi">
+        <summary>Xem nghĩa tiếng Việt</summary>
+        <div class="model-msg vi">{lesson.model.vi}</div>
+      </details>
+    </section>
+  )
+}
+
 <section class="part" aria-labelledby="loi-hay-gap">
   {label(3) && <span class="part-label">{label(3)}</span>}
   <h2 id="loi-hay-gap">Lỗi hay gặp</h2>

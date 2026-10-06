@@ -6,7 +6,7 @@ export const TRACK_NAMES: Record<Track, string> = {
   interview: 'Phỏng vấn',
 };
 
-/** Danh sách 30 bài đã chốt ở SPEC mục 6, dùng cho trang chủ trước khi đủ file nội dung. */
+/** Danh sách bài đã chốt ở SPEC mục 6, dùng cho trang chủ trước khi đủ file nội dung. */
 export const TRACK_OUTLINE: Record<Track, string[]> = {
   standup: [
     'Hôm qua đã làm gì',
@@ -19,6 +19,9 @@ export const TRACK_OUTLINE: Record<Track, string[]> = {
     'Báo trễ và đề xuất mốc mới',
     'Không đồng ý một cách lịch sự',
     'Tóm tắt một buổi họp',
+    'Chen vào và xác nhận lại trong cuộc họp',
+    'Giải thích kỹ thuật cho người không làm kỹ thuật',
+    'Nói chuyện xã giao đầu buổi họp',
   ],
   writing: [
     'Tiêu đề và mô tả pull request',
@@ -31,6 +34,10 @@ export const TRACK_OUTLINE: Record<Track, string[]> = {
     'Email xin nghỉ, xin dời lịch',
     'Viết ghi chú bàn giao',
     'Từ chối hoặc xin thêm thời gian',
+    'Cập nhật khi có sự cố',
+    'Báo tin xấu hoặc rủi ro cho khách',
+    'Acceptance criteria và kết quả test',
+    'Đọc hiểu tin nhắn của đồng nghiệp nước ngoài',
   ],
   interview: [
     'Giới thiệu bản thân',

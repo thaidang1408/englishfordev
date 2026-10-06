@@ -1,6 +1,11 @@
 import { z } from 'zod';
 
 export const TRACKS = ['standup', 'writing', 'interview'] as const;
+
+/** Ngành người dùng chọn (SPEC mục 16). Để ở đây để file này không import file khác trong dự án. */
+export const ROLES = ['dev', 'qa', 'ba', 'pm'] as const;
+export const roleSchema = z.enum(ROLES);
+export type Role = z.infer<typeof roleSchema>;
 export const trackSchema = z.enum(TRACKS);
 export type Track = z.infer<typeof trackSchema>;
 
@@ -30,9 +35,14 @@ export const lessonSchema = z
     examples: z.array(z.strictObject({ en: text, vi: text })).length(5),
     mistakes: z.array(z.strictObject({ wrong: text, right: text, right_vi: text, why_vi: text })).length(3),
     word_bank: z.array(text),
+    // Tin nhắn hoàn chỉnh như ngoài đời và các ý bài viết nên có (SPEC mục 15).
+    model: z.strictObject({ title_vi: text, en: text, vi: text }),
+    checklist_vi: z.array(text).min(3).max(5),
     quiz: z.array(quizItemSchema).length(10),
     write_prompt_vi: text,
     question_en: text.optional(),
+    // Bài chuyên ngành (SPEC mục 16). Không có là bài chung.
+    roles: z.array(roleSchema).min(1).max(3).optional(),
   })
   .superRefine((lesson, ctx) => {
     const isFreeLesson = lesson.track === 'standup' && lesson.id <= 3;

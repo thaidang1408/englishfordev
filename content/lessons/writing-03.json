@@ -4,39 +4,42 @@
   "slug": "comment-khi-review-code",
   "title": "Comment khi review code",
   "free": false,
-  "goal_vi": "Góp ý code của người khác theo kiểu gợi ý, không ra lệnh.",
+  "roles": [
+    "dev"
+  ],
+  "goal_vi": "Góp ý code của người khác theo kiểu gợi ý, có lý do, và nói rõ góp ý nào chỉ là nhỏ.",
   "pattern": {
     "formula": "Could we + V + object? / Maybe we should + V + object.",
-    "note_vi": "Dùng we thay vì you để góp ý nhẹ nhàng. Sau could và should là động từ nguyên mẫu."
+    "note_vi": "Dùng we thay vì you để góp ý nhẹ nhàng, nói về code chứ không nói về người viết. Sau could và should là động từ nguyên mẫu. Thêm một câu lý do ngay sau góp ý. Góp ý nhỏ, không bắt buộc thì gắn nhãn nit: hoặc Optional:."
   },
   "examples": [
     {
-      "en": "Could we move this logic into a helper function?",
-      "vi": "Mình tách đoạn logic này ra một hàm helper được không?"
+      "en": "Could we move this logic into a helper function? It's repeated in three places.",
+      "vi": "Mình tách đoạn logic này ra một hàm helper được không? Nó đang lặp lại ở ba chỗ."
     },
     {
       "en": "Maybe we should add a test for the empty list case.",
       "vi": "Có lẽ mình nên thêm test cho trường hợp danh sách rỗng."
     },
     {
-      "en": "nit: Could we rename this to userId?",
-      "vi": "Góp ý nhỏ: mình đổi tên chỗ này thành userId được không?"
+      "en": "nit: Could we rename this to userId? It's easier to search for.",
+      "vi": "Góp ý nhỏ: mình đổi tên chỗ này thành userId được không? Như vậy dễ tìm hơn."
     },
     {
       "en": "Could we add an index on user_id? This query runs on every page load.",
       "vi": "Mình thêm index cho user_id được không? Query này chạy mỗi lần tải trang."
     },
     {
-      "en": "Maybe we should log the error here instead of ignoring it.",
-      "vi": "Có lẽ mình nên log lỗi ở đây thay vì bỏ qua nó."
+      "en": "Maybe we should log the error here instead of ignoring it. Otherwise it'll be hard to debug in production.",
+      "vi": "Có lẽ mình nên log lỗi ở đây thay vì bỏ qua nó. Không thì lên production sẽ rất khó debug."
     }
   ],
   "mistakes": [
     {
       "wrong": "You must change this.",
-      "right": "Could we change this?",
-      "right_vi": "Mình đổi chỗ này được không?",
-      "why_vi": "must nghe như ra lệnh. Could we nghe như cùng bàn với nhau."
+      "right": "Could we change this to a map? The lookup runs on every request.",
+      "right_vi": "Mình đổi chỗ này sang map được không? Phần tra cứu này chạy ở mọi request.",
+      "why_vi": "must nghe như ra lệnh, lại không nói đổi thành gì. Could we cộng một câu lý do nghe như cùng bàn với nhau."
     },
     {
       "wrong": "Could we to move this to a helper?",
@@ -55,12 +58,26 @@
     "Could we",
     "Maybe we should",
     "nit:",
-    "move into",
-    "extract",
-    "rename",
-    "handle",
+    "Optional:",
+    "What do you think about...?",
+    "Is there a reason we...?",
+    "since",
+    "otherwise",
+    "pull out into",
     "edge case",
-    "What do you think?"
+    "not a blocker",
+    "Nice cleanup"
+  ],
+  "model": {
+    "title_vi": "Các comment review có lý do và nhãn mức độ",
+    "en": "Nice cleanup, this is much easier to read now.\nCould we add an index on orders.user_id? This query runs on every page load, so it'll get slow as the table grows.\nnit: Could we rename data to orders? It makes the loop easier to follow.\nOne question: is there a reason we don't retry when the payment API times out?",
+    "vi": "Dọn code gọn lắm, giờ đọc dễ hơn hẳn.\nMình thêm index cho orders.user_id được không? Query này chạy mỗi lần tải trang, bảng càng lớn sẽ càng chậm.\nGóp ý nhỏ: mình đổi tên data thành orders được không? Như vậy vòng lặp dễ theo dõi hơn.\nMình hỏi chút: có lý do gì mà mình không thử gọi lại khi API thanh toán bị timeout không?"
+  },
+  "checklist_vi": [
+    "Dùng we hoặc nói về code, không ra lệnh cho người viết.",
+    "Mỗi góp ý chính có một câu lý do vì sao nên đổi.",
+    "Góp ý nhỏ, không bắt buộc có nhãn nit: hoặc Optional:.",
+    "Nói cụ thể nên đổi thành gì, không chỉ nói chỗ này chưa ổn."
   ],
   "quiz": [
     {
@@ -69,120 +86,120 @@
       "options": [
         "Could we add a null check here?",
         "Could we adding a null check here?",
-        "Could we add null check at here?"
+        "Could we add a null check at here?"
       ],
       "answer": 0,
       "answer_vi": "Mình thêm kiểm tra null ở đây được không?",
-      "why_vi": "Sau could là động từ nguyên mẫu. Cần a trước null check, và here không đi với at."
+      "why_vi": "Sau could là động từ nguyên mẫu: add. here đứng một mình, không có at phía trước."
     },
     {
       "id": "w03q2",
-      "prompt_vi": "Mình tách hàm này ra cho dễ đọc được không?",
-      "options": [
-        "Could we split this function to make it easier to read?",
-        "Could we split this function for easy to read?",
-        "Could we split this function to make it easier for read?"
-      ],
-      "answer": 0,
-      "answer_vi": "Mình tách hàm này ra cho dễ đọc được không?",
-      "why_vi": "Chỉ mục đích dùng to + V: to make it easier to read."
-    },
-    {
-      "id": "w03q3",
       "prompt_vi": "Sao mình không dùng hằng số ở đây?",
       "options": [
         "Why don't we use a constant here?",
         "Why we don't use a constant here?",
-        "Why don't we use constant at here?"
+        "Why don't we use constant here?"
       ],
       "answer": 0,
       "answer_vi": "Sao mình không dùng hằng số ở đây?",
-      "why_vi": "Câu hỏi why đặt don't trước we. Cần a trước constant."
+      "why_vi": "Câu hỏi why đặt don't trước we. constant là danh từ đếm được số ít nên cần từ hạn định như a."
     },
     {
-      "id": "w03q4",
-      "prompt_vi": "Góp ý nhỏ: chỗ này thiếu dấu chấm phẩy.",
-      "options": [
-        "nit: There's a missing semicolon here.",
-        "nit: Here is missing a semicolon.",
-        "nit: It has missing semicolon here."
-      ],
-      "answer": 0,
-      "answer_vi": "Góp ý nhỏ: chỗ này thiếu dấu chấm phẩy.",
-      "why_vi": "Nói có hoặc thiếu thứ gì ở đâu thì dùng There's + danh từ + here."
-    },
-    {
-      "id": "w03q5",
-      "prompt_vi": "Có lẽ mình nên thêm test cho trường hợp này.",
-      "options": [
-        "Maybe we should add a test for this case.",
-        "Maybe we should adding a test for this case.",
-        "Maybe we should add test for this case."
-      ],
-      "answer": 0,
-      "answer_vi": "Có lẽ mình nên thêm test cho trường hợp này.",
-      "why_vi": "Sau should là động từ nguyên mẫu. test đếm được nên cần a."
-    },
-    {
-      "id": "w03q6",
-      "prompt_vi": "Mình chuyển giá trị timeout này vào file config được không?",
-      "options": [
-        "Could we move this timeout value to the config file?",
-        "Could we move this timeout value to the file config?",
-        "Could we move this timeout value in the config file?"
-      ],
-      "answer": 0,
-      "answer_vi": "Mình chuyển giá trị timeout này vào file config được không?",
-      "why_vi": "Từ bổ nghĩa đứng trước: config file. Chuyển vào đâu dùng to, không dùng in."
-    },
-    {
-      "id": "w03q7",
-      "prompt_vi": "Có lẽ mình nên tách PR này thành hai PR nhỏ hơn.",
-      "options": [
-        "Maybe we should split this PR into two smaller PRs.",
-        "Maybe we should split this PR to two smaller PRs.",
-        "Maybe we should split this PR into two more small PRs."
-      ],
-      "answer": 0,
-      "answer_vi": "Có lẽ mình nên tách PR này thành hai PR nhỏ hơn.",
-      "why_vi": "Tách thành dùng split into. Tính từ ngắn so sánh hơn thêm er: smaller."
-    },
-    {
-      "id": "w03q8",
+      "id": "w03q3",
       "prompt_vi": "Mình dùng biến môi trường thay vì hardcode URL được không?",
       "options": [
         "Could we use an environment variable instead of hardcoding the URL?",
         "Could we use an environment variable instead of hardcode the URL?",
-        "Could we use environment variable instead of hardcoding the URL?"
+        "Could we use an environment variable instead hardcoding the URL?"
       ],
       "answer": 0,
       "answer_vi": "Mình dùng biến môi trường thay vì hardcode URL được không?",
-      "why_vi": "Sau instead of dùng V-ing. variable đếm được nên cần an."
+      "why_vi": "Thay vì là instead of, không bỏ of. Sau of thì động từ thêm ing: hardcoding."
+    },
+    {
+      "id": "w03q4",
+      "prompt_vi": "Mình chuyển giá trị timeout này vào file config được không?",
+      "options": [
+        "Could we move this timeout value to the config file?",
+        "Could we move this timeout value to the file config?",
+        "Could we move this timeout value at the config file?"
+      ],
+      "answer": 0,
+      "answer_vi": "Mình chuyển giá trị timeout này vào file config được không?",
+      "why_vi": "Từ bổ nghĩa đứng trước: config file. Chuyển tới đâu dùng move to hoặc move into, không dùng at."
+    },
+    {
+      "id": "w03q5",
+      "prompt_vi": "Chọn comment review phù hợp hơn.",
+      "options": [
+        "Could we add a test for the empty list case? That's where the last bug came from.",
+        "Add a test.",
+        "Sorry, I'm not sure at all, but maybe it might be nice to perhaps add a test, if you have time?"
+      ],
+      "answer": 0,
+      "answer_vi": "Mình thêm test cho trường hợp danh sách rỗng được không? Lỗi lần trước xuất phát từ đó.",
+      "why_vi": "Câu đầu gợi ý cụ thể và có lý do. Add a test nghe như ra lệnh, không nói test gì. Câu thứ ba rào đón quá nhiều, người đọc không biết bạn có thật sự muốn thêm test không."
+    },
+    {
+      "id": "w03q6",
+      "prompt_vi": "Bạn chưa hiểu vì sao code viết như vậy. Chọn cách hỏi phù hợp hơn.",
+      "options": [
+        "Is there a reason we're not using the existing date helper here?",
+        "Why didn't you use the date helper?",
+        "I'm probably wrong, sorry, but I was just wondering if there might maybe be some reason for this?"
+      ],
+      "answer": 0,
+      "answer_vi": "Có lý do gì mà ở đây mình không dùng hàm helper xử lý ngày có sẵn không?",
+      "why_vi": "Is there a reason we... hỏi thật lòng và nói về code. Why didn't you... nghe như trách người viết. Câu thứ ba xin lỗi quá nhiều và không nói đang hỏi về chỗ nào."
+    },
+    {
+      "id": "w03q7",
+      "prompt_vi": "Chọn comment phù hợp cho một góp ý nhỏ, không bắt buộc.",
+      "options": [
+        "nit: This could be a const.",
+        "This must be a const.",
+        "Could we please discuss whether this variable should be a const before we merge?"
+      ],
+      "answer": 0,
+      "answer_vi": "Góp ý nhỏ: chỗ này có thể dùng const.",
+      "why_vi": "nit: báo cho người viết biết đây là góp ý nhỏ, sửa hay không cũng được. must biến nó thành bắt buộc. Câu thứ ba làm góp ý nhỏ thành việc lớn, chặn cả việc merge."
+    },
+    {
+      "id": "w03q8",
+      "prompt_vi": "Reviewer comment: 'Not a blocker, but we might want to pull this out into a hook. Happy to approve as is.' Ý họ là gì?",
+      "options": [
+        "Góp ý không bắt buộc: có thể tách ra thành hook; PR vẫn được duyệt như hiện tại.",
+        "Phải tách ra thành hook thì PR mới được duyệt.",
+        "Họ muốn bạn xoá hook này đi."
+      ],
+      "answer": 0,
+      "answer_vi": "Góp ý không bắt buộc: có thể tách ra thành hook; PR vẫn được duyệt như hiện tại.",
+      "why_vi": "Not a blocker là không chặn việc merge. pull out into là tách ra thành. as is là giữ nguyên như hiện tại."
     },
     {
       "id": "w03q9",
-      "prompt_vi": "Có lẽ mình nên bắt lỗi khi gọi API thanh toán.",
+      "prompt_vi": "Reviewer comment: 'I'm not sure this handles the case where the user has no orders. Could you double-check?' Ý họ là gì?",
       "options": [
-        "Maybe we should catch errors from the payment API.",
-        "Maybe we should catches errors from the payment API.",
-        "Maybe we should catch errors of the payment API."
+        "Họ nghi code bị lỗi khi user không có đơn hàng nào, nhờ bạn kiểm tra lại.",
+        "Họ không biết user có đơn hàng nào không.",
+        "Họ đã kiểm tra và thấy code đúng."
       ],
       "answer": 0,
-      "answer_vi": "Có lẽ mình nên bắt lỗi từ API thanh toán.",
-      "why_vi": "Sau should là động từ nguyên mẫu. Lỗi trả về từ API thì dùng from."
+      "answer_vi": "Họ nghi code bị lỗi khi user không có đơn hàng nào, nhờ bạn kiểm tra lại.",
+      "why_vi": "I'm not sure this handles... là cách nói giảm, thật ra họ đang nghi có lỗi. double-check là kiểm tra lại cho chắc."
     },
     {
       "id": "w03q10",
-      "prompt_vi": "Chọn câu đúng.",
+      "prompt_vi": "Reviewer viết: 'Nice catch on the race condition. Left a couple of nits, nothing blocking. LGTM once CI is green.' Ý họ là gì?",
       "options": [
-        "Could we disable the button while the request is pending?",
-        "Could we disable the button while the request pending?",
-        "Could we disabled the button while the request is pending?"
+        "Họ khen bạn phát hiện race condition, có vài góp ý nhỏ không bắt buộc, CI pass là duyệt.",
+        "Họ tìm thấy race condition và chặn PR lại.",
+        "Họ muốn bạn sửa hết các nit rồi mới chạy CI."
       ],
       "answer": 0,
-      "answer_vi": "Mình khoá nút này trong lúc request đang chờ được không?",
-      "why_vi": "Vế sau while cần động từ: is pending. Sau could là động từ nguyên mẫu."
+      "answer_vi": "Họ khen bạn phát hiện race condition, có vài góp ý nhỏ không bắt buộc, CI pass là duyệt.",
+      "why_vi": "Nice catch là khen phát hiện tốt. nothing blocking là không có gì chặn merge. CI is green là CI chạy pass."
     }
   ],
-  "write_prompt_vi": "Viết 1 comment góp ý cho một đoạn code bạn từng review."
+  "write_prompt_vi": "Bạn review PR của Nam: hàm getOrders không xử lý danh sách rỗng, và biến d khó hiểu. Viết 2 comment: một góp ý chính có lý do, một góp ý nhỏ gắn nhãn nit:."
 }

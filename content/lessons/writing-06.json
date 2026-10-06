@@ -4,31 +4,31 @@
   "slug": "hoi-tren-slack-ngan-ma-du-y",
   "title": "Hỏi trên Slack ngắn mà đủ ý",
   "free": false,
-  "goal_vi": "Hỏi đồng nghiệp trên Slack bằng một câu Do you know lịch sự và đúng thứ tự từ.",
+  "goal_vi": "Hỏi đồng nghiệp trên Slack trong một tin đủ ý: bối cảnh, việc đã thử, câu hỏi Do you know đúng thứ tự từ, và mức gấp.",
   "pattern": {
     "formula": "Quick question: do you know + where/why/when + subject + verb?",
-    "note_vi": "Sau Do you know, phần câu hỏi giữ thứ tự chủ ngữ rồi động từ, không đảo và không thêm do/does."
+    "note_vi": "Sau Do you know, phần câu hỏi giữ thứ tự chủ ngữ rồi động từ, không đảo và không thêm do/does. Câu hỏi có/không thì thêm if hoặc whether. Viết luôn câu hỏi trong tin đầu, đừng chỉ gửi \"Hi\" rồi chờ."
   },
   "examples": [
     {
-      "en": "Quick question: does anyone know where the staging credentials are?",
-      "vi": "Hỏi nhanh: có ai biết thông tin đăng nhập staging để ở đâu không?"
+      "en": "Quick question: does anyone know where the staging credentials are? I checked the wiki but couldn't find them.",
+      "vi": "Hỏi nhanh: có ai biết thông tin đăng nhập staging để ở đâu không? Mình xem wiki rồi mà không thấy."
     },
     {
       "en": "I'm trying to run the tests locally. Do you know why the DB connection keeps failing?",
-      "vi": "Mình đang chạy test ở máy. Bạn có biết sao kết nối DB cứ bị lỗi không?"
+      "vi": "Mình đang thử chạy test trên máy local. Bạn có biết sao kết nối DB cứ bị lỗi không?"
     },
     {
-      "en": "Do you know when the next release is scheduled?",
-      "vi": "Bạn có biết bản release tới được lên lịch khi nào không?"
+      "en": "Do you know when the next release is scheduled? The client is asking.",
+      "vi": "Bạn có biết bản release tới được lên lịch khi nào không? Khách đang hỏi."
     },
     {
-      "en": "Quick question: do you know who's reviewing the auth PR?",
-      "vi": "Hỏi nhanh: bạn có biết ai đang review PR auth không?"
+      "en": "Quick question: do you know who's reviewing the auth PR? It's been open since Monday.",
+      "vi": "Hỏi nhanh: bạn có biết ai đang review PR auth không? PR mở từ thứ Hai tới giờ."
     },
     {
-      "en": "Do you know why the migration is taking so long on prod?",
-      "vi": "Bạn có biết sao migration trên prod chạy lâu vậy không?"
+      "en": "Do you know why the migration is taking so long on prod? Any pointers would help.",
+      "vi": "Bạn có biết sao migration trên prod chạy lâu vậy không? Bạn gợi ý hướng nào cũng giúp mình nhiều."
     }
   ],
   "mistakes": [
@@ -48,18 +48,32 @@
       "wrong": "Do you know the deploy is finished or not?",
       "right": "Do you know if the deploy is finished?",
       "right_vi": "Bạn có biết bản deploy đã xong chưa?",
-      "why_vi": "Hỏi có hay chưa thì dùng if ngay sau Do you know, không thêm or not ở cuối."
+      "why_vi": "Câu hỏi có/không nằm sau Do you know cần if hoặc whether."
     }
   ],
   "word_bank": [
     "Quick question",
-    "Do you know",
+    "Do you know if",
     "Does anyone know",
-    "where",
-    "why",
-    "when",
-    "who owns",
-    "keeps failing"
+    "I've already tried",
+    "keeps failing",
+    "I'm blocked on",
+    "Any pointers?",
+    "Thanks in advance",
+    "in a thread",
+    "ping"
+  ],
+  "model": {
+    "title_vi": "Tin Slack hỏi đồng nghiệp đủ ý trong một lần gửi",
+    "en": "Hi Nam, quick question about the payment service.\nI'm trying to run the integration tests locally, but the DB connection keeps timing out.\nI've already restarted Docker and checked my env vars against the README.\nDo you know if the local database needs a different config?\nI'm blocked on PAY-142 until this works, so any pointers would really help.\nThanks in advance.",
+    "vi": "Chào Nam, mình hỏi nhanh về service thanh toán.\nMình đang thử chạy integration test trên máy local, nhưng kết nối DB cứ bị timeout.\nMình đã khởi động lại Docker và so biến môi trường với README rồi.\nBạn có biết database local có cần config khác không?\nMình đang bị chặn ở PAY-142 cho tới khi chạy được, nên bạn gợi ý hướng nào cũng giúp mình nhiều.\nCảm ơn bạn trước nhé."
+  },
+  "checklist_vi": [
+    "Câu hỏi nằm ngay trong tin đầu, không chỉ chào rồi chờ.",
+    "Có một câu bối cảnh: bạn đang làm gì.",
+    "Nói bạn đã thử những gì.",
+    "Có câu hỏi cụ thể dạng Do you know + chủ ngữ + động từ.",
+    "Nói mức gấp hoặc việc nào đang bị chặn."
   ],
   "quiz": [
     {
@@ -68,62 +82,26 @@
       "options": [
         "Do you know where the API docs are?",
         "Do you know where are the API docs?",
-        "Do you know where is API docs?"
+        "Do you know where the API docs is?"
       ],
       "answer": 0,
       "answer_vi": "Bạn có biết tài liệu API ở đâu không?",
-      "why_vi": "Sau Do you know, chủ ngữ the API docs đứng trước are."
+      "why_vi": "Sau Do you know, chủ ngữ the API docs đứng trước động từ. docs số nhiều nên đi với are."
     },
     {
       "id": "w06q2",
       "prompt_vi": "Có ai biết vì sao CI đang bị fail không?",
       "options": [
         "Does anyone know why CI is failing?",
-        "Does anyone know why is CI failing?",
+        "Does anyone know why does CI fail?",
         "Do anyone know why CI is failing?"
       ],
       "answer": 0,
       "answer_vi": "Có ai biết vì sao CI đang bị fail không?",
-      "why_vi": "anyone đi với does. Phần sau why giữ thứ tự CI is failing."
+      "why_vi": "Phần sau why không thêm does. anyone đi với does, không đi với do."
     },
     {
       "id": "w06q3",
-      "prompt_vi": "Bạn có biết ai phụ trách service này không?",
-      "options": [
-        "Do you know who owns this service?",
-        "Do you know who is own this service?",
-        "Do you know who own this service?"
-      ],
-      "answer": 0,
-      "answer_vi": "Bạn có biết ai phụ trách service này không?",
-      "why_vi": "who làm chủ ngữ số ít nên owns, không thêm is."
-    },
-    {
-      "id": "w06q4",
-      "prompt_vi": "Bạn có biết khi nào bản mới được deploy không?",
-      "options": [
-        "Do you know when the new version will be deployed?",
-        "Do you know when will the new version be deployed?",
-        "Do you know when the new version will be deploy?"
-      ],
-      "answer": 0,
-      "answer_vi": "Bạn có biết khi nào bản mới được deploy không?",
-      "why_vi": "Không đảo will lên trước chủ ngữ. Bị động dùng be + V3: deployed."
-    },
-    {
-      "id": "w06q5",
-      "prompt_vi": "Hỏi nhanh: bạn có biết lấy API key ở đâu không?",
-      "options": [
-        "Quick question: do you know where I can get the API key?",
-        "Quick question: do you know where can I get the API key?",
-        "Quick question: do you know where I can get API key?"
-      ],
-      "answer": 0,
-      "answer_vi": "Hỏi nhanh: bạn có biết lấy API key ở đâu không?",
-      "why_vi": "Giữ thứ tự I can. Cần the trước API key."
-    },
-    {
-      "id": "w06q6",
       "prompt_vi": "Bạn có biết QA đã test ticket này chưa?",
       "options": [
         "Do you know if QA has tested this ticket?",
@@ -132,46 +110,10 @@
       ],
       "answer": 0,
       "answer_vi": "Bạn có biết QA đã test ticket này chưa?",
-      "why_vi": "Hỏi có hay chưa dùng if và giữ thứ tự QA has. Sau has là V3: tested."
+      "why_vi": "Hỏi có hay chưa thì thêm if và giữ thứ tự QA has. Sau has là V3: tested."
     },
     {
-      "id": "w06q7",
-      "prompt_vi": "Có ai biết sao app iOS không nhận được thông báo không?",
-      "options": [
-        "Does anyone know why the iOS app isn't getting notifications?",
-        "Does anyone know why isn't the iOS app getting notifications?",
-        "Does anyone know why the iOS app don't get notifications?"
-      ],
-      "answer": 0,
-      "answer_vi": "Có ai biết sao app iOS không nhận được thông báo không?",
-      "why_vi": "Sau why giữ thứ tự chủ ngữ rồi động từ. the iOS app số ít, không đi với don't."
-    },
-    {
-      "id": "w06q8",
-      "prompt_vi": "Bạn có biết khi nào buổi sprint planning bắt đầu không?",
-      "options": [
-        "Do you know when sprint planning starts?",
-        "Do you know when sprint planning will starts?",
-        "Do you know when sprint planning start?"
-      ],
-      "answer": 0,
-      "answer_vi": "Bạn có biết khi nào buổi sprint planning bắt đầu không?",
-      "why_vi": "Sau will là động từ nguyên mẫu. sprint planning số ít nên starts."
-    },
-    {
-      "id": "w06q9",
-      "prompt_vi": "Hỏi nhanh: bạn có biết bảng nào lưu log thanh toán không?",
-      "options": [
-        "Quick question: do you know which table stores the payment logs?",
-        "Quick question: do you know which table store the payment logs?",
-        "Quick question: do you know which table stores the logs payment?"
-      ],
-      "answer": 0,
-      "answer_vi": "Hỏi nhanh: bạn có biết bảng nào lưu log thanh toán không?",
-      "why_vi": "which table số ít nên stores. Từ bổ nghĩa đứng trước: payment logs."
-    },
-    {
-      "id": "w06q10",
+      "id": "w06q4",
       "prompt_vi": "Bạn có biết khách muốn đổi gì trong API không?",
       "options": [
         "Do you know what the client wants to change in the API?",
@@ -180,8 +122,80 @@
       ],
       "answer": 0,
       "answer_vi": "Bạn có biết khách muốn đổi gì trong API không?",
-      "why_vi": "Sau Do you know không dùng does. Muốn làm gì là wants to + V."
+      "why_vi": "Sau Do you know không thêm does. Muốn làm gì là wants to + động từ."
+    },
+    {
+      "id": "w06q5",
+      "prompt_vi": "Bạn hỏi lead chỗ lấy staging credentials. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "Hi Lan, quick question: do you know where the staging credentials are? I checked the wiki but couldn't find them.",
+        "Hi Lan",
+        "Hi Lan, I'm so sorry to bother you, I know you're really busy, but I was wondering if you might possibly know where the staging credentials could be?"
+      ],
+      "answer": 0,
+      "answer_vi": "Chào Lan, mình hỏi nhanh: bạn có biết staging credentials để ở đâu không? Mình xem wiki rồi mà không thấy.",
+      "why_vi": "Chỉ gửi \"Hi Lan\" bắt người kia phải chờ bạn gõ tiếp. Câu thứ ba xin lỗi và rào đón quá nhiều. Câu đầu hỏi ngay, kèm việc đã thử."
+    },
+    {
+      "id": "w06q6",
+      "prompt_vi": "Bạn hỏi cả kênh #backend vì sao CI fail. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "Does anyone know why CI is failing on main? It started after the 10:30 merge, and I've already re-run it twice.",
+        "Who broke CI?",
+        "Sorry everyone, this is probably a stupid question, but does anyone maybe know why CI is failing?"
+      ],
+      "answer": 0,
+      "answer_vi": "Có ai biết sao CI trên main đang fail không? Lỗi bắt đầu sau lần merge lúc 10:30, mình đã chạy lại hai lần rồi.",
+      "why_vi": "\"Who broke CI?\" nghe như đổ lỗi. Câu thứ ba tự hạ mình không cần thiết. Câu đầu hỏi về vấn đề, có mốc thời gian và việc đã thử."
+    },
+    {
+      "id": "w06q7",
+      "prompt_vi": "Bạn cần bản mới trên staging trước buổi demo 3 giờ. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "Do you know when the new build will be on staging? The client demo is at 3 PM, so I'd need it by 2.",
+        "When's the deploy? Need it now.",
+        "Whenever you have some free time, no pressure at all, could you let me know when the new build might be on staging?"
+      ],
+      "answer": 0,
+      "answer_vi": "Bạn có biết khi nào bản mới lên staging không? Buổi demo với khách lúc 3 giờ chiều, nên muộn nhất 2 giờ mình cần có.",
+      "why_vi": "Câu thứ hai cụt và giục ép. Câu thứ ba nói \"no pressure\" nên người đọc không biết việc đang gấp. Câu đầu nói rõ lý do và mốc cần."
+    },
+    {
+      "id": "w06q8",
+      "prompt_vi": "Bạn hỏi lỗi đăng nhập trong thread. Đồng nghiệp trả lời: \"Not sure tbh. Try pinging Minh, he owns the auth service. Also check #infra, someone hit the same issue last week.\" Ý họ là gì?",
+      "options": [
+        "Họ không chắc; bạn nên nhắn Minh vì Minh phụ trách service auth, và xem kênh #infra vì tuần trước có người gặp lỗi tương tự.",
+        "Họ sẽ nhắn Minh giúp bạn rồi báo lại trong kênh #infra.",
+        "Minh đã làm hỏng service auth tuần trước."
+      ],
+      "answer": 0,
+      "answer_vi": "Thật lòng mình không chắc. Bạn thử nhắn Minh, Minh phụ trách service auth. Xem thêm kênh #infra, tuần trước có người gặp đúng lỗi này.",
+      "why_vi": "tbh là to be honest. ping ai đó là nhắn cho họ. owns ở đây là phụ trách. hit the same issue là gặp cùng lỗi."
+    },
+    {
+      "id": "w06q9",
+      "prompt_vi": "Lead trả lời câu hỏi của bạn: \"Good q. Let me look into it and get back to you by EOD. Can you drop the error log in the thread in the meantime?\" Ý họ là gì?",
+      "options": [
+        "Lead sẽ tìm hiểu và trả lời bạn muộn nhất cuối ngày; trong lúc chờ, bạn gửi log lỗi vào thread.",
+        "Lead muốn bạn tự tìm hiểu và báo lại trước khi hết giờ.",
+        "Lead bảo bạn xoá log lỗi khỏi thread."
+      ],
+      "answer": 0,
+      "answer_vi": "Câu hỏi hay. Để mình tìm hiểu rồi trả lời bạn muộn nhất cuối ngày. Trong lúc đó bạn gửi log lỗi vào thread nhé.",
+      "why_vi": "look into là tìm hiểu, get back to you là trả lời lại, EOD là end of day. drop something in the thread là gửi vào thread, in the meantime là trong lúc chờ."
+    },
+    {
+      "id": "w06q10",
+      "prompt_vi": "Bạn nhắn riêng hỏi một đồng nghiệp. Họ trả lời: \"Mind posting this in #mobile-dev instead of DMing me? That way others can chime in. Let's keep the replies in a thread.\" Ý họ là gì?",
+      "options": [
+        "Bạn nên đăng câu hỏi lên kênh #mobile-dev thay vì nhắn riêng, để người khác cùng góp ý, và trả lời trong thread.",
+        "Họ không muốn trả lời câu hỏi của bạn nữa.",
+        "Bạn nên nhắn riêng cho từng người trong #mobile-dev."
+      ],
+      "answer": 0,
+      "answer_vi": "Bạn đăng câu này lên #mobile-dev thay vì nhắn riêng cho mình được không? Như vậy người khác cũng góp ý được. Mình trả lời nhau trong thread nhé.",
+      "why_vi": "Mind + V-ing? là cách nhờ lịch sự. DM là nhắn tin riêng. chime in là góp lời vào. Họ vẫn sẵn lòng giúp, chỉ muốn hỏi ở nơi chung."
     }
   ],
-  "write_prompt_vi": "Viết 1 tin nhắn Slack hỏi đồng nghiệp một điều bạn đang cần biết."
+  "write_prompt_vi": "Viết một tin Slack 3 đến 5 câu hỏi anh Tuấn (backend): API staging trả lỗi 401 dù bạn đã lấy token mới. Có bối cảnh, việc đã thử, câu hỏi Do you know, và mức gấp."
 }

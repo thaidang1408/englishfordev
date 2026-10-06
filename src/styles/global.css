@@ -937,6 +937,72 @@
   @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
 }
 
+/* M9: tin hoàn chỉnh trong bài, danh sách "Bài viết nên có", ý còn thiếu sau khi sửa */
+@layer components {
+  .model-msg {
+    margin-top: var(--s-3); padding: 14px 16px; border-radius: var(--r-md); border: 1px solid var(--line); border-left: 3px solid var(--accent);
+    background: var(--panel-2); white-space: pre-line; font-size: var(--fs-sm); line-height: 1.65;
+  }
+  .model-msg.vi { border-left-color: var(--amber); }
+  .model-vi { margin-top: var(--s-3); }
+  .model-vi summary { cursor: pointer; font-weight: 600; font-size: var(--fs-sm); color: var(--accent-text); }
+  .checklist { margin: var(--s-3) 0 var(--s-4); padding: 12px 16px; border-radius: var(--r-md); background: var(--accent-tint); font-size: var(--fs-sm); }
+  .checklist ul, .missing ul { margin: 6px 0 0; padding-left: 20px; }
+  .checklist .muted { margin: 6px 0 0; }
+  .missing { margin-top: var(--s-3); }
+}
+
+/* M10: chọn ngành, nhãn ngành, lọc bài theo ngành ở trang chủ (chỉ CSS, chạy cả khi tắt JavaScript) */
+@layer components {
+  .role-pick { border: 0; padding: 0; margin: 0 0 var(--s-5); }
+  .role-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: var(--s-3); }
+  .role-chip { position: relative; cursor: pointer; }
+  .role-chip input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+  .role-chip span {
+    display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: var(--r-pill);
+    border: 1px solid var(--line); background: var(--panel); font-weight: 600; transition: border-color .15s, background-color .15s, color .15s;
+  }
+  .role-chip span::before { content: ""; width: 16px; height: 16px; border-radius: 5px; border: 2px solid var(--line); background: var(--panel); flex: none; }
+  .role-chip input:checked + span { border-color: var(--accent); background: var(--accent-tint); color: var(--accent-text); }
+  .role-chip input:checked + span::before { border-color: var(--accent); background: var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E") center/12px no-repeat; }
+  .role-chip input:focus-visible + span { outline: 3px solid color-mix(in srgb, var(--accent) 45%, transparent); outline-offset: 2px; }
+  .role-chip input[type="radio"] + span::before { border-radius: 50%; }
+  .role-cards { display: grid; gap: 10px; margin-top: var(--s-3); }
+  @media (min-width: 560px) { .role-cards { grid-template-columns: 1fr 1fr; } }
+  .role-card { position: relative; cursor: pointer; display: block; }
+  .role-card input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+  .role-card > span {
+    display: grid; grid-template-columns: 20px 1fr; column-gap: 12px; row-gap: 2px; align-items: start; height: 100%;
+    padding: 12px 14px; border-radius: var(--r-md); border: 1px solid var(--line); background: var(--panel);
+    transition: border-color .15s, background-color .15s;
+  }
+  .role-card > span::before { content: ""; grid-row: 1 / span 2; margin-top: 2px; width: 18px; height: 18px; border-radius: 5px; border: 2px solid var(--line); background: var(--panel); }
+  .role-card b { font-weight: 600; }
+  .role-card small { grid-column: 2; color: var(--muted); font-size: var(--fs-xs); line-height: 1.45; }
+  .role-card input:checked + span { border-color: var(--accent); background: var(--accent-tint); }
+  .role-card input:checked + span b { color: var(--accent-text); }
+  .role-card input:checked + span::before { border-color: var(--accent); background: var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E") center/12px no-repeat; }
+  .role-card input:focus-visible + span { outline: 3px solid color-mix(in srgb, var(--accent) 45%, transparent); outline-offset: 2px; }
+  .role-help { max-width: 640px; margin: 0 auto var(--s-5); font-size: var(--fs-sm); }
+  .role-help summary { text-align: center; cursor: pointer; color: var(--accent-text); font-weight: 600; }
+  .role-help dl { display: grid; gap: 8px; margin: var(--s-3) 0 0; padding: 14px 16px; border-radius: var(--r-md); background: var(--panel); border: 1px solid var(--line); }
+  .role-help dl div { display: grid; grid-template-columns: 96px 1fr; gap: 10px; }
+  .role-help dt { font-weight: 600; }
+  .role-help dd { margin: 0; color: var(--muted); }
+  .role-help > p { text-align: center; margin: var(--s-2) 0 0; }
+  .role-tag { display: inline-block; margin: 2px 0; padding: 1px 8px; border-radius: var(--r-pill); background: var(--amber-tint); color: var(--amber-text); font-size: 11px; font-weight: 600; }
+  .lrow.off-role { opacity: .55; }
+  .role-filter { border: 0; padding: 0; margin: 0 0 var(--s-5); display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+  .role-filter legend { width: 100%; text-align: center; margin-bottom: var(--s-2); font-size: var(--fs-sm); color: var(--muted); }
+  .role-filter .role-chip span::before { display: none; }
+  .role-filter .role-chip span { min-height: 40px; padding: 0 16px; }
+  .role-filter .role-chip input:checked + span { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+  #bai-hoc:has(#loc-dev:checked) .lesson-mini li[data-roles]:not([data-roles~="dev"]),
+  #bai-hoc:has(#loc-qa:checked) .lesson-mini li[data-roles]:not([data-roles~="qa"]),
+  #bai-hoc:has(#loc-ba:checked) .lesson-mini li[data-roles]:not([data-roles~="ba"]),
+  #bai-hoc:has(#loc-pm:checked) .lesson-mini li[data-roles]:not([data-roles~="pm"]) { display: none; }
+}
+
 /* Nút nổi bật hơn (06/10/2026): nút chính chuyển màu tím, viền sáng, bóng màu, nhấc lên khi rê, lún khi bấm, vệt sáng lướt qua.
    Nút phụ có bóng nhẹ và đổi viền tím. Vẫn một nút tím mỗi màn hình. */
 @layer components {

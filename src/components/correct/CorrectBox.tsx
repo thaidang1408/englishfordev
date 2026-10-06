@@ -125,12 +125,12 @@ export default function CorrectBox({ lessonKey, next, primary = false, label = '
         ref={areaRef}
         className="correct-input"
         lang="en"
-        rows={3}
+        rows={5}
         maxLength={MAX}
         value={text}
         onChange={(e) => setText(e.target.value)}
         onKeyDown={onKey}
-        placeholder="Yesterday I fixed the login bug and..."
+        placeholder="Viết bằng tiếng Anh ở đây"
         aria-describedby={`${id}-count`}
         disabled={!ready || state.kind === 'busy'}
       />

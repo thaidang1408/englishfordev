@@ -26,3 +26,20 @@ argument-hint: "[lesson_key, ví dụ standup-04]"
 - Tiếng Việt xưng "mình" trong câu ví dụ, "bạn" trong lời hướng dẫn.
 
 Soạn xong tự đọc lại từng đáp án đúng một lần nữa như một người bản ngữ làm trong ngành phần mềm. Câu nào còn ngờ thì viết lại.
+
+## Chuẩn bản 1.2 (SPEC mục 15, từ 06/10/2026)
+
+Đọc `docs/research/content-audit.md` (đánh giá từng bài) và `docs/research/content-needs.md` (nhu cầu thật) trước khi soạn.
+
+- **`model`:** một tin, tài liệu hoặc câu trả lời hoàn chỉnh như ngoài đời, 3 đến 8 câu (phỏng vấn: STAR 80 đến 150 từ). Xuống dòng bằng `\n`. Dùng đúng mẫu câu của bài ở trong đó, nhưng có cả phần dẫn, lý do, lời kết. `title_vi` nói đây là gì ("Cập nhật standup đầy đủ", "Mô tả PR có What, Why, How to test"). `vi` dịch cả tin, giữ xuống dòng.
+  - Standup: hôm qua, hôm nay, vướng mắc trong 3 đến 4 câu.
+  - PR: tiêu đề, What, Why, How to test.
+  - Bug: tiêu đề, Steps to reproduce, Expected, Actual, Environment.
+  - Email khách: chào, điểm chính, việc tiếp theo hoặc rủi ro, cần khách làm gì, lời kết.
+- **`checklist_vi`:** 3 đến 5 ý, mỗi ý một câu ngắn nói bài viết cần có gì ("Có việc hôm qua đã xong", "Nói rõ cần ai giúp gì"). AI dùng danh sách này để báo ý còn thiếu, nên mỗi ý phải kiểm được trên văn bản.
+- **`write_prompt_vi`:** yêu cầu viết đúng loại tin thật, có bối cảnh cụ thể (vai, người nhận, việc). Ví dụ: "Viết cập nhật standup 3 đến 4 câu: hôm qua, hôm nay, và một chỗ đang vướng." Độ dài tối đa người dùng gửi được: 700 ký tự (phỏng vấn 1200).
+- **Trắc nghiệm 10 câu:** khoảng 4 câu hình thức, 3 câu "Chọn cách nói phù hợp hơn" (cả ba đáp án đúng ngữ pháp, khác giọng điệu: quá cụt, vừa, quá vòng vo hoặc quá khiêm tốn; `why_vi` nói vì sao), 3 câu đọc hiểu ("Đồng nghiệp nhắn: '...'. Ý họ là gì?", đáp án là câu tiếng Việt hoặc tiếng Anh diễn giải; dùng viết tắt và cụm động từ thật như LGTM, PTAL, EOD, ETA, nit, roll back, look into, follow up). Câu đọc hiểu có `prompt_vi` dài tới 40 từ là được.
+- **Không lặp quy tắc:** một quy tắc (thứ tự từ bổ nghĩa, động từ nguyên mẫu sau modal, mạo từ, -s) không làm đáp án sai quá 2 lần trong một bài. Đổi kiểu đáp án sai, đừng theo một công thức.
+- **Mạo từ:** giải thích là "danh từ đếm được số ít cần a/the/my...; dùng the vì người nghe biết là cái nào", không viết "đếm được nên cần the".
+- **"by + thời điểm"** dịch là "muộn nhất ..." hoặc "trong ... là xong", không dịch là "trước ...". Phân biệt finish **by** (hạn chót) với have time **until** (kéo dài tới).
+- **Quy ước khác ngữ pháp:** câu đúng ngữ pháp nhưng sai quy ước của team (tiêu đề PR dùng quá khứ, commit dùng -ing) thì `why_vi` nói rõ là quy ước, không gọi là sai. Không đặt câu đúng ngữ pháp làm đáp án sai ở câu hỏi "Chọn câu đúng".

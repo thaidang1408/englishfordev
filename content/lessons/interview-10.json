@@ -4,32 +4,31 @@
   "slug": "phong-van-luong-va-ngay-bat-dau",
   "title": "Nói về lương và ngày bắt đầu",
   "free": false,
-  "question_en": "What are your salary expectations, and when could you start?",
-  "goal_vi": "Nói mức lương mong muốn theo một khoảng, rõ gross hay net, và ngày sớm nhất bạn có thể bắt đầu.",
+  "goal_vi": "Nói mức lương mong muốn theo một khoảng, rõ gross hay net, theo tháng hay theo năm, biết hỏi lại khoảng lương của họ, và nói ngày sớm nhất bạn có thể bắt đầu.",
   "pattern": {
     "formula": "I'm looking for around + amount + gross / net per month. I can start + in + time / on + date.",
-    "note_vi": "Đưa một khoảng và nói rõ gross hay net. Tính từ bây giờ dùng in two weeks, ngày cụ thể dùng on."
+    "note_vi": "Đưa một khoảng và nói rõ gross hay net. Công ty nước ngoài hay tính theo năm: per year hoặc a year. Tính từ bây giờ dùng in two weeks, ngày cụ thể dùng on."
   },
   "examples": [
     {
       "en": "I'm looking for around 35 to 40 million VND gross per month. I can start in about a month, after my notice period.",
-      "vi": "Mình mong mức khoảng 35 đến 40 triệu gross mỗi tháng. Mình có thể bắt đầu sau khoảng một tháng, khi hết thời gian báo nghỉ."
+      "vi": "Mình mong mức khoảng 35 đến 40 triệu gross mỗi tháng. Mình có thể bắt đầu sau khoảng một tháng nữa, khi hết thời gian báo nghỉ."
     },
     {
       "en": "Based on my experience, I'm expecting around 2,000 USD net per month, but I'm open to discussing it.",
       "vi": "Dựa trên kinh nghiệm của mình, mình mong khoảng 2.000 USD net mỗi tháng, nhưng mình sẵn sàng trao đổi thêm."
     },
     {
-      "en": "I need to give 30 days' notice, so the earliest I can start is March 1st.",
-      "vi": "Mình cần báo trước 30 ngày, nên sớm nhất mình có thể bắt đầu vào ngày 1 tháng 3."
+      "en": "Before I give a number, I'd like to learn a bit more about the role. Could you share the range you have in mind?",
+      "vi": "Trước khi đưa con số, mình muốn tìm hiểu thêm về vị trí này. Anh chị cho mình biết khoảng lương bên mình dự kiến được không?"
     },
     {
-      "en": "I'm looking for around 15 to 18 million VND net per month, and I can start right away.",
-      "vi": "Mình mong khoảng 15 đến 18 triệu net mỗi tháng, và mình có thể bắt đầu ngay."
+      "en": "I'm looking for around 30,000 to 35,000 USD a year, depending on the total package. I can start on June 3rd.",
+      "vi": "Mình mong khoảng 30.000 đến 35.000 USD mỗi năm, tùy vào tổng đãi ngộ. Mình có thể bắt đầu vào ngày 3 tháng 6."
     },
     {
-      "en": "I'm looking for around 60 million VND gross per month, but I'm flexible depending on the bonus and benefits. I can start on June 3rd.",
-      "vi": "Mình mong khoảng 60 triệu gross mỗi tháng, nhưng có thể linh hoạt tùy vào thưởng và phúc lợi. Mình có thể bắt đầu vào ngày 3 tháng 6."
+      "en": "Thanks for the offer. Based on the scope of the role, I was hoping for something closer to 45 million gross. Is there any flexibility on the base salary?",
+      "vi": "Cảm ơn anh chị về lời mời. Dựa trên phạm vi công việc, mình mong mức gần 45 triệu gross hơn. Lương cơ bản có thể linh hoạt thêm không?"
     }
   ],
   "mistakes": [
@@ -40,10 +39,10 @@
       "why_vi": "million đứng sau một con số thì không thêm s."
     },
     {
-      "wrong": "I can start after 2 weeks.",
-      "right": "I can start in two weeks.",
-      "right_vi": "Mình có thể bắt đầu sau hai tuần nữa.",
-      "why_vi": "Tính từ bây giờ trở đi thì dùng in, không dùng after."
+      "wrong": "How long is the probation time?",
+      "right": "How long is the probation period?",
+      "right_vi": "Thời gian thử việc kéo dài bao lâu?",
+      "why_vi": "Thời gian thử việc là probation period, cụm này đi với period, không dùng time."
     },
     {
       "wrong": "I can start at next Monday.",
@@ -54,12 +53,26 @@
   ],
   "word_bank": [
     "I'm looking for around",
-    "gross",
-    "net",
-    "per month",
+    "gross / net",
+    "per month / a year",
+    "the total package",
+    "the range you have in mind",
+    "Is there any flexibility on",
+    "13th-month salary",
+    "probation period",
     "notice period",
-    "the earliest I can start",
-    "I'm open to discussing it"
+    "the earliest I can start"
+  ],
+  "model": {
+    "title_vi": "Câu trả lời đầy đủ về lương và ngày bắt đầu",
+    "en": "Thanks for asking. Based on my four years of backend experience and the scope of this role, I'm looking for around 45 to 50 million VND gross per month.\nThat range is for the base salary, so I'm open to discussing it if the package includes a 13th-month salary or a performance bonus.\nCould you share the range you have in mind for this position?\nAs for the start date, I need to give 30 days' notice at my current company, so the earliest I can start is March 1st.\nIf that's too late for you, I can check with my manager whether I can finish my handover a bit earlier.",
+    "vi": "Cảm ơn anh chị đã hỏi. Dựa trên bốn năm kinh nghiệm backend và phạm vi của vị trí này, mình mong khoảng 45 đến 50 triệu gross mỗi tháng.\nKhoảng này là lương cơ bản, nên mình sẵn sàng trao đổi thêm nếu đãi ngộ có lương tháng 13 hoặc thưởng hiệu suất.\nAnh chị cho mình biết khoảng lương dự kiến cho vị trí này được không?\nVề ngày bắt đầu, mình cần báo nghỉ trước 30 ngày ở công ty hiện tại, nên sớm nhất mình có thể bắt đầu vào ngày 1 tháng 3.\nNếu vậy là trễ với bên anh chị, mình có thể hỏi manager xem có bàn giao xong sớm hơn một chút được không."
+  },
+  "checklist_vi": [
+    "Đưa một khoảng lương cụ thể, có đơn vị tiền.",
+    "Nói rõ gross hay net, theo tháng hay theo năm.",
+    "Có câu cho thấy bạn sẵn sàng trao đổi, hoặc hỏi lại khoảng lương của họ.",
+    "Nói ngày sớm nhất bạn có thể bắt đầu và lý do, ví dụ thời gian báo nghỉ."
   ],
   "quiz": [
     {
@@ -68,63 +81,63 @@
       "options": [
         "I'm looking for around 30 million VND per month.",
         "I'm looking for around 30 millions VND per month.",
-        "I'm looking for around 30 million VND for month."
+        "I'm look for around 30 million VND per month."
       ],
       "answer": 0,
       "answer_vi": "Mình mong khoảng 30 triệu mỗi tháng.",
-      "why_vi": "million sau số không thêm s. Mỗi tháng là per month."
+      "why_vi": "million đứng sau một con số thì không thêm s. Đang mong, đang tìm là I'm looking for, cần đuôi ing sau am."
     },
     {
       "id": "i10q2",
+      "prompt_vi": "Recruiter hỏi lương khi bạn chưa rõ công việc. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "I'd like to learn a bit more about the role first. Could you share the range you have in mind?",
+        "I won't give you a number until you tell me yours.",
+        "Oh, I'm not sure, sorry. Whatever you think is fair for me is okay, I guess."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình muốn tìm hiểu thêm về vị trí này trước. Anh chị cho mình biết khoảng lương dự kiến được không?",
+      "why_vi": "Lịch sự hoãn con số và hỏi lại khoảng lương của họ. Câu thứ hai nghe như mặc cả gay gắt, câu thứ ba để họ tự quyết giá của bạn."
+    },
+    {
+      "id": "i10q3",
       "prompt_vi": "Mình có thể bắt đầu sau hai tuần nữa.",
       "options": [
         "I can start in two weeks.",
-        "I can start after two weeks.",
+        "I can start since two weeks.",
         "I can start in two week."
       ],
       "answer": 0,
       "answer_vi": "Mình có thể bắt đầu sau hai tuần nữa.",
-      "why_vi": "Tính từ bây giờ dùng in. two đi với danh từ số nhiều: weeks."
-    },
-    {
-      "id": "i10q3",
-      "prompt_vi": "Mình cần báo trước 30 ngày ở công ty hiện tại.",
-      "options": [
-        "I need to give 30 days' notice at my current company.",
-        "I need to inform before 30 days at my current company.",
-        "I need giving 30 days' notice at my current company."
-      ],
-      "answer": 0,
-      "answer_vi": "Mình cần báo trước 30 ngày ở công ty hiện tại.",
-      "why_vi": "Báo nghỉ trước là give notice. need + to V."
+      "why_vi": "Tính từ bây giờ dùng in two weeks; since chỉ đi với một mốc đã qua. two đi với danh từ số nhiều: weeks."
     },
     {
       "id": "i10q4",
-      "prompt_vi": "Sớm nhất mình có thể bắt đầu vào ngày 1 tháng 3.",
+      "prompt_vi": "Email của HR: 'We're pleased to offer you the position at 38M VND gross/month, plus a 13th-month salary. There's a two-month probation at 85% of base.' Ý họ là gì?",
       "options": [
-        "The earliest I can start is March 1st.",
-        "The earliest I can start is in March 1st.",
-        "Earliest I can start is March 1st."
+        "Lương 38 triệu gross mỗi tháng, có thêm lương tháng 13; hai tháng thử việc nhận 85% lương cơ bản.",
+        "Lương 38 triệu net mỗi tháng; thử việc hai tháng được thưởng thêm 85%.",
+        "Lương 38 triệu gross, nhưng chỉ nhận đủ sau 13 tháng làm việc."
       ],
       "answer": 0,
-      "answer_vi": "Sớm nhất mình có thể bắt đầu vào ngày 1 tháng 3.",
-      "why_vi": "Ngày cụ thể không dùng in. Cần the trước earliest."
+      "answer_vi": "Lương 38 triệu gross mỗi tháng, có thêm lương tháng 13; hai tháng thử việc nhận 85% lương cơ bản.",
+      "why_vi": "38M = 38 triệu. 13th-month salary = lương tháng 13. probation at 85% of base = thử việc nhận 85% lương cơ bản."
     },
     {
       "id": "i10q5",
-      "prompt_vi": "Đây là mức gross, và mình sẵn sàng trao đổi thêm.",
+      "prompt_vi": "Sớm nhất mình có thể bắt đầu vào ngày 1 tháng 3.",
       "options": [
-        "That's the gross amount, and I'm open to discussing it.",
-        "That's the gross amount, and I'm open to discuss it.",
-        "That's the gross amount, and I'm open for discussing it."
+        "The earliest I can start is March 1st.",
+        "The earliest I can start is at March 1st.",
+        "The most early I can start is March 1st."
       ],
       "answer": 0,
-      "answer_vi": "Đó là mức gross, và mình sẵn sàng trao đổi thêm.",
-      "why_vi": "open to + V-ing: to ở đây là giới từ nên động từ thêm ing."
+      "answer_vi": "Sớm nhất mình có thể bắt đầu vào ngày 1 tháng 3.",
+      "why_vi": "Sau is thì nói thẳng ngày, không thêm at. Sớm nhất là the earliest, không dùng the most early."
     },
     {
       "id": "i10q6",
-      "prompt_vi": "Chọn câu trả lời phù hợp hơn.",
+      "prompt_vi": "Chọn câu trả lời phù hợp hơn cho 'What are your salary expectations?'.",
       "options": [
         "I'm looking for around 25 to 28 million VND gross per month, and I can start in three weeks.",
         "Just pay me as much as you can.",
@@ -132,56 +145,57 @@
       ],
       "answer": 0,
       "answer_vi": "Mình mong khoảng 25 đến 28 triệu gross mỗi tháng, và mình có thể bắt đầu sau ba tuần nữa.",
-      "why_vi": "Đưa một khoảng cụ thể, rõ gross hay net. Không nói trống không, cũng không tự hạ giá mình."
+      "why_vi": "Đưa một khoảng cụ thể, rõ gross hay net. Câu thứ hai nghe thiếu chuyên nghiệp, câu thứ ba tự hạ giá mình."
     },
     {
       "id": "i10q7",
-      "prompt_vi": "Hiện mình nhận 20 triệu net mỗi tháng.",
+      "prompt_vi": "Recruiter nhắn: 'What's your current comp, and what's your notice period?' Ý họ là gì?",
       "options": [
-        "I currently earn 20 million VND net per month.",
-        "I'm currently earn 20 million VND net per month.",
-        "I currently earn net 20 million VND per month."
+        "Họ hỏi tổng thu nhập hiện tại của bạn và bạn phải báo nghỉ trước bao lâu.",
+        "Họ hỏi mức lương bạn mong muốn và ngày bạn muốn ký hợp đồng.",
+        "Họ hỏi công ty hiện tại của bạn tên gì và khi nào bạn nghỉ phép."
       ],
       "answer": 0,
-      "answer_vi": "Hiện mình nhận 20 triệu net mỗi tháng.",
-      "why_vi": "earn là động từ nên không thêm am. net đứng sau số tiền."
+      "answer_vi": "Họ hỏi tổng thu nhập hiện tại của bạn và bạn phải báo nghỉ trước bao lâu.",
+      "why_vi": "comp là viết tắt của compensation, tổng thu nhập gồm lương và thưởng. notice period = thời gian phải báo trước khi nghỉ việc."
     },
     {
       "id": "i10q8",
-      "prompt_vi": "Mình có thể bắt đầu từ đầu tháng sau.",
+      "prompt_vi": "Mình sẵn sàng trao đổi thêm về con số này.",
       "options": [
-        "I can start at the beginning of next month.",
-        "I can start from beginning of next month.",
-        "I could started at the beginning of next month."
+        "I'm open to discussing the number.",
+        "I'm open to discuss the number.",
+        "I'm open for discussing the number."
       ],
       "answer": 0,
-      "answer_vi": "Mình có thể bắt đầu từ đầu tháng sau.",
-      "why_vi": "Đầu tháng là at the beginning of, cần the. Sau can hoặc could là động từ nguyên mẫu."
+      "answer_vi": "Mình sẵn sàng trao đổi thêm về con số này.",
+      "why_vi": "Cụm cố định là open to + V-ing: to ở đây là giới từ nên động từ thêm ing, và không dùng open for."
     },
     {
       "id": "i10q9",
-      "prompt_vi": "Mình có thể bắt đầu sớm hơn nếu cần.",
+      "prompt_vi": "Công ty đưa mức thấp hơn mong muốn. Chọn cách trả lời phù hợp hơn.",
       "options": [
-        "I can start earlier if needed.",
-        "I can start more early if needed.",
-        "I can start earlier if need."
+        "Thanks for the offer. Based on my experience and the market, I was hoping for something closer to 40 million. Is there any flexibility?",
+        "That's way too low. I won't accept it.",
+        "Okay, thank you so much. I'm very grateful, and I'll accept anything you offer."
       ],
       "answer": 0,
-      "answer_vi": "Mình có thể bắt đầu sớm hơn nếu cần.",
-      "why_vi": "Sớm hơn là earlier, không dùng more early. Nếu cần nói gọn là if needed."
+      "answer_vi": "Cảm ơn anh chị về lời mời. Dựa trên kinh nghiệm và mặt bằng thị trường, mình mong mức gần 40 triệu hơn. Có thể linh hoạt thêm không?",
+      "why_vi": "Cảm ơn, đưa con số kèm lý do, rồi hỏi có linh hoạt không. Từ chối thẳng dễ làm mất lời mời, còn nhận ngay thì bỏ lỡ cơ hội thương lượng."
     },
     {
       "id": "i10q10",
-      "prompt_vi": "Mức đó đã bao gồm thưởng chưa?",
+      "prompt_vi": "Hiring manager nói: 'We can't move on base, but we can bump the sign-on bonus and be flexible on your start date.' Ý họ là gì?",
       "options": [
-        "Does that include the bonus?",
-        "Is that include the bonus?",
-        "Does that includes the bonus?"
+        "Họ không tăng được lương cơ bản, nhưng có thể tăng thưởng khi nhận việc và linh hoạt ngày bắt đầu.",
+        "Họ sẽ tăng lương cơ bản nếu bạn bắt đầu sớm hơn.",
+        "Họ không thể dời ngày bắt đầu, nhưng sẽ trả thưởng sau thử việc."
       ],
       "answer": 0,
-      "answer_vi": "Mức đó đã bao gồm thưởng chưa?",
-      "why_vi": "include là động từ nên câu hỏi dùng does, không dùng is. Có does thì động từ không thêm s."
+      "answer_vi": "Họ không tăng được lương cơ bản, nhưng có thể tăng thưởng khi nhận việc và linh hoạt ngày bắt đầu.",
+      "why_vi": "move on base = nhượng bộ về lương cơ bản. bump = tăng lên. sign-on bonus = khoản thưởng khi nhận việc."
     }
   ],
-  "write_prompt_vi": "Viết 2 câu: mức lương bạn mong muốn và ngày sớm nhất bạn có thể bắt đầu."
+  "write_prompt_vi": "Bạn có 3 năm kinh nghiệm và phải báo nghỉ trước 30 ngày. Nhà tuyển dụng hỏi mức lương mong muốn và ngày bắt đầu. Viết câu trả lời 80 đến 150 từ, có khoảng lương và ngày cụ thể.",
+  "question_en": "What are your salary expectations, and when could you start?"
 }

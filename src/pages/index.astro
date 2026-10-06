@@ -8,6 +8,7 @@ import ErrorBookPreview from '../components/home/ErrorBookPreview.astro';
 import { lessons } from '../lib/content/lessons';
 import { TRACKS } from '../lib/content/schema';
 import { TRACK_NAMES, TRACK_OUTLINE } from '../lib/content/tracks';
+import { ROLE_HINTS, ROLE_NAMES, ROLE_SHORT, ROLES } from '../lib/content/roles';
 import { PLANS, REFUND_DAYS, TRIAL_DAYS, formatVnd } from '../lib/pricing';
 
 const firstLesson = lessons.find((l) => l.free);
@@ -22,6 +23,8 @@ const TRACK_INFO = {
 
 // Phép tính thật, không phải số liệu người dùng.
 const saving = PLANS['30d'].amount * 3 - PLANS['90d'].amount;
+// Số bài theo danh sách đã chốt, không viết cứng.
+const totalLessons = Object.values(TRACK_OUTLINE).reduce((n, t) => n + t.length, 0);
 ---
 
 <Base
@@ -120,11 +123,32 @@ const saving = PLANS['30d'].amount * 3 - PLANS['90d'].amount;
   <section class="sec" id="bai-hoc" aria-labelledby="hoc-gi">
     <div class="wrap">
       <header class="sec-head" data-reveal>
-        <span class="echo" aria-hidden="true">30 BÀI</span>
+        <span class="echo" aria-hidden="true">{totalLessons} BÀI</span>
         <span class="pill"><Icon name="book" size={16} />Bài học</span>
-        <h2 id="hoc-gi">Ba track, <span class="hl">30 bài</span> cho tuần làm việc của bạn</h2>
+        <h2 id="hoc-gi">Ba track, <span class="hl">{totalLessons} bài</span> cho tuần làm việc của bạn</h2>
         <p class="sec-lede">Mỗi bài một tình huống bạn gặp thật: standup, review code, phỏng vấn.</p>
       </header>
+      <fieldset class="role-filter">
+        <legend>Xem bài theo ngành</legend>
+        {[['tat-ca', 'Tất cả'], ...ROLES.map((r) => [r, ROLE_NAMES[r]])].map(([v, label]) => (
+          <label class="role-chip">
+            <input type="radio" name="loc-nganh" id={`loc-${v}`} checked={v === 'tat-ca'} />
+            <span>{label}</span>
+          </label>
+        ))}
+      </fieldset>
+      <details class="role-help">
+        <summary>Dev, QA, BA, PM là gì?</summary>
+        <dl>
+          {ROLES.map((r) => (
+            <div>
+              <dt>{ROLE_NAMES[r]}</dt>
+              <dd>{ROLE_HINTS[r]}</dd>
+            </div>
+          ))}
+        </dl>
+        <p class="muted">Phần lớn bài dùng chung cho mọi ngành. Bài có nhãn "Cho ..." là bài chuyên ngành.</p>
+      </details>
       <div class="cards3">
         {
           TRACKS.map((track, ti) => {
@@ -140,7 +164,7 @@ const saving = PLANS['30d'].amount * 3 - PLANS['90d'].amount;
                 <p class="muted">{info.note}</p>
                 <details class="track-list">
                   <summary>
-                    <span>Xem 10 bài</span>
+                    <span>Xem {TRACK_OUTLINE[track].length} bài</span>
                     <span class="chev" aria-hidden="true"><Icon name="arrow" size={14} /></span>
                   </summary>
                   <ol class="lesson-mini">
@@ -152,6 +176,7 @@ const saving = PLANS['30d'].amount * 3 - PLANS['90d'].amount;
                           <span class="lm-no">{no}</span>
                           <span class="lm-text">
                             <b>{title}</b>
+                            {l?.roles && <span class="role-tag">Cho {l.roles.map((r) => ROLE_SHORT[r]).join(', ')}</span>}
                             {l && <small lang="en">{l.pattern.formula}</small>}
                           </span>
                           {l?.free ? (
@@ -165,7 +190,7 @@ const saving = PLANS['30d'].amount * 3 - PLANS['90d'].amount;
                         </>
                       );
                       return (
-                        <li style={`--i:${i}`}>
+                        <li style={`--i:${i}`} data-roles={l?.roles?.join(' ')}>
                           {l ? (
                             <a class="lm" href={`/mau-cau/${l.slug}`}>
                               {inner}
@@ -300,7 +325,7 @@ const saving = PLANS['30d'].amount * 3 - PLANS['90d'].amount;
         <div class="card plan-card" data-reveal>
           <h3>Premium 30 ngày</h3>
           <p class="price">{formatVnd(PLANS['30d'].amount)}</p>
-          <p class="muted">Đủ 30 bài, sửa câu 30 lần mỗi ngày, sổ lỗi đầy đủ, phỏng vấn thử.</p>
+          <p class="muted">Đủ {totalLessons} bài, sửa câu 30 lần mỗi ngày, sổ lỗi đầy đủ, phỏng vấn thử.</p>
           <a class="go" href="/nang-cap?goi=30d">Mua gói 30 ngày <span class="go-dot"><Icon name="arrow" size={16} /></span></a>
         </div>
         <div class="card plan-card plan-best" data-reveal>

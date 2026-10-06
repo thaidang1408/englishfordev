@@ -1,0 +1,200 @@
+{
+  "id": 13,
+  "track": "standup",
+  "slug": "noi-chuyen-xa-giao-dau-buoi-hop",
+  "title": "Nói chuyện xã giao đầu buổi họp",
+  "free": false,
+  "goal_vi": "Mở đầu cuộc gọi với khách bằng vài câu xã giao tự nhiên: hỏi thăm cuối tuần, thời tiết, tuần làm việc, trả lời ngắn, hỏi lại người kia, rồi chuyển sang việc chính.",
+  "pattern": {
+    "formula": "Short answer + one detail + How about you? ... Shall we get started?",
+    "note_vi": "Trả lời một câu ngắn kèm một chi tiết cụ thể, rồi hỏi lại người kia (How about you?, How's yours?). Một đến hai phút là đủ, sau đó dùng Anyway... Shall we get started? để vào việc chính."
+  },
+  "examples": [
+    {
+      "en": "Pretty good, thanks. I went to the beach with my family. How about you?",
+      "vi": "Khá vui, cảm ơn bạn. Mình đi biển với gia đình. Còn bạn thì sao?"
+    },
+    {
+      "en": "It's been a busy week so far, but a good one. How's yours going?",
+      "vi": "Tuần này tới giờ khá bận, nhưng mọi việc ổn. Tuần của bạn thế nào?"
+    },
+    {
+      "en": "It's really hot here today, about 36 degrees. What's the weather like in Sydney?",
+      "vi": "Hôm nay ở đây nóng lắm, khoảng 36 độ. Thời tiết ở Sydney thế nào?"
+    },
+    {
+      "en": "Next week is Tết, our Lunar New Year, so most of the team will be off.",
+      "vi": "Tuần sau là Tết Nguyên đán, nên phần lớn team sẽ nghỉ."
+    },
+    {
+      "en": "Anyway, I know we only have 30 minutes. Shall we get started?",
+      "vi": "Thôi, mình biết là chỉ có 30 phút. Mình bắt đầu nhé?"
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "My weekend is good, thanks.",
+      "right": "My weekend was good, thanks.",
+      "right_vi": "Cuối tuần của mình vui, cảm ơn bạn.",
+      "why_vi": "Cuối tuần đã qua rồi nên dùng was, không dùng is."
+    },
+    {
+      "wrong": "It's about 36 degree here today.",
+      "right": "It's about 36 degrees here today.",
+      "right_vi": "Hôm nay ở đây khoảng 36 độ.",
+      "why_vi": "Số lớn hơn một thì danh từ thêm s: 36 degrees."
+    },
+    {
+      "wrong": "Did you do anything fun in weekend?",
+      "right": "Did you do anything fun over the weekend?",
+      "right_vi": "Cuối tuần rồi bạn có làm gì vui không?",
+      "why_vi": "Nói về cuối tuần vừa qua dùng over the weekend hoặc on the weekend, có the, không dùng in."
+    }
+  ],
+  "word_bank": [
+    "How was your weekend?",
+    "How's your week going?",
+    "How about you?",
+    "pretty good, thanks",
+    "busy, but in a good way",
+    "What's the weather like?",
+    "long weekend",
+    "back-to-back meetings",
+    "anyway",
+    "Shall we get started?"
+  ],
+  "model": {
+    "title_vi": "Mở đầu cuộc gọi với khách vào sáng thứ Hai",
+    "en": "Linh: Hi Mark, how was your weekend?\nMark: Pretty good, thanks. How about you?\nLinh: It rained all weekend here, so I mostly stayed in. How's your week going so far?\nMark: Busy, but good.\nLinh: We're almost done with the new checkout, so there's a lot to show you today. Shall we get started?",
+    "vi": "Linh: Chào Mark, cuối tuần của bạn thế nào?\nMark: Khá vui, cảm ơn bạn. Còn bạn thì sao?\nLinh: Ở đây mưa suốt cuối tuần nên mình chủ yếu ở nhà. Tuần này của bạn tới giờ thế nào?\nMark: Bận, nhưng ổn.\nLinh: Bên mình sắp xong trang thanh toán mới, nên hôm nay có nhiều thứ để cho bạn xem. Mình bắt đầu nhé?"
+  },
+  "checklist_vi": [
+    "Có lời chào và một câu hỏi thăm (cuối tuần, thời tiết hoặc tuần làm việc)",
+    "Kể ngắn về mình, có một chi tiết cụ thể",
+    "Hỏi lại người kia (How about you?, How's yours?)",
+    "Có câu chuyển sang việc chính (Shall we get started?)"
+  ],
+  "quiz": [
+    {
+      "id": "s13q1",
+      "prompt_vi": "Sáng thứ Hai, bạn hỏi khách: Cuối tuần của bạn thế nào?",
+      "options": [
+        "How was your weekend?",
+        "How your weekend was?",
+        "How is your weekend?"
+      ],
+      "answer": 0,
+      "answer_vi": "Cuối tuần của bạn thế nào?",
+      "why_vi": "Câu hỏi đặt was trước chủ ngữ. Sáng thứ Hai thì cuối tuần đã qua nên dùng was, không dùng is."
+    },
+    {
+      "id": "s13q2",
+      "prompt_vi": "Cuối tuần rồi mình đi Đà Lạt với gia đình.",
+      "options": [
+        "I went to Da Lat with my family last weekend.",
+        "I go to Da Lat with my family last weekend.",
+        "I went to Da Lat with my family in last weekend."
+      ],
+      "answer": 0,
+      "answer_vi": "Cuối tuần rồi mình đi Đà Lạt với gia đình.",
+      "why_vi": "Việc đã xong dùng quá khứ: went. Trước last weekend không dùng giới từ in."
+    },
+    {
+      "id": "s13q3",
+      "prompt_vi": "Hôm nay ở đây nóng lắm, khoảng 35 độ.",
+      "options": [
+        "It's really hot here today, about 35 degrees.",
+        "It's really hot here today, about 35 degree.",
+        "Here is really hot today, about 35 degrees."
+      ],
+      "answer": 0,
+      "answer_vi": "Hôm nay ở đây nóng lắm, khoảng 35 độ.",
+      "why_vi": "Nói về thời tiết thì chủ ngữ là it, không dùng here. Số lớn hơn một thì thêm s: degrees."
+    },
+    {
+      "id": "s13q4",
+      "prompt_vi": "Tuần này của bạn tới giờ thế nào?",
+      "options": [
+        "How's your week going so far?",
+        "How your week is going so far?",
+        "How's your week go so far?"
+      ],
+      "answer": 0,
+      "answer_vi": "Tuần này của bạn tới giờ thế nào?",
+      "why_vi": "Câu hỏi đặt is trước chủ ngữ: How's your week. Sau is dùng V-ing: going."
+    },
+    {
+      "id": "s13q5",
+      "prompt_vi": "Khách hỏi: \"How was your weekend?\" Chọn câu trả lời phù hợp hơn.",
+      "options": [
+        "Pretty good, thanks. I went to the beach with my kids. How about you?",
+        "Fine.",
+        "Not great, honestly. I had to fix a bug on Saturday, then my son got sick, and on Sunday I just slept all day."
+      ],
+      "answer": 0,
+      "answer_vi": "Khá vui, cảm ơn bạn. Mình đưa các con đi biển. Còn bạn thì sao?",
+      "why_vi": "Câu đầu ngắn, có một chi tiết và hỏi lại khách. Câu hai cụt, làm cuộc trò chuyện dừng lại. Câu ba kể quá dài và toàn chuyện không vui cho một câu hỏi xã giao."
+    },
+    {
+      "id": "s13q6",
+      "prompt_vi": "Đã nói chuyện xã giao vài phút, bạn muốn vào việc chính. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "Anyway, I know we only have 30 minutes. Shall we get started?",
+        "OK, enough chatting. Let's work.",
+        "Sorry, I'm very sorry to stop this nice conversation, but maybe, if you don't mind, we could possibly start now?"
+      ],
+      "answer": 0,
+      "answer_vi": "Thôi, mình biết là chỉ có 30 phút. Mình bắt đầu nhé?",
+      "why_vi": "Câu đầu chuyển nhẹ nhàng và có lý do. Câu hai nghe như ra lệnh, cộc với khách. Câu ba xin lỗi quá nhiều cho một việc bình thường."
+    },
+    {
+      "id": "s13q7",
+      "prompt_vi": "Khách hỏi: \"How's the weather over there?\" Chọn câu trả lời phù hợp hơn.",
+      "options": [
+        "Pretty hot and humid, about 34 degrees. What's it like in Melbourne?",
+        "Hot.",
+        "Sorry, my English is not good for small talk."
+      ],
+      "answer": 0,
+      "answer_vi": "Khá nóng và ẩm, khoảng 34 độ. Ở Melbourne thì sao?",
+      "why_vi": "Câu đầu trả lời ngắn, có chi tiết và hỏi lại. Câu hai cụt, khách không biết nói tiếp gì. Câu ba tự hạ mình, chỉ cần một câu đơn giản là đủ."
+    },
+    {
+      "id": "s13q8",
+      "prompt_vi": "Khách nói: \"Sorry I'm a few minutes late. Back-to-back meetings today.\" Ý họ là gì?",
+      "options": [
+        "Họ xin lỗi vì vào trễ vài phút, do hôm nay họp liên tục.",
+        "Họ sẽ vào trễ vì phải họp lại từ đầu.",
+        "Họ muốn dời cuộc họp sang hôm khác."
+      ],
+      "answer": 0,
+      "answer_vi": "Họ xin lỗi vì vào trễ vài phút, do hôm nay họp liên tục.",
+      "why_vi": "back-to-back meetings là các cuộc họp nối liền nhau, không có nghỉ ở giữa. I'm late là đã trễ rồi, không phải sẽ trễ."
+    },
+    {
+      "id": "s13q9",
+      "prompt_vi": "Khách hỏi cuối buổi họp thứ Năm: \"Any plans for the long weekend?\" Ý họ là gì?",
+      "options": [
+        "Họ hỏi bạn có dự định gì cho kỳ nghỉ cuối tuần dài sắp tới không.",
+        "Họ hỏi bạn có định làm thêm vào cuối tuần không.",
+        "Họ hỏi kế hoạch dự án cho tuần dài sắp tới."
+      ],
+      "answer": 0,
+      "answer_vi": "Họ hỏi bạn có dự định gì cho kỳ nghỉ cuối tuần dài sắp tới không.",
+      "why_vi": "long weekend là cuối tuần được nghỉ thêm một ngày, thường do ngày lễ. Any plans? là hỏi xã giao xem bạn định làm gì."
+    },
+    {
+      "id": "s13q10",
+      "prompt_vi": "Khách nói khi cuộc gọi mới bắt đầu: \"Let's give it a couple of minutes for the others to join.\" Ý họ là gì?",
+      "options": [
+        "Đợi vài phút để những người khác vào cuộc gọi.",
+        "Cho hai người khác vài phút để trình bày.",
+        "Kết thúc sớm vài phút để người khác vào họp."
+      ],
+      "answer": 0,
+      "answer_vi": "Đợi vài phút để những người khác vào cuộc gọi.",
+      "why_vi": "give it a couple of minutes là đợi vài phút. a couple of ở đây là khoảng hai, vài, không phải hai người. join là vào cuộc gọi."
+    }
+  ],
+  "write_prompt_vi": "Sáng thứ Hai bạn mở đầu cuộc gọi với một khách ở Úc. Viết 3 đến 5 câu bạn sẽ nói: chào, hỏi thăm cuối tuần hoặc thời tiết, kể ngắn về mình có một chi tiết, hỏi lại khách, rồi chuyển sang việc chính."
+}

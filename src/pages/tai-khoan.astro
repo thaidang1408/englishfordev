@@ -3,6 +3,8 @@ import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import Icon from '../components/Icon.astro';
 import { parseAccountForm } from '../lib/account/form';
+import { parseRoles } from '../lib/content/roles';
+import RolePicker from '../components/RolePicker.astro';
 import { accessFrom } from '../lib/auth/access';
 import { getEntitlement, getProfile, updateProfile } from '../lib/db/queries';
 import { publicEnv } from '../lib/env';
@@ -18,15 +20,26 @@ if (!user) return Astro.redirect('/dang-nhap?next=/tai-khoan', 303);
 const db = Astro.locals.supabase;
 const now = new Date();
 let error: string | null = null;
+let roleError: string | null = null;
 
 if (Astro.request.method === 'POST') {
   if (!sameOrigin(Astro.request, publicEnv().PUBLIC_SITE_URL)) return Astro.redirect('/tai-khoan', 303);
-  const patch = parseAccountForm(await Astro.request.formData(), now);
-  if (patch) {
-    await updateProfile(db, user.id, patch);
-    return Astro.redirect('/tai-khoan?da-luu', 303);
+  const form = await Astro.request.formData();
+  if (form.get('action') === 'roles') {
+    const roles = parseRoles(form);
+    if (roles) {
+      await updateProfile(db, user.id, { roles });
+      return Astro.redirect('/tai-khoan?da-luu-nganh#nganh', 303);
+    }
+    roleError = 'Chọn ít nhất một ngành bạn đang làm.';
+  } else {
+    const patch = parseAccountForm(form, now);
+    if (patch) {
+      await updateProfile(db, user.id, patch);
+      return Astro.redirect('/tai-khoan?da-luu', 303);
+    }
+    error = 'Chưa lưu được. Kiểm lại giờ standup, và ngày phỏng vấn phải trong vòng một năm tới.';
   }
-  error = 'Chưa lưu được. Kiểm lại giờ standup, và ngày phỏng vấn phải trong vòng một năm tới.';
 }
 
 const [profile, ent] = await Promise.all([getProfile(db, user.id), getEntitlement(db, user.id)]);
@@ -128,6 +141,20 @@ const telegramHref = bot && profile?.telegram_link_token ? startLink(bot, profil
       </form>
     </section>
 
+
+    <section class="panel" aria-labelledby="nganh-h" id="nganh">
+      <div class="panel-head"><span class="tile"><Icon name="target" /></span><h2 id="nganh-h">Ngành của bạn</h2></div>
+      {Astro.url.searchParams.has('da-luu-nganh') && <p class="note ok" role="status">Đã lưu ngành.</p>}
+      {roleError && <p class="note err" role="alert">{roleError}</p>}
+      <form method="post" style="margin-top:var(--s-3)">
+        <input type="hidden" name="action" value="roles" />
+        <fieldset class="role-pick">
+          <legend class="muted" style="font-size:var(--fs-sm)">Chọn một hoặc nhiều. Bài đúng ngành được đưa lên trước ở trang Học hôm nay.</legend>
+          <RolePicker selected={profile?.roles} />
+        </fieldset>
+        <button class="btn btn-quiet" type="submit" style="margin-top:var(--s-4)">Lưu ngành</button>
+      </form>
+    </section>
 
     <section class="panel" aria-labelledby="dang-xuat">
       <div class="panel-head"><span class="tile amber"><Icon name="logout" /></span><h2 id="dang-xuat">Đăng xuất</h2></div>

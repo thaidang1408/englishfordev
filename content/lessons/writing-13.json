@@ -1,0 +1,209 @@
+{
+  "id": 13,
+  "track": "writing",
+  "slug": "acceptance-criteria-va-ket-qua-test",
+  "title": "Acceptance criteria và kết quả test",
+  "free": false,
+  "roles": [
+    "ba",
+    "qa"
+  ],
+  "goal_vi": "Viết acceptance criteria theo Given/When/Then mà ai cũng test được, và viết kết quả test ngắn: passed, failed, blocked, và lỗi đã biết.",
+  "pattern": {
+    "formula": "Given + context, when + subject + V(s) ..., then + subject + should + V ... .",
+    "note_vi": "Given là trạng thái ban đầu, When là hành động của người dùng, Then là kết quả phải thấy được. Sau when dùng hiện tại đơn, không dùng will. Sau should là động từ nguyên mẫu. Viết điều người dùng thấy (should see an error message), không viết cách code bên trong. Kết quả test dùng passed, failed, blocked."
+  },
+  "examples": [
+    {
+      "en": "Given I'm logged in as an admin, when I open the Users page, then I should see a list of all users.",
+      "vi": "Khi mình đã đăng nhập bằng tài khoản admin, lúc mình mở trang Users, thì mình phải thấy danh sách tất cả người dùng."
+    },
+    {
+      "en": "Given the cart is empty, when the user opens the cart page, then the Checkout button should be disabled.",
+      "vi": "Khi giỏ hàng trống, lúc người dùng mở trang giỏ hàng, thì nút Checkout phải bị vô hiệu hoá."
+    },
+    {
+      "en": "Given a user has entered a wrong password three times, when they try again, then their account should be locked for 15 minutes.",
+      "vi": "Khi người dùng đã nhập sai mật khẩu ba lần, nếu họ thử lại, thì tài khoản phải bị khoá 15 phút."
+    },
+    {
+      "en": "Given a file larger than 10 MB, when the user uploads it, then they should see the message \"File is too large\".",
+      "vi": "Với một file lớn hơn 10 MB, khi người dùng tải lên, thì họ phải thấy thông báo \"File is too large\"."
+    },
+    {
+      "en": "Regression on build 2.3.1: 46 passed, 2 failed, 1 blocked. Both failures are on Safari, and the blocked case is waiting for test data.",
+      "vi": "Kết quả regression trên build 2.3.1: 46 đạt, 2 không đạt, 1 bị chặn. Cả hai lỗi đều trên Safari, còn case bị chặn đang chờ dữ liệu test."
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "When the user will click Save, the form should close.",
+      "right": "When the user clicks Save, the form should close.",
+      "right_vi": "Khi người dùng bấm Save, form phải đóng lại.",
+      "why_vi": "Sau when nói về một hành động sắp xảy ra vẫn dùng hiện tại đơn, không dùng will. Chủ ngữ là the user nên động từ thêm -s."
+    },
+    {
+      "wrong": "Then the system should shows an error message.",
+      "right": "Then the system should show an error message.",
+      "right_vi": "Thì hệ thống phải hiện thông báo lỗi.",
+      "why_vi": "Sau should là động từ nguyên mẫu, không thêm -s."
+    },
+    {
+      "wrong": "Test case 5 is fail.",
+      "right": "Test case 5 failed.",
+      "right_vi": "Test case 5 không đạt.",
+      "why_vi": "fail là động từ, nên viết failed, không viết is fail như tiếng Việt bị fail."
+    }
+  ],
+  "word_bank": [
+    "Given",
+    "when",
+    "then ... should",
+    "acceptance criteria",
+    "edge case",
+    "passed",
+    "failed",
+    "blocked",
+    "known issue",
+    "out of scope",
+    "re-test",
+    "regression",
+    "flaky",
+    "build"
+  ],
+  "model": {
+    "title_vi": "Acceptance criteria cho một story và kết quả test trên staging",
+    "en": "Story: Reset password by email\nAC1: Given a registered user, when they request a password reset, then they should receive a reset link within 5 minutes.\nAC2: Given a reset link older than 24 hours, when the user opens it, then they should see an \"expired link\" message.\nTest result (staging, build 1.8.2):\nAC1 passed.\nAC2 failed: the old link still works. Bug filed as QA-214.\nBlocked: AC1 on the mobile app, because build 1.8.2 isn't on TestFlight yet.",
+    "vi": "Story: Đặt lại mật khẩu qua email\nAC1: Với người dùng đã đăng ký, khi họ yêu cầu đặt lại mật khẩu, thì họ phải nhận được link đặt lại trong vòng 5 phút.\nAC2: Với link đặt lại đã quá 24 giờ, khi người dùng mở link, thì họ phải thấy thông báo \"link đã hết hạn\".\nKết quả test (staging, build 1.8.2):\nAC1 đạt.\nAC2 không đạt: link cũ vẫn dùng được. Đã tạo bug QA-214.\nBị chặn: AC1 trên app mobile, vì build 1.8.2 chưa có trên TestFlight."
+  },
+  "checklist_vi": [
+    "Mỗi acceptance criterion có đủ Given, When, Then.",
+    "Có ít nhất một trường hợp lỗi hoặc trường hợp biên.",
+    "Kết quả mong đợi kiểm được, không mơ hồ kiểu nhanh hay dễ dùng.",
+    "Kết quả test nói rõ passed, failed hoặc blocked và môi trường test.",
+    "Lỗi tìm thấy có mã bug hoặc mô tả ngắn."
+  ],
+  "quiz": [
+    {
+      "id": "w13q1",
+      "prompt_vi": "Chọn câu đúng.",
+      "options": [
+        "When the user clicks Save, the form should close.",
+        "When the user will click Save, the form should close.",
+        "When the user click Save, the form should close."
+      ],
+      "answer": 0,
+      "answer_vi": "Khi người dùng bấm Save, form phải đóng lại.",
+      "why_vi": "Sau when dùng hiện tại đơn, không dùng will. the user là một người nên click thêm -s."
+    },
+    {
+      "id": "w13q2",
+      "prompt_vi": "Thì hệ thống phải hiện thông báo lỗi.",
+      "options": [
+        "Then the system should show an error message.",
+        "Then the system should shows an error message.",
+        "Then the system should show error message."
+      ],
+      "answer": 0,
+      "answer_vi": "Thì hệ thống phải hiện thông báo lỗi.",
+      "why_vi": "Sau should là động từ nguyên mẫu. message là danh từ đếm được số ít nên cần an đứng trước."
+    },
+    {
+      "id": "w13q3",
+      "prompt_vi": "Test đăng nhập bằng Google không đạt trên Safari.",
+      "options": [
+        "The Google login test failed on Safari.",
+        "The Google login test is fail on Safari.",
+        "The test login Google failed on Safari."
+      ],
+      "answer": 0,
+      "answer_vi": "Test đăng nhập bằng Google không đạt trên Safari.",
+      "why_vi": "fail là động từ nên viết failed. Từ bổ nghĩa đứng trước danh từ chính: Google login test, không viết test login Google."
+    },
+    {
+      "id": "w13q4",
+      "prompt_vi": "Test này đang bị chặn vì chưa có dữ liệu test.",
+      "options": [
+        "This test is blocked because we don't have test data yet.",
+        "This test is blocking because we don't have test data yet.",
+        "This test blocked because we don't have test data yet."
+      ],
+      "answer": 0,
+      "answer_vi": "Test này đang bị chặn vì chưa có dữ liệu test.",
+      "why_vi": "Test bị chặn nên dùng is blocked. is blocking nghĩa là test này đang chặn việc khác. Thiếu is thì câu thành test này đã chặn cái gì đó, sai nghĩa."
+    },
+    {
+      "id": "w13q5",
+      "prompt_vi": "Chọn acceptance criterion phù hợp hơn cho tính năng tìm kiếm.",
+      "options": [
+        "Given no products match the keyword, when the user searches, then they should see \"No results found\".",
+        "The search should be fast and user-friendly.",
+        "The SearchService should call Elasticsearch with a fuzzy query and return an empty array to the React component."
+      ],
+      "answer": 0,
+      "answer_vi": "Khi không có sản phẩm nào khớp từ khoá, lúc người dùng tìm kiếm, thì họ phải thấy \"No results found\".",
+      "why_vi": "Câu thứ hai mơ hồ, không test được: nhanh là bao nhiêu? Câu thứ ba tả cách code bên trong, không phải điều người dùng thấy. Câu đầu có Given, When, Then và kết quả kiểm được."
+    },
+    {
+      "id": "w13q6",
+      "prompt_vi": "Bạn báo kết quả regression cho PM trên Slack. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "Regression on build 3.2 is done: 58 passed, 2 failed, 0 blocked. Both failures are minor UI issues on Safari, so I think we're OK to release.",
+        "Testing done. Some fails.",
+        "I have tried my best to test everything carefully, but I'm not sure if it's good enough, so please don't blame me if there are bugs."
+      ],
+      "answer": 0,
+      "answer_vi": "Regression trên build 3.2 đã xong: 58 đạt, 2 không đạt, 0 bị chặn. Cả hai lỗi đều là lỗi giao diện nhỏ trên Safari, nên mình nghĩ có thể phát hành được.",
+      "why_vi": "Câu thứ hai không có số liệu, PM không quyết định được. Câu thứ ba tự hạ mình và nói chuyện đổ lỗi thay vì báo kết quả. Câu đầu có số liệu, mức độ lỗi và ý kiến của QA."
+    },
+    {
+      "id": "w13q7",
+      "prompt_vi": "Bạn báo dev rằng AC2 không đạt. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "AC2 failed on staging: the expired link still works. Steps and a video are in QA-214.",
+        "Your code doesn't work again.",
+        "Sorry to bother you, I might be wrong, but maybe there could possibly be a small problem somewhere?"
+      ],
+      "answer": 0,
+      "answer_vi": "AC2 không đạt trên staging: link đã hết hạn vẫn dùng được. Các bước và video có trong QA-214.",
+      "why_vi": "Câu thứ hai nhắm vào người, không nói lỗi gì. Câu thứ ba rào đón quá nhiều và không có thông tin để sửa. Câu đầu nói AC nào, ở đâu, lỗi gì, và chỗ xem chi tiết."
+    },
+    {
+      "id": "w13q8",
+      "prompt_vi": "Dev nhắn: \"Fix is on staging now. Can you re-test AC2 when you get a chance? No rush, EOD is fine.\" Ý họ là gì?",
+      "options": [
+        "Bản sửa đã lên staging; nhờ bạn test lại AC2 khi rảnh, không gấp, xong trong hôm nay là được.",
+        "Dev nhờ bạn test lại AC2 ngay lập tức.",
+        "Bản sửa chưa lên staging, cuối ngày mới có."
+      ],
+      "answer": 0,
+      "answer_vi": "Bản sửa đã lên staging rồi. Bạn test lại AC2 khi rảnh nhé. Không gấp, trong hôm nay là được.",
+      "why_vi": "when you get a chance là khi bạn rảnh. No rush là không gấp. EOD là end of day, cuối ngày làm việc."
+    },
+    {
+      "id": "w13q9",
+      "prompt_vi": "PO comment trên ticket: \"Good catch, but that's out of scope for this story. Let's log it as a known issue and pick it up next sprint.\" Ý họ là gì?",
+      "options": [
+        "Phát hiện hay, nhưng không thuộc phạm vi story này; ghi lại là lỗi đã biết và để sprint sau làm.",
+        "PO muốn sửa lỗi đó ngay trong story này.",
+        "PO cho rằng đó không phải lỗi và bỏ qua luôn."
+      ],
+      "answer": 0,
+      "answer_vi": "Phát hiện hay đấy, nhưng việc đó nằm ngoài phạm vi story này. Mình ghi nó là lỗi đã biết và sprint sau làm nhé.",
+      "why_vi": "Good catch là khen bạn phát hiện đúng. out of scope là ngoài phạm vi. known issue là lỗi đã biết, được ghi lại. pick it up là nhận làm."
+    },
+    {
+      "id": "w13q10",
+      "prompt_vi": "Dev hỏi: \"Is the checkout test actually failing, or is it just flaky? It passed for me locally.\" Ý họ là gì?",
+      "options": [
+        "Dev hỏi test checkout hỏng thật hay chỉ lúc đạt lúc không, vì chạy trên máy của dev thì đạt.",
+        "Dev nói test checkout đã đạt trên mọi môi trường.",
+        "Dev nhờ bạn xoá test checkout vì nó chạy chậm."
+      ],
+      "answer": 0,
+      "answer_vi": "Test checkout hỏng thật, hay chỉ lúc đạt lúc không? Mình chạy trên máy mình thì đạt.",
+      "why_vi": "flaky là test lúc đạt lúc không dù code không đổi. locally là chạy trên máy của mình, không phải trên CI hay staging."
+    }
+  ],
+  "write_prompt_vi": "Bạn là BA hoặc QA cho story \"Đổi mật khẩu trong trang cá nhân\". Viết 2 acceptance criteria theo Given/When/Then: một trường hợp đổi thành công, một trường hợp nhập sai mật khẩu cũ. Sau đó viết 1 đến 2 câu kết quả test trên staging: một AC đạt, một AC không đạt, kèm mã bug."
+}

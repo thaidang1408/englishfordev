@@ -90,3 +90,14 @@ test('ví dụ: trình học hiện 3 trong 5 câu, trang mẫu câu hiện đ�
   await page.goto(`/mau-cau/${lesson.slug}`);
   await expect(page.locator('.examples li:visible')).toHaveCount(5);
 });
+
+test('bài có tin hoàn chỉnh (nghĩa mở khi bấm) và danh sách "Bài viết nên có"', async ({ page }) => {
+  await page.goto(URL);
+  const model = page.locator('section[aria-labelledby="tin-hoan-chinh"]');
+  await expect(model).toContainText(lesson.model.title_vi);
+  await expect(model.locator('.model-msg').first()).toContainText(lesson.model.en.split(String.fromCharCode(10))[0]!);
+  await expect(model.locator('.model-msg.vi')).toBeHidden();
+  await model.getByText('Xem nghĩa tiếng Việt').click();
+  await expect(model.locator('.model-msg.vi')).toBeVisible();
+  for (const item of lesson.checklist_vi) await expect(page.locator('.checklist')).toContainText(item);
+});

@@ -41,6 +41,11 @@ const num = String(lesson.id).padStart(2, '0');
       <span class="part-label">Phần 5 trên 5</span>
       <h2 id="cau-cua-ban">Câu của bạn</h2>
       <p>{lesson.write_prompt_vi}</p>
+      <div class="checklist">
+        <b>Bài viết nên có</b>
+        <ul>{lesson.checklist_vi.map((c) => <li>{c}</li>)}</ul>
+        <p class="muted">AI sửa câu và chỉ ra ý nào còn thiếu.</p>
+      </div>
       <p class="muted" style="font-size:var(--fs-sm)">Phần này cần đăng nhập. AI sửa câu của bạn và giải thích bằng tiếng Việt.</p>
       <noscript><p class="note warn">Phần sửa câu cần bật JavaScript.</p></noscript>
       <CorrectBox client:visible lessonKey={key} next={`/hoc/${lesson.slug}#cau-cua-ban`} />

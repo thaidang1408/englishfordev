@@ -4,38 +4,42 @@
   "slug": "bao-tien-do-cho-khach",
   "title": "Báo tiến độ cho khách",
   "free": false,
-  "goal_vi": "Báo khách rằng việc đang đúng tiến độ và sẽ xong trước mốc nào.",
+  "roles": [
+    "pm",
+    "ba"
+  ],
+  "goal_vi": "Viết email cập nhật tiến độ cho khách: tình hình chung, việc đã xong, việc đang làm, rủi ro, và việc cần khách làm.",
   "pattern": {
     "formula": "We're on track to + V + object + by + deadline.",
-    "note_vi": "on track = đúng tiến độ. by + mốc thời gian = trước hoặc đúng mốc đó, dùng cho hạn chót."
+    "note_vi": "on track = đúng tiến độ. by + mốc thời gian = muộn nhất là mốc đó, dùng cho hạn chót. until = kéo dài tới mốc đó, không dùng cho hạn chót. Khi có rủi ro thì nói rõ: ... is at risk because ..."
   },
   "examples": [
     {
       "en": "We're on track to deliver the payment module by Friday.",
-      "vi": "Bên mình đang đúng tiến độ để giao module thanh toán trước thứ Sáu."
+      "vi": "Bên mình đang đúng tiến độ, sẽ giao module thanh toán muộn nhất thứ Sáu."
     },
     {
       "en": "The admin dashboard is 80% done, and we're on track to finish it by June 15.",
-      "vi": "Dashboard admin đã xong 80%, bên mình đang đúng tiến độ để làm xong trước ngày 15/6."
+      "vi": "Dashboard admin đã xong 80%, bên mình đang đúng tiến độ, sẽ làm xong muộn nhất ngày 15/6."
     },
     {
-      "en": "We're on track to release version 2.0 by the end of this month.",
-      "vi": "Bên mình đang đúng tiến độ để phát hành bản 2.0 trước cuối tháng này."
+      "en": "We're on track to release version 2.0 by the end of the month, but the reports page is at risk because we still need sample data from your team.",
+      "vi": "Bên mình đang đúng tiến độ, sẽ phát hành bản 2.0 muộn nhất cuối tháng, nhưng trang báo cáo có rủi ro vì bên mình vẫn cần dữ liệu mẫu từ team bạn."
     },
     {
-      "en": "We're on track to deploy the fix for the login issue by Wednesday.",
-      "vi": "Bên mình đang đúng tiến độ để deploy bản sửa lỗi đăng nhập trước thứ Tư."
+      "en": "We've fixed the login issue on staging, and we're on track to deploy it to production by Wednesday.",
+      "vi": "Bên mình đã sửa lỗi đăng nhập trên staging và đang đúng tiến độ, sẽ deploy lên production muộn nhất thứ Tư."
     },
     {
       "en": "QA is testing the mobile app now, and we're on track to submit it to the App Store by next Monday.",
-      "vi": "QA đang test app mobile, và bên mình đang đúng tiến độ để gửi app lên App Store trước thứ Hai tuần sau."
+      "vi": "QA đang test app mobile, bên mình đang đúng tiến độ, sẽ gửi app lên App Store muộn nhất thứ Hai tuần sau."
     }
   ],
   "mistakes": [
     {
       "wrong": "We will finish it until Friday.",
       "right": "We'll finish it by Friday.",
-      "right_vi": "Bên mình sẽ làm xong trước thứ Sáu.",
+      "right_vi": "Bên mình sẽ làm xong muộn nhất thứ Sáu.",
       "why_vi": "Hạn chót dùng by. until nghĩa là kéo dài cho đến lúc đó."
     },
     {
@@ -54,12 +58,26 @@
   "word_bank": [
     "on track",
     "by Friday",
-    "by the end of",
-    "% done",
-    "deliver",
-    "release",
-    "We've finished",
-    "next step"
+    "by the end of the week",
+    "70% done",
+    "in progress",
+    "at risk",
+    "we still need",
+    "heads-up",
+    "sign off on",
+    "go live"
+  ],
+  "model": {
+    "title_vi": "Email cập nhật tiến độ hằng tuần gửi khách",
+    "en": "Subject: Project Atlas - weekly update (week 41)\n\nHi Sarah,\n\nHere's a quick update on this week's progress. Overall, we're on track to deliver the checkout flow by October 24.\nDone: the login and cart pages are finished and tested on staging.\nIn progress: the payment integration is about 70% done.\nRisk: we still need the production API keys from your team. Without them, we can't start end-to-end testing next week.\nCould you send us the keys by Wednesday?\n\nBest regards,\nMinh",
+    "vi": "Tiêu đề: Dự án Atlas - cập nhật tuần (tuần 41)\n\nChào Sarah,\n\nMình gửi bạn cập nhật nhanh tiến độ tuần này. Nhìn chung bên mình đang đúng tiến độ, sẽ giao luồng thanh toán muộn nhất ngày 24/10.\nĐã xong: trang đăng nhập và trang giỏ hàng đã làm xong và test trên staging.\nĐang làm: phần tích hợp thanh toán đã xong khoảng 70%.\nRủi ro: bên mình vẫn cần API key production từ team bạn. Không có key thì tuần sau bên mình không bắt đầu test end-to-end được.\nBạn gửi giúp bên mình key muộn nhất thứ Tư được không?\n\nTrân trọng,\nMinh"
+  },
+  "checklist_vi": [
+    "Có lời chào và lời kết.",
+    "Nói rõ tình hình chung: đúng tiến độ hay có rủi ro, kèm mốc ngày.",
+    "Có việc đã xong và việc đang làm.",
+    "Nêu rủi ro hoặc việc tiếp theo.",
+    "Nói rõ cần khách làm gì và muộn nhất khi nào."
   ],
   "quiz": [
     {
@@ -71,83 +89,35 @@
         "We're on track to finishing the API by Friday."
       ],
       "answer": 0,
-      "answer_vi": "Bên mình đang đúng tiến độ để làm xong API trước thứ Sáu.",
+      "answer_vi": "Bên mình đang đúng tiến độ, sẽ làm xong API muộn nhất thứ Sáu.",
       "why_vi": "Hạn chót dùng by. on track to + động từ nguyên mẫu."
     },
     {
       "id": "w07q2",
-      "prompt_vi": "Bên mình sẽ gửi bản demo trước thứ Tư.",
-      "options": [
-        "We'll send you the demo by Wednesday.",
-        "We'll send you the demo until Wednesday.",
-        "We'll send you demo by Wednesday."
-      ],
-      "answer": 0,
-      "answer_vi": "Bên mình sẽ gửi bản demo trước thứ Tư.",
-      "why_vi": "Hạn chót dùng by. Cần the trước demo."
-    },
-    {
-      "id": "w07q3",
       "prompt_vi": "Tính năng tìm kiếm đã xong 70%.",
       "options": [
         "The search feature is 70% done.",
         "The search feature has done 70%.",
-        "The feature search is 70% done."
+        "The search feature is done 70%."
       ],
       "answer": 0,
       "answer_vi": "Tính năng tìm kiếm đã xong 70%.",
-      "why_vi": "Nói mức hoàn thành: is + % + done. Từ bổ nghĩa đứng trước: search feature."
+      "why_vi": "Nói mức hoàn thành dùng is + % + done, số phần trăm đứng trước done. has done là đã làm (một việc gì), không dùng để nói mức hoàn thành."
     },
     {
-      "id": "w07q4",
+      "id": "w07q3",
       "prompt_vi": "Bên mình đang đúng tiến độ cho đợt phát hành tháng 6.",
       "options": [
         "We're on track for the June release.",
         "We're in track for the June release.",
-        "We're on track for the release June."
+        "We're on track to the June release."
       ],
       "answer": 0,
       "answer_vi": "Bên mình đang đúng tiến độ cho đợt phát hành tháng 6.",
-      "why_vi": "on track for + danh từ. Tháng đứng trước: the June release."
+      "why_vi": "Cụm cố định là on track. Sau on track, danh từ đi với for, động từ đi với to."
     },
     {
-      "id": "w07q5",
-      "prompt_vi": "Bên mình đã xong phần đăng nhập và đang làm phần thanh toán.",
-      "options": [
-        "We've finished the login flow and are now working on the payment flow.",
-        "We've finished the login flow and now working on the payment flow.",
-        "We've finish the login flow and are now working on the payment flow."
-      ],
-      "answer": 0,
-      "answer_vi": "Bên mình đã xong phần đăng nhập và đang làm phần thanh toán.",
-      "why_vi": "Đang làm cần are + V-ing. Sau have là V3: finished."
-    },
-    {
-      "id": "w07q6",
-      "prompt_vi": "Bên mình đang đúng tiến độ để chuyển dữ liệu sang database mới trước ngày 20.",
-      "options": [
-        "We're on track to migrate the data to the new database by the 20th.",
-        "We're on track to migrate the data to the new database by 20th.",
-        "We're on track to migrate the data to the database new by the 20th."
-      ],
-      "answer": 0,
-      "answer_vi": "Bên mình đang đúng tiến độ để chuyển dữ liệu sang database mới trước ngày 20.",
-      "why_vi": "Ngày trong tháng viết the 20th. Tính từ new đứng trước danh từ."
-    },
-    {
-      "id": "w07q7",
-      "prompt_vi": "Sprint này bên mình đã sửa xong 12 bug.",
-      "options": [
-        "We've fixed 12 bugs this sprint.",
-        "We've fixed 12 bug this sprint.",
-        "We've fix 12 bugs this sprint."
-      ],
-      "answer": 0,
-      "answer_vi": "Sprint này bên mình đã sửa xong 12 bug.",
-      "why_vi": "Từ hai trở lên thì danh từ thêm s: bugs. Sau have là V3: fixed."
-    },
-    {
-      "id": "w07q8",
+      "id": "w07q4",
       "prompt_vi": "Bản build iOS đang chờ App Store duyệt.",
       "options": [
         "The iOS build is waiting for App Store review.",
@@ -156,32 +126,80 @@
       ],
       "answer": 0,
       "answer_vi": "Bản build iOS đang chờ App Store duyệt.",
-      "why_vi": "Chờ cái gì là wait for. Đang làm dùng is + V-ing: is waiting."
+      "why_vi": "Chờ cái gì là wait for. Đang diễn ra dùng is + V-ing: is waiting."
+    },
+    {
+      "id": "w07q5",
+      "prompt_vi": "Khách hỏi \"How's it going?\". Chọn cách trả lời phù hợp hơn.",
+      "options": [
+        "We're on track to deliver the payment module by Friday. QA is testing it on staging now.",
+        "It's fine.",
+        "We're doing our very best, and we really hope that, if everything goes well, we might be able to deliver the payment module around Friday."
+      ],
+      "answer": 0,
+      "answer_vi": "Bên mình đang đúng tiến độ, sẽ giao module thanh toán muộn nhất thứ Sáu. QA đang test trên staging.",
+      "why_vi": "\"It's fine.\" quá cụt, khách không biết gì thêm. Câu thứ ba rào đón nhiều nên nghe như không chắc. Câu đầu nói rõ mốc và việc đang làm."
+    },
+    {
+      "id": "w07q6",
+      "prompt_vi": "Khách chưa gửi API key, có thể làm trễ. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "We're on track for the June release, but we still need the API keys from your team by Wednesday to stay on schedule.",
+        "You haven't sent the API keys yet, so any delay is on your side.",
+        "Sorry to bother you again, and no worries if it's not convenient, but maybe when you have time you could send us the API keys?"
+      ],
+      "answer": 0,
+      "answer_vi": "Bên mình đang đúng tiến độ cho đợt phát hành tháng 6, nhưng vẫn cần team bạn gửi API key muộn nhất thứ Tư để giữ đúng lịch.",
+      "why_vi": "Câu thứ hai đổ lỗi cho khách. Câu thứ ba nói \"no worries\" nên khách không thấy rủi ro. Câu đầu nêu rõ cần gì, hạn khi nào, và vì sao."
+    },
+    {
+      "id": "w07q7",
+      "prompt_vi": "Khách không rành kỹ thuật. Chọn cách báo phù hợp hơn.",
+      "options": [
+        "The new checkout is ready for you to try on the test site. We're on track to go live by May 20.",
+        "We've merged the checkout PR into the release branch, and the CI pipeline is green on staging.",
+        "Checkout done. Live May 20."
+      ],
+      "answer": 0,
+      "answer_vi": "Trang thanh toán mới đã sẵn sàng để bạn dùng thử trên trang test. Bên mình đang đúng tiến độ, sẽ chạy thật muộn nhất ngày 20/5.",
+      "why_vi": "Câu thứ hai đúng nhưng toàn thuật ngữ, khách khó hiểu. Câu thứ ba cụt như ghi chú nội bộ. Câu đầu nói điều khách quan tâm: dùng thử ở đâu và khi nào chạy thật."
+    },
+    {
+      "id": "w07q8",
+      "prompt_vi": "Khách trả lời: \"Thanks for the update. Looks good overall. Just a heads-up: legal needs to sign off on the privacy page before we go live, so please factor that into the timeline.\" Ý họ là gì?",
+      "options": [
+        "Khách thấy ổn, nhưng nhắc trước: bộ phận pháp lý phải duyệt trang quyền riêng tư trước khi chạy thật, nên bạn cần tính thời gian đó vào lịch.",
+        "Khách muốn bạn tự duyệt trang quyền riêng tư rồi chạy thật ngay.",
+        "Khách muốn huỷ việc chạy thật vì có vấn đề pháp lý."
+      ],
+      "answer": 0,
+      "answer_vi": "Cảm ơn bạn đã cập nhật. Nhìn chung ổn. Nhắc trước: bộ phận pháp lý cần duyệt trang quyền riêng tư trước khi chạy thật, nên bạn tính việc này vào lịch nhé.",
+      "why_vi": "heads-up là lời báo trước. sign off on là duyệt, đồng ý chính thức. factor into the timeline là tính vào lịch. go live là chạy thật."
     },
     {
       "id": "w07q9",
-      "prompt_vi": "Bên mình sẽ gửi báo cáo kết quả test trước cuối tuần này.",
+      "prompt_vi": "PM nhắn: \"Client wants a status update by EOD. Can you put together a quick summary of what's done, what's in progress and any blockers? Keep it non-technical.\" Ý họ là gì?",
       "options": [
-        "We'll send you the test report by the end of this week.",
-        "We'll send to you the test report by the end of this week.",
-        "We'll send you the test report in the end of this week."
+        "PM cần bạn soạn bản tóm tắt ngắn gửi khách muộn nhất cuối ngày: việc đã xong, việc đang làm, vướng mắc, viết dễ hiểu, không thuật ngữ.",
+        "PM muốn bạn họp với khách cuối ngày để giải thích kỹ thuật.",
+        "PM muốn bạn gửi khách chi tiết kỹ thuật của mọi vướng mắc vào sáng mai."
       ],
       "answer": 0,
-      "answer_vi": "Bên mình sẽ gửi báo cáo kết quả test trước cuối tuần này.",
-      "why_vi": "Gửi cho ai thì viết send you + thứ được gửi, không có to. Hạn chót dùng by the end of."
+      "answer_vi": "Khách muốn có cập nhật tình hình muộn nhất cuối ngày. Bạn soạn giúp bản tóm tắt ngắn gồm việc đã xong, việc đang làm và vướng mắc nhé. Viết dễ hiểu, không kỹ thuật.",
+      "why_vi": "EOD là end of day. put together là soạn, gom lại. blockers là vướng mắc. Keep it non-technical là viết cho người không làm kỹ thuật."
     },
     {
       "id": "w07q10",
-      "prompt_vi": "Chọn câu đúng.",
+      "prompt_vi": "Khách hỏi: \"Are we still on track for the 15th? Our marketing team needs to know whether to push the launch email back.\" Ý họ là gì?",
       "options": [
-        "We're on track to close all the tickets in this sprint by Thursday.",
-        "We're on the track to close all the tickets in this sprint by Thursday.",
-        "We're on track to closed all the tickets in this sprint by Thursday."
+        "Khách hỏi dự án còn đúng tiến độ cho ngày 15 không, vì đội marketing cần biết có phải lùi email ra mắt hay không.",
+        "Khách muốn gửi email ra mắt sớm hơn ngày 15.",
+        "Khách báo đội marketing đã lùi ngày ra mắt."
       ],
       "answer": 0,
-      "answer_vi": "Bên mình đang đúng tiến độ để đóng hết ticket của sprint này trước thứ Năm.",
-      "why_vi": "Cụm cố định là on track, không có the. Sau to là động từ nguyên mẫu: close."
+      "answer_vi": "Mình vẫn đúng tiến độ cho ngày 15 chứ? Đội marketing bên mình cần biết có phải lùi email ra mắt không.",
+      "why_vi": "still on track for là vẫn đúng tiến độ cho mốc đó. push back là lùi lại. whether to là có nên làm hay không, nên họ chưa lùi gì cả."
     }
   ],
-  "write_prompt_vi": "Viết 1 đến 2 câu báo tiến độ dự án của bạn cho khách."
+  "write_prompt_vi": "Viết email cập nhật 4 đến 6 câu gửi anh David (khách): app mobile đã xong 80%, sẽ nộp App Store muộn nhất thứ Sáu tuần sau, và cần khách gửi ảnh chụp màn hình cho trang App Store."
 }

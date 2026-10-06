@@ -4,10 +4,13 @@
   "slug": "tieu-de-va-mo-ta-pull-request",
   "title": "Tiêu đề và mô tả pull request",
   "free": false,
-  "goal_vi": "Viết tiêu đề PR bắt đầu bằng động từ và một câu mô tả PR làm gì.",
+  "roles": [
+    "dev"
+  ],
+  "goal_vi": "Viết tiêu đề PR bắt đầu bằng động từ và phần mô tả có What, Why, How to test.",
   "pattern": {
     "formula": "Title: Verb + object. / Description: This PR + V-s + object.",
-    "note_vi": "Tiêu đề bắt đầu bằng động từ nguyên mẫu (Add, Fix, Update). Trong mô tả, This PR là số ít nên động từ thêm s."
+    "note_vi": "Tiêu đề thường bắt đầu bằng động từ nguyên mẫu (Add, Fix, Update). Đây là quy ước phổ biến, mỗi team có thể khác. Trong mô tả, This PR là số ít nên động từ thêm s. Phần Why nói lý do bằng because hoặc so that."
   },
   "examples": [
     {
@@ -19,16 +22,16 @@
       "vi": "Thêm cơ chế thử lại cho webhook thanh toán."
     },
     {
-      "en": "This PR updates the user API to return the avatar URL.",
-      "vi": "PR này cập nhật API user để trả về URL avatar."
+      "en": "This PR updates the user API to return the avatar URL, so the mobile app doesn't need a second request.",
+      "vi": "PR này cập nhật API user để trả về URL avatar, nhờ vậy app mobile không phải gọi thêm một request nữa."
     },
     {
       "en": "Update the deploy script to run migrations first",
       "vi": "Cập nhật script deploy để chạy migration trước."
     },
     {
-      "en": "This PR fixes the flaky login test reported by QA.",
-      "vi": "PR này sửa test đăng nhập lúc pass lúc fail mà QA đã báo."
+      "en": "This PR fixes the flaky login test reported by QA. Closes #142.",
+      "vi": "PR này sửa test đăng nhập lúc pass lúc fail mà QA đã báo. Đóng ticket #142."
     }
   ],
   "mistakes": [
@@ -57,10 +60,25 @@
     "Update",
     "Remove",
     "Refactor",
-    "Rename",
     "This PR adds",
     "This PR fixes",
-    "to make"
+    "because",
+    "so that",
+    "Closes #123",
+    "How to test",
+    "Notes for reviewers",
+    "out of scope"
+  ],
+  "model": {
+    "title_vi": "Mô tả PR có What, Why, How to test",
+    "en": "Fix crash when the cart is empty\n\n## What\nThis PR adds a check for an empty cart before we calculate the total.\n\n## Why\nThe checkout page crashes when a user removes the last item from the cart. Closes #231.\n\n## How to test\n1. Add one item to the cart and go to checkout.\n2. Remove the item.\n3. Check that the page shows \"Your cart is empty\" and doesn't crash.",
+    "vi": "Sửa lỗi crash khi giỏ hàng trống\n\n## What\nPR này thêm bước kiểm tra giỏ hàng trống trước khi tính tổng tiền.\n\n## Why\nTrang checkout bị crash khi người dùng xoá món cuối cùng khỏi giỏ hàng. Đóng ticket #231.\n\n## How to test\n1. Thêm một món vào giỏ hàng rồi vào trang checkout.\n2. Xoá món đó.\n3. Kiểm tra trang hiện \"Your cart is empty\" và không bị crash."
+  },
+  "checklist_vi": [
+    "Có tiêu đề ngắn, bắt đầu bằng động từ nguyên mẫu (Add, Fix, Update).",
+    "Phần What nói PR thay đổi gì.",
+    "Phần Why nói lý do hoặc ghi số ticket.",
+    "Phần How to test có các bước đánh số để người review tự kiểm tra."
   ],
   "quiz": [
     {
@@ -68,12 +86,12 @@
       "prompt_vi": "Chọn câu đúng.",
       "options": [
         "Fix crash when the cart is empty",
-        "Fix crash when cart empty",
+        "Fix crash when the cart empty",
         "Fix crash when the cart are empty"
       ],
       "answer": 0,
       "answer_vi": "Sửa lỗi crash khi giỏ hàng trống.",
-      "why_vi": "Vế sau when cần động từ: the cart is empty. Chủ ngữ số ít đi với is."
+      "why_vi": "Vế sau when đã có chủ ngữ the cart thì cần động từ: is empty. Chủ ngữ số ít đi với is, không đi với are."
     },
     {
       "id": "w01q2",
@@ -81,23 +99,23 @@
       "options": [
         "This PR adds a date filter to the order list.",
         "This PR add a date filter to the order list.",
-        "This PR adds a filter date to the list order."
+        "This PR adds a filter date to the order list."
       ],
       "answer": 0,
       "answer_vi": "PR này thêm bộ lọc theo ngày cho danh sách đơn hàng.",
-      "why_vi": "This PR số ít nên adds. Từ bổ nghĩa đứng trước: date filter, order list."
+      "why_vi": "This PR số ít nên adds. Từ bổ nghĩa đứng trước danh từ chính: date filter."
     },
     {
       "id": "w01q3",
-      "prompt_vi": "Tiêu đề PR: Sửa lỗi timeout khi upload ảnh lớn.",
+      "prompt_vi": "Phần Why: Người dùng bị đăng xuất vì token hết hạn quá sớm.",
       "options": [
-        "Fix timeout when uploading large images",
-        "Fix timeout when upload large images",
-        "Fix timeout when uploading images large"
+        "Users get logged out because the token expires too early.",
+        "Users get logged out because of the token expires too early.",
+        "Users get logged out because the token is expire too early."
       ],
       "answer": 0,
-      "answer_vi": "Sửa lỗi timeout khi upload ảnh lớn.",
-      "why_vi": "Sau when không có chủ ngữ thì dùng V-ing. Tính từ large đứng trước danh từ."
+      "answer_vi": "Người dùng bị đăng xuất vì token hết hạn quá sớm.",
+      "why_vi": "Sau because là cả một vế có chủ ngữ và động từ; because of chỉ đi với danh từ. expire đã là động từ, không thêm is phía trước."
     },
     {
       "id": "w01q4",
@@ -109,80 +127,80 @@
       ],
       "answer": 0,
       "answer_vi": "PR này đổi tên biến để code dễ đọc hơn.",
-      "why_vi": "Chỉ mục đích dùng to + V. Tính từ ngắn so sánh hơn thêm er: easier."
+      "why_vi": "Chỉ mục đích dùng to + động từ, không dùng for + động từ. easy so sánh hơn là easier."
     },
     {
       "id": "w01q5",
-      "prompt_vi": "Tiêu đề PR: Thêm kiểm tra cho trường email.",
+      "prompt_vi": "Chọn tiêu đề PR rõ ràng hơn.",
       "options": [
-        "Add validation for the email field",
-        "Add validate for the email field",
-        "Add validation for the field email"
+        "Fix wrong tax total on invoices with discounts",
+        "Fix bug",
+        "This PR is a small fix for an issue that some users reported with the tax total on invoices"
       ],
       "answer": 0,
-      "answer_vi": "Thêm kiểm tra cho trường email.",
-      "why_vi": "Sau add là danh từ validation. Từ bổ nghĩa đứng trước: email field."
+      "answer_vi": "Sửa tổng thuế sai trên hoá đơn có giảm giá.",
+      "why_vi": "Tiêu đề nên ngắn mà cụ thể: sửa gì, ở đâu. Fix bug không cho người review biết gì. Câu thứ ba quá dài, phần giải thích nên để ở mô tả."
     },
     {
       "id": "w01q6",
-      "prompt_vi": "Tiêu đề PR: Xoá các feature flag cũ.",
+      "prompt_vi": "Chọn câu phù hợp hơn cho phần Why.",
       "options": [
-        "Remove old feature flags",
-        "Removed old feature flags",
-        "Remove feature flags old"
+        "We need this because the export times out for accounts with more than 10,000 orders.",
+        "Needed.",
+        "I think maybe this change could possibly help a little with the export problem, if that's OK."
       ],
       "answer": 0,
-      "answer_vi": "Xoá các feature flag cũ.",
-      "why_vi": "Tiêu đề dùng động từ nguyên mẫu: Remove. Tính từ old đứng trước danh từ."
+      "answer_vi": "Cần sửa vì chức năng xuất file bị timeout với tài khoản có hơn 10.000 đơn hàng.",
+      "why_vi": "Phần Why cần lý do cụ thể, có con số càng tốt. Needed quá cụt. Câu thứ ba rào đón nhiều mà không nói vấn đề là gì."
     },
     {
       "id": "w01q7",
-      "prompt_vi": "PR này nâng Node lên bản 20 trong CI pipeline.",
+      "prompt_vi": "Chọn ghi chú cho người review phù hợp hơn.",
       "options": [
-        "This PR upgrades Node to version 20 in the CI pipeline.",
-        "This PR upgrades Node to the version 20 in the CI pipeline.",
-        "This PR is upgrade Node to version 20 in the CI pipeline."
+        "The main change is in OrderService. The rest is renaming, so you can skim it.",
+        "Review this.",
+        "Sorry to bother you, I know you're very busy, but if you ever have time, could you please kindly look at my PR?"
       ],
       "answer": 0,
-      "answer_vi": "PR này nâng Node lên bản 20 trong CI pipeline.",
-      "why_vi": "Không dùng the trước version + số. upgrade đã là động từ, không thêm is."
+      "answer_vi": "Thay đổi chính nằm ở OrderService. Phần còn lại chỉ là đổi tên, bạn đọc lướt là được.",
+      "why_vi": "Ghi chú tốt chỉ cho người review chỗ cần xem kỹ. Review this nghe như ra lệnh. Câu thứ ba xin lỗi quá nhiều, please kindly là thừa."
     },
     {
       "id": "w01q8",
-      "prompt_vi": "Tiêu đề PR: Thêm unit test cho service thanh toán.",
+      "prompt_vi": "Reviewer comment: 'LGTM, just one nit. Feel free to merge once it's fixed.' Ý họ là gì?",
       "options": [
-        "Add unit tests for the payment service",
-        "Adding unit tests for the payment service",
-        "Add unit tests for the service payment"
+        "PR ổn, còn một góp ý nhỏ; sửa xong thì bạn cứ merge.",
+        "PR còn nhiều lỗi, chưa được merge.",
+        "Họ sẽ tự merge PR sau khi sửa một lỗi nhỏ."
       ],
       "answer": 0,
-      "answer_vi": "Thêm unit test cho service thanh toán.",
-      "why_vi": "Tiêu đề bắt đầu bằng động từ nguyên mẫu, không dùng V-ing. Từ bổ nghĩa đứng trước: payment service."
+      "answer_vi": "PR ổn, còn một góp ý nhỏ; sửa xong thì bạn cứ merge.",
+      "why_vi": "LGTM là looks good to me (mình thấy ổn). nit là góp ý nhỏ, không quan trọng. Feel free to merge nghĩa là bạn cứ tự merge."
     },
     {
       "id": "w01q9",
-      "prompt_vi": "PR này sửa cách tính thuế sai trên hoá đơn.",
+      "prompt_vi": "Tech lead nhắn: 'Can you split this into two PRs? The refactor makes the fix hard to review.' Ý họ là gì?",
       "options": [
-        "This PR fixes the incorrect tax calculation on invoices.",
-        "This PR fixs the incorrect tax calculation on invoices.",
-        "This PR fixes the tax calculation incorrect on invoices."
+        "Tách làm hai PR: phần refactor riêng, phần sửa lỗi riêng, vì gộp lại khó review.",
+        "Bỏ phần refactor đi, không cần làm nữa.",
+        "Phần refactor làm lỗi khó sửa hơn, nên đổi cách làm."
       ],
       "answer": 0,
-      "answer_vi": "PR này sửa cách tính thuế sai trên hoá đơn.",
-      "why_vi": "Động từ tận cùng bằng x thì thêm es: fixes. Tính từ incorrect đứng trước danh từ."
+      "answer_vi": "Tách làm hai PR: phần refactor riêng, phần sửa lỗi riêng, vì gộp lại khó review.",
+      "why_vi": "split into two PRs là tách thành hai PR. hard to review là khó review, không phải khó sửa. Họ không bảo bỏ refactor."
     },
     {
       "id": "w01q10",
-      "prompt_vi": "Tiêu đề PR: Đổi tên cột created thành created_at.",
+      "prompt_vi": "Đồng nghiệp nhắn: 'PTAL when you get a chance. I've addressed all your comments.' Ý họ là gì?",
       "options": [
-        "Rename the created column to created_at",
-        "Rename the created column into created_at",
-        "Change name the created column to created_at"
+        "Nhờ bạn xem lại PR khi rảnh, họ đã xử lý hết các góp ý của bạn.",
+        "Nhờ bạn sửa giúp các comment còn lại trong PR.",
+        "Họ cần bạn duyệt PR gấp trong hôm nay."
       ],
       "answer": 0,
-      "answer_vi": "Đổi tên cột created thành created_at.",
-      "why_vi": "Đổi tên là rename, đổi thành tên gì dùng to."
+      "answer_vi": "Nhờ bạn xem lại PR khi rảnh, họ đã xử lý hết các góp ý của bạn.",
+      "why_vi": "PTAL là please take a look (nhờ xem giúp). address comments là xử lý các góp ý. when you get a chance là khi bạn rảnh, không gấp."
     }
   ],
-  "write_prompt_vi": "Viết tiêu đề và một câu mô tả cho pull request gần nhất của bạn."
+  "write_prompt_vi": "Bạn vừa sửa lỗi nút Save không lưu được ở trang hồ sơ. Viết tiêu đề PR và mô tả có What, Why, How to test để gửi team review."
 }

@@ -4,10 +4,10 @@
   "slug": "hoi-lai-khi-chua-hieu",
   "title": "Hỏi lại khi chưa hiểu",
   "free": false,
-  "goal_vi": "Lịch sự nhờ người khác nói lại hoặc xác nhận lại ý trước khi làm sai.",
+  "goal_vi": "Lịch sự nhờ người khác nói lại hoặc xác nhận lại ý trước khi làm, thay vì gật đầu cho qua rồi làm sai.",
   "pattern": {
     "formula": "Sorry, could you say that again? / Just to confirm, you mean + clause?",
-    "note_vi": "Nghe sót thì xin nói lại. Nghe được nhưng chưa chắc thì nhắc lại ý bằng lời của bạn để xác nhận."
+    "note_vi": "Nghe sót thì xin nói lại. Nghe được nhưng chưa chắc thì nhắc lại ý bằng lời của bạn, tốt nhất đưa ra lựa chọn A hay B để người kia chỉ cần xác nhận."
   },
   "examples": [
     {
@@ -15,20 +15,20 @@
       "vi": "Xin lỗi, bạn nói lại được không? Mình nghe sót đoạn cuối."
     },
     {
-      "en": "Just to confirm, you mean the bug only happens on Safari?",
+      "en": "Just to confirm, you mean the bug only happens in Safari?",
       "vi": "Mình hỏi lại cho chắc, ý bạn là bug chỉ xảy ra trên Safari?"
     },
     {
-      "en": "What do you mean by \"make it more flexible\"?",
-      "vi": "Ý bạn \"làm cho linh hoạt hơn\" là sao?"
+      "en": "What do you mean by \"done\" for this story? Merged, or deployed to staging?",
+      "vi": "Với story này, ý bạn \"xong\" là sao? Là đã merge, hay đã deploy lên staging?"
     },
     {
-      "en": "Just to confirm, you mean we should roll back the deploy?",
-      "vi": "Mình hỏi lại cho chắc, ý bạn là mình nên rollback bản deploy?"
+      "en": "Just to confirm, you mean we should roll back the deploy, not ship a hotfix?",
+      "vi": "Mình hỏi lại cho chắc, ý bạn là nên rollback bản deploy, chứ không làm hotfix?"
     },
     {
-      "en": "Just to confirm, you mean the client wants the export feature by next Friday?",
-      "vi": "Mình hỏi lại cho chắc, ý bạn là khách muốn có tính năng xuất file trước thứ Sáu tuần sau?"
+      "en": "Just to confirm, you mean the client needs the export feature by next Friday?",
+      "vi": "Mình hỏi lại cho chắc, ý bạn là khách cần tính năng xuất file muộn nhất thứ Sáu tuần sau?"
     }
   ],
   "mistakes": [
@@ -36,30 +36,43 @@
       "wrong": "Can you repeat again?",
       "right": "Could you repeat that?",
       "right_vi": "Bạn nhắc lại được không?",
-      "why_vi": "repeat đã có nghĩa là nói lại, không thêm again. Cần có that."
+      "why_vi": "repeat đã có nghĩa là nói lại nên không thêm again; dùng that để chỉ điều người kia vừa nói."
     },
     {
       "wrong": "What is your mean?",
       "right": "What do you mean?",
       "right_vi": "Ý bạn là gì?",
-      "why_vi": "mean là động từ, không phải danh từ."
+      "why_vi": "mean là động từ, không phải danh từ, nên hỏi bằng do you mean."
     },
     {
       "wrong": "Sorry, I don't understand what you say.",
       "right": "Sorry, I didn't catch what you said.",
-      "right_vi": "Xin lỗi, mình nghe không kịp bạn vừa nói gì.",
-      "why_vi": "Người kia nói xong rồi nên dùng quá khứ. didn't catch là nghe không kịp."
+      "right_vi": "Xin lỗi, mình nghe chưa rõ bạn vừa nói gì.",
+      "why_vi": "Người kia đã nói xong nên dùng quá khứ. didn't catch là nghe chưa kịp, nghe chưa rõ."
     }
   ],
   "word_bank": [
-    "could you repeat that",
-    "say that again",
-    "didn't catch",
+    "could you say that again",
+    "I didn't catch that",
     "just to confirm",
-    "you mean",
     "what do you mean by",
-    "clarify",
-    "the last part"
+    "so you're saying",
+    "let me make sure I got this right",
+    "could you drop it in the chat",
+    "on the same page",
+    "in scope / out of scope",
+    "acceptance criteria"
+  ],
+  "model": {
+    "title_vi": "Tin nhắn hỏi lại yêu cầu sau cuộc gọi",
+    "en": "Hi Mark, a quick follow-up on the export feature from today's call. I didn't catch everything, so I want to check two things before I start.\nJust to confirm, you mean users export the report as CSV, not PDF?\nAlso, what do you mean by \"all data\"? Is it only the rows in the current filter, or the full history?\nOnce you confirm, I'll update the ticket and pick it up today.\nThanks.",
+    "vi": "Chào Mark, mình hỏi lại nhanh về tính năng xuất file trong cuộc gọi hôm nay. Mình nghe chưa hết, nên muốn kiểm tra hai điểm trước khi bắt đầu.\nMình hỏi lại cho chắc, ý bạn là người dùng xuất báo cáo dạng CSV, không phải PDF?\nNgoài ra, ý bạn \"toàn bộ dữ liệu\" là sao? Chỉ các dòng trong bộ lọc hiện tại, hay toàn bộ lịch sử?\nBạn xác nhận xong thì mình sẽ cập nhật ticket và bắt tay làm ngay hôm nay.\nCảm ơn bạn."
+  },
+  "checklist_vi": [
+    "Nói rõ đang hỏi lại về việc nào",
+    "Có ít nhất một câu xác nhận lại ý bằng lời của bạn (Just to confirm, you mean...)",
+    "Câu hỏi cụ thể, có lựa chọn A hay B để người kia trả lời nhanh",
+    "Nói bạn sẽ làm gì sau khi được xác nhận"
   ],
   "quiz": [
     {
@@ -72,7 +85,7 @@
       ],
       "answer": 0,
       "answer_vi": "Bạn nhắc lại được không?",
-      "why_vi": "repeat không cần again. Sau could là động từ nguyên mẫu không to."
+      "why_vi": "repeat đã có nghĩa là nói lại nên không cần again. Sau could là động từ nguyên mẫu, không có to."
     },
     {
       "id": "s06q2",
@@ -84,58 +97,22 @@
       ],
       "answer": 0,
       "answer_vi": "Ý bạn là gì?",
-      "why_vi": "mean là động từ: do you mean."
+      "why_vi": "mean là động từ: What do you mean? Sau do là động từ nguyên mẫu, không thêm -ing."
     },
     {
       "id": "s06q3",
-      "prompt_vi": "Mình hỏi lại cho chắc, ý bạn là bug chỉ có trên iOS?",
-      "options": [
-        "Just to confirm, you mean the bug only happens on iOS?",
-        "Just to confirm, you mean the bug only happen on iOS?",
-        "Just to confirm, your mean is the bug only happens in iOS?"
-      ],
-      "answer": 0,
-      "answer_vi": "Mình hỏi lại cho chắc, ý bạn là bug chỉ có trên iOS?",
-      "why_vi": "the bug là số ít nên happens. Nền tảng dùng on iOS."
-    },
-    {
-      "id": "s06q4",
-      "prompt_vi": "Xin lỗi, mình nghe không kịp.",
+      "prompt_vi": "Xin lỗi, mình nghe chưa rõ.",
       "options": [
         "Sorry, I didn't catch that.",
         "Sorry, I don't catch that.",
         "Sorry, I not catch that."
       ],
       "answer": 0,
-      "answer_vi": "Xin lỗi, mình nghe không kịp.",
-      "why_vi": "Người kia đã nói xong nên dùng quá khứ: didn't catch. Phủ định cần trợ động từ did."
+      "answer_vi": "Xin lỗi, mình nghe chưa rõ.",
+      "why_vi": "Người kia đã nói xong nên dùng quá khứ: didn't catch. Câu phủ định cần trợ động từ, không đặt not ngay trước động từ."
     },
     {
-      "id": "s06q5",
-      "prompt_vi": "Bạn nói chậm lại một chút được không?",
-      "options": [
-        "Could you speak a bit more slowly?",
-        "Could you speaking a bit more slowly?",
-        "Could you speak more slow a bit?"
-      ],
-      "answer": 0,
-      "answer_vi": "Bạn nói chậm lại một chút được không?",
-      "why_vi": "Sau could là động từ nguyên mẫu. a bit đứng trước more slowly."
-    },
-    {
-      "id": "s06q6",
-      "prompt_vi": "Mình hỏi lại cho chắc, ý bạn là nên tách ticket này?",
-      "options": [
-        "Just to confirm, you mean we should split this ticket?",
-        "Just to confirm, you mean we should splitting this ticket?",
-        "Just for confirm, you mean we should split this ticket?"
-      ],
-      "answer": 0,
-      "answer_vi": "Mình hỏi lại cho chắc, ý bạn là nên tách ticket này?",
-      "why_vi": "Sau should là động từ nguyên mẫu. Cụm cố định: just to confirm."
-    },
-    {
-      "id": "s06q7",
+      "id": "s06q4",
       "prompt_vi": "Ý bạn \"endpoint cũ\" là cái nào?",
       "options": [
         "What do you mean by \"the old endpoint\"?",
@@ -144,44 +121,80 @@
       ],
       "answer": 0,
       "answer_vi": "Ý bạn \"endpoint cũ\" là cái nào?",
-      "why_vi": "Hỏi nghĩa một cụm từ dùng mean by. Câu hỏi cần do."
+      "why_vi": "Hỏi nghĩa của một cụm từ thì dùng mean by. Câu hỏi cần do đứng trước you."
+    },
+    {
+      "id": "s06q5",
+      "prompt_vi": "Bạn không nghe kịp PM vừa nói gì trong cuộc họp. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "Sorry, I didn't catch the last part. Could you say it again?",
+        "What? Say that again.",
+        "I'm so sorry, my English is very bad. Could you please repeat everything you said?"
+      ],
+      "answer": 0,
+      "answer_vi": "Xin lỗi, mình nghe chưa rõ đoạn cuối. Bạn nói lại được không?",
+      "why_vi": "Câu đầu lịch sự và nói rõ phần nào bị sót. Câu hai cụt, nghe hơi gắt. Câu ba tự hạ mình quá mức và bắt người kia nói lại toàn bộ."
+    },
+    {
+      "id": "s06q6",
+      "prompt_vi": "Reviewer viết \"make this more generic\" mà bạn chưa hiểu. Chọn cách trả lời phù hợp hơn.",
+      "options": [
+        "What do you mean by \"more generic\"? Should it work for other report types too?",
+        "I don't understand your comment.",
+        "OK, I'll change it."
+      ],
+      "answer": 0,
+      "answer_vi": "Ý bạn \"tổng quát hơn\" là sao? Nó có cần chạy được cho các loại báo cáo khác nữa không?",
+      "why_vi": "Câu đầu hỏi đúng chỗ chưa rõ và đưa ra cách hiểu để người kia chỉ cần xác nhận. Câu hai không nói chưa hiểu chỗ nào. Câu ba nhận lời khi chưa hiểu, dễ sửa sai hướng."
+    },
+    {
+      "id": "s06q7",
+      "prompt_vi": "Khách đọc nhanh một mã ticket trong cuộc gọi, bạn nghe không rõ. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "Could you drop the ticket number in the chat?",
+        "Spell the ticket number.",
+        "I'm really sorry to bother you again, but would it maybe be possible for you to type the ticket number somewhere?"
+      ],
+      "answer": 0,
+      "answer_vi": "Bạn gửi số ticket vào khung chat giúp mình được không?",
+      "why_vi": "Câu đầu ngắn, lịch sự và nói rõ muốn người kia làm gì. Câu hai là mệnh lệnh, nghe cộc với khách. Câu ba vòng vo, xin lỗi quá nhiều cho một việc nhỏ."
     },
     {
       "id": "s06q8",
-      "prompt_vi": "Xin lỗi, bạn nhắc lại phần cuối được không?",
+      "prompt_vi": "Đồng nghiệp nhắn: \"Can you look into the 500s on /checkout? Not urgent, EOD is fine.\" Ý họ là gì?",
       "options": [
-        "Sorry, could you repeat the last part?",
-        "Sorry, could you repeat last part?",
-        "Sorry, could you repeat the part last?"
+        "Họ nhờ bạn tìm hiểu lỗi 500 ở /checkout, xong trong hôm nay là được.",
+        "Họ nhờ bạn sửa xong lỗi ở /checkout ngay bây giờ.",
+        "Họ báo là lỗi 500 ở /checkout đã được sửa xong."
       ],
       "answer": 0,
-      "answer_vi": "Xin lỗi, bạn nhắc lại phần cuối được không?",
-      "why_vi": "Cần the trước last part. last đứng trước part."
+      "answer_vi": "Họ nhờ bạn tìm hiểu lỗi 500 ở /checkout, xong trong hôm nay là được.",
+      "why_vi": "look into là tìm hiểu, điều tra. the 500s là các lỗi HTTP 500. EOD (end of day) là cuối ngày làm việc, còn not urgent là không gấp."
     },
     {
       "id": "s06q9",
-      "prompt_vi": "Bạn làm rõ giúp mình yêu cầu này được không?",
+      "prompt_vi": "PM nói trong họp: \"Let's keep the scope tight. Bulk delete is out of scope for this sprint.\" Ý họ là gì?",
       "options": [
-        "Could you clarify this requirement?",
-        "Could you clarify about this requirement?",
-        "Could you make clear this requirement?"
+        "Sprint này không làm tính năng xóa hàng loạt.",
+        "Sprint này phải làm thêm tính năng xóa hàng loạt.",
+        "Tính năng xóa hàng loạt đang bị lỗi trong sprint này."
       ],
       "answer": 0,
-      "answer_vi": "Bạn làm rõ giúp mình yêu cầu này được không?",
-      "why_vi": "clarify + thứ cần làm rõ, không thêm about. Dùng make clear thì nói make this requirement clear."
+      "answer_vi": "Sprint này không làm tính năng xóa hàng loạt.",
+      "why_vi": "out of scope là nằm ngoài phạm vi, tức là không làm lần này. keep the scope tight là giữ phạm vi gọn, không nhận thêm việc."
     },
     {
       "id": "s06q10",
-      "prompt_vi": "Chọn câu đúng.",
+      "prompt_vi": "Tech lead nhắn: \"Just to make sure we're on the same page: we're going with option B, right?\" Ý họ là gì?",
       "options": [
-        "Sorry, I didn't understand your comment on line 42.",
-        "Sorry, I don't understood your comment on line 42.",
-        "Sorry, I didn't understand comment of you on line 42."
+        "Họ muốn xác nhận là cả nhóm đã thống nhất chọn phương án B.",
+        "Họ muốn mở một trang tài liệu mới cho phương án B.",
+        "Họ đề xuất bỏ phương án B."
       ],
       "answer": 0,
-      "answer_vi": "Xin lỗi, mình chưa hiểu comment của bạn ở dòng 42.",
-      "why_vi": "Sau didn't là động từ nguyên mẫu. Của bạn là your comment."
+      "answer_vi": "Họ muốn xác nhận là cả nhóm đã thống nhất chọn phương án B.",
+      "why_vi": "on the same page là hiểu giống nhau, không liên quan đến trang tài liệu. go with là chọn. right? ở cuối câu là đang hỏi lại để xác nhận."
     }
   ],
-  "write_prompt_vi": "Viết 1 câu hỏi lại để xác nhận một yêu cầu bạn chưa chắc."
+  "write_prompt_vi": "PM giao việc rất nhanh trong cuộc gọi và bạn chưa chắc một chi tiết. Viết tin Slack 3 đến 4 câu gửi PM: nói việc nào, xác nhận lại ý, hỏi rõ chỗ chưa chắc, nói bước tiếp theo."
 }

@@ -4,8 +4,7 @@
   "slug": "vai-tro-va-dong-gop",
   "title": "Vai trò và đóng góp của bạn",
   "free": false,
-  "question_en": "What was your role on that project, and what did you contribute?",
-  "goal_vi": "Tách rõ việc của cả team và phần việc của riêng bạn, không nhận hết công.",
+  "goal_vi": "Tách rõ việc của cả team và phần việc của riêng bạn, nói được một việc bạn chủ động làm và kết quả có con số.",
   "pattern": {
     "formula": "The team + V2 + ... My part was + noun. / I was responsible for + noun / V-ing.",
     "note_vi": "Nói team làm gì, rồi nói phần của bạn. responsible là tính từ nên cần was, sau for dùng danh từ hoặc V-ing."
@@ -49,17 +48,31 @@
       "wrong": "I worked with QA team to fix the bugs.",
       "right": "I worked with the QA team to fix the bugs.",
       "right_vi": "Mình làm cùng team QA để sửa các bug.",
-      "why_vi": "Nói một team cụ thể thì cần the."
+      "why_vi": "team là danh từ đếm được số ít nên cần a, the, our...; dùng the vì người nghe biết là team QA của dự án."
     }
   ],
   "word_bank": [
     "my part was",
     "I was responsible for",
     "I was in charge of",
-    "I worked with",
-    "I helped",
+    "I owned",
+    "I suggested + V-ing",
+    "I took the lead on",
     "as a result",
-    "the team"
+    "went down from ... to ...",
+    "cut ... by 30%"
+  ],
+  "model": {
+    "title_vi": "Câu trả lời về vai trò và đóng góp, có kết quả bằng con số",
+    "en": "I was on a team of six that rebuilt the checkout flow for an online fashion store.\nThe team owned the whole flow, from the cart to the order confirmation email. My part was the integration with two local payment gateways and the error handling around it.\nI also noticed that our CI pipeline was slowing everyone down, so I suggested splitting the test suite and running it in parallel. I set it up with one other developer over two sprints.\nAs a result, the build time went down from 20 to 8 minutes. After the new checkout went live, failed payments also dropped by about 30%.",
+    "vi": "Mình ở trong một team sáu người làm lại luồng checkout cho một cửa hàng thời trang online.\nTeam phụ trách cả luồng, từ giỏ hàng tới email xác nhận đơn. Phần của mình là tích hợp hai cổng thanh toán trong nước và phần xử lý lỗi quanh nó.\nMình cũng thấy pipeline CI đang làm chậm cả team, nên mình đề xuất tách bộ test ra và chạy song song. Mình cùng một bạn dev khác dựng nó trong hai sprint.\nNhờ vậy, thời gian build giảm từ 20 xuống 8 phút. Sau khi luồng checkout mới chạy thật, số giao dịch thanh toán lỗi cũng giảm khoảng 30%."
+  },
+  "checklist_vi": [
+    "Nói team làm gì trước",
+    "Nói rõ phần việc của riêng bạn, dùng I thay vì we",
+    "Có một việc bạn tự đề xuất hoặc chủ động làm",
+    "Có kết quả bằng con số",
+    "Không nhận việc của cả team là của riêng bạn"
   ],
   "quiz": [
     {
@@ -72,7 +85,7 @@
       ],
       "answer": 0,
       "answer_vi": "Mình phụ trách module báo cáo.",
-      "why_vi": "be responsible for: cần was, và giới từ là for."
+      "why_vi": "be responsible for: responsible không phải động từ nên cần was, và giới từ đi kèm là for."
     },
     {
       "id": "i03q2",
@@ -84,7 +97,7 @@
       ],
       "answer": 0,
       "answer_vi": "Mình phụ trách viết API cho app mobile.",
-      "why_vi": "Sau for dùng V-ing. in charge đi với of, không đi với for."
+      "why_vi": "Sau for dùng V-ing: writing. in charge đi với of, không đi với for."
     },
     {
       "id": "i03q3",
@@ -96,34 +109,22 @@
       ],
       "answer": 0,
       "answer_vi": "Team làm lại cả hệ thống, và phần của mình là module tìm kiếm.",
-      "why_vi": "the search module: từ bổ nghĩa đứng trước. Việc đã xong dùng quá khứ: rebuilt."
+      "why_vi": "the search module: từ bổ nghĩa đứng trước danh từ. Việc đã xong dùng quá khứ: rebuilt."
     },
     {
       "id": "i03q4",
-      "prompt_vi": "Mình viết test và review code cho cả team.",
+      "prompt_vi": "Mình đề xuất chạy test song song.",
       "options": [
-        "I wrote tests and reviewed code for the whole team.",
-        "I wrote tests and review code for the whole team.",
-        "I wrote tests and reviewed code for all team."
+        "I suggested running the tests in parallel.",
+        "I suggested to run the tests in parallel.",
+        "I suggest running the tests in parallel."
       ],
       "answer": 0,
-      "answer_vi": "Mình viết test và review code cho cả team.",
-      "why_vi": "Hai động từ nối bằng and cùng ở quá khứ. Cả team là the whole team."
+      "answer_vi": "Mình đề xuất chạy test song song.",
+      "why_vi": "suggest + V-ing, không dùng suggest to V. Kể chuyện ở dự án cũ thì dùng quá khứ: suggested."
     },
     {
       "id": "i03q5",
-      "prompt_vi": "Nhờ vậy thời gian build giảm từ 20 xuống 8 phút.",
-      "options": [
-        "As a result, the build time went down from 20 to 8 minutes.",
-        "As the result, the build time went down from 20 to 8 minutes.",
-        "As a result, the build time go down from 20 to 8 minutes."
-      ],
-      "answer": 0,
-      "answer_vi": "Nhờ vậy, thời gian build giảm từ 20 xuống 8 phút.",
-      "why_vi": "Cụm cố định là as a result. Việc đã xảy ra dùng quá khứ: went down."
-    },
-    {
-      "id": "i03q6",
       "prompt_vi": "Chọn câu trả lời phù hợp hơn.",
       "options": [
         "The team built a new HR app. My part was the leave request feature and its tests.",
@@ -135,53 +136,66 @@
       "why_vi": "Nói team làm gì rồi nói rõ phần của mình. Không nhận hết công, cũng không tự hạ thấp."
     },
     {
-      "id": "i03q7",
-      "prompt_vi": "Mình phụ trách thiết kế database.",
+      "id": "i03q6",
+      "prompt_vi": "Chọn cách nói kết quả phù hợp hơn.",
       "options": [
-        "I was in charge of the database design.",
-        "I was in charge the database design.",
-        "I was responsible to design the database."
+        "After the change, the nightly report finished in 15 minutes instead of two hours.",
+        "After the change, everything got much better, and everyone was really happy.",
+        "After the change, the system became perfect, and we never had problems again."
       ],
       "answer": 0,
-      "answer_vi": "Mình phụ trách thiết kế database.",
-      "why_vi": "in charge luôn đi với of. responsible đi với for, không đi với to V."
+      "answer_vi": "Sau thay đổi đó, báo cáo chạy hằng đêm xong trong 15 phút thay vì hai tiếng.",
+      "why_vi": "Kết quả có số cụ thể thì người nghe tin và nhớ được. Nói chung chung thì không chứng minh được gì, còn nói \"hoàn hảo\" thì nghe như phóng đại."
+    },
+    {
+      "id": "i03q7",
+      "prompt_vi": "Người phỏng vấn hỏi: \"What would you do differently next time?\" Chọn câu trả lời phù hợp hơn.",
+      "options": [
+        "I'd involve QA earlier. We found several edge cases late, and that cost us about a week.",
+        "Nothing, really. I think we did everything right.",
+        "Probably everything. Looking back, I made a lot of bad decisions on that project."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình sẽ đưa QA vào sớm hơn. Bọn mình phát hiện vài trường hợp biên muộn, và mất thêm khoảng một tuần.",
+      "why_vi": "Nêu một điều cụ thể và lý do cho thấy bạn biết rút kinh nghiệm. Nói không cần thay đổi gì nghe thiếu suy nghĩ, còn tự chê mọi thứ thì làm người nghe mất tin tưởng."
     },
     {
       "id": "i03q8",
-      "prompt_vi": "Mình làm việc với khách hàng để chốt phạm vi dự án.",
+      "prompt_vi": "Người phỏng vấn nói: \"That sounds like a real team effort. What was your piece of it, specifically?\" Ý họ là gì?",
       "options": [
-        "I worked with the client to finalize the scope.",
-        "I worked with the client for finalizing the scope.",
-        "I work with the client to finalize the scope."
+        "Họ muốn biết cụ thể phần việc của riêng bạn trong đó.",
+        "Họ khen team bạn làm tốt và muốn chuyển sang câu hỏi khác.",
+        "Họ hỏi team bạn có bao nhiêu người."
       ],
       "answer": 0,
-      "answer_vi": "Mình làm việc với khách hàng để chốt phạm vi dự án.",
-      "why_vi": "Làm gì để đạt mục đích thì dùng to V. Chuyện đã qua dùng quá khứ: worked."
+      "answer_vi": "Họ muốn biết cụ thể phần việc của riêng bạn trong đó.",
+      "why_vi": "team effort là việc cả team cùng làm. your piece of it là phần của bạn trong việc đó. Đây là dấu hiệu bạn đang nói we quá nhiều."
     },
     {
       "id": "i03q9",
-      "prompt_vi": "Mình giúp hai bạn junior làm quen với codebase.",
+      "prompt_vi": "Người phỏng vấn hỏi: \"So were you the one who drove that decision, or did it come from your lead?\" Ý họ là gì?",
       "options": [
-        "I helped two junior developers get familiar with the codebase.",
-        "I helped two junior developers getting familiar with the codebase.",
-        "I helped two developers junior get familiar with the codebase."
+        "Họ hỏi quyết định đó do bạn thúc đẩy hay do trưởng nhóm đưa ra.",
+        "Họ hỏi bạn có đồng ý với quyết định của trưởng nhóm không.",
+        "Họ hỏi bạn đã báo quyết định đó cho ai."
       ],
       "answer": 0,
-      "answer_vi": "Mình giúp hai bạn junior làm quen với codebase.",
-      "why_vi": "helped + người + động từ nguyên mẫu. Từ bổ nghĩa đứng trước danh từ: junior developers."
+      "answer_vi": "Họ hỏi quyết định đó do bạn thúc đẩy hay do trưởng nhóm đưa ra.",
+      "why_vi": "drive a decision là dẫn dắt để quyết định được đưa ra. come from your lead là ý tưởng đến từ trưởng nhóm."
     },
     {
       "id": "i03q10",
-      "prompt_vi": "Mình cũng viết tài liệu cho phần đó.",
+      "prompt_vi": "Người phỏng vấn hỏi: \"You said you cut the build time by 60%. How did you measure that?\" Ý họ là gì?",
       "options": [
-        "I also wrote the documentation for that part.",
-        "I also wrote the documentations for that part.",
-        "I wrote also the documentation for that part."
+        "Họ hỏi bạn đo con số giảm 60% thời gian build bằng cách nào.",
+        "Họ hỏi bạn có thể giảm thêm 60% nữa không.",
+        "Họ cho rằng con số đó sai và muốn bạn bỏ nó đi."
       ],
       "answer": 0,
-      "answer_vi": "Mình cũng viết tài liệu cho phần đó.",
-      "why_vi": "documentation không đếm được nên không thêm s. also đứng trước động từ chính."
+      "answer_vi": "Họ hỏi bạn đo con số giảm 60% thời gian build bằng cách nào.",
+      "why_vi": "cut by 60% là giảm 60%. Hỏi how did you measure that là câu hỏi bình thường khi bạn đưa ra số liệu, họ muốn nghe cách đo."
     }
   ],
-  "write_prompt_vi": "Viết 2 câu: team của bạn làm gì, và phần việc của riêng bạn là gì."
+  "write_prompt_vi": "Người phỏng vấn hỏi vai trò của bạn trong dự án gần nhất. Viết 80 đến 150 từ: team làm gì, phần việc của bạn, một việc bạn chủ động đề xuất, và kết quả có con số.",
+  "question_en": "What was your role on that project, and what did you contribute?"
 }

@@ -10,6 +10,8 @@ import { publicEnv } from '../lib/env';
 import { sameOrigin } from '../lib/http/response';
 import { shuffledIndexes } from '../lib/lesson/shuffle';
 import { parseAnswers, trackFormSchema } from '../lib/placement/form';
+import { parseRoles } from '../lib/content/roles';
+import RolePicker from '../components/RolePicker.astro';
 
 export const prerender = false;
 
@@ -27,11 +29,14 @@ if (Astro.request.method === 'POST') {
 
   if (form.get('action') === 'track') {
     const parsed = trackFormSchema.safeParse(Object.fromEntries(form));
-    if (parsed.success && (parsed.data.track !== 'interview' || hasFullAccess(access))) {
-      await updateProfile(db, user.id, { track: parsed.data.track });
+    // Không tick ngành nào thì giữ nguyên ngành cũ (SPEC mục 16: chưa chọn ngành thì như cũ).
+    const ticked = form.getAll('roles').length > 0;
+    const roles = ticked ? parseRoles(form) : null;
+    if (parsed.success && (!ticked || roles) && (parsed.data.track !== 'interview' || hasFullAccess(access))) {
+      await updateProfile(db, user.id, roles ? { track: parsed.data.track, roles } : { track: parsed.data.track });
       return Astro.redirect('/hom-nay', 303);
     }
-    error = 'Chưa đổi được track. Chọn lại một track trong danh sách.';
+    error = 'Chưa lưu được. Chọn lại một track và các ngành trong danh sách.';
   } else {
     const answers = parseAnswers(form, placement.questions);
     if (answers) {
@@ -85,6 +90,13 @@ const questions = placement.questions.map((q) => ({ ...q, order: shuffledIndexes
 
           <form method="post" class="panel">
             <input type="hidden" name="action" value="track" />
+            <fieldset class="role-pick">
+              <legend>
+                <h2 style="font-size:var(--fs-xl)">Bạn đang làm ngành nào?</h2>
+              </legend>
+              <p class="muted" style="font-size:var(--fs-sm)">Chọn một hoặc nhiều, hoặc để trống. Bài đúng ngành của bạn được đưa lên trước, đổi lại được ở trang Tài khoản.</p>
+              <RolePicker selected={profile.roles} />
+            </fieldset>
             <fieldset style="border:0;padding:0;margin:0">
               <legend>
                 <h2 style="font-size:var(--fs-xl)">Chọn track để bắt đầu</h2>

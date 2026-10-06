@@ -20,6 +20,7 @@ const ok = {
         { from: 'bug', to: 'a bug', why_vi: 'Danh từ đếm được số ít cần mạo từ.', category: 'article' },
       ],
       tip_vi: 'Thấy mốc thời gian đã qua thì nghĩ ngay tới quá khứ đơn.',
+      missing_vi: ['Có việc hôm nay sẽ làm'],
     },
     remaining: 9,
     period: 'day',
@@ -93,6 +94,7 @@ test('gửi câu thì hiện khung diff, ghi chú từng chỗ sửa và số l�
   await expect(review).toContainText('Có "yesterday" thì dùng quá khứ đơn.');
   await expect(review).toContainText('thì của động từ');
   await expect(review).toContainText('Nghĩa: Hôm qua mình đã sửa một bug ở trang đăng nhập.');
+  await expect(section(page).locator('.missing')).toContainText('Có việc hôm nay sẽ làm');
   await expect(page.locator('section[aria-labelledby="cau-cua-ban"]')).toContainText('2 chỗ sửa đã vào sổ lỗi');
   await expect(page.locator('section[aria-labelledby="cau-cua-ban"]')).toContainText('Hôm nay bạn còn 9 lượt sửa.');
   expect(bodies).toEqual([{ sentence: SENTENCE, lessonKey: 'standup-01' }]);

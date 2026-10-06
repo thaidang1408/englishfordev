@@ -1,0 +1,204 @@
+{
+  "id": 14,
+  "track": "writing",
+  "slug": "doc-hieu-tin-nhan-cua-dong-nghiep-nuoc-ngoai",
+  "title": "Đọc hiểu tin nhắn của đồng nghiệp nước ngoài",
+  "free": false,
+  "goal_vi": "Hiểu đúng tin nhắn ngắn của đồng nghiệp bản ngữ: viết tắt (LGTM, PTAL, EOD, ETA, nit, WIP, OOO), cụm động từ (roll back, look into, follow up, sign off) và lời nhờ gián tiếp, rồi trả lời đúng ý.",
+  "pattern": {
+    "formula": "Would you mind + V-ing ...? / It might be worth + V-ing ... . = lời nhờ hoặc đề xuất, bạn nên làm",
+    "note_vi": "Người bản ngữ ít ra lệnh thẳng. Would you mind + V-ing ...? là đang nhờ bạn làm việc đó. It might be worth + V-ing ... hay Not sure this is the best approach thường là muốn bạn làm thêm hoặc đổi cách làm, không chỉ là nói cho biết. worth ở đây là đáng làm, không liên quan đến tiền. Trả lời Would you mind ...? bằng Sure hoặc No problem rồi nói khi nào bạn làm xong."
+  },
+  "examples": [
+    {
+      "en": "Would you mind taking a look at my PR before EOD?",
+      "vi": "Bạn xem giúp mình PR trước cuối ngày được không?"
+    },
+    {
+      "en": "It might be worth adding a retry here. The payment API times out now and then.",
+      "vi": "Chỗ này nên thêm retry. API thanh toán thỉnh thoảng bị timeout."
+    },
+    {
+      "en": "LGTM, just one nit: the variable name could be clearer. Feel free to merge once it's fixed.",
+      "vi": "Code ổn rồi, chỉ có một góp ý nhỏ: tên biến nên rõ hơn. Sửa xong thì bạn cứ merge."
+    },
+    {
+      "en": "I'm OOO tomorrow. If prod breaks, roll back first, and we'll look into it on Monday.",
+      "vi": "Mai mình nghỉ. Nếu production lỗi thì cứ rollback trước, thứ Hai mình tìm hiểu nguyên nhân sau."
+    },
+    {
+      "en": "Any ETA on the fix? The client wants to sign off on the release today.",
+      "vi": "Bản sửa dự kiến khi nào xong? Khách muốn duyệt bản phát hành ngay hôm nay."
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "Would you mind to check my PR?",
+      "right": "Would you mind checking my PR?",
+      "right_vi": "Bạn xem giúp mình PR được không?",
+      "why_vi": "Sau mind là động từ thêm -ing, không dùng to + động từ."
+    },
+    {
+      "wrong": "I will follow up it with the client tomorrow.",
+      "right": "I'll follow up on it with the client tomorrow.",
+      "right_vi": "Mai mình sẽ hỏi lại khách về việc đó.",
+      "why_vi": "Theo dõi tiếp một việc là follow up on + việc đó. Theo dõi tiếp với ai là follow up with + người đó."
+    },
+    {
+      "wrong": "I will roll back it now.",
+      "right": "I'll roll it back now.",
+      "right_vi": "Mình sẽ rollback nó ngay bây giờ.",
+      "why_vi": "Với roll back, khi tân ngữ là it thì it đứng giữa: roll it back."
+    }
+  ],
+  "word_bank": [
+    "LGTM (looks good to me)",
+    "PTAL (please take a look)",
+    "EOD (end of day)",
+    "ETA (dự kiến khi nào xong)",
+    "nit (góp ý nhỏ)",
+    "WIP (đang làm dở)",
+    "OOO (nghỉ, không làm việc)",
+    "roll back",
+    "look into",
+    "follow up on",
+    "sign off on",
+    "loop in",
+    "Would you mind + V-ing",
+    "It might be worth + V-ing"
+  ],
+  "model": {
+    "title_vi": "Trả lời tin nhờ review của đồng nghiệp",
+    "en": "Tom: \"Would you mind taking a look at my PR before EOD? It might be worth double-checking the retry logic. I wasn't sure about the timeout.\"\n\nReply:\nSure, I'll take a look this afternoon.\nI'll focus on the retry logic and leave comments on the PR.\nOne quick question: should the timeout be 5 or 10 seconds?\nI should be done by 4 PM, and I'll ping you here once I've finished.",
+    "vi": "Tom: \"Bạn xem giúp mình PR trước cuối ngày được không? Chắc nên xem kỹ giúp mình phần retry. Mình chưa chắc về timeout.\"\n\nTrả lời:\nĐược, chiều nay mình xem nhé.\nMình sẽ tập trung vào phần retry và để comment trên PR.\nMình hỏi nhanh một câu: timeout nên là 5 hay 10 giây?\nMuộn nhất 4 giờ chiều mình xem xong, xong mình sẽ nhắn bạn ở đây."
+  },
+  "checklist_vi": [
+    "Trả lời đúng việc đồng nghiệp nhờ: nhận làm, hoặc nói rõ vì sao chưa làm được.",
+    "Nói khi nào bạn làm xong hoặc khi nào trả lời lại.",
+    "Nếu chưa rõ thì hỏi lại một câu cụ thể.",
+    "Giọng ngắn gọn, thân thiện, không xin lỗi quá mức."
+  ],
+  "quiz": [
+    {
+      "id": "w14q1",
+      "prompt_vi": "Đồng nghiệp nhắn: \"PTAL by EOD if you can. It's still WIP, so please don't merge yet.\" Ý họ là gì?",
+      "options": [
+        "Nhờ bạn xem giúp trước cuối ngày nếu được; việc vẫn đang làm dở nên đừng merge.",
+        "Nhờ bạn merge trước cuối ngày.",
+        "Việc đã xong, bạn chỉ cần xem qua rồi merge."
+      ],
+      "answer": 0,
+      "answer_vi": "Bạn xem giúp mình trước cuối ngày nếu được nhé. Việc vẫn đang làm dở, nên đừng merge vội.",
+      "why_vi": "PTAL là please take a look, nhờ xem giúp. EOD là cuối ngày. WIP là work in progress, đang làm dở."
+    },
+    {
+      "id": "w14q2",
+      "prompt_vi": "Reviewer viết trên PR: \"LGTM with a couple of nits. Feel free to merge once they're addressed.\" Ý họ là gì?",
+      "options": [
+        "Code ổn, chỉ có vài góp ý nhỏ; sửa xong thì bạn cứ merge, không cần chờ họ duyệt lại.",
+        "Reviewer chưa duyệt, code cần sửa nhiều.",
+        "Reviewer sẽ tự merge sau khi bạn sửa."
+      ],
+      "answer": 0,
+      "answer_vi": "Code ổn, có vài góp ý nhỏ. Sửa xong thì bạn cứ merge nhé.",
+      "why_vi": "LGTM là looks good to me, đã duyệt. nit là góp ý nhỏ, thường về cách viết. Feel free to là bạn cứ tự nhiên làm. addressed ở đây là đã xử lý."
+    },
+    {
+      "id": "w14q3",
+      "prompt_vi": "Tech lead comment: \"It might be worth adding an index on user_id before we ship this.\" Ý họ là gì?",
+      "options": [
+        "Tech lead muốn bạn thêm index trên cột user_id trước khi phát hành.",
+        "Tech lead hỏi thêm index trên user_id có tốn thêm tiền không.",
+        "Tech lead báo đã thêm index trên user_id rồi."
+      ],
+      "answer": 0,
+      "answer_vi": "Nên thêm index trên user_id trước khi mình phát hành cái này.",
+      "why_vi": "It might be worth + V-ing là cách đề xuất nhẹ nhàng, ý là nên làm. worth ở đây là đáng làm, không nói về tiền. ship là phát hành."
+    },
+    {
+      "id": "w14q4",
+      "prompt_vi": "PM nhắn: \"Would you mind sharing an ETA for the fix? The client wants to sign off on the release today.\" Ý họ là gì?",
+      "options": [
+        "PM nhờ bạn cho biết dự kiến khi nào sửa xong, vì khách muốn duyệt bản phát hành trong hôm nay.",
+        "PM hỏi bạn có phiền không nếu khách gọi cho bạn hôm nay.",
+        "PM muốn bạn gửi bản sửa thẳng cho khách ngay."
+      ],
+      "answer": 0,
+      "answer_vi": "Bạn cho mình biết dự kiến khi nào sửa xong được không? Khách muốn duyệt bản phát hành ngay hôm nay.",
+      "why_vi": "Would you mind + V-ing là lời nhờ lịch sự. ETA là thời điểm dự kiến xong. sign off on là duyệt, đồng ý chính thức."
+    },
+    {
+      "id": "w14q5",
+      "prompt_vi": "Đồng nghiệp comment: \"Not sure this is the best approach. Have you considered using a queue instead?\" Ý họ là gì?",
+      "options": [
+        "Họ thấy cách hiện tại chưa ổn và gợi ý bạn đổi sang dùng queue.",
+        "Họ đồng ý với cách hiện tại.",
+        "Họ hỏi bạn đã từng dùng queue chưa, để biết thêm kinh nghiệm của bạn."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình chưa chắc đây là cách tốt nhất. Bạn đã tính đến chuyện dùng queue chưa?",
+      "why_vi": "Not sure this is the best approach là cách nói nhẹ của ý không đồng ý. Have you considered ... instead? là gợi ý đổi cách làm, không phải hỏi kinh nghiệm."
+    },
+    {
+      "id": "w14q6",
+      "prompt_vi": "Bạn kiểm tra giúp mình script migration được không?",
+      "options": [
+        "Would you mind checking the migration script?",
+        "Would you mind to check the migration script?",
+        "Would you mind checking migration script?"
+      ],
+      "answer": 0,
+      "answer_vi": "Bạn kiểm tra giúp mình script migration được không?",
+      "why_vi": "Sau mind là động từ thêm -ing. Danh từ đếm được số ít cần a, the hoặc my; dùng the vì cả hai cùng biết là script nào."
+    },
+    {
+      "id": "w14q7",
+      "prompt_vi": "Đồng nghiệp nhắn: \"Would you mind reviewing my PR today?\" Chọn câu trả lời phù hợp hơn.",
+      "options": [
+        "Sure, I'll take a look this afternoon.",
+        "Busy.",
+        "Of course, I would be extremely happy and honored to review your PR whenever you would like me to."
+      ],
+      "answer": 0,
+      "answer_vi": "Được, chiều nay mình xem nhé.",
+      "why_vi": "Câu thứ hai cụt và không nói khi nào làm được. Câu thứ ba trang trọng quá mức cho một tin nhắn Slack. Câu đầu nhận việc và nói rõ thời gian."
+    },
+    {
+      "id": "w14q8",
+      "prompt_vi": "PM hỏi: \"Any ETA on the fix?\" Chọn câu trả lời phù hợp hơn.",
+      "options": [
+        "Should be done by 3 PM. I'll ping you once it's on staging.",
+        "Soon.",
+        "I'm really sorry, I don't know exactly, it's quite hard and I'm trying my best, so maybe today or maybe tomorrow."
+      ],
+      "answer": 0,
+      "answer_vi": "Muộn nhất 3 giờ chiều là xong. Lên staging rồi mình sẽ nhắn bạn.",
+      "why_vi": "Câu thứ hai không cho PM một mốc cụ thể. Câu thứ ba xin lỗi nhiều và vẫn không có mốc. Câu đầu có mốc rõ và hứa báo lại."
+    },
+    {
+      "id": "w14q9",
+      "prompt_vi": "Mình sẽ hỏi lại khách vào ngày mai.",
+      "options": [
+        "I'll follow up with the client tomorrow.",
+        "I'll follow up the client tomorrow.",
+        "I'll following up with the client tomorrow."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình sẽ hỏi lại khách vào ngày mai.",
+      "why_vi": "Hỏi lại, nhắc lại với ai là follow up with + người đó. Sau will là động từ nguyên mẫu, không thêm -ing."
+    },
+    {
+      "id": "w14q10",
+      "prompt_vi": "Mình sẽ rollback nó ngay bây giờ.",
+      "options": [
+        "I'll roll it back now.",
+        "I'll roll back it now.",
+        "I'll rolled it back now."
+      ],
+      "answer": 0,
+      "answer_vi": "Mình sẽ rollback nó ngay bây giờ.",
+      "why_vi": "Khi tân ngữ là it thì it đứng giữa: roll it back. Sau will là động từ nguyên mẫu, không dùng rolled."
+    }
+  ],
+  "write_prompt_vi": "Đồng nghiệp người Úc nhắn bạn trên Slack: \"Hey, would you mind looking into the flaky checkout test? It might be worth checking the test data first. Any ETA?\" Viết câu trả lời 2 đến 4 câu: nhận việc, nói bạn sẽ bắt đầu từ đâu, và đưa thời điểm dự kiến xong cụ thể."
+}

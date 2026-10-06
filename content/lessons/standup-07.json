@@ -4,31 +4,31 @@
   "slug": "xin-nguoi-khac-giup",
   "title": "Xin người khác giúp",
   "free": false,
-  "goal_vi": "Nhờ đồng nghiệp giúp một việc cụ thể, lịch sự và không gây áp lực.",
+  "goal_vi": "Nhờ đồng nghiệp giúp một việc cụ thể: nói rõ bối cảnh, bạn đã thử gì, cần bao lâu, và không gây áp lực.",
   "pattern": {
     "formula": "Could you + V? / Do you have a few minutes to + V?",
-    "note_vi": "Nói rõ việc cần nhờ. Thêm when you have a moment hoặc no rush để người kia không thấy bị ép."
+    "note_vi": "Nói rõ việc cần nhờ và bạn đã thử gì. Thêm when you have a moment hoặc no rush để người kia không thấy bị ép. Được giúp xong thì báo lại kết quả."
   },
   "examples": [
     {
-      "en": "Could you take a look at my PR when you have a moment?",
-      "vi": "Khi nào rảnh bạn xem giúp mình PR nhé."
+      "en": "Could you take a look at my PR when you have a moment? It's a small change to the login form.",
+      "vi": "Khi nào rảnh bạn xem giúp mình PR nhé. Chỉ là một thay đổi nhỏ ở form đăng nhập."
     },
     {
-      "en": "Do you have a few minutes to help me debug this test?",
-      "vi": "Bạn có vài phút giúp mình debug cái test này không?"
+      "en": "Do you have 15 minutes to help me debug this test? It passes locally but fails on CI.",
+      "vi": "Bạn có 15 phút giúp mình debug cái test này không? Chạy trên máy mình thì qua nhưng lên CI thì lỗi."
     },
     {
-      "en": "Could you help me check the deploy logs?",
-      "vi": "Bạn kiểm tra log deploy giúp mình được không?"
+      "en": "Would you mind checking the deploy logs? I don't have access to production.",
+      "vi": "Bạn kiểm tra giúp mình log deploy được không? Mình không có quyền vào production."
     },
     {
-      "en": "Could you help me reproduce this crash on Android?",
-      "vi": "Bạn giúp mình tái hiện lỗi crash này trên Android được không?"
+      "en": "Could you help me reproduce this crash on Android? I only have an iPhone.",
+      "vi": "Bạn giúp mình tái hiện lỗi crash này trên Android được không? Mình chỉ có iPhone."
     },
     {
-      "en": "Do you have a few minutes to go over the client's feedback with me?",
-      "vi": "Bạn có vài phút xem cùng mình phản hồi của khách không?"
+      "en": "Do you have a few minutes to go over the client's feedback with me? I'm not sure which points are urgent.",
+      "vi": "Bạn có vài phút xem cùng mình phản hồi của khách không? Mình chưa chắc điểm nào là gấp."
     }
   ],
   "mistakes": [
@@ -36,30 +36,44 @@
       "wrong": "Could you help me checking the logs?",
       "right": "Could you help me check the logs?",
       "right_vi": "Bạn kiểm tra log giúp mình được không?",
-      "why_vi": "help + người + động từ nguyên mẫu."
+      "why_vi": "help + người + động từ nguyên mẫu, không thêm -ing."
     },
     {
       "wrong": "Could you review PR for me?",
       "right": "Could you review my PR?",
       "right_vi": "Bạn review PR của mình được không?",
-      "why_vi": "PR đếm được nên cần my hoặc the đứng trước."
+      "why_vi": "PR là danh từ đếm được số ít nên cần từ hạn định đứng trước (a, the, my...); PR của mình thì dùng my."
     },
     {
       "wrong": "Do you have free time help me?",
       "right": "Do you have a few minutes to help me?",
       "right_vi": "Bạn có vài phút giúp mình không?",
-      "why_vi": "Nối hai ý bằng to + động từ. Hỏi vài phút nghe nhẹ nhàng hơn free time."
+      "why_vi": "Nối hai ý bằng to + động từ. Hỏi vài phút nghe nhẹ nhàng và cụ thể hơn free time."
     }
   ],
   "word_bank": [
-    "could you",
-    "take a look at",
-    "help me + V",
-    "a few minutes",
+    "could you take a look at",
+    "would you mind + V-ing",
+    "any chance you could",
+    "do you have 15 minutes to",
     "when you have a moment",
     "no rush",
+    "I've already tried",
     "pair with",
-    "thanks for your help"
+    "ping me",
+    "thanks, that fixed it"
+  ],
+  "model": {
+    "title_vi": "Tin nhắn nhờ giúp có bối cảnh và thời gian cụ thể",
+    "en": "Hi Lan, could you help me with a CI issue when you have a moment?\nThe payment tests pass locally but time out on CI. I've already rerun the pipeline and checked the env variables, but no luck.\nDo you have 15 minutes this afternoon to look at it with me? No rush if you're busy, tomorrow morning works too.\nThanks a lot.",
+    "vi": "Chào Lan, khi nào rảnh bạn giúp mình một lỗi trên CI được không?\nTest thanh toán chạy trên máy mình thì qua nhưng lên CI thì bị timeout. Mình đã chạy lại pipeline và kiểm tra biến môi trường rồi mà vẫn không được.\nChiều nay bạn có 15 phút xem cùng mình không? Nếu bạn bận thì không gấp, sáng mai cũng được.\nCảm ơn bạn nhiều."
+  },
+  "checklist_vi": [
+    "Nói rõ việc cần nhờ",
+    "Có bối cảnh: đang gặp lỗi gì và bạn đã thử gì",
+    "Nói cần bao lâu hoặc lúc nào (ví dụ 15 phút chiều nay)",
+    "Giọng nhẹ nhàng, để người kia có thể dời sang lúc khác",
+    "Có lời cảm ơn"
   ],
   "quiz": [
     {
@@ -72,7 +86,7 @@
       ],
       "answer": 0,
       "answer_vi": "Bạn xem giúp mình PR được không?",
-      "why_vi": "Cụm cố định: take a look at + thứ cần xem."
+      "why_vi": "Cụm cố định: take a look at + thứ cần xem. Không bỏ at, không bỏ a."
     },
     {
       "id": "s07q2",
@@ -84,70 +98,10 @@
       ],
       "answer": 0,
       "answer_vi": "Bạn kiểm tra log giúp mình được không?",
-      "why_vi": "help + người + động từ nguyên mẫu: help me check."
+      "why_vi": "help + người + động từ nguyên mẫu: help me check. Người được giúp đứng ngay sau help."
     },
     {
       "id": "s07q3",
-      "prompt_vi": "Bạn có vài phút giúp mình debug test này không?",
-      "options": [
-        "Do you have a few minutes to help me debug this test?",
-        "Do you have few minutes help me debug this test?",
-        "Are you have a few minutes to help me debug this test?"
-      ],
-      "answer": 0,
-      "answer_vi": "Bạn có vài phút giúp mình debug test này không?",
-      "why_vi": "a few minutes là vài phút. Câu hỏi với have dùng do, không dùng are."
-    },
-    {
-      "id": "s07q4",
-      "prompt_vi": "Không gấp đâu, khi nào bạn rảnh thì xem.",
-      "options": [
-        "No rush, whenever you have time.",
-        "Not hurry, when you free.",
-        "No rush, whenever you are free time."
-      ],
-      "answer": 0,
-      "answer_vi": "Không gấp đâu, khi nào bạn rảnh thì xem.",
-      "why_vi": "Không gấp là no rush. Rảnh là have time hoặc are free, không ghép are với free time."
-    },
-    {
-      "id": "s07q5",
-      "prompt_vi": "Cảm ơn bạn đã giúp.",
-      "options": [
-        "Thanks for your help.",
-        "Thanks for help me.",
-        "Thank you for helped me."
-      ],
-      "answer": 0,
-      "answer_vi": "Cảm ơn bạn đã giúp.",
-      "why_vi": "Sau for là danh từ hoặc V-ing: for your help, for helping me."
-    },
-    {
-      "id": "s07q6",
-      "prompt_vi": "Bạn giúp mình chạy migration trên staging được không?",
-      "options": [
-        "Could you help me run the migration on staging?",
-        "Could you helping me run the migration on staging?",
-        "Could you help me run migration on staging?"
-      ],
-      "answer": 0,
-      "answer_vi": "Bạn giúp mình chạy migration trên staging được không?",
-      "why_vi": "Sau could là động từ nguyên mẫu. migration ở đây là cái cụ thể nên cần the."
-    },
-    {
-      "id": "s07q7",
-      "prompt_vi": "Bạn chạy lại pipeline CI giúp mình được không?",
-      "options": [
-        "Could you rerun the CI pipeline for me?",
-        "Could you rerun for me the CI pipeline?",
-        "Could you rerun the pipeline CI for me?"
-      ],
-      "answer": 0,
-      "answer_vi": "Bạn chạy lại pipeline CI giúp mình được không?",
-      "why_vi": "Thứ cần làm đứng ngay sau động từ, for me để cuối. CI đứng trước pipeline."
-    },
-    {
-      "id": "s07q8",
       "prompt_vi": "Bạn có vài phút giải thích API này cho mình không?",
       "options": [
         "Do you have a few minutes to explain this API to me?",
@@ -156,32 +110,92 @@
       ],
       "answer": 0,
       "answer_vi": "Bạn có vài phút giải thích API này cho mình không?",
-      "why_vi": "explain + thứ gì + to me. Nối hai ý bằng to + động từ."
+      "why_vi": "explain + thứ cần giải thích + to me, không nói explain me. Nối hai ý bằng to + động từ, không dùng for."
+    },
+    {
+      "id": "s07q4",
+      "prompt_vi": "Bạn kiểm tra giúp mình log deploy được không?",
+      "options": [
+        "Would you mind checking the deploy logs?",
+        "Would you mind to check the deploy logs?",
+        "Would you mind checking the logs deploy?"
+      ],
+      "answer": 0,
+      "answer_vi": "Bạn kiểm tra giúp mình log deploy được không?",
+      "why_vi": "would you mind + V-ing, không dùng to. deploy bổ nghĩa cho logs nên đứng trước: deploy logs."
+    },
+    {
+      "id": "s07q5",
+      "prompt_vi": "Bạn cần đồng nghiệp review PR trong hôm nay vì nó chặn release ngày mai. Chọn cách nói phù hợp hơn.",
+      "options": [
+        "Could you review my PR today? It's blocking tomorrow's release.",
+        "Review my PR now.",
+        "Sorry to disturb you, I know you're very busy, but maybe if you have any free time at all, you could look at my PR?"
+      ],
+      "answer": 0,
+      "answer_vi": "Hôm nay bạn review PR giúp mình được không? Nó đang chặn bản release ngày mai.",
+      "why_vi": "Câu đầu nói rõ việc, lúc nào và vì sao gấp. Câu hai là mệnh lệnh, nghe gắt. Câu ba vòng vo và giấu mất chuyện đang gấp, nên người kia không biết cần ưu tiên."
+    },
+    {
+      "id": "s07q6",
+      "prompt_vi": "Bạn kẹt ở lỗi OAuth và muốn nhờ senior trên Slack. Chọn tin nhắn đầu tiên phù hợp hơn.",
+      "options": [
+        "Hi Minh, I'm stuck on the OAuth redirect. I've checked the callback URL and the logs. Do you have 15 minutes to take a look?",
+        "Help me with OAuth.",
+        "Hi Minh, are you there?"
+      ],
+      "answer": 0,
+      "answer_vi": "Chào Minh, mình đang kẹt ở bước chuyển hướng OAuth. Mình đã kiểm tra callback URL và log rồi. Bạn có 15 phút xem giúp mình không?",
+      "why_vi": "Câu đầu có bối cảnh, việc đã thử và thời gian cụ thể trong một tin. Câu hai cụt, không có bối cảnh. Câu ba chỉ chào rồi chờ, người kia phải hỏi lại mới biết bạn cần gì."
+    },
+    {
+      "id": "s07q7",
+      "prompt_vi": "Đồng nghiệp vừa giúp bạn sửa xong test bị lỗi. Chọn câu trả lời phù hợp hơn.",
+      "options": [
+        "Thanks, that fixed it. The tests are green now.",
+        "OK.",
+        "Thank you so much, I will never forget your kindness and help."
+      ],
+      "answer": 0,
+      "answer_vi": "Cảm ơn bạn, sửa vậy là được rồi. Test đã chạy qua hết.",
+      "why_vi": "Câu đầu cảm ơn và báo kết quả, người giúp biết việc đã xong. Câu hai cụt, người kia không biết đã ổn chưa. Câu ba quá trang trọng cho một việc nhỏ ở chỗ làm."
+    },
+    {
+      "id": "s07q8",
+      "prompt_vi": "Đồng nghiệp trả lời: \"Swamped today, but I can pair with you first thing tomorrow.\" Ý họ là gì?",
+      "options": [
+        "Hôm nay họ rất bận, nhưng sáng mai đầu giờ họ có thể ngồi làm cùng bạn.",
+        "Hôm nay họ rảnh và sẽ ngồi làm cùng bạn ngay.",
+        "Họ nhờ bạn ngày mai làm cùng họ việc của họ."
+      ],
+      "answer": 0,
+      "answer_vi": "Hôm nay họ rất bận, nhưng sáng mai đầu giờ họ có thể ngồi làm cùng bạn.",
+      "why_vi": "swamped là ngập việc. first thing tomorrow là ngay đầu giờ sáng mai. pair with you là ngồi làm cùng bạn."
     },
     {
       "id": "s07q9",
-      "prompt_vi": "Bạn test bản fix trên iPhone của bạn giúp mình được không?",
+      "prompt_vi": "Tech lead nhắn: \"Happy to help. Ping me once you've pushed the fix and I'll take a look.\" Ý họ là gì?",
       "options": [
-        "Could you test the fix on your iPhone?",
-        "Could you test the fix in your iPhone?",
-        "Could you tested the fix on your iPhone?"
+        "Khi bạn push bản sửa xong thì nhắn họ, họ sẽ xem.",
+        "Họ sẽ tự push bản sửa giúp bạn.",
+        "Họ đã xem bản sửa và thấy ổn."
       ],
       "answer": 0,
-      "answer_vi": "Bạn test bản fix trên iPhone của bạn giúp mình được không?",
-      "why_vi": "Thiết bị đi với on: on your iPhone. Sau could là động từ nguyên mẫu."
+      "answer_vi": "Khi bạn push bản sửa xong thì nhắn họ, họ sẽ xem.",
+      "why_vi": "ping me là nhắn cho mình. once you've pushed là khi bạn đã push xong. take a look là xem qua, việc này chưa xảy ra."
     },
     {
       "id": "s07q10",
-      "prompt_vi": "Chọn câu đúng.",
+      "prompt_vi": "Đồng nghiệp nhắn: \"Any chance you could cover my on-call shift on Saturday? I'd owe you one.\" Ý họ là gì?",
       "options": [
-        "Could you pair with me on this bug this afternoon?",
-        "Could you pair to me on this bug this afternoon?",
-        "Could you pair with me on this bug in this afternoon?"
+        "Họ nhờ bạn trực thay ca on-call thứ Bảy, và sẽ giúp lại bạn sau.",
+        "Họ hỏi bạn có muốn để họ trực thay ca on-call thứ Bảy của bạn không.",
+        "Họ báo là ca on-call thứ Bảy đã bị hủy."
       ],
       "answer": 0,
-      "answer_vi": "Chiều nay bạn ngồi cùng mình xử lý bug này được không?",
-      "why_vi": "Làm cùng ai là pair with. Trước this afternoon không cần in."
+      "answer_vi": "Họ nhờ bạn trực thay ca on-call thứ Bảy, và sẽ giúp lại bạn sau.",
+      "why_vi": "Any chance you could... là cách nhờ rất nhẹ nhàng. cover my shift là trực thay ca của mình. I'd owe you one là mình nợ bạn một lần."
     }
   ],
-  "write_prompt_vi": "Viết 1 câu nhờ một đồng nghiệp giúp bạn một việc cụ thể."
+  "write_prompt_vi": "Bạn kẹt khi tích hợp API thanh toán và cần tech lead giúp. Viết tin Slack 3 đến 4 câu: việc cần nhờ, bạn đã thử gì, cần bao lâu và lúc nào, lời cảm ơn."
 }

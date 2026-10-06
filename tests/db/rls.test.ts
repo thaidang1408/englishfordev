@@ -219,3 +219,17 @@ describe('Telegram', () => {
     await db.query('update public.profiles set telegram_chat_id = null where id = $1', [A]);
   });
 });
+
+describe('ngành người dùng chọn (SPEC mục 16)', () => {
+  it('tự sửa được ngành của mình, chỉ nhận dev, qa, ba, pm; không sửa được ngành của người khác', async () => {
+    await as(db, 'authenticated', A, () => db.query(`update public.profiles set roles = '{dev,ba}' where id = $1`, [A]));
+    const mine = await db.query<{ roles: string[] }>('select roles from public.profiles where id = $1', [A]);
+    expect(mine.rows[0]?.roles).toEqual(['dev', 'ba']);
+    await expect(
+      as(db, 'authenticated', A, () => db.query(`update public.profiles set roles = '{admin}' where id = $1`, [A])),
+    ).rejects.toThrow(/check/);
+    await as(db, 'authenticated', A, () => db.query(`update public.profiles set roles = '{pm}' where id = $1`, [B]));
+    const other = await db.query<{ roles: string[] }>('select roles from public.profiles where id = $1', [B]);
+    expect(other.rows[0]?.roles).toEqual([]);
+  });
+});
