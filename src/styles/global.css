@@ -907,6 +907,23 @@
   .err-map td.lv4 { background: var(--accent); color: #fff; }
 }
 
+/* Nút Telegram nổi ở góc phải dưới (SPEC mục 14). Màu Telegram, không phải tím: tím dành cho hành động chính. */
+@layer components {
+  .tg-fab {
+    position: fixed; right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); z-index: 30;
+    display: inline-flex; align-items: center; gap: 8px; height: 52px; padding: 0 13px; border-radius: var(--r-pill);
+    background: #229ed9; color: #fff; text-decoration: none; font-weight: 600; font-size: var(--fs-sm);
+    box-shadow: 0 8px 24px rgb(34 158 217 / 35%); transition: transform .2s, box-shadow .2s;
+  }
+  .tg-fab:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgb(34 158 217 / 45%); color: #fff; }
+  .tg-fab:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .tg-fab-label { max-width: 0; overflow: hidden; white-space: nowrap; transition: max-width .25s; }
+  .tg-fab:hover .tg-fab-label, .tg-fab:focus-visible .tg-fab-label { max-width: 120px; }
+  /* Chừa chỗ cuối trang để nút không che chữ ở chân trang. */
+  .site-foot { padding-bottom: 84px; }
+  @media print { .tg-fab { display: none; } }
+}
+
 /* chuyển động: một khoảnh khắc ở trang chủ, dòng xanh và comment hiện sau dòng đỏ */
 @media (prefers-reduced-motion: no-preference) {
   .land .add, .land .comment { opacity: 0; transform: translateY(6px); animation: land .28s ease-out forwards; }

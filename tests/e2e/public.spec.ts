@@ -136,3 +136,16 @@ test('hero: người xem bấm chữ sai rồi thấy câu đúng và lời Coac
   await expect(demo.locator('[data-demo-addline]')).toBeVisible({ timeout: 8000 });
   await expect(demo.locator('[data-demo-comment]')).toBeVisible({ timeout: 8000 });
 });
+
+test('nút Telegram nổi có ở mọi trang và dẫn qua /telegram', async ({ page, request }) => {
+  for (const path of ['/', '/bang-gia', `/hoc/hom-qua-da-lam-gi`]) {
+    await page.goto(path);
+    const fab = page.getByRole('link', { name: /Chat với bot Telegram/ });
+    await expect(fab).toBeVisible();
+    await expect(fab).toHaveAttribute('href', '/telegram');
+  }
+  const res = await request.get('/telegram', { maxRedirects: 0 });
+  expect(res.status()).toBe(302);
+  expect(res.headers()['location']).toMatch(/^(https:\/\/t\.me\/|\/tai-khoan)/);
+  expect(res.headers()['cache-control']).toBe('no-store');
+});

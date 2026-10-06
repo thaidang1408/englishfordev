@@ -336,6 +336,6 @@ Thêm ngày 06/10/2026 theo quyết định của chủ dự án, sau khi xem b�
 
 - **Nghĩa tiếng Việt của câu đúng** ở mọi chỗ hiện đáp án: kết quả sửa câu (`corrected_vi`), lỗi hay gặp (`right_vi`), trắc nghiệm (`answer_vi`), Bug của ngày, phần ôn.
 - **Tự sửa trước** ở ô "Sửa câu của tôi" (bài học phần 5 và `/hom-nay`). AI trả kết quả như cũ nhưng giao diện chưa hiện bản sửa: hiện câu gốc, tô các đoạn `from` tìm thấy trong câu, ghi số chỗ cần sửa và nhóm lỗi. Người dùng sửa ngay trong ô rồi bấm "Kiểm tra". So với `corrected` sau khi bỏ khác biệt chữ hoa thường, khoảng trắng và dấu câu cuối câu. Khớp thì báo "Bạn đã sửa đúng"; chưa khớp thì cho thử thêm một lần, rồi hiện đáp án kèm diff giữa bản của người dùng và bản sửa. Luôn có nút "Xem đáp án". Không gọi AI thêm, không tốn thêm lượt. Câu đã đúng thì hiện kết quả ngay. Phỏng vấn thử giữ cách hiện thẳng kết quả.
-- **Bot sửa câu** qua Telegram (mục 9).
+- **Bot sửa câu** qua Telegram (mục 9). Mọi trang có nút Telegram nổi ở góc phải dưới, trỏ tới `/telegram`: đã đăng nhập mà chưa liên kết thì mở bot kèm mã liên kết, còn lại mở chat với bot. Đây là một link, không phải popup.
 - **Bản đồ lỗi** ở `/so-loi` (mục 5b).
 - **Nội dung đa dạng hơn:** mỗi bài có 5 ví dụ, 3 lỗi hay gặp, 10 câu trắc nghiệm (mục 6). Trình học lấy ngẫu nhiên 3 ví dụ và 5 câu trắc nghiệm mỗi lượt, nên học lại không gặp y hệt lần trước. Điểm bài vẫn tính trên 5. Câu mới soạn ghi vào `docs/CONTENT_REVIEW.md` để chủ dự án duyệt.
