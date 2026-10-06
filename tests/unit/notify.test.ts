@@ -383,6 +383,14 @@ describe('POST /api/telegram/webhook', () => {
     expect(sent.at(-1)).toEqual({ chat: 55, text: TEXT.forwarded });
   });
 
+  it('admin tự nhắn /hotro từ chat admin: báo rõ thay vì "chưa chuyển được"', async () => {
+    const { repo } = fakeTelegramRepo([55]);
+    const { bot, sent, forwarded } = fakeBot();
+    await hook(update('/hotro test'), { repo, bot });
+    expect(forwarded).toHaveLength(0);
+    expect(sent).toEqual([{ chat: 55, text: TEXT.selfAdmin }]);
+  });
+
   it('nhóm chat và update không phải tin nhắn: bỏ qua', async () => {
     const { repo, links } = fakeTelegramRepo();
     const { bot, sent } = fakeBot();

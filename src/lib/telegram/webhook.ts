@@ -41,6 +41,8 @@ export const TEXT = {
   length: `Bot sửa đoạn từ ${SENTENCE_MIN} đến ${SENTENCE_MAX.work} ký tự. Đoạn dài thì bạn gửi từng phần.`,
   unavailable: 'Tính năng sửa câu đang tạm tắt. Lượt sửa của bạn chưa bị trừ.',
   noAdmin: 'Lúc này chưa chuyển được tin nhắn. Bạn thử lại sau.',
+  selfAdmin:
+    'Chat này là chat admin: tin liên hệ của người dùng được chuyển về đây. Muốn thử /hotro, hãy nhắn từ một tài khoản Telegram khác.',
 };
 
 /** Tin trả lời sau khi sửa: văn bản thường, không parse_mode, nên câu của người dùng không thành định dạng. */
@@ -138,8 +140,15 @@ export async function handleTelegramWebhook(input: {
   }
 
   // Chat chưa liên kết, hoặc /hotro: kênh liên hệ (thanh toán, hoàn tiền). Chuyển nguyên tin tới chat của admin.
-  const admins = (await repo.adminChatIds()).filter((id) => id !== chatId);
+  const allAdmins = await repo.adminChatIds();
+  const admins = allAdmins.filter((id) => id !== chatId);
   if (admins.length === 0) {
+    // Admin tự nhắn để thử: tin liên hệ vốn được chuyển về chính chat này, không cần chuyển.
+    if (allAdmins.includes(chatId)) {
+      await bot.sendMessage(chatId, TEXT.selfAdmin);
+      return ok({ handled: true });
+    }
+    console.error('[telegram] chưa có tài khoản admin (ADMIN_EMAILS) nào liên kết Telegram, không chuyển được tin liên hệ');
     await bot.sendMessage(chatId, TEXT.noAdmin);
     return ok({ handled: false });
   }
