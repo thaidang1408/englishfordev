@@ -61,7 +61,7 @@ Công khai, render sẵn HTML:
 | `/hoc/[slug]` | Trình học bài. 3 bài miễn phí mở cho mọi người, bài khác cần Premium |
 | `/mau-cau/[slug]` | Trang mẫu câu sinh từ mỗi bài: công thức, ví dụ, lỗi hay gặp, nút sang bài học. Dùng cho SEO |
 | `/bang-gia` | Bảng ở mục 2 và hai gói giá |
-| `/bug-hom-nay` | Bug của ngày, mục 4c. Không cần đăng nhập |
+| `/bug-hom-nay` | Review PR mỗi ngày (3 câu), mục 4c. Không cần đăng nhập |
 | `/dieu-khoan`, `/bao-mat` | Điều khoản, hoàn tiền, dữ liệu thu thập |
 
 Cần đăng nhập:
@@ -118,12 +118,16 @@ Theo skill `design-system` và `reference/styleguide.html`. Ba thứ thuộc ph�
 
 Thêm ngày 05/10/2026 theo quyết định của chủ dự án, làm trong M3 (không chờ điều kiện bên dưới).
 
-- Trang công khai `/bug-hom-nay`, mỗi ngày một câu có lỗi, lấy từ `mistakes[]` của các bài.
-- Bấm vào chỗ sai, tối đa 3 lần thử, rồi hiện khung diff, nghĩa tiếng Việt của câu đúng và `why_vi`.
-- Nút chép kết quả dạng văn bản để chia sẻ. Không cần đăng nhập.
-- Cuối trang: nút sang bài học của mẫu câu đó.
-- Chỉ làm khi: thiếu người mới, hoặc tỷ lệ quay lại ngày 7 dưới 15%.
-- Không làm: điểm số, bảng xếp hạng, nhiều game khác nhau.
+Đổi ngày 07/10/2026 theo yêu cầu của chủ dự án: thành mini game "Review PR mỗi ngày", 3 câu mỗi ngày.
+
+- Trang công khai `/bug-hom-nay`, không cần đăng nhập. Mỗi ngày một "pull request" `#DDMM` có 3 dòng, mỗi dòng một câu sai lấy từ `mistakes[]`. Vòng xoay xen kẽ các bài (lỗi thứ nhất của mọi bài, rồi lỗi thứ hai...), nên 3 câu trong ngày thuộc 3 bài khác nhau và mọi người thấy cùng 3 câu.
+- Review lần lượt từng dòng: bấm vào chữ sai, mỗi dòng 3 lần thử. Dòng chưa tới lượt bị làm mờ. Xong một dòng thì hiện ngay khung diff, nghĩa tiếng Việt, `why_vi` và link bài học của câu đó.
+- Điểm: tìm ra ở lần 1, 2, 3 được 3, 2, 1 điểm; không tìm ra được 0. Tối đa 9. Kết luận như review thật: 9 là Approve; từ 6 là Approve, kèm góp ý; từ 3 là Request changes; dưới 3 là Cần review lại.
+- Có đồng hồ từ lần bấm đầu, chuỗi ngày, chuỗi dài nhất, đếm ngược tới PR mới. Tất cả chỉ lưu trên trình duyệt (localStorage), không gửi lên máy chủ, không có số liệu của người khác.
+- Chép kết quả dạng văn bản: ô □ (bấm sai) và ■ (tìm ra) cho từng dòng, kết luận, điểm, thời gian, chuỗi, link `?src=bug-share`. Không lộ câu sai hay câu đúng.
+- Xong PR hôm nay thì "Chơi thêm 3 câu" từ các câu của những ngày sau, không tính điểm, không ảnh hưởng kết quả ngày.
+- Không có JavaScript: hiện khối "Xem đáp án PR hôm nay".
+- Không làm: bảng xếp hạng, so sánh với người khác, phần thưởng đổi ra Premium.
 
 ## 5. Ôn tập
 

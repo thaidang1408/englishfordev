@@ -2,185 +2,71 @@
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import ReviewDiff from '../components/ReviewDiff.astro';
-import { bugForDate, MAX_TRIES } from '../lib/bug/daily';
+import BugGame, { type BugLine } from '../components/bug/BugGame';
+import { bugsForDate, practiceBugs, type DailyBug } from '../lib/bug/daily';
+import { MAX_TRIES, prNumber } from '../lib/bug/share';
 import { lessons } from '../lib/content/lessons';
 import { formatVnDate, vnDateKey } from '../lib/time';
 
-// Mỗi ngày một câu theo giờ Việt Nam nên render theo request, không build sẵn.
+// Mỗi ngày một PR theo giờ Việt Nam nên render theo request, không build sẵn.
 export const prerender = false;
 
 const now = new Date();
-const bug = bugForDate(lessons, vnDateKey(now));
-const pageUrl = new URL('/bug-hom-nay', Astro.site).href;
+const date = vnDateKey(now);
 // Bài miễn phí có trang học; bài khác dẫn sang trang mẫu câu, từ đó vào bài học.
-const lessonHref = bug ? (bug.lesson.free ? `/hoc/${bug.lesson.slug}` : `/mau-cau/${bug.lesson.slug}`) : '/';
+const toLine = (b: DailyBug): BugLine => ({
+  wrong: b.wrong,
+  right: b.right,
+  right_vi: b.right_vi,
+  why_vi: b.why_vi,
+  words: b.words,
+  targets: b.targets,
+  title: b.lesson.title,
+  href: b.lesson.free ? `/hoc/${b.lesson.slug}` : `/mau-cau/${b.lesson.slug}`,
+});
+const bugs = bugsForDate(lessons, date).map(toLine);
+const practice = practiceBugs(lessons, date).map(toLine);
+// src để biết lượt vào trang đến từ kết quả được chia sẻ (SPEC mục 10).
+const shareUrl = new URL('/bug-hom-nay?src=bug-share', Astro.site).href;
 ---
 
 <Base
-  title="Tìm lỗi mỗi ngày: một câu tiếng Anh dev hay viết sai | EPC"
-  description="Mỗi ngày một câu tiếng Anh dev hay viết sai. Bấm vào chỗ sai, 3 lần thử, xem giải thích bằng tiếng Việt."
+  title="Tìm lỗi mỗi ngày: review 3 câu tiếng Anh dev hay viết sai | EPC"
+  description={`Mỗi ngày một PR có 3 câu tiếng Anh dev hay viết sai. Bấm vào chữ sai, mỗi dòng ${MAX_TRIES} lần thử, xem giải thích bằng tiếng Việt.`}
 >
-  <PageHead title="Tìm lỗi" highlight="mỗi ngày" pill={formatVnDate(now)} icon="target" width="narrow" echo="BUG">
-    <p>Mỗi ngày một câu tiếng Anh dev hay viết sai. Bấm vào chỗ sai, 3 lần thử, xem giải thích bằng tiếng Việt.</p>
+  <PageHead title="Tìm lỗi" highlight="mỗi ngày" pill={`PR ${prNumber(date)} · ${formatVnDate(now)}`} icon="target" width="narrow" echo="BUG">
+    <p>
+      Bạn là reviewer. Mỗi ngày một pull request có 3 dòng tiếng Anh, mỗi dòng một lỗi dev người Việt hay mắc. Bấm vào chữ sai, tìm
+      càng sớm càng nhiều điểm.
+    </p>
   </PageHead>
   <div class="wrap page narrow">
     {
-      !bug ? (
-        <p class="muted" style="margin-top:var(--s-3)">Hôm nay chưa có câu nào. Quay lại vào ngày mai.</p>
+      bugs.length === 0 ? (
+        <p class="muted" style="margin-top:var(--s-3)">Hôm nay chưa có PR nào. Quay lại vào ngày mai.</p>
       ) : (
         <>
-          <p class="muted" style="margin-top:var(--s-3)">
-            Câu dưới đây có một chỗ sai mà dev người Việt hay mắc. Bấm vào chữ bạn nghĩ là sai. Bạn có {MAX_TRIES} lần thử.
-          </p>
-
-          <div
-            class="bug"
-            id="bug"
-            data-date={bug.date}
-            data-targets={JSON.stringify(bug.targets)}
-            data-url={pageUrl}
-          >
-            <p class="bug-line" lang="en">
-              {bug.words.map((w, i) => (
-                <>
-                  <button type="button" class="tok" data-i={i} disabled>
-                    {w}
-                  </button>{' '}
-                </>
-              ))}
-            </p>
-            <p class="bug-status" id="bug-status" aria-live="polite">
-              <noscript>Cần bật JavaScript để chơi. Bạn vẫn xem được đáp án bên dưới.</noscript>
-            </p>
-          </div>
-
-          <details class="bug-answer" id="bug-answer">
-            <summary>Xem đáp án</summary>
-            <div style="margin-top:var(--s-3)">
-              <ReviewDiff before={bug.wrong} after={bug.right} headLeft="Đáp án">
-                <p class="vi-line">Nghĩa: {bug.right_vi}</p>
-                <p>{bug.why_vi}</p>
-              </ReviewDiff>
-            </div>
+          <ul class="pr-rules">
+            <li><b>3 điểm</b> nếu bắt được ở lần đầu, 2 ở lần hai, 1 ở lần ba.</li>
+            <li><b>Approve</b> khi đủ 9 điểm. Chơi mỗi ngày để giữ chuỗi.</li>
+            <li>Lỗi thiếu từ thì bấm vào chữ đứng ngay sau chỗ thiếu.</li>
+          </ul>
+          <BugGame client:load date={date} bugs={bugs} practice={practice} url={shareUrl} />
+          {/* Không có JavaScript thì không chơi được: cho xem đáp án. Có JavaScript thì khối này tự ẩn. */}
+          <details class="pr-answers" id="pr-answers">
+            <summary>Không chơi được? Xem đáp án PR hôm nay</summary>
+            {bugs.map((b, k) => (
+              <div style="margin-top:var(--s-4)">
+                <ReviewDiff before={b.wrong} after={b.right} headLeft={`Dòng ${k + 1}: ${b.title}`}>
+                  <p class="vi-line">Nghĩa: {b.right_vi}</p>
+                  <p>{b.why_vi}</p>
+                </ReviewDiff>
+              </div>
+            ))}
           </details>
-
-          <div class="bug-share" id="bug-share" hidden>
-            <button type="button" class="btn btn-quiet" id="bug-copy">
-              Chép kết quả
-            </button>
-            <span class="muted" style="font-size:var(--fs-sm)">Chỉ có kết quả, không lộ đáp án.</span>
-          </div>
-
-          <section class="part" aria-labelledby="mau-cau">
-            <h2 id="mau-cau">Mẫu câu: {bug.lesson.title}</h2>
-            <p class="muted">Lỗi này nằm trong bài học về mẫu câu trên: công thức, ví dụ và 5 câu luyện tập.</p>
-            <a class="btn btn-primary" href={lessonHref}>
-              Học bài này
-            </a>
-          </section>
+          <script is:inline>document.getElementById('pr-answers').hidden = true;</script>
         </>
       )
     }
   </div>
 </Base>
-
-<script>
-  import { MAX_TRIES, shareText } from '../lib/bug/share';
-
-  type State = { tries: number[]; found: boolean };
-
-  const root = document.getElementById('bug');
-  const status = document.getElementById('bug-status');
-  const answer = document.getElementById('bug-answer');
-  const share = document.getElementById('bug-share');
-  const copy = document.getElementById('bug-copy');
-
-  if (root && status && answer instanceof HTMLDetailsElement && share && copy) {
-    const date = root.dataset.date ?? '';
-    const url = root.dataset.url ?? location.href;
-    const parsed: unknown = JSON.parse(root.dataset.targets ?? '[]');
-    const targets = new Set(Array.isArray(parsed) ? parsed.filter((n): n is number => typeof n === 'number') : []);
-    const buttons = [...root.querySelectorAll<HTMLButtonElement>('button.tok')];
-    const key = `epc:bug:${date}`;
-
-    // Nhớ kết quả trong ngày trên trình duyệt này, để tải lại trang không được thử lại.
-    const load = (): State => {
-      try {
-        const v: unknown = JSON.parse(localStorage.getItem(key) ?? 'null');
-        if (v && typeof v === 'object' && 'tries' in v && 'found' in v && Array.isArray(v.tries) && typeof v.found === 'boolean') {
-          return { tries: v.tries.filter((n): n is number => typeof n === 'number'), found: v.found };
-        }
-      } catch {
-        // Dữ liệu hỏng hoặc bị chặn: chơi lại từ đầu.
-      }
-      return { tries: [], found: false };
-    };
-    const save = (s: State) => {
-      try {
-        localStorage.setItem(key, JSON.stringify(s));
-      } catch {
-        // Không lưu được thì thôi, trang vẫn chơi được.
-      }
-    };
-
-    let state = load();
-    const done = () => state.found || state.tries.length >= MAX_TRIES;
-
-    const render = () => {
-      const finished = done();
-      for (const b of buttons) {
-        const i = Number(b.dataset.i);
-        const tried = state.tries.includes(i);
-        b.disabled = finished || tried;
-        b.classList.toggle('miss', tried && !targets.has(i));
-        b.classList.toggle('hit', finished && targets.has(i));
-        b.setAttribute('aria-label', tried && !targets.has(i) ? `${b.textContent ?? ''}, không phải chỗ sai` : finished && targets.has(i) ? `${b.textContent ?? ''}, chỗ sai` : (b.textContent ?? ''));
-      }
-      const left = MAX_TRIES - state.tries.length;
-      if (state.found) {
-        status.textContent = `Đúng, chỗ sai ở đây. Bạn tìm ra ở lần thử thứ ${state.tries.length}.`;
-      } else if (finished) {
-        status.textContent = `Hết ${MAX_TRIES} lần thử. Chỗ sai đã được tô, xem giải thích bên dưới.`;
-      } else if (state.tries.length > 0) {
-        status.textContent = `Chưa phải chỗ này. Còn ${left} lần thử.`;
-      } else {
-        status.textContent = `Còn ${left} lần thử.`;
-      }
-      answer.hidden = !finished;
-      answer.open = finished;
-      share.hidden = !finished;
-    };
-
-    root.addEventListener('click', (e) => {
-      const b = e.target instanceof Element ? e.target.closest<HTMLButtonElement>('button.tok') : null;
-      if (!b || done()) return;
-      const i = Number(b.dataset.i);
-      if (state.tries.includes(i)) return;
-      state = { tries: [...state.tries, i], found: targets.has(i) };
-      save(state);
-      render();
-      if (done()) answer.scrollIntoView({ block: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-    });
-
-    copy.addEventListener('click', async () => {
-      const text = shareText(date, state.found ? state.tries.length : null, url);
-      let copied = false;
-      try {
-        await navigator.clipboard.writeText(text);
-        copied = true;
-      } catch {
-        // Trình duyệt không cho dùng clipboard: chọn sẵn văn bản để người dùng tự chép.
-        const area = document.createElement('textarea');
-        area.value = text;
-        area.className = 'bug-share-text';
-        area.rows = 3;
-        area.readOnly = true;
-        copy.after(area);
-        area.select();
-      }
-      copy.textContent = copied ? 'Đã chép' : 'Chọn và chép đoạn bên cạnh';
-    });
-
-    render();
-  }
-</script>
