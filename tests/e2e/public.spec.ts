@@ -149,3 +149,18 @@ test('nút Telegram nổi có ở mọi trang và dẫn qua /telegram', async ({
   expect(res.headers()['location']).toMatch(/^(https:\/\/t\.me\/|\/tai-khoan)/);
   expect(res.headers()['cache-control']).toBe('no-store');
 });
+
+test('điện thoại 360px: không trang công khai nào tràn ngang (đo khi đã tắt lưới an toàn overflow-x)', async ({ browser }) => {
+  const ctx = await browser.newContext({ viewport: { width: 360, height: 760 }, isMobile: true, hasTouch: true });
+  const page = await ctx.newPage();
+  for (const path of ['/', '/bang-gia', '/bug-hom-nay', '/hoc/hom-qua-da-lam-gi', '/mau-cau/hom-qua-da-lam-gi', '/dieu-khoan', '/dang-nhap']) {
+    await page.goto(path);
+    const [scroll, view] = await page.evaluate(() => {
+      document.documentElement.style.overflowX = 'visible';
+      document.body.style.overflowX = 'visible';
+      return [document.documentElement.scrollWidth, document.documentElement.clientWidth];
+    });
+    expect(scroll, `${path} tràn ngang`).toBeLessThanOrEqual(view);
+  }
+  await ctx.close();
+});

@@ -51,6 +51,14 @@ const links: NavLink[] = app
       { href: '/bang-gia', label: 'Bảng giá' },
     ];
 // Trang công khai không biết ai đã đăng nhập: /hom-nay tự chuyển người mới sang đăng nhập, người cũ vào học luôn.
+// Thanh tab dưới đáy (điện thoại, trang trong app): nhãn ngắn, có icon.
+const tabs: (NavLink & { icon: 'book' | 'repeat' | 'diff' | 'mic' | 'user' })[] = [
+  { href: '/hom-nay', label: 'Học', icon: 'book' },
+  { href: '/on-tap', label: 'Ôn tập', icon: 'repeat' },
+  { href: '/so-loi', label: 'Sổ lỗi', icon: 'diff' },
+  { href: '/phong-van-thu', label: 'Phỏng vấn', icon: 'mic' },
+  { href: '/tai-khoan', label: 'Tài khoản', icon: 'user', match: ['/xep-trinh-do', '/nang-cap'] },
+];
 const cta = app ? (isPremium ? null : { href: '/nang-cap', label: 'Nâng cấp' }) : { href: '/hom-nay', label: 'Học miễn phí' };
 const isCurrent = (l: NavLink) => path === l.href || (l.match ?? []).some((m) => path.startsWith(m));
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -94,7 +102,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       )
     }
   </head>
-  <body>
+  <body class:list={{ 'has-tabbar': app }}>
     <a class="skip" href="#noi-dung">Bỏ qua, tới nội dung chính</a>
     <header class="topbar">
       <div class="wrap bar">
@@ -168,6 +176,18 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         </nav>
       </div>
     </footer>
+    {
+      app && (
+        <nav class="tabbar" aria-label="Điều hướng nhanh">
+          {tabs.map((t) => (
+            <a href={t.href} aria-current={isCurrent(t) ? 'page' : undefined}>
+              <Icon name={t.icon} size={22} />
+              <span>{t.label}</span>
+            </a>
+          ))}
+        </nav>
+      )
+    }
     <a class="tg-fab" href="/telegram" rel="nofollow" aria-label="Chat với bot Telegram của EPC: sửa câu, nhắc học, hỗ trợ">
       <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"
         ><path

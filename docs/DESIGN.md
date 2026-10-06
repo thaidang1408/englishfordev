@@ -167,6 +167,8 @@ Mọi trang ngoài trang chủ dùng chung một khung, để sau khi đăng nh�
 
 Bản 1.1 (M8): ô sửa câu có bước "tự sửa trước" (câu gốc tô các đoạn sai bằng `mark`, số chỗ và nhóm lỗi, ô sửa, nút "Kiểm tra" và "Xem đáp án"); mọi đáp án có dòng `.vi-line` "Nghĩa: ..." màu muted dưới diff; `/so-loi` có bảng "Bản đồ lỗi 8 tuần" (`.err-map`, ô bo góc, 4 mức tím theo số lỗi, ô viền đứt là tuần không gửi câu).
 
+Nút và điện thoại (06/10/2026): `.btn-primary` chuyển màu tím, viền sáng trên, bóng màu, nhấc 2px khi rê, lún khi bấm, vệt sáng lướt qua (tắt khi giảm chuyển động); `.btn-quiet` có bóng nhẹ, rê thì viền tím. Mọi nút cao tối thiểu 48px. Dưới 560px nút tím trong nội dung kéo đủ chiều ngang. Trang trong app trên điện thoại có thanh tab dưới đáy (Học, Ôn tập, Sổ lỗi, Phỏng vấn, Tài khoản), nút Telegram nổi đẩy lên trên thanh. `html, body { overflow-x: clip }` là lưới an toàn chống trang bị kéo lệch; khung cuộn ngang phải có `position: relative` để nhãn ẩn bên trong không tràn ra ngoài.
+
 Design review các trang cần đăng nhập: `node .design-shots/mock-supabase.mjs` (Supabase giả có dữ liệu mẫu), build với `PUBLIC_SUPABASE_URL=http://localhost:54399`, rồi `node .design-shots/app-shots.mjs <url> <các trang>`. Chỉ dùng trên máy.
 
 ## 9. Chuyển động
